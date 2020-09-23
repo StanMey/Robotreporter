@@ -1,0 +1,144 @@
+/* top button menu */
+.selection-menu {
+    margin-top: 2rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.btn-menu {
+    background: #F5F5F5;
+}
+
+.btn-mod-a:hover {
+    background: #61BD4F !important;
+    color: #ffffff !important;
+}
+
+.btn-mod-b:hover {
+    background: #F2D600 !important;
+    color: #ffffff !important;
+}
+
+.btn-mod-c:hover {
+    background: #FF9F1A !important;
+    color: #ffffff !important;
+}
+
+.btn-mod-d:hover {
+    background: #EB5A46 !important;
+    color: #ffffff !important;
+}
+
+/* base.html HEADER */
+.page-header {
+    line-height: 1.5;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 1rem !important;
+    padding-top: 1rem !important;
+}
+
+.page-header-logo {
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-size: 2.5rem;
+    color: #343a40;
+}
+
+.header-button {
+    padding: .25rem .5rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+}
+
+.right-side-header {
+    padding-right: 2rem;
+}
+
+.left-side-header {
+    padding-left: 2rem;
+}
+
+/* base.html CONTENT */
+.main-content {
+    width: 80%;
+}
+
+/* modules.html ModA graphs*/
+#my_dataviz {
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+}
+
+/* table behaviour */
+#timeseries_table {
+    overflow-x: hidden !important;
+    width: 80%;
+}
+
+#datatable_wrapper {
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+/* ModB multiple selects filters behaviour */
+.multiselect-native-select {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+
+#modBFilterButton {
+    height: 50%;
+    margin-top: 2rem;
+    margin-left: 1rem;
+}
+
+/* ModC behaviour */
+.buttonModC {
+    margin-top: 2rem;
+    height: 4rem;
+    width: 40%;
+}
+
+.slider-container {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* articles ModD behaviour */
+.card {
+    margin-top: 1rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+.articles-row {
+    margin-top: 4rem !important;
+    margin: 1rem;
+}
+
+/* single article behaviour */
+.article-post {
+    margin-top: 4rem;
+    margin-bottom: 1rem;
+}
+
+.article-post-title {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    font-family: "Playfair Display", "Georgia", "Times New Roman", "serif";
+    text-align: center;
+}
+
+.article-post-info {
+    margin-top: 1.5rem;
+    color: #999;
+}
+
+.meta-data {
+    margin-top: 7rem;
+}
+
+.meta-button {
+    text-align: center;
+}

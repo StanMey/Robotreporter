@@ -1,0 +1,39 @@
+{% extends "articles_app/base.html" %}
+
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="article-post">
+                <h2 class="article-post-title">{{ article.title }}</h2>
+                <p class="article-post-info">{{ article.date_whole }} door {{ article.author }}</p>
+                <p>{{ article.content }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="meta-data">
+                <div class="meta-button">
+                    <button class="btn btn-success meta-button-style" type="button" data-toggle="collapse" data-target="#meta-collapse" aria-expanded="false" aria-controls="collapseExample">
+                        &lt; Metadata artikel
+                    </button>
+                </div>
+                <div class="collapse" id="meta-collapse">
+                    <div class="card card-body">
+                      <p>
+                          Auteur: {{ article.author}}<br>
+                          Datum: {{ article.date_whole}}<br>
+                          Bot versie: {{article.AI_version}}
+                      </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

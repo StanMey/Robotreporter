@@ -1,0 +1,23 @@
+{% extends "articles_app/base.html" %}
+
+{% load static %}
+{% block content %}
+
+<div class="module-view">
+    
+    <div class="row justify-content-center selection-menu">
+        <div class="btn-group" role="group" aria-label="button-group">
+            <button type="button" onclick="renderModuleA()" class="btn btn-menu btn-mod-a">Timeseries</button>
+            <button type="button" onclick="renderModuleB()" class="btn btn-menu btn-mod-b">Observations</button>
+            <button type="button" onclick="renderModuleC()" class="btn btn-menu btn-mod-c">Article-generation</button>
+            <button type="button" onclick="renderModuleDArticles()" class="btn btn-menu btn-mod-d">Articles</button>
+        </div>
+    </div>
+    
+    <div class="module-content">
+    
+    </div>
+
+</div>
+
+{% endblock content %}
