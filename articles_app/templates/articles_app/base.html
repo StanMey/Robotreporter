@@ -24,10 +24,10 @@
     <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"></script>
     <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet"/>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
-    <script src="{% static 'main.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'articles_app/main.css' %}">
+    <script src="{% static 'articles_app/main.js' %}"></script>
 
-    <title>Nieuwsbot</title>
+    <title>RobotReporter</title>
 </head>
 <body>
 
@@ -41,9 +41,9 @@
         </div>
         <div class="col-4 text-center">
           {% if user.is_authenticated %}
-          <a class="page-header-logo text-dark" href="/article/articles">Stocknewsreporter</a>
+          <a class="page-header-logo text-dark" href="/article/articles">RobotReporter</a>
           {% else %}
-          <a class="page-header-logo text-dark" href="#">Stocknewsreporter</a>
+          <a class="page-header-logo text-dark" href="#">RobotReporter</a>
           {% endif %}
         </div>
         <div class="col-4 d-flex justify-content-end align-items-center right-side-header">

@@ -25,7 +25,11 @@ SECRET_KEY = '@z1^c$!!0sug!sb93$t$%)jq48s73hj^+14azl&-x=a*_qgv_*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+if DEBUG:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'robotreporter.nl', 'www.robotreporter.nl']
+else:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'robotreporter.nl', 'www.robotreporter.nl', '37.97.231.46']
+
 
 
 # Application definition
@@ -83,16 +87,29 @@ WSGI_APPLICATION = 'nieuwsbot.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'nieuwsbot_db', 
-        'USER': 'postgres', 
-        'PASSWORD': 'NieuwsBot@2020',
-        'HOST': '127.0.0.1', 
-        'PORT': '5432',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'nieuwsbot_db', 
+            'USER': 'postgres', 
+            'PASSWORD': 'NieuwsBot@2020',
+            'HOST': '127.0.0.1', 
+            'PORT': '5432',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'nieuwsbot_db', 
+            'USER': 'stanbot_db', 
+            'PASSWORD': 'Alakazam!@9213',
+            'HOST': 'localhost', 
+            'PORT': '',
+        }
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -131,6 +148,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
