@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Max, Min
 from .models import Stocks, Articles
+from .queries import *
 
 from datetime import datetime
 import json
