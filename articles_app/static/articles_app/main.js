@@ -116,7 +116,6 @@ function createDataTable(table, id, columns, data, modA) {
 
     generateTableRows(tbl, data);
     generateTableHead(tbl, columns);
-    console.log(data)
     
     // create the Datatable with jquery
     let dataTable = $('#datatable').DataTable();
@@ -175,7 +174,6 @@ class LineChart {
                     value: d.value
                 };
             })
-        console.log(dataset)
         
         let valueX = function(d) { return new Date(d.date)};
         let valueY = function(d) { return d.value};
@@ -326,7 +324,7 @@ function buildArticleCard(contentDiv, content) {
     cardBody.appendChild(cardLink);
 
     $('#article_id_' + _id).on('click', function() {
-        window.open('api/articles/' + _id, target="_self");
+        window.open('/module/articles/' + _id, target="_self");
     })
 }
 

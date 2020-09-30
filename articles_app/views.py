@@ -3,19 +3,50 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Max, Min
 from .models import Stocks, Articles
-from .queries import *
+from .db_queries import *
 
 from datetime import datetime
 import json
 
 
 # Create your views here.
+def enter_site(request):
+    """[summary]
+
+    Args:
+        request ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    if request.user.is_authenticated:
+        return get_module_view(request)
+    else:
+        return home(request)
+
+
 def home(request):
+    """[summary]
+
+    Args:
+        request ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
     return render(request, "articles_app/home.html")
 
-
+ 
 @login_required
 def get_module_view(request):
+    """[summary]
+
+    Args:
+        request ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
     return render(request, "articles_app/modules.html")
 
 

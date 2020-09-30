@@ -142,3 +142,15 @@
 .meta-button {
     text-align: center;
 }
+
+/* home.html styling */
+.first-par {
+    margin-top: 3rem;
+}
+
+.info-par {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+
+    background: #FFF;
+}
