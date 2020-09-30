@@ -356,14 +356,6 @@ function buildArticlesModD(contentDiv, content) {
 // MODULE A timeseries
 async function renderModuleA() {
     let col = ["Serie", "Oudste datum", "Recentste datum", "Laatste koers"]
-    let barChartData = [{"date": "1-9-2020", "value": 3},
-                        {"date": "2-9-2020", "value": 5},
-                        {"date": "3-9-2020", "value": 70},
-                        {"date": "4-9-2020", "value": 120},
-                        {"date": "5-9-2020", "value": 90},
-                        {"date": "6-9-2020", "value": 78},
-                        {"date": "7-9-2020", "value": 100},
-                        {"date": "8-9-2020", "value": 84}];
 
     clearDivContent(moduleContent);
     highLightSelectedButton(0);
@@ -387,8 +379,8 @@ async function renderModuleA() {
     lineChart.updateClose(data1, "AMX")
 
     // get all information about the available dataseries from db
-    let response2 = await fetch('api/dataseries');
-    let data2 = await response2.json();
+    let dataseriesResponse = await fetch('api/dataseries');
+    let data2 = await dataseriesResponse.json();
 
     // format it to the form of: [["AMX", "1-9-20", "8-9-20", "43.5"],......]
     let rows = []
@@ -402,7 +394,7 @@ async function renderModuleA() {
 
 
 // MODULE B Observations
-function renderModuleB() {
+async function renderModuleB() {
     clearDivContent(moduleContent);
     highLightSelectedButton(1);
 
@@ -417,12 +409,16 @@ function renderModuleB() {
     contentDiv.appendChild(section2)
 
     let col = ["Serie", "Periode", "Patroon", "Zin"]
-    let rows = [["AMX", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 5.00%"],
-                ["Aalberts", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 3.00%"],
-                ["PostNL", "1-9-2020/8-9-2020", "Daling", "Gedaald met 2.00%"],
-                ["AMX", "31-8-2020/8-9-2020", "Stijging", "Gestegen met 1.00%"],
-                ["Aalberts", "31-8-2020/8-9-2020", "Stijging", "Gestegen met 3.00%"],
-                ["PostNL", "31-8-2020/8-9-2020", "Daling", "Gedaald met 5.00%"]]
+
+    // get all information about the available dataseries from db
+    let response = await fetch('api/observations/latest');
+    let data = await response.json();
+
+    // format it to the form of: [["AMX", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 5.00%"].....]
+    let rows = []
+    for (key in data) {
+        rows.push([key['serie'], key['period'], key['pattern'], key['observation']]);
+    }
 
     createFilterMenuModB(section1);
     createDataTable(section2, "observations_table", col, rows, false);
@@ -430,7 +426,7 @@ function renderModuleB() {
 
 
 // MODULE C Observations-relevance
-function renderModuleC() {
+async function renderModuleC() {
     clearDivContent(moduleContent);
     highLightSelectedButton(2);
 
@@ -449,13 +445,17 @@ function renderModuleC() {
     contentDiv.appendChild(section3);
 
     let col = ["Serie", "Periode", "Patroon", "Zin", "Relevantie"]
-    let rows = [["AMX", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 5.00%", 8],
-                ["Aalberts", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 3.00%", 7],
-                ["PostNL", "1-9-2020/8-9-2020", "Daling", "Gedaald met 2.00%", 1],
-                ["AMX", "31-8-2020/8-9-2020", "Stijging", "Gestegen met 1.00%", 5],
-                ["Aalberts", "31-8-2020/8-9-2020", "Stijging", "Gestegen met 3.00%", 6],
-                ["PostNL", "31-8-2020/8-9-2020", "Daling", "Gedaald met 5.00%", 3]]
-    
+
+    // get all information about the available dataseries from db
+    let response = await fetch('api/observations/relevance');
+    let data = await response.json();
+
+    // format it to the form of: [["AMX", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 5.00%", 8].....]
+    let rows = []
+    for (key in data) {
+        rows.push([key['serie'], key['period'], key['pattern'], key['observation'], key['relevance']]);
+    }
+
     createImportanceSliders(section1);
     createDataTable(section2, "obser_relev_table", col, rows, false);
     createButtonsModC(section3);
