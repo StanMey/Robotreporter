@@ -152,5 +152,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'get_module_view'
+LOGIN_REDIRECT_URL = 'load_module_view'
 LOGIN_URL = 'login'
