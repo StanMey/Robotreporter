@@ -127,7 +127,7 @@ def get_articles_set(amount):
         art["title"] = article.title
         art["content"] = article.content
         art["date_show"] = article.date.strftime("%d %b %Y")
-        art["date_whole"] = article.date.strftime("%m-%d-%Y, %H:%M:%S")
+        art["date_whole"] = article.date.strftime("%d-%m-%Y, %H:%M:%S")
         art["author"] = article.author
         art["AI_version"] = article.AI_version
         data[count] = art
