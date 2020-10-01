@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Stocks(models.Model):
-    index = models.CharField(max_length=100)
+    indexx = models.CharField(max_length=100)
     component = models.CharField(max_length=100, default=None)
     # abs_delta = models.DecimalField(max_digits=8, decimal_places=2, null=True)
     # abs_perc = models.DecimalField(max_digits=8, decimal_places=2, null=True)
