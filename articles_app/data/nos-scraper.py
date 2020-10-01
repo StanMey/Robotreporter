@@ -5,7 +5,7 @@ import requests
 import os
 import re
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
 data_file = r"AMX_prices.csv"
@@ -43,7 +43,7 @@ def clean_components(df_main):
     Args:
         df_main pandas.DataFrame: The uncleaned dataframe with all components of the AMX
     """
-    df_main["date"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    df_main["date"] = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d %H:%M:%S")
     df_main["index"] = "AMX"
     df_main.drop("Uur", axis=1, inplace=True)
     df_main.drop("Koers", axis=1, inplace=True)
@@ -134,7 +134,7 @@ def get_index_info(response):
     index_high = filter3[2].split(" ")[2].replace(",", ".")
     index_low = filter3[3].split(" ")[2].replace(",", ".")
 
-    current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    current_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d %H:%M:%S")
 
     df_index = pd.DataFrame([index_name, 0, index_open, index_high, index_low, index_close, current_date, "AMX"])
     return df_index
