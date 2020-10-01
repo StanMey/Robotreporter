@@ -47,10 +47,10 @@ def clean_components(df_main):
     df_main["index"] = "AMX"
     df_main.drop("Uur", axis=1, inplace=True)
     df_main.drop("Koers", axis=1, inplace=True)
+    df_main.drop("+/-", axis=1, inplace=True)
+    df_main.drop("+/- %", axis=1, inplace=True)
 
     new_labels = {"Naam": "stock",
-             "+/-": "abs_delta",
-             "+/- %": "abs_perc",
              "Volume": "volume",
              "Open": "open",
              "Hoog": "high",
@@ -58,10 +58,6 @@ def clean_components(df_main):
              "Slot": "close"}
 
     df_main.rename(columns=new_labels, inplace=True)
-
-    # fixing the dtypes of the columns
-    df_main["abs_delta"] = df_main["abs_delta"].str.replace(",", ".").astype("float")
-    df_main["abs_perc"] = df_main["abs_perc"].str.replace("%", "").str.replace(",", ".").astype("float")
 
     # fixing any round off errors
     df_main["close"] = df_main["close"].apply(lambda x: round(x, 3))
@@ -121,21 +117,18 @@ def get_index_info(response):
     # filter the remaining text on '\\n'
     filter3 = filter2.split("\\n")
 
-    index_abs_perc = 0.0
     if " - " in filter3[0]:
         # filter the minus sign ( - ) out of the first array
         filter4 = filter3[0].split(" - ")
-        index_abs_perc = float(filter4[1].replace("%", "").replace(",", ".")) * -1.0
     else:
         filter4 = filter3[0].split(" + ")
-        index_abs_perc = float(filter4[1].replace("%", "").replace(",", "."))
 
     day_diff = filter4[0].split(" ")
+
     
     # get the index name
     index_name = day_diff[0]
     index_close = day_diff[2].replace(",", ".")
-    index_abs_delta = round(float(index_close) - float(day_diff[1].replace(",", ".")), 2)
 
     index_open = filter3[1].split(" ")[2].replace(",", ".")
     index_high = filter3[2].split(" ")[2].replace(",", ".")
@@ -143,7 +136,7 @@ def get_index_info(response):
 
     current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    df_index = pd.DataFrame([index_name, index_abs_delta, index_abs_perc, 0, index_open, index_high, index_low, index_close, current_date, "AMX"])
+    df_index = pd.DataFrame([index_name, 0, index_open, index_high, index_low, index_close, current_date, "AMX"])
     return df_index
 
 
