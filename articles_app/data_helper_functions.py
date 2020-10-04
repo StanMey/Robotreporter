@@ -1,4 +1,5 @@
 import csv
+from datetime import datetime
 from articles_app.models import Stocks, Articles
 
 # from articles_app.models import Stocks
@@ -16,16 +17,14 @@ def from_csv_to_Stocks(data_path):
                 line_count += 1
             else:
                 stock = Stocks()
-                stock.index = row[9]
+                stock.indexx = row[7]
                 stock.component = row[0]
-                stock.abs_delta = row[1]
-                stock.abs_perc = row[2]
-                stock.volume = row[3]
-                stock.s_open = row[4]
-                stock.s_high = row[5]
-                stock.s_low = row[6]
-                stock.s_close = row[7]
-                stock.date = row[8]
+                stock.volume = row[1]
+                stock.s_open = row[2]
+                stock.s_high = row[3]
+                stock.s_low = row[4]
+                stock.s_close = row[5]
+                stock.date = datetime.strptime(row[6], '%d-%m-%Y %H:%M')
 
                 stock.save()
 
