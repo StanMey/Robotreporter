@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.db.models import Max, Min
-from .models import Stocks, Articles
+
 from .db_queries import *
+from .nlg_queries import *
 
 from datetime import datetime
 import json
@@ -92,6 +92,21 @@ def load_relevance_observations(request):
         [type]: [description]
     """
     data = get_relevance_observations()
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+@login_required
+def generate_article(request):
+    """[summary]
+
+    Args:
+        request ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    data = {"article_number" : build_article()}
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 

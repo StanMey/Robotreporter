@@ -257,7 +257,7 @@ function createSingleSlider(contentDiv, title) {
 }
 
 // 
-function createButtonsModC(contentDiv) {
+async function createButtonsModC(contentDiv) {
     let col1 = document.createElement("div");
     col1.className = "col d-flex justify-content-center";
     contentDiv.appendChild(col1);
@@ -284,8 +284,20 @@ function createButtonsModC(contentDiv) {
     })
 
    $('#button2ModC').on('click', function() {
-        alert("Generating!!");
+        generateArticle();
     })
+}
+
+
+//
+async function generateArticle() {
+    // generate a new article
+    let response = await fetch('api/articles/generate');
+    let data = await response.json();
+
+    // get the id of the article and redirect to the article
+    _id = data['article_number']
+    window.open('/module/articles/' + _id, target="_self");
 }
 
 
@@ -417,7 +429,8 @@ async function renderModuleB() {
     // format it to the form of: [["AMX", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 5.00%"].....]
     let rows = []
     for (key in data) {
-        rows.push([key['serie'], key['period'], key['pattern'], key['observation']]);
+        obj = data[key]
+        rows.push([obj['serie'], obj['period'], obj['pattern'], obj['observation']]);
     }
 
     createFilterMenuModB(section1);
@@ -453,7 +466,8 @@ async function renderModuleC() {
     // format it to the form of: [["AMX", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 5.00%", 8].....]
     let rows = []
     for (key in data) {
-        rows.push([key['serie'], key['period'], key['pattern'], key['observation'], key['relevance']]);
+        obj = data[key]
+        rows.push([obj['serie'], obj['period'], obj['pattern'], obj['observation'], obj['relevance']]);
     }
 
     createImportanceSliders(section1);

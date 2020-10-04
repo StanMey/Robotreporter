@@ -9,7 +9,9 @@ urlpatterns = [
 
     path('overview/api/dataseries', views.load_all_data_series, name="load_all_data_series"),
     path('overview/api/dataseries/<str:serie_name>/close', views.load_data_serie_close, name="load_data_serie_close"),
+
     path('overview/api/articles', views.load_articles_set, name="load_articles_set"),
+    path('overview/api/articles/generate', views.generate_article, name="generate_article"),
 
     path('overview/api/observations/latest', views.load_latest_observations, name="load_latest_observations"),
     path('overview/api/observations/relevance', views.load_relevance_observations, name="load_relevance_observations")
