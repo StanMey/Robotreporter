@@ -8,7 +8,10 @@ import re
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
-data_file = r"AMX_prices.csv"
+from django.core.management.base import BaseCommand, CommandError
+from articles_app.models import Stocks
+
+
 AMX_components_url = "https://solutions.vwdservices.com/customers/nos.nl/quotecube/Composition/List/AMX?_=1599474611342"
 AMX_index_url = "https://solutions.vwdservices.com/customers/nos.nl/quotecube/OverView/Market/AMX?_=1600101564446"
 AMX_index_ohlc_url = "https://teletekst-data.nos.nl/json/503-2"
@@ -17,6 +20,17 @@ AMX_index_ohlc_url = "https://teletekst-data.nos.nl/json/503-2"
 
 all_headers = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0',
               'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Edg/85.0.564.44']
+
+
+class Command(BaseCommand):
+    help = "Running the scraper to retrieve AMX data"
+
+    def handle(self, *args, **options):
+        file_path = r"articles_app/data/AMX_prices.csv"
+        try:
+            run_scraper(file_path)
+        except Exception as e:
+            print(f"Something went wrong:/n{e}")
 
 
 def get_components_dataframe(response):
@@ -137,6 +151,8 @@ def get_index_info(response):
     current_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d %H:%M:%S")
 
     df_index = pd.DataFrame([index_name, 0, index_open, index_high, index_low, index_close, current_date, "AMX"])
+    df_index = df_index.T
+    df_index.columns = ["stock", "volume", "open", "high", "low", "close", "date", "index"]
     return df_index
 
 
@@ -153,23 +169,54 @@ def write_to_csv(csv_path, df):
         df.to_csv(csv_path, sep=";", index=False, header=True)
 
 
-if __name__ == "__main__":
-    header = {'user-agent': rd.choice(all_headers)}
+def beurs_closed():
+    """Check if the beurs is closed
+    """
+    today_day = datetime.today().weekday()
+    if today_day in [0, 6]:
+        # on saturday and sunday night return True
+        return True
+    else:
+        return False
 
-    components_res = requests.get(AMX_components_url, headers=header)
-    index_res = requests.get(AMX_index_ohlc_url, headers=header)
 
-    # get and clean the components
-    df_components = get_components_dataframe(components_res)
-    clean_components(df_components)
 
-    # clean the index
-    df_index = get_index_info(index_res)
+def run_scraper(file_path):
+    # check if beurs is closed
+    if beurs_closed():
+        print("The beurs is closed")
+    else:
+        print("beurs open: commencing scraping!")
+        header = {'user-agent': rd.choice(all_headers)}
 
-    print("Dataframe components:\n\n{0}".format(df_components))
-    if input("Save to csv?(y/n)\n") == "y":
-        write_to_csv(data_file, df_components)
-    
-    print("\nIndex value:\n{0}".format(df_index))
-    if input("Save to csv?(y/n)\n") == "y":
-        write_to_csv(data_file, df_index.T)
+        components_res = requests.get(AMX_components_url, headers=header)
+        index_res = requests.get(AMX_index_ohlc_url, headers=header)
+
+        # get and clean the components
+        df_components = get_components_dataframe(components_res)
+        clean_components(df_components)
+
+        # clean the index
+        df_index = get_index_info(index_res)
+
+        # join the two dataframes
+        df_combined = df_components.append(df_index, ignore_index=True)
+
+        # write to csv file
+        print("\nnew data:\n{0}".format(df_combined))
+        if input("Save to csv?(y/n)\n") == "y":
+            write_to_csv(file_path, df_combined)
+        
+        # write to the database
+        for index, row in df_combined.iterrows():
+            stock = Stocks()
+            stock.indexx = row["index"]
+            stock.component = row.stock
+            stock.volume = row.volume
+            stock.s_open = row.open
+            stock.s_high = row.high
+            stock.s_low = row.low
+            stock.s_close = row.close
+            stock.date = row.date
+            stock.save()
+        
