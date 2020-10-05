@@ -4,7 +4,7 @@ from articles_app.models import Stocks, Articles
 
 # from articles_app.models import Stocks
 # from articles_app import data_helper_functions as dhf
-# dhf.from_csv_to_Stocks(r"articles_app/data/AMX_prices.csv")
+# dhf.from_csv_to_Stocks(r"articles_app/data/AMX_prices_90_days.csv")
 
 def from_csv_to_Stocks(data_path):
 
@@ -24,7 +24,7 @@ def from_csv_to_Stocks(data_path):
                 stock.s_high = row[3]
                 stock.s_low = row[4]
                 stock.s_close = row[5]
-                stock.date = datetime.strptime(row[6], '%d-%m-%Y %H:%M')
+                stock.date = datetime.strptime(row[6], '%d-%m-%Y')
 
                 stock.save()
 
