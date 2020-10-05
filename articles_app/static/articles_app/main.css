@@ -79,6 +79,11 @@
     padding-left: 1rem;
 }
 
+.mod-a-table #datatable tbody tr:hover {
+    background-color: #FFFDD0 !important;
+    cursor: pointer;
+}
+
 /* ModB multiple selects filters behaviour */
 .multiselect-native-select {
     margin-top: 2rem;

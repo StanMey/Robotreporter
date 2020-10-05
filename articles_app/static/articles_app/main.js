@@ -121,6 +121,9 @@ function createDataTable(table, id, columns, data, modA) {
     let dataTable = $('#datatable').DataTable();
 
     if (modA) {
+        // Add a classname to make the table interactive
+        tableDiv.className += " mod-a-table";
+
         // Add a method to each row to update the graph this method only applies on module A
         $('#datatable tbody').on('click', 'tr', async function() {
             let serie_name = dataTable.row( this ).data();
