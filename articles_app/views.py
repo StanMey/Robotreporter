@@ -106,7 +106,9 @@ def generate_article(request):
     Returns:
         [type]: [description]
     """
-    data = {"article_number" : build_article()}
+    user_name = request.user.username
+    print(user_name)
+    data = {"article_number" : build_article(user_name)}
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 

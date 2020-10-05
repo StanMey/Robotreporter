@@ -7,7 +7,7 @@ import pandas as pd
 from datetime import datetime
 
 
-def build_article():
+def build_article(user_name):
     """
     """
 
@@ -26,7 +26,7 @@ def build_article():
     article.title = content[:50]
     article.content = content
     article.date = datetime.now()
-    article.author = "nieuwsbot"
+    article.author = user_name
     article.AI_version = 1.0
     article.save()
 
