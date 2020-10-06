@@ -217,6 +217,6 @@ def run_scraper(file_path):
             stock.s_high = row.high
             stock.s_low = row.low
             stock.s_close = row.close
-            stock.date = row.date
+            stock.date = datetime.strptime(row.date, "%d-%m-%Y")
             stock.save()
         

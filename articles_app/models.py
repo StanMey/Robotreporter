@@ -14,7 +14,7 @@ class Stocks(models.Model):
     date = models.DateTimeField()
 
     def __str__(self):
-        return "{0} - {1} on {2}; close: {3}".format(self.component, self.index, self.date, self.s_close)
+        return "{0} - {1} on {2}; close: {3}".format(self.component, self.indexx, self.date, self.s_close)
 
     def __repr__(self):
         return "{0} - {1} - {2}".format(self.component, self.date, self.s_close)

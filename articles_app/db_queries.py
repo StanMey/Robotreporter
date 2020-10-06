@@ -46,7 +46,7 @@ def get_data_serie_close(serie_name):
         [type]: [description]
     """
     # get all the close data from a certain serie
-    close_data = Stocks.objects.filter(component__exact=serie_name)
+    close_data = Stocks.objects.filter(component__exact=serie_name).order_by("-date")
 
     data = []
 
