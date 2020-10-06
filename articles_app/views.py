@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from .db_queries import *
 from .nlg_queries import *
+from .utils import *
 
 from datetime import datetime
 import json
@@ -106,8 +108,13 @@ def generate_article(request):
     Returns:
         [type]: [description]
     """
-    user_name = request.user.username
-    data = {"article_number" : build_article(user_name)}
+    if is_view_only(request.user):
+        # user has no permission to generate articles
+        messages.info(request, f"You don't have permission to generate an article")
+        data = {"article_number" : get_articles_set(1)[1]['article_id']}
+    else:
+        user_name = request.user.username
+        data = {"article_number" : build_article(user_name)}
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 

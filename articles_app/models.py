@@ -34,6 +34,7 @@ class Observations(models.Model):
     def __repr__(self):
         return "{0} - {1}/{2} - {3}".format(self.serie, self.period_begin.strftime("%Y-%m-%d"), self.period_end.strftime("%Y-%m-%d"), self.observation)
 
+
 class Articles(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
