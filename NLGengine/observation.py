@@ -23,4 +23,4 @@ class Observation:
         self.relevance = rlvnc
 
     def __str__(self):
-        pass
+        return self.observation

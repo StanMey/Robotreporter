@@ -4,11 +4,22 @@ import pandas as pd
 from datetime import datetime
 
 from NLGengine.patterns.increase_pattern import Increase
+from NLGengine.patterns.decrease_pattern import Decrease
+from NLGengine.patterns.week_pattern import WeekPattern
 from .observation import Observation
 
 
 class Analyse:
+    """[summary]
+    """
     def __init__(self, data, period_beg, period_end):
+        """[summary]
+
+        Args:
+            data ([type]): [description]
+            period_beg ([type]): [description]
+            period_end ([type]): [description]
+        """
         self.data = data
         self.period_begin = period_beg
         self.period_end = period_end
@@ -16,26 +27,19 @@ class Analyse:
 
 
     def find_new_observations(self):
-
+        """[summary]
+        """
         increase = Increase(self.data, self.period_begin, self.period_end)
         increase.analyse()
-        return increase.observations
+        self.observations.extend(increase.observations)
 
-if __name__ == "__main__":
-    print("tadaaaaa")
-    # data_path = r"test.csv"
+        decrease = Decrease(self.data, self.period_begin, self.period_end)
+        decrease.analyse()
+        self.observations.extend(decrease.observations)
 
-    # df_data = pd.read_csv(data_path, sep=";")
-
-    # period_begin = datetime(year=2020, month=9, day=28)
-    # period_end = datetime(year=2020, month=9, day=29)
-    # print(type(period_begin))
-
-    # increase = Increase(df_data, period_begin, period_end)
-    # increase.prep_data(1)
-    # increase.x_largest_increase()
-    # print(increase.period_begin)
-
-    # for observ in increase.observations:
-    #     print(observ.observation)
-    #     observ.to_database()
+    def find_weekly_observations(self):
+        """[summary]
+        """
+        week_pattern = WeekPattern(self.data, self.period_begin, self.period_end)
+        week_pattern.analyse()
+        self.observations.extend(week_pattern.observations)
