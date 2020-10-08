@@ -208,7 +208,7 @@ def run_scraper(file_path):
             write_to_csv(file_path, df_combined)
         
         # write to the database
-        for index, row in df_combined.iterrows():
+        for _, row in df_combined.iterrows():
             stock = Stocks()
             stock.indexx = row["index"]
             stock.component = row.stock
