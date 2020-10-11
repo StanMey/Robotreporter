@@ -23,7 +23,7 @@ def build_article(user_name):
     content = " ".join(sentences)
 
     article = Articles()
-    article.title = content[:50]
+    article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
     article.content = content
     article.date = datetime.now()
     article.author = user_name
@@ -33,10 +33,11 @@ def build_article(user_name):
     return article.id
 
 
-def find_new_observations(to_db=False, to_prompt=False):
+def find_new_observations(overwrite=False, to_db=False, to_prompt=False):
     """[summary]
 
     Args:
+        overwrite (bool, optional) : . Defaults to False
         to_db (bool, optional): [description]. Defaults to False.
         to_prompt (bool, optional): [description]. Defaults to False.
     """
@@ -46,7 +47,7 @@ def find_new_observations(to_db=False, to_prompt=False):
 
     # check if this period in observations has already been asked before
     observ_exists = Observations.objects.filter(period_begin=period_begin).filter(period_end=period_end).exists()
-    if not observ_exists:
+    if not observ_exists or overwrite:
         # retrieve all data over the stocks in this period
         data = Stocks.objects.filter(date__range=(period_begin, period_end))
         # convert the data to a dataframe
