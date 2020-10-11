@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="keywords" content="nlg, journalistiek, robot, data">
     <meta name="description" content="Een robot reporter voor het geautomatiseerd schrijven van artikelen voor de beurs">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
@@ -17,6 +18,7 @@
     <script src="{% static 'articles_app/main.js' %}"></script>
 
     <title>RobotReporter</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'articles_app/robot.png' %}"/>
 </head>
 <body>
 
@@ -25,7 +27,8 @@
       <div class="row flex-nowrap justify-content-between align-items-center">
         <div class="col-4 pt-1 left-side-header">
           <a class="navbar-brand" href="/">
-            <img src="https://placehold.it/50x50?text=Logo" alt="">
+            <!--<div>Icons made by <a href="https://www.flaticon.com/authors/darius-dan" title="Darius Dan">Darius Dan</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>-->
+            <img src="{% static 'articles_app/robot.png' %}" alt="Robotreporter logo" width="55" height="55">
           </a>
         </div>
         <div class="col-4 text-center">
