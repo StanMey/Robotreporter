@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.views.decorators.http import require_GET
 
 from .db_queries import *
 from .nlg_queries import *
@@ -13,30 +14,47 @@ import json
 
 # Create your views here.
 def home(request):
-    """[summary]
+    """Returns a static home page which every user sees when entering the page.
 
     Args:
-        request ([type]): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): [description]
 
     Returns:
-        [type]: [description]
+        django.http.response.HttpResponse: [description]
     """
     return render(request, "articles_app/home.html")
 
  
 @login_required
 def load_module_view(request):
-    """[summary]
+    """Loads the main menu from which the user can select all the modules.
 
     Args:
-        request ([type]): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): [description]
 
     Returns:
-        [type]: [description]
+        django.http.response.HttpResponse: [description]
     """
     return render(request, "articles_app/modules.html")
 
+@require_GET
+def robots_txt(request):
+    """Loads the robot.txt file.
 
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): [description]
+
+    Returns:
+        django.http.response.HttpResponse: [description]
+    """
+    lines = [
+        "User-Agent: *",
+        "Disallow: /admin/"
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")
+
+
+# retrieving data views
 @login_required
 def load_all_data_series(request):
     """[summary]
