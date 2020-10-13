@@ -16,9 +16,12 @@ class Decrease:
             period_beg (datetime): [description]
             period_end (datetime): [description]
         """
+        assert isinstance(df_data, pd.DataFrame), "df_data should be a pandas Dataframe"
         assert set(["component", "indexx", "close", "date"]).issubset(df_data.columns), "missing columns in dataset"
         self.df = df_data
 
+        assert isinstance(period_beg, datetime), "period_beg should be a datetime object"
+        assert isinstance(period_end, datetime), "period_end should be a datetime object"
         assert period_beg < period_end, "period_begin is greater than period_end"
         self.period_begin = period_beg
         self.period_end = period_end
