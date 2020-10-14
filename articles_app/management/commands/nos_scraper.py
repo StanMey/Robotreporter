@@ -1,6 +1,5 @@
 import pandas as pd
 import random as rd
-import csv
 import requests
 import os
 import re
@@ -8,7 +7,7 @@ import re
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from articles_app.models import Stocks
 
 
@@ -17,9 +16,8 @@ AMX_index_url = "https://solutions.vwdservices.com/customers/nos.nl/quotecube/Ov
 AMX_index_ohlc_url = "https://teletekst-data.nos.nl/json/503-2"
 
 
-
 all_headers = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0',
-              'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Edg/85.0.564.44']
+               'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Edg/85.0.564.44']
 
 
 class Command(BaseCommand):
@@ -52,7 +50,7 @@ def get_components_dataframe(response):
 
 
 def clean_components(df_main):
-    """Clean all the columns in the dataframe 
+    """Clean all the columns in the dataframe.
 
     Args:
         df_main pandas.DataFrame: The uncleaned dataframe with all components of the AMX
@@ -65,11 +63,11 @@ def clean_components(df_main):
     df_main.drop("+/- %", axis=1, inplace=True)
 
     new_labels = {"Naam": "stock",
-             "Volume": "volume",
-             "Open": "open",
-             "Hoog": "high",
-             "Laag": "low",
-             "Slot": "close"}
+                  "Volume": "volume",
+                  "Open": "open",
+                  "Hoog": "high",
+                  "Laag": "low",
+                  "Slot": "close"}
 
     df_main.rename(columns=new_labels, inplace=True)
 
@@ -139,7 +137,7 @@ def get_index_info(response):
 
     day_diff = filter4[0].split(" ")
 
-    
+
     # get the index name
     index_name = day_diff[0]
     index_close = day_diff[2].replace(",", ".")
@@ -180,7 +178,6 @@ def beurs_closed():
         return False
 
 
-
 def run_scraper(file_path):
     # check if beurs is closed
     if beurs_closed():
@@ -204,9 +201,9 @@ def run_scraper(file_path):
 
         # write to csv file
         print("\nnew data:\n{0}".format(df_combined))
-        if input("Save to csv?(y/n)\n") == "y":
-            write_to_csv(file_path, df_combined)
-        
+        # if input("Save to csv?(y/n)\n") == "y":
+        write_to_csv(file_path, df_combined)
+
         # write to the database
         for _, row in df_combined.iterrows():
             stock = Stocks()
@@ -219,4 +216,3 @@ def run_scraper(file_path):
             stock.s_close = row.close
             stock.date = datetime.strptime(row.date, "%d-%m-%Y")
             stock.save()
-        
