@@ -5,15 +5,15 @@ import pandas as pd
 
 
 class WeekPattern:
-    """[summary]
+    """A class that holds methods to find week based patterns in timeseries data.
     """
     def __init__(self, df_data: pd.DataFrame, period_beg: datetime, period_end: datetime):
-        """[summary]
+        """The init function.
 
         Args:
-            df_data (pd.DataFrame): [description]
-            period_beg (datetime): [description]
-            period_end (datetime): [description]
+            df_data (pd.DataFrame): The data in a pandas dataframe
+            period_beg (datetime): The date with the beginning of the period
+            period_end (datetime): The date with the end of the period
         """
         assert isinstance(df_data, pd.DataFrame), "df_data should be a pandas Dataframe"
         assert set(["component", "indexx", "close", "date"]).issubset(df_data.columns), "missing columns in dataset"
@@ -28,11 +28,11 @@ class WeekPattern:
 
         self.pattern = "week"
         self.observations = []
-    
 
     def give_week_recap(self):
         """[summary]
         """
+        print(self.df)
         for _, row in self.df.iterrows():
             if row.perc_delta > 0.0:
                 # positive week
@@ -44,7 +44,6 @@ class WeekPattern:
                 sentence = f"{row.component} is met {row.perc_delta} procent gedaald deze week."
                 observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, 6)
                 self.observations.append(observ)
-
 
     def prep_data(self):
         self.df["abs_delta"] = 0
@@ -71,7 +70,7 @@ class WeekPattern:
 
         # format the percentage difference
         self.df["perc_delta"] = self.df["perc_delta"].apply(lambda x: round(x * 100, 2))
-        
+
         # drop all rows with NaNs
         self.df.dropna(inplace=True)
 
