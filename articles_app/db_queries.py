@@ -102,7 +102,7 @@ def get_relevance_observations():
             "period": "{0} / {1}".format(observation.period_begin.strftime("%d-%m-%Y"), observation.period_end.strftime("%d-%m-%Y")),
             "pattern": observation.pattern,
             "observation": observation.observation,
-            "relevance": observation.relevance
+            "relevance": float(observation.relevance)
         }
         data.append(point)
     return data

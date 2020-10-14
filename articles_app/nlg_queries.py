@@ -16,16 +16,24 @@ def build_article(user_name):
     Returns:
         int: The id of the generated article
     """
+    # current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
+    current_date = datetime(year=2020, month=9, day=16)
+    begin_date = current_date - timedelta(10)
+
     # retrieve 3 random observations from the Observations table
-    observation_set = list(Observations.objects.order_by('-period_end')[:10])
+    observation_set = list(Observations.objects.filter(
+                                    period_begin__gte=begin_date
+                           ).order_by('-period_end', '-relevance')[:10])
     # shuffle the sentences inplace
-    np.random.shuffle(observation_set)
+    # np.random.shuffle(observation_set)
 
     sentences = []
-    for observ in observation_set[:3]:
-        sentences.append(observ.observation)
+    for observ in observation_set[:5]:
+        print(observ.period_end, observ.relevance, observ.observation)
+        sentences.append(f"{observ.observation} (rel: {observ.relevance})")
 
     content = " ".join(sentences)
+    print(content)
 
     article = Articles()
     article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
@@ -38,7 +46,17 @@ def build_article(user_name):
     return article.id
 
 
-def find_new_observations(overwrite=False, to_db=False, to_prompt=False):
+def testing_find_observs():
+    """Small function for testing and development purposes.
+    """
+    # period_begin = datetime(year=2020, month=7, day=14)
+    period_begin = datetime(year=2020, month=9, day=16)
+    period_end = datetime(year=2020, month=9, day=17)
+
+    find_new_observations(period_begin, period_end)
+
+
+def find_new_observations(period_begin: datetime, period_end: datetime, overwrite=False, to_db=False, to_prompt=False):
     """Runs all functions to find observations, collects the observations and deals with them in the proper way.
 
     Args:
@@ -47,17 +65,15 @@ def find_new_observations(overwrite=False, to_db=False, to_prompt=False):
         to_prompt (bool, optional): Decide whether the new observations are to be written to the prompt. Defaults to False.
     """
     all_observations = []
-    period_begin = datetime(year=2020, month=9, day=16)
-    period_end = datetime(year=2020, month=9, day=17)
 
-    run_period_observations(period_begin, period_end, overwrite)
-    run_week_observations(period_begin, period_end)
-    run_trend_observations(period_end, 14)
+    all_observations.extend(run_period_observations(period_begin, period_end, overwrite))
+    all_observations.extend(run_week_observations(period_begin, period_end))
+    all_observations.extend(run_trend_observations(period_end, 14))
 
     if to_db:
         # write all the found observations into the database
         for observ in all_observations:
-            observation_to_database(observ.serie, observ.period_begin, observ.period_end, observ.pattern, observ.observation, observ.relevance)
+            observation_to_database(observ.serie, observ.period_begin, observ.period_end, observ.pattern, observ.observation, observ.relevance, observ.meta_data)
 
     if to_prompt:
         # write all the found observations to the prompt
@@ -183,7 +199,7 @@ def run_trend_observations(period_end, delta_days):
     return observs
 
 
-def observation_to_database(serie, period_begin, period_end, pattern, observation, relevance):
+def observation_to_database(serie, period_begin, period_end, pattern, observation, relevance, meta):
     """Writes an observation to the database.
 
     Args:
@@ -194,12 +210,13 @@ def observation_to_database(serie, period_begin, period_end, pattern, observatio
         observation (String): A string with the sentence of the observation
         relevance (Float): The relevance the observation holds
     """
-    observ = Observation()
+    observ = Observations()
     observ.serie = serie
     observ.period_begin = period_begin
     observ.period_end = period_end
     observ.pattern = pattern
     observ.observation = observation
     observ.relevance = relevance
+    observ.meta_data = meta
     # save to the db
     observ.save()
