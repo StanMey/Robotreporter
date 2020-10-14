@@ -38,22 +38,42 @@ class Increase:
         if len(df_only_inc) == 0:
             # no component has been increasing, only decreasing components
             info = "AMX"
+            # collect the additional metadata
+            data = {
+                    "component": info,
+                    "perc_change": 0.0
+                }
+            # save the observation
             sentence = f"Alle fondsen binnen de {info} zijn vandaag gedaald."
-            observ = Observation(info, self.period_begin, self.period_end, "daling", sentence, 9)
+            observ = Observation(info, self.period_begin, self.period_end, "daling", sentence, 9, data)
             self.observations.append(observ)
 
         if len(df_only_inc) == 1:
             # only 1 component has been increasing
             info = df_only_inc.iloc[0]
+            # collect the additional metadata
+            data = {
+                    "component": info.component,
+                    "perc_change": info.perc_delta,
+                    "abs_change": info.abs_delta
+                }
+            # save the observation
             sentence = f"{info.component}, dat profiteert van de onrust op de beurzen, is de enige stijger."
-            observ = Observation(info.component, self.period_begin, self.period_end, self.pattern, sentence, 8)
+            observ = Observation(info.component, self.period_begin, self.period_end, self.pattern, sentence, 8, data)
             self.observations.append(observ)
 
         if len(df_only_inc) == 2:
             # only 2 components have been increasing
             info = df_only_inc.iloc[0:2]
+            # collect the additional metadata
+            data = {
+                    "component": list(info.component),
+                    "perc_change": list(info.perc_delta),
+                    "abs_change": list(info.abs_delta)
+                }
+            # save the observation
             sentence = f"Op {info.iloc[0].component} en {info.iloc[1].component} na dalen alle {info.iloc[0].indexx} fondsen"
-            observ = Observation(info.component, self.period_begin, self.period_end, self.pattern, sentence, 9)
+            observ = Observation(info.component, self.period_begin, self.period_end, self.pattern, sentence, 7, data)
             self.observations.append(observ)
 
     def x_largest_increase(self):
@@ -65,29 +85,50 @@ class Increase:
         if len(df_large_inc) >= 1:
             # At least 1 component increasing
             info = df_large_inc.iloc[0]
+            # collect the additional metadata
+            data = {
+                    "component": info.component,
+                    "perc_change": info.perc_delta,
+                    "abs_change": info.abs_delta
+                }
+            # save the observation
             sentence = f"In de {info.indexx} ging {info.component} aan kop met een winst van {info.perc_delta} procent."
-            observ = Observation(info.component, self.period_begin, self.period_end, "Stijging", sentence, 5)
+            observ = Observation(info.component, self.period_begin, self.period_end, self.pattern, sentence, 5, data)
             self.observations.append(observ)
 
         if len(df_large_inc) >= 2:
             # At least 2 components increasing
             info = df_large_inc.iloc[0:2]
+            # collect the additional metadata
+            data = {
+                    "component": list(info.component),
+                    "perc_change": list(info.perc_delta),
+                    "abs_change": list(info.abs_delta)
+                }
+            # save the observation
             sentence = f"In de {info.iloc[0].indexx} waren {info.iloc[0].component} (+{info.iloc[0].perc_delta}%) en {info.iloc[1].component} (+{info.iloc[1].perc_delta}%) de grootste stijgers."
-            observ = Observation(info.iloc[0].component, self.period_begin, self.period_end, "Stijging", sentence, 5)
+            observ = Observation(info.iloc[0].component, self.period_begin, self.period_end, self.pattern, sentence, 5, data)
             self.observations.append(observ)
 
         if len(df_large_inc) >= 3:
             # at least 3 components increasing
             info = df_large_inc.iloc[0:3]
+            # collect the additional metadata
+            data = {
+                    "component": list(info.component),
+                    "perc_change": list(info.perc_delta),
+                    "abs_change": list(info.abs_delta)
+                }
+            # save the observation
             sentence = f"{info.iloc[0].component} (+{info.iloc[0].perc_delta}%), {info.iloc[1].component} (+{info.iloc[1].perc_delta}%) en {info.iloc[2].component} (+{info.iloc[2].perc_delta}%) waren de positieve uitschieters."
-            observ = Observation(info.iloc[0].component, self.period_begin, self.period_end, "Stijging", sentence, 5)
+            observ = Observation(info.iloc[0].component, self.period_begin, self.period_end, self.pattern, sentence, 5, data)
             self.observations.append(observ)
 
     def prep_data(self, period: int):
         """Prepares and wrangles the data so the analyses can be run on it.
 
         Args:
-            period (integer): The amount of days between the beginning of the period and the end 
+            period (integer): The amount of days between the beginning of the period and the end
         """
         self.df["abs_delta"] = 0
         self.df["perc_delta"] = 0
@@ -99,10 +140,10 @@ class Increase:
         # remove all the indexes themself out of the dataframe
         all_indexes = self.df["indexx"].unique()
         self.df = self.df[~self.df["component"].isin(all_indexes)]
-        
+
         # get all the unique components that are in the dataframe
         all_components = self.df["component"].unique()
-        
+
         for component in all_components:
             # select all the rows from a certain component
             df_one_component = self.df[self.df["component"] == component]["close"].copy()

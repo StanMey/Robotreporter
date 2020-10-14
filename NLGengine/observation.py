@@ -1,10 +1,10 @@
 from datetime import datetime
-# from articles_app.models import Observations
+
 
 class Observation:
     """[summary]
     """
-    def __init__(self, serie: str, prd_begin: datetime, prd_end: datetime, pattern: str, obsrv: str, rlvnc: int):
+    def __init__(self, serie: str, prd_begin: datetime, prd_end: datetime, pattern: str, obsrv: str, rlvnc: int, m_data: dict):
         """[summary]
 
         Args:
@@ -21,6 +21,7 @@ class Observation:
         self.pattern = pattern
         self.observation = obsrv
         self.relevance = rlvnc
+        self.meta_data = m_data
 
     def __str__(self):
         return self.observation

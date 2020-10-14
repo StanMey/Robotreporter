@@ -75,14 +75,20 @@ class Trend:
 
             # decide if the trend is strong enough
             if trend_count >= 2:
+                data = {
+                    "component": component,
+                    "trend_duration": trend_count
+                }
                 # select the sentence based on the latest percentage change
                 if latest_perc >= 0.0:
                     sentence = f"{component} na {trend_count} negatieve dagen weer positief geëindigd."
+                    data["trend"] = "pos"
                 else:
                     sentence = f"{component} na {trend_count} positieve dagen weer negatief geëindigd."
+                    data["trend"] = "neg"
 
-                # find the begin period
-                observ = Observation(component, period_begin_trend, self.period_end, "Trend", sentence, 6)
+                # save as Observation
+                observ = Observation(component, period_begin_trend, self.period_end, self.pattern, sentence, min(trend_count, 10), data)
                 self.observations.append(observ)
 
     def analyse(self):

@@ -32,17 +32,20 @@ class WeekPattern:
     def give_week_recap(self):
         """Checks whether the stock in a certain stock has increased or decreased in total.
         """
-        print(self.df)
         for _, row in self.df.iterrows():
             if row.perc_delta > 0.0:
                 # positive week
+                data = {"component": row.component,
+                        "percentage": row.perc_delta}
                 sentence = f"{row.component} is met {row.perc_delta} procent gestegen deze week."
-                observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, 6)
+                observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, 6, data)
                 self.observations.append(observ)
             else:
                 # negative week
+                data = {"component": row.component,
+                        "percentage": row.perc_delta}
                 sentence = f"{row.component} is met {row.perc_delta} procent gedaald deze week."
-                observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, 6)
+                observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, 6, data)
                 self.observations.append(observ)
 
     def prep_data(self):

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import JSONField
 
 
 class Stocks(models.Model):
@@ -27,6 +28,7 @@ class Observations(models.Model):
     pattern = models.CharField(max_length=200, default=None)
     observation = models.TextField()
     relevance = models.DecimalField(max_digits=4, decimal_places=2)
+    meta_data = JSONField(default=dict)
 
     def __str__(self):
         return "{0} with {1}; on: {2} / {3}".format(self.serie, self.pattern, self.period_begin.strftime("%Y-%m-%d"), self.period_end.strftime("%Y-%m-%d"))
