@@ -3,9 +3,13 @@
 *.pot
 *.pyc
 __pycache__
+.pytest_cache
 
 db.sqlite3
 media
 
 # local data #
 datadump.json
+
+# IDE #
+.vscode
