@@ -30,7 +30,7 @@ class WeekPattern:
         self.observations = []
 
     def give_week_recap(self):
-        """[summary]
+        """Checks whether the stock in a certain stock has increased or decreased in total.
         """
         print(self.df)
         for _, row in self.df.iterrows():
@@ -46,6 +46,8 @@ class WeekPattern:
                 self.observations.append(observ)
 
     def prep_data(self):
+        """Prepares and wrangles the data so the analyses can be run on it.
+        """
         self.df["abs_delta"] = 0
         self.df["perc_delta"] = 0
         self.df["date"] = pd.to_datetime(self.df["date"])
@@ -75,7 +77,7 @@ class WeekPattern:
         self.df.dropna(inplace=True)
 
     def analyse(self):
-        """[summary]
+        """Run the analyses of the Week pattern.
         """
         self.prep_data()
         self.give_week_recap()

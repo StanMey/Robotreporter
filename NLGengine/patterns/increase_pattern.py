@@ -6,15 +6,15 @@ import numpy as np
 
 
 class Increase:
-    """[summary]
+    """A class that holds methods to find increase based patterns in timeseries data in a period.
     """
     def __init__(self, df_data: pd.DataFrame, period_beg: datetime, period_end: datetime):
-        """[summary]
+        """The init function.
 
         Args:
-            df_data (pd.DataFrame): [description]
-            period_beg (datetime): [description]
-            period_end (datetime): [description]
+            df_data (pd.DataFrame): The data in a pandas dataframe
+            period_beg (datetime): The date with the beginning of the period
+            period_end (datetime): The date with the end of the period
         """
         assert isinstance(df_data, pd.DataFrame), "df_data should be a pandas Dataframe"
         assert set(["component", "indexx", "close", "date"]).issubset(df_data.columns), "missing columns in dataset"
@@ -28,7 +28,6 @@ class Increase:
 
         self.pattern = "stijging"
         self.observations = []
-    
 
     def only_x_increase(self):
         """Checks if there are any components that are the only one or ones (2) that have increased in the timeperiod.
@@ -36,20 +35,26 @@ class Increase:
         # only select the components that are positive
         df_only_inc = self.df[(self.df["perc_delta"] > 0.0) & (self.df["date"].dt.strftime('%d-%m-%Y') == self.period_end.strftime('%d-%m-%Y'))]
 
+        if len(df_only_inc) == 0:
+            # no component has been increasing, only decreasing components
+            info = "AMX"
+            sentence = f"Alle fondsen binnen de {info} zijn vandaag gedaald."
+            observ = Observation(info, self.period_begin, self.period_end, "daling", sentence, 9)
+            self.observations.append(observ)
+
         if len(df_only_inc) == 1:
             # only 1 component has been increasing
             info = df_only_inc.iloc[0]
             sentence = f"{info.component}, dat profiteert van de onrust op de beurzen, is de enige stijger."
-            observ = Observation(info.component, self.period_begin, self.period_end, self.pattern, sentence, 9)
+            observ = Observation(info.component, self.period_begin, self.period_end, self.pattern, sentence, 8)
             self.observations.append(observ)
 
         if len(df_only_inc) == 2:
             # only 2 components have been increasing
             info = df_only_inc.iloc[0:2]
             sentence = f"Op {info.iloc[0].component} en {info.iloc[1].component} na dalen alle {info.iloc[0].indexx} fondsen"
-            observ = Observation(info.component, self.period_begin, self.period_end, self.pattern, sentence, 8)
+            observ = Observation(info.component, self.period_begin, self.period_end, self.pattern, sentence, 9)
             self.observations.append(observ)
-
 
     def x_largest_increase(self):
         """Checks how many (1,2,3) components have increased the most in a certain timeperiod.
@@ -78,12 +83,11 @@ class Increase:
             observ = Observation(info.iloc[0].component, self.period_begin, self.period_end, "Stijging", sentence, 5)
             self.observations.append(observ)
 
-
     def prep_data(self, period: int):
-        """[summary]
+        """Prepares and wrangles the data so the analyses can be run on it.
 
         Args:
-            period ([type]): [description]
+            period (integer): The amount of days between the beginning of the period and the end 
         """
         self.df["abs_delta"] = 0
         self.df["perc_delta"] = 0
@@ -120,9 +124,8 @@ class Increase:
         # sort the dataframe by percentage
         self.df.sort_values(by="perc_delta", ascending=False, inplace=True)
 
-
     def analyse(self):
-        """[summary]
+        """Runs the analysis over the data.
         """
         # get the amount of days between the start and end date (not including the weekend)
         diff_days = np.busday_count(self.period_begin.strftime("%Y-%m-%d"), self.period_end.strftime("%Y-%m-%d"), weekmask=[1,1,1,1,1,0,0])

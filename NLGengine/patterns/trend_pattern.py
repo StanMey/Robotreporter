@@ -5,15 +5,15 @@ import pandas as pd
 
 
 class Trend:
-    """[summary]
+    """A class that holds methods to find trend based patterns in timeseries data.
     """
     def __init__(self, df_data: pd.DataFrame, period_beg: datetime, period_end: datetime):
-        """[summary]
+        """The init function
 
         Args:
-            df_data (pd.DataFrame): [description]
-            period_beg (datetime): [description]
-            period_end (datetime): [description]
+            df_data (pd.DataFrame): The data in a pandas dataframe
+            period_beg (datetime): The date with the beginning of the period
+            period_end (datetime): The date with the end of the period
         """
         assert isinstance(df_data, pd.DataFrame), "df_data should be a pandas Dataframe"
         assert set(["component", "indexx", "close", "date"]).issubset(df_data.columns), "missing columns in dataset"
@@ -28,9 +28,12 @@ class Trend:
         self.pattern = "trend"
         self.observations = []
 
-
     def check_for_turning_point(self):
-        """[summary]
+        """
+        Checks for the turning point in a timeseries.
+        Firstly the latest change is analysed whether it is negative or positive.
+        Hereafter there is checked when this change has happened,
+        e.g. (if a stock has changed to positive after 2 days of negativeness)
         """
         # get all the unique components that are in the dataframe
         all_components = self.df["component"].unique()
@@ -82,11 +85,7 @@ class Trend:
                 observ = Observation(component, period_begin_trend, self.period_end, "Trend", sentence, 6)
                 self.observations.append(observ)
 
-
     def analyse(self):
-        """[summary]
+        """Run the analyses of the Trend pattern.
         """
         self.check_for_turning_point()
-
-        for obs in self.observations:
-            print(obs)
