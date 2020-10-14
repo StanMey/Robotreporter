@@ -33,7 +33,14 @@ class WeekPattern:
         """Checks whether the stock in a certain stock has increased or decreased in total.
         """
         for _, row in self.df.iterrows():
-            if row.perc_delta > 0.0:
+            if row.perc_delta == 0.0:
+                # average week
+                data = {"component": row.component,
+                        "percentage": row.perc_delta}
+                sentence = f"{row.component} is deze week gelijk gebleven."
+                observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, 6, data)
+                self.observations.append(observ)
+            elif row.perc_delta > 0.0:
                 # positive week
                 data = {"component": row.component,
                         "percentage": row.perc_delta}
