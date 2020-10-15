@@ -2,12 +2,11 @@ from articles_app.models import Observations, Articles, Stocks
 from NLGengine.observation import Observation
 from NLGengine.analyse import Analyse
 
-import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
 
 
-def build_article(user_name):
+def build_article(user_name, bot=False):
     """Build an article based on the most recent and relevant observations.
 
     Args:
@@ -16,8 +15,8 @@ def build_article(user_name):
     Returns:
         int: The id of the generated article
     """
-    # current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
-    current_date = datetime(year=2020, month=9, day=16)
+    current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
+    # current_date = datetime(year=2020, month=6, day=12)
     begin_date = current_date - timedelta(10)
 
     # retrieve 3 random observations from the Observations table
@@ -39,8 +38,11 @@ def build_article(user_name):
     article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
     article.content = content
     article.date = datetime.now()
-    article.author = user_name
-    article.AI_version = 1.0
+    article.AI_version = 1.1
+    if bot:
+        article.author = "nieuwsbot"
+    else:
+        article.author = user_name
     article.save()
 
     return article.id
@@ -53,7 +55,7 @@ def testing_find_observs():
     period_begin = datetime(year=2020, month=9, day=16)
     period_end = datetime(year=2020, month=9, day=17)
 
-    find_new_observations(period_begin, period_end)
+    find_new_observations(period_begin, period_end, to_prompt=True, overwrite=True)
 
 
 def find_new_observations(period_begin: datetime, period_end: datetime, overwrite=False, to_db=False, to_prompt=False):
@@ -66,8 +68,11 @@ def find_new_observations(period_begin: datetime, period_end: datetime, overwrit
     """
     all_observations = []
 
-    all_observations.extend(run_period_observations(period_begin, period_end, overwrite))
-    all_observations.extend(run_week_observations(period_begin, period_end))
+    week_info = period_begin.isocalendar()[:2]
+    relev_table = build_relevance_table(week_info)
+
+    all_observations.extend(run_period_observations(period_begin, period_end, overwrite, relev_table))
+    all_observations.extend(run_week_observations(period_begin, period_end, overwrite))
     all_observations.extend(run_trend_observations(period_end, 14))
 
     if to_db:
@@ -82,7 +87,41 @@ def find_new_observations(period_begin: datetime, period_end: datetime, overwrit
             print(observ.period_begin, observ.period_end)
 
 
-def run_period_observations(period_begin, period_end, overwrite):
+def build_relevance_table(week_info):
+    # get last week dates
+    mon_date = datetime.strptime(f"{week_info[0]}-W{week_info[1]}" + '-1', '%G-W%V-%u')
+    fri_date = mon_date + timedelta(4)
+    period = (mon_date, fri_date)
+
+    # retrieve the needed data from the db
+    data = Stocks.objects.filter(date__range=period)
+    # convert the data to a dataframe
+    q = data.values('component', 'indexx', 'date', 's_close')
+    df_data = pd.DataFrame.from_records(q)
+
+    # prepare the data for the analysis
+    df_data.rename(columns={"s_close": "close"}, inplace=True)
+    df_data['close'] = df_data['close'].astype('float')
+
+    # get the mean per value
+    df_data.sort_values('date', inplace=True)
+    all_components = df_data["component"].unique()
+
+    relev_table = {}
+
+    for component in all_components:
+        # select all the rows from a certain component
+        df_one_component = df_data[df_data["component"] == component]["close"]
+        # calculate the percentage difference
+        df_pct_diff = df_one_component.pct_change(periods=1)
+        # calculate the mean
+        mean_value = round(df_pct_diff.mean() * 100, 2)
+        relev_table[component] = mean_value
+
+    return relev_table
+
+
+def run_period_observations(period_begin, period_end, overwrite, relev):
     """
     Check if the given period has already been observed,
     if not get all the relevant data and run the analysis.
@@ -110,14 +149,14 @@ def run_period_observations(period_begin, period_end, overwrite):
         df_data['close'] = df_data['close'].astype('float')
 
         # run the analyser to find observations
-        analyse = Analyse(df_data, period_begin, period_end)
+        analyse = Analyse(df_data, period_begin, period_end, relev)
         analyse.find_new_observations()
         observs.extend(analyse.observations)
 
     return observs
 
 
-def run_week_observations(period_begin, period_end):
+def run_week_observations(period_begin, period_end, overwrite):
     """
     Check if a whole week has already been observed,
     if not gets all the weeks in the range of the beginning and the end of the period and runs the analysis.
@@ -125,6 +164,7 @@ def run_week_observations(period_begin, period_end):
     Args:
         period_begin (datetime): The date with the beginning of the period
         period_end (datetime): The date with the end of the period
+        overwrite (bool): If duplicate observations can be made
 
     Returns:
         list: A list with the observations found
@@ -142,13 +182,16 @@ def run_week_observations(period_begin, period_end):
         fri_date = mon_date + timedelta(4)
         all_periods.append((mon_date, fri_date))
 
-    # check for every week if there is already an observation made
-    open_periods = [x for x in all_periods if not Observations.objects.filter(pattern="week").filter(period_begin=x[0]).filter(period_end=x[1]).exists()]
+    if overwrite:
+        open_periods = all_periods
+    else:
+        # check for every week if there is already an observation made
+        open_periods = [x for x in all_periods if not Observations.objects.filter(pattern="week").filter(period_begin=x[0]).filter(period_end=x[1]).exists()]
 
     # run a new observation if the week hasn't been observerd
     if len(open_periods) > 0:
         for period in open_periods:
-
+            print(period)
             # retrieve all data over the stocks in this period
             data = Stocks.objects.filter(date__range=period)
             # convert the data to a dataframe
@@ -160,7 +203,7 @@ def run_week_observations(period_begin, period_end):
             df_data['close'] = df_data['close'].astype('float')
 
             # run the analyser to find observations
-            analyse = Analyse(df_data, *period)
+            analyse = Analyse(df_data, *period, dict)
             analyse.find_weekly_observations()
             observs.extend(analyse.observations)
     return observs
@@ -192,7 +235,7 @@ def run_trend_observations(period_end, delta_days):
     df_data['close'] = df_data['close'].astype('float')
 
     # run the analyser to find observations
-    analyse = Analyse(df_data, begin_date, end_date)
+    analyse = Analyse(df_data, begin_date, end_date, dict)
     analyse.find_trend_observations()
     observs.extend(analyse.observations)
 
