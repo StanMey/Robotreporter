@@ -28,7 +28,7 @@ class Command(BaseCommand):
         try:
             run_scraper(file_path)
         except Exception as e:
-            print(f"Something went wrong:/n{e}")
+            print(f"Something went wrong:\n{e}")
 
 
 def get_components_dataframe(response):
