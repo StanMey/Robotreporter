@@ -59,8 +59,7 @@ class Increase:
             # collect the additional metadata
             data = {
                     "component": info,
-                    "perc_change": 0.0,
-                    "relev": self.calc_relev(info.component, info.perc_delta)
+                    "perc_change": 0.0
                 }
             # save the observation
             sentence = f"Alle fondsen binnen de {info} zijn vandaag gedaald."
