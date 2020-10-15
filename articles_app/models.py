@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import JSONField
 
 
 class Stocks(models.Model):
@@ -7,10 +8,10 @@ class Stocks(models.Model):
     # abs_delta = models.DecimalField(max_digits=8, decimal_places=2, null=True)
     # abs_perc = models.DecimalField(max_digits=8, decimal_places=2, null=True)
     volume = models.IntegerField(default=None)
-    s_open = models.DecimalField(max_digits=8, decimal_places=2)
-    s_high = models.DecimalField(max_digits=8, decimal_places=2)
-    s_low = models.DecimalField(max_digits=8, decimal_places=2)
-    s_close = models.DecimalField(max_digits=8, decimal_places=2)
+    s_open = models.DecimalField(max_digits=8, decimal_places=3)
+    s_high = models.DecimalField(max_digits=8, decimal_places=3)
+    s_low = models.DecimalField(max_digits=8, decimal_places=3)
+    s_close = models.DecimalField(max_digits=8, decimal_places=3)
     date = models.DateTimeField()
 
     def __str__(self):
@@ -26,10 +27,11 @@ class Observations(models.Model):
     period_end = models.DateTimeField()
     pattern = models.CharField(max_length=200, default=None)
     observation = models.TextField()
-    relevance = models.IntegerField(default=None)
+    relevance = models.DecimalField(max_digits=4, decimal_places=2)
+    meta_data = JSONField(default=dict)
 
     def __str__(self):
-        return "{0} - {1} with {2}; on: {3} / {4}".format(self.serie, self.pattern, self.pattern, self.period_begin.strftime("%Y-%m-%d"), self.period_end.strftime("%Y-%m-%d"))
+        return "{0} with {1}; on: {2} / {3}".format(self.serie, self.pattern, self.period_begin.strftime("%Y-%m-%d"), self.period_end.strftime("%Y-%m-%d"))
 
     def __repr__(self):
         return "{0} - {1}/{2} - {3}".format(self.serie, self.period_begin.strftime("%Y-%m-%d"), self.period_end.strftime("%Y-%m-%d"), self.observation)

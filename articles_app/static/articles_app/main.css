@@ -9,22 +9,22 @@
 }
 
 .btn-mod-a:hover {
-    background: #61BD4F !important;
+    background: #2a9d8f !important;
     color: #ffffff !important;
 }
 
 .btn-mod-b:hover {
-    background: #F2D600 !important;
+    background: #e9c46a !important;
     color: #ffffff !important;
 }
 
 .btn-mod-c:hover {
-    background: #FF9F1A !important;
+    background: #f4a261 !important;
     color: #ffffff !important;
 }
 
 .btn-mod-d:hover {
-    background: #EB5A46 !important;
+    background: #e76f51 !important;
     color: #ffffff !important;
 }
 
@@ -39,7 +39,7 @@
 .page-header-logo {
     font-family: "Playfair Display", Georgia, "Times New Roman", serif;
     font-size: 2.5rem;
-    color: #343a40;
+    color: #264653 !important;
 }
 
 .header-button {
