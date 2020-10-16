@@ -9,7 +9,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 class Increase:
     """A class that holds methods to find increase based patterns in timeseries data in a period.
     """
-    def __init__(self, df_data: pd.DataFrame, period_beg: datetime, period_end: datetime, relev: dict):
+    def __init__(self, df_data: pd.DataFrame, period_beg: datetime, period_end: datetime):
         """The init function.
 
         Args:
@@ -27,25 +27,8 @@ class Increase:
         self.period_begin = period_beg
         self.period_end = period_end
 
-        assert isinstance(relev, dict), "relev should be a dict"
-        self.relev_table = relev
-        self.factor = 1.5
         self.pattern = "stijging"
         self.observations = []
-
-    def calc_relev(self, component, perc):
-        """[summary]
-
-        Args:
-            component ([type]): [description]
-            perc (): [description]
-
-        Returns:
-            [type]: [description]
-        """
-        value = self.relev_table.get(component)
-        relevance = min(9.9, abs(((value - perc) * self.factor)))
-        return round(relevance, 2)
 
     def only_x_increase(self):
         """Checks if there are any components that are the only one or ones (2) that have increased in the timeperiod.
@@ -74,7 +57,7 @@ class Increase:
                     "component": info.component,
                     "perc_change": info.perc_delta,
                     "abs_change": info.abs_delta,
-                    "relev": self.calc_relev(info.component, info.perc_delta)
+                    "relev": info.perc_delta
                 }
             # save the observation
             sentence = f"{info.component}, dat profiteert van de onrust op de beurzen, is de enige stijger."
@@ -89,7 +72,7 @@ class Increase:
                     "component": list(info.component),
                     "perc_change": list(info.perc_delta),
                     "abs_change": list(info.abs_delta),
-                    "relev": [self.calc_relev(x.component, x.perc_delta) for (_, x) in info.iterrows()]
+                    "relev": [x.perc_delta for (_, x) in info.iterrows()]
                 }
             # save the observation
             sentence = f"Op {info.iloc[0].component} en {info.iloc[1].component} na dalen alle {info.iloc[0].indexx} fondsen"
@@ -110,7 +93,7 @@ class Increase:
                     "component": info.component,
                     "perc_change": info.perc_delta,
                     "abs_change": info.abs_delta,
-                    "relev": self.calc_relev(info.component, info.perc_delta)
+                    "relev": info.perc_delta
                 }
             # save the observation
             sentence = f"In de {info.indexx} ging {info.component} aan kop met een winst van {info.perc_delta} procent."
@@ -125,7 +108,7 @@ class Increase:
                     "component": list(info.component),
                     "perc_change": list(info.perc_delta),
                     "abs_change": list(info.abs_delta),
-                    "relev": [self.calc_relev(x.component, x.perc_delta) for (_, x) in info.iterrows()]
+                    "relev": [x.perc_delta for (_, x) in info.iterrows()]
                 }
             # save the observation
             sentence = f"In de {info.iloc[0].indexx} waren {info.iloc[0].component} (+{info.iloc[0].perc_delta}%) en {info.iloc[1].component} (+{info.iloc[1].perc_delta}%) de grootste stijgers."
@@ -140,7 +123,7 @@ class Increase:
                     "component": list(info.component),
                     "perc_change": list(info.perc_delta),
                     "abs_change": list(info.abs_delta),
-                    "relev": [self.calc_relev(x.component, x.perc_delta) for (_, x) in info.iterrows()]
+                    "relev": [x.perc_delta for (_, x) in info.iterrows()]
                 }
             # save the observation
             sentence = f"{info.iloc[0].component} (+{info.iloc[0].perc_delta}%), {info.iloc[1].component} (+{info.iloc[1].perc_delta}%) en {info.iloc[2].component} (+{info.iloc[2].perc_delta}%) waren de positieve uitschieters."

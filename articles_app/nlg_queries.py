@@ -55,7 +55,7 @@ def testing_find_observs():
     period_begin = datetime(year=2020, month=9, day=16)
     period_end = datetime(year=2020, month=9, day=17)
 
-    find_new_observations(period_begin, period_end, to_prompt=True, overwrite=True)
+    find_new_observations(period_begin, period_end, to_prompt=True, overwrite=False)
 
 
 def find_new_observations(period_begin: datetime, period_end: datetime, overwrite=False, to_db=False, to_prompt=False):
@@ -68,12 +68,9 @@ def find_new_observations(period_begin: datetime, period_end: datetime, overwrit
     """
     all_observations = []
 
-    week_info = period_begin.isocalendar()[:2]
-    relev_table = build_relevance_table(week_info)
-
-    all_observations.extend(run_period_observations(period_begin, period_end, overwrite, relev_table))
+    all_observations.extend(run_period_observations(period_begin, period_end, overwrite))
     all_observations.extend(run_week_observations(period_begin, period_end, overwrite))
-    all_observations.extend(run_trend_observations(period_end, 14))
+    all_observations.extend(run_trend_observations(period_end, 14, overwrite))
 
     if to_db:
         # write all the found observations into the database
@@ -87,41 +84,7 @@ def find_new_observations(period_begin: datetime, period_end: datetime, overwrit
             print(observ.period_begin, observ.period_end)
 
 
-def build_relevance_table(week_info):
-    # get last week dates
-    mon_date = datetime.strptime(f"{week_info[0]}-W{week_info[1]}" + '-1', '%G-W%V-%u')
-    fri_date = mon_date + timedelta(4)
-    period = (mon_date, fri_date)
-
-    # retrieve the needed data from the db
-    data = Stocks.objects.filter(date__range=period)
-    # convert the data to a dataframe
-    q = data.values('component', 'indexx', 'date', 's_close')
-    df_data = pd.DataFrame.from_records(q)
-
-    # prepare the data for the analysis
-    df_data.rename(columns={"s_close": "close"}, inplace=True)
-    df_data['close'] = df_data['close'].astype('float')
-
-    # get the mean per value
-    df_data.sort_values('date', inplace=True)
-    all_components = df_data["component"].unique()
-
-    relev_table = {}
-
-    for component in all_components:
-        # select all the rows from a certain component
-        df_one_component = df_data[df_data["component"] == component]["close"]
-        # calculate the percentage difference
-        df_pct_diff = df_one_component.pct_change(periods=1)
-        # calculate the mean
-        mean_value = round(df_pct_diff.mean() * 100, 2)
-        relev_table[component] = mean_value
-
-    return relev_table
-
-
-def run_period_observations(period_begin, period_end, overwrite, relev):
+def run_period_observations(period_begin, period_end, overwrite):
     """
     Check if the given period has already been observed,
     if not get all the relevant data and run the analysis.
@@ -149,7 +112,7 @@ def run_period_observations(period_begin, period_end, overwrite, relev):
         df_data['close'] = df_data['close'].astype('float')
 
         # run the analyser to find observations
-        analyse = Analyse(df_data, period_begin, period_end, relev)
+        analyse = Analyse(df_data, period_begin, period_end)
         analyse.find_new_observations()
         observs.extend(analyse.observations)
 
@@ -203,13 +166,13 @@ def run_week_observations(period_begin, period_end, overwrite):
             df_data['close'] = df_data['close'].astype('float')
 
             # run the analyser to find observations
-            analyse = Analyse(df_data, *period, dict)
+            analyse = Analyse(df_data, *period)
             analyse.find_weekly_observations()
             observs.extend(analyse.observations)
     return observs
 
 
-def run_trend_observations(period_end, delta_days):
+def run_trend_observations(period_end, delta_days, overwrite):
     """Gets all the data between the beginning of the period and the end of the period and runs a trend analysis.
 
     Args:
@@ -235,9 +198,16 @@ def run_trend_observations(period_end, delta_days):
     df_data['close'] = df_data['close'].astype('float')
 
     # run the analyser to find observations
-    analyse = Analyse(df_data, begin_date, end_date, dict)
+    analyse = Analyse(df_data, begin_date, end_date)
     analyse.find_trend_observations()
-    observs.extend(analyse.observations)
+
+    if overwrite:
+        observs.extend(analyse.observations)
+    else:
+        # open_periods = [x for x in all_periods if not Observations.objects.filter(pattern="week").filter(period_begin=x[0]).filter(period_end=x[1]).exists()]
+        # [x for x in ]
+        print(analyse.observations)
+        observs.extend(analyse.observations)
 
     return observs
 
