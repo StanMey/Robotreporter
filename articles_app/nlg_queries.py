@@ -204,10 +204,7 @@ def run_trend_observations(period_end, delta_days, overwrite):
     if overwrite:
         observs.extend(analyse.observations)
     else:
-        # open_periods = [x for x in all_periods if not Observations.objects.filter(pattern="week").filter(period_begin=x[0]).filter(period_end=x[1]).exists()]
-        # [x for x in ]
-        print(analyse.observations)
-        observs.extend(analyse.observations)
+        observs.extend([x for x in analyse.observations if not Observations.objects.filter(pattern=x.pattern).filter(serie=x.serie).filter(period_end=x.period_end).filter(period_end=x.period_end).exists()])
 
     return observs
 
