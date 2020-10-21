@@ -23,7 +23,7 @@ function highLightSelectedButton(buttonNumber) {
     
     // change the color of the button that is currently selected
     const buttons = [".btn-mod-a", ".btn-mod-b", ".btn-mod-c", ".btn-mod-d"];
-    const colors = ["#2a9d8f", "#e9c46a", "#f4a261", "#8cfffb"];
+    const colors = ["#2a9d8f", "#e9c46a", "#f4a261", "#80d8d5"];
     let selected_button = document.querySelector(buttons[buttonNumber]);
     selected_button.style.backgroundColor = colors[buttonNumber];
     selected_button.style.color = "#FFFFFF";
