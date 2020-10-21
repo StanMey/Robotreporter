@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from django.db.models import Max, Min
 from .models import Stocks, Articles, Observations
 import json
@@ -28,11 +28,11 @@ def get_all_data_series():
             data[component_max] = {}
         if component_min not in data:
             data[component_min] = {}
-        
+
         data[component_min]["min_date"] = model_min_set[i].get("min_date").strftime("%d-%m-%Y")
         data[component_max]["max_date"] = model_max_set[i].date.strftime("%d-%m-%Y")
         data[component_max]["close"] = float(model_max_set[i].s_close)
-    
+
     return data
 
 
@@ -57,7 +57,7 @@ def get_data_serie_close(serie_name):
             "value": float(data_point.s_close)
         }
         data.append(point)
-    
+
     return data
 
 
@@ -74,6 +74,85 @@ def get_latest_observations():
 
     # format the data into a json format
     for observation in latest_observations:
+        point = {
+            "serie": observation.serie,
+            "period": "{0} / {1}".format(observation.period_begin.strftime("%d-%m-%Y"), observation.period_end.strftime("%d-%m-%Y")),
+            "pattern": observation.pattern,
+            "observation": observation.observation
+        }
+        data.append(point)
+    return data
+
+
+def get_available_filters():
+    """[summary]
+
+        Returns:
+        [type]: [description]
+    """
+    unique_series = list(Observations.objects.order_by().values_list('serie', flat=True).distinct())
+    unique_patterns = list(Observations.objects.order_by().values_list('pattern', flat=True).distinct())
+
+    data = {}
+    data["Serie"] = unique_series
+    data["Patroon"] = unique_patterns
+    data["Periode"] = ["Vorige dag", "Deze week", "Deze maand"]
+    return data
+
+
+def get_filtered_observations(filters):
+    """[summary]
+
+    Args:
+        filters ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    # get all the observations
+    queries = Observations.objects.order_by("-period_end")
+
+    # check if filters on pattern are selected
+    patterns = filters.get("Patroon")
+    if (patterns.get("total") != len(patterns.get("options"))) and (patterns.get("options") != []):
+        queries = queries.filter(pattern__in=patterns.get("options"))
+
+    # check if filters on serie are selected
+    series = filters.get("Serie")
+    if (series.get("total") != len(series.get("options"))) and (series.get("options") != []):
+        queries = queries.filter(serie__in=series.get("options"))
+
+    # check if filters on periode are selected
+    periods = filters.get("Periode")
+    if periods.get("options") != []:
+        if "Deze maand" in periods.get("options"):
+            # Get all the observations of the latest month
+            m = datetime.now().month
+            y = datetime.now().year
+            ndays = (date(y, m+1, 1) - date(y, m, 1)).days
+            d1 = datetime(y, m, 1)
+            d2 = datetime(y, m, ndays)
+            queries = queries.filter(period_end__range=(d1, d2))
+        elif "Deze week" in periods.get("options"):
+            # Get all the observations of this week
+            week = datetime.now().isocalendar()[:2]
+            mon_date = datetime.strptime(f"{week[0]}-W{week[1]}" + '-1', '%G-W%V-%u')
+            fri_date = mon_date + timedelta(4)
+            queries = queries.filter(period_end__range=(mon_date, fri_date))
+        else:
+            # Get all the observations of yesterday
+            current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
+            if current_date.weekday() == 5:
+                last = current_date - timedelta(1)
+            elif current_date.weekday() == 6:
+                last = current_date - timedelta(2)
+            else:
+                last = current_date - timedelta(1)
+            queries = queries.filter(period_end=last)
+
+    data = []
+    # format the data into a json format
+    for observation in queries:
         point = {
             "serie": observation.serie,
             "period": "{0} / {1}".format(observation.period_begin.strftime("%d-%m-%Y"), observation.period_end.strftime("%d-%m-%Y")),
@@ -132,7 +211,7 @@ def get_articles_set(amount):
         art["AI_version"] = article.AI_version
         data[count] = art
         count += 1
-    
+
     return data
 
 

@@ -23,17 +23,22 @@ function highLightSelectedButton(buttonNumber) {
     
     // change the color of the button that is currently selected
     const buttons = [".btn-mod-a", ".btn-mod-b", ".btn-mod-c", ".btn-mod-d"];
-    const colors = ["#2a9d8f", "#e9c46a", "#f4a261", "#e76f51"];
+    const colors = ["#2a9d8f", "#e9c46a", "#f4a261", "#8cfffb"];
     let selected_button = document.querySelector(buttons[buttonNumber]);
     selected_button.style.backgroundColor = colors[buttonNumber];
     selected_button.style.color = "#FFFFFF";
 }
 
 // 
-function createFilterMenuModB(contentDiv) {
-    let filters = {"Serie": ["AMX", "Aalberts", "postnl", "basic fit"],
-                    "Patroon": ["Stijging", "Daling"],
-                    "Periode" : ["Vorige dag", "Deze week", "Deze maand"]}
+async function createFilterMenuModB(contentDiv) {
+
+    // get all available filters
+    let response = await fetch('api/observations/getfilters');
+    let filters = await response.json(); 
+
+    // let filters = {"Serie": ["AMX", "Aalberts", "postnl", "basic fit"],
+    //                 "Patroon": ["Stijging", "Daling"],
+    //                 "Periode" : ["Vorige dag", "Deze week", "Deze maand"]}
 
     // build all the filter selects
     for(key in filters) {
@@ -67,13 +72,51 @@ function createFilterMenuModB(contentDiv) {
 
     // Add function to 
     $('#modBFilterButton').on('click', function() {
-        getFiltersModB();
+        applyFiltersModB();
     })
 }
 
 // 
-function getFiltersModB() {
-    alert("filter");
+async function applyFiltersModB() {
+
+    let choices = {};
+    // get the selected values
+    ["Serie", "Patroon", "Periode"].forEach(function (item, index) {
+        let optionCount = $("#" + item + " option").length;
+        let selectedSeries = $("#" + item).val();
+        choices[item] = {"total": optionCount,
+                           "options": selectedSeries}
+    })
+    console.log(choices)
+
+    const url = "api/observations/usefilters";
+    const csrftoken = Cookies.get('csrftoken');
+
+    let response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "X-CSRF-Token": csrftoken,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(choices),
+        mode: "same-origin"
+    })
+    let data = await response.json();
+    console.log(data)
+
+    const col = ["Serie", "Periode", "Patroon", "Zin"]
+
+    dataTable = document.getElementById("datatable_sec");
+    dataTable.innerHTML = "";
+
+    // format it to the form of: [["AMX", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 5.00%"].....]
+    let rows = []
+    for (key in data) {
+        obj = data[key]
+        rows.push([obj['serie'], obj['period'], obj['pattern'], obj['observation']]);
+    }
+    createDataTable(dataTable, "observations_table", col, rows, false);
+
 }
 
 // GENERATING THE TABLES
@@ -368,6 +411,37 @@ function buildArticlesModD(contentDiv, content) {
     }
 }
 
+// /**
+//  * sends a request to the specified url from a form. this will change the window location.
+//  * @param {string} path the path to send the post request to
+//  * @param {object} params the paramiters to add to the url
+//  * @param {string} [method=post] the method to use on the form
+//  */
+
+// function post(path, params, method='post') {
+
+//     // The rest of this code assumes you are not using a library.
+//     // It can be made less wordy if you use one.
+//     const form = document.createElement('form');
+//     form.method = method;
+//     form.action = path;
+  
+//     for (const key in params) {
+//       if (params.hasOwnProperty(key)) {
+//         const hiddenField = document.createElement('input');
+//         hiddenField.type = 'hidden';
+//         hiddenField.name = key;
+//         hiddenField.value = params[key];
+  
+//         form.appendChild(hiddenField);
+//       }
+//     }
+  
+//     document.body.appendChild(form);
+//     form.submit();
+//   }
+  
+
 // MODULE A timeseries
 async function renderModuleA() {
     let col = ["Serie", "Oudste datum", "Recentste datum", "Laatste koers"]
@@ -421,6 +495,7 @@ async function renderModuleB() {
 
     let section2 = document.createElement("div");
     section2.className = "row justify-content-center h-50 w-100"
+    section2.id = "datatable_sec";
     contentDiv.appendChild(section2)
 
     let col = ["Serie", "Periode", "Patroon", "Zin"]
@@ -450,7 +525,7 @@ async function renderModuleC() {
 
     let section1 = document.createElement("div");
     section1.className = "row justify-content-center h-40 w-100 slider-container"
-    contentDiv.appendChild(section1);
+    contentDiv.appendChild(section1); 
 
     let section2 = document.createElement("div");
     section2.className = "row justify-content-center h-40 w-100"
@@ -473,7 +548,7 @@ async function renderModuleC() {
         rows.push([obj['serie'], obj['period'], obj['pattern'], obj['observation'], obj['relevance']]);
     }
 
-    createImportanceSliders(section1);
+    // createImportanceSliders(section1);
     createDataTable(section2, "obser_relev_table", col, rows, false);
     createButtonsModC(section3);
 }
