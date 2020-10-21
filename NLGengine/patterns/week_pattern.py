@@ -1,5 +1,6 @@
 from datetime import datetime
 from NLGengine.observation import Observation
+from NLGengine.relevance import Relevance
 
 import pandas as pd
 
@@ -27,6 +28,7 @@ class WeekPattern:
         self.diff_period = 4
 
         self.pattern = "week"
+        self.relevance = lambda x: Relevance.weekly_relevance(x)
         self.observations = []
 
     def give_week_recap(self):
@@ -38,21 +40,21 @@ class WeekPattern:
                 data = {"component": row.component,
                         "percentage": row.perc_delta}
                 sentence = f"{row.component} is deze week gelijk gebleven."
-                observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, 6, data)
+                observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(row.perc_delta), data)
                 self.observations.append(observ)
             elif row.perc_delta > 0.0:
                 # positive week
                 data = {"component": row.component,
                         "percentage": row.perc_delta}
                 sentence = f"{row.component} is met {row.perc_delta} procent gestegen deze week."
-                observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, 6, data)
+                observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(row.perc_delta), data)
                 self.observations.append(observ)
             else:
                 # negative week
                 data = {"component": row.component,
                         "percentage": row.perc_delta}
                 sentence = f"{row.component} is met {row.perc_delta} procent gedaald deze week."
-                observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, 6, data)
+                observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(row.perc_delta), data)
                 self.observations.append(observ)
 
     def prep_data(self):

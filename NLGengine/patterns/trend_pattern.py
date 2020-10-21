@@ -1,5 +1,6 @@
 from datetime import datetime
 from NLGengine.observation import Observation
+from NLGengine.relevance import Relevance
 
 import pandas as pd
 
@@ -26,6 +27,7 @@ class Trend:
         self.period_end = period_end
 
         self.pattern = "trend"
+        self.relevance = lambda x: Relevance.trend_relevance(x)
         self.observations = []
 
     def check_for_turning_point(self):
@@ -88,7 +90,7 @@ class Trend:
                     data["trend"] = "neg"
 
                 # save as Observation
-                observ = Observation(component, period_begin_trend, self.period_end, self.pattern, sentence, min(trend_count, 10), data)
+                observ = Observation(component, period_begin_trend, self.period_end, self.pattern, sentence, self.relevance(trend_count), data)
                 self.observations.append(observ)
 
     def analyse(self):
