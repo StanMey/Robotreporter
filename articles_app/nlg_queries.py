@@ -3,6 +3,7 @@ from NLGengine.observation import Observation
 from NLGengine.analyse import Analyse
 
 import pandas as pd
+import json
 from datetime import datetime, timedelta
 
 
@@ -55,7 +56,7 @@ def testing_find_observs():
     period_begin = datetime(year=2020, month=9, day=16)
     period_end = datetime(year=2020, month=9, day=17)
 
-    find_new_observations(period_begin, period_end, to_prompt=True, overwrite=False)
+    find_new_observations(period_begin, period_end, to_prompt=True, overwrite=True)
 
 
 def find_new_observations(period_begin: datetime, period_end: datetime, overwrite=False, to_db=False, to_prompt=False):
@@ -111,9 +112,15 @@ def run_period_observations(period_begin, period_end, overwrite):
         df_data.rename(columns={"s_close": "close"}, inplace=True)
         df_data['close'] = df_data['close'].astype('float')
 
+        # load in the sector data and add it to the dataframe
+        with open(r"./articles_app/data/sectorcompany.json") as f:
+            sector_info = json.load(f)
+        df_data["sector"] = df_data["component"].apply(lambda x: sector_info.get(x))
+        df_data.dropna(inplace=True)
+
         # run the analyser to find observations
         analyse = Analyse(df_data, period_begin, period_end)
-        analyse.find_new_observations()
+        analyse.find_period_observations()
         observs.extend(analyse.observations)
 
     return observs
@@ -220,13 +227,16 @@ def observation_to_database(serie, period_begin, period_end, pattern, observatio
         observation (String): A string with the sentence of the observation
         relevance (Float): The relevance the observation holds
     """
-    observ = Observations()
-    observ.serie = serie
-    observ.period_begin = period_begin
-    observ.period_end = period_end
-    observ.pattern = pattern
-    observ.observation = observation
-    observ.relevance = relevance
-    observ.meta_data = meta
-    # save to the db
-    observ.save()
+    try:
+        observ = Observations()
+        observ.serie = serie
+        observ.period_begin = period_begin
+        observ.period_end = period_end
+        observ.pattern = pattern
+        observ.observation = observation
+        observ.relevance = relevance
+        observ.meta_data = meta
+        # save to the db
+        observ.save()
+    except Exception as e:
+        print(f"{e}\n{observation}\n{meta}\n")
