@@ -1,10 +1,9 @@
 import csv
 import pandas as pd
 from datetime import datetime
-from articles_app.models import Stocks, Articles
+from articles_app.models import Stocks, Articles, Observations
 from articles_app.nlg_queries import find_new_observations
 
-# from articles_app.models import Stocks
 # from articles_app import data_helper_functions as dhf
 # dhf.from_csv_to_Stocks(r"articles_app/data/AMX_prices_90_days.csv")
 
@@ -35,13 +34,9 @@ def from_csv_to_Stocks(data_path):
         print(f'Processed {line_count} lines.')
 
 
-# from articles_app.models import Articles
-# from articles_app import data_helper_functions as dhf
-# dhf.import_dummy_articles()
-
 def fill_observations():
-    period_begin = datetime(year=2020, month=9, day=28)
-    period_end = datetime(year=2020, month=10, day=14)
+    period_begin = datetime(year=2020, month=6, day=10)
+    period_end = datetime(year=2020, month=10, day=2)
 
     begin_date = period_begin
     for new_date in pd.date_range(period_begin, period_end).to_list()[1:]:
@@ -51,3 +46,7 @@ def fill_observations():
             print(begin_date, new_date)
             find_new_observations(begin_date, new_date, to_db=True, to_prompt=True)
             begin_date = new_date
+
+
+def remove_observations():
+    Observations.objects.all().delete()
