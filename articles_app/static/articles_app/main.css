@@ -159,3 +159,15 @@
 
     background: #FFF;
 }
+
+/* relevance.html styling */
+.relev-expl {
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+.relev-button a {
+    margin-right: 3rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}

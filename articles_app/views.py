@@ -38,6 +38,19 @@ def load_module_view(request):
     return render(request, "articles_app/modules.html")
 
 
+@login_required
+def load_relevance_view(request):
+    """Returns a static page with the explanation of the relevance.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): [description]
+
+    Returns:
+        django.http.response.HttpResponse: [description]
+    """
+    return render(request, "articles_app/relevance.html")
+
+
 @require_GET
 def robots_txt(request):
     """Loads the robot.txt file.

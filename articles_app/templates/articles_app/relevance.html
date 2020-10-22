@@ -1,0 +1,68 @@
+{% extends "articles_app/base.html" %}
+
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center relev-expl">
+        <div class="col text-center">
+            <h2>Relevantie score</h2>
+            <p>
+                Nog voordat er een artikel gegenereerd kan worden moeten er eerst observaties gedaan worden over bepaalde patronen in de data.
+                Deze observaties moeten gerangschikt kunnen worden tegenover elkaar.
+                Deze rangschikking gebeurd met behulp van de relevantie score.
+                <br><br>
+                De relevantie score wordt berekend met behulp van de <a href="https://nl.wikipedia.org/wiki/Hyperbolische_functie">tanh</a> functie.
+                Per patroon wordt deze functie apart geschaald qua sensitiviteit, zodat de 5-score logisch uitlegbaar is.
+                Ook zal de score altijd tussen de 0 en de 10 zitten.
+                Deze aanpak zorgt voor de uitlegbaarheid van de relevantie.
+                <br>
+                Hieronder staat per patroon uitgelegd hoe de relevantie score tot stand is gekomen en wat de 5 score is.
+            </p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col">
+            <h3 class="text-center">Stijging/Daling</h3>
+            <p>
+                Bij dit patroon wordt gekeken naar de stijgingen of dalingen over een bepaalde periode (over het algemeen een dag, maar dit kan aangepast worden).
+                <br><br>
+                Aangezien het gemiddelde rond de 1.5% ligt, is ervoor gekozen om de 5-score op 1.5 te zetten.
+                Door de absolute van het percentage te nemen en deze te vermenigvuldigen met 0.37 alvorens de tanh functie erover te zetten komt de 5-score rond de 1.5 te liggen.
+                <br>
+                Dit zorgt dan ook voor de volgende curve:
+                <br>
+                <img src="{% static 'articles_app/period.png' %}" alt="period curve" width="100%" height="60%">
+            </p>
+        </div>
+        <div class="col">
+            <h3 class="text-center">Week</h3>
+            <p>
+                Bij dit patroon wordt gekeken naar met hoeveel procent een serie gestegen of gedaald is over de periode van een week.
+                <br><br>
+                Aangezien het gemiddelde rond de 6% ligt, is ervoor gekozen om de 5-score op 6 te zetten.
+                Door de absolute van het percentage te nemen en deze te vermenigvuldigen met 0.092 alvorens de tanh functie erover te zetten komt de 5-score rond de 6 te liggen.
+                <br>
+                Dit zorgt dan ook voor de volgende curve:
+                <br>
+                <img src="{% static 'articles_app/week.png' %}" alt="week curve" width="100%" height="60%">
+            </p>
+        </div>
+        <div class="col">
+            <h3 class="text-center">Trend</h3>
+            <p>
+                Bij dit patroon wordt gekeken naar hoeveel dagen een bepaalde positieve of negatieve trend aanhoudt.
+                <br><br>
+                Aangezien hier 3 dagen het vaakst voorkomt, is ervoor gekozen om de 5-score op 3 te zetten.
+                Door de hoeveelheid dagen te delen door 5.4 komt de 5-score op 3 te liggen.
+                <br>
+                Dit zorgt dan ook voor de volgende curve:
+                <br>
+                <img src="{% static 'articles_app/trend.png' %}" alt="trend curve" width="100%" height="60%">
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

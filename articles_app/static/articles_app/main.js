@@ -527,6 +527,10 @@ async function renderModuleC() {
     section1.className = "row justify-content-center h-40 w-100 slider-container"
     contentDiv.appendChild(section1); 
 
+    let linkSection = document.createElement("div");
+    linkSection.className = "row justify-content-end w-100 relev-button"
+    contentDiv.appendChild(linkSection);
+
     let section2 = document.createElement("div");
     section2.className = "row justify-content-center h-40 w-100"
     contentDiv.appendChild(section2);
@@ -534,6 +538,13 @@ async function renderModuleC() {
     let section3 = document.createElement("div");
     section3.className = "row justify-content-center h-20 w-100"
     contentDiv.appendChild(section3);
+
+    // add the link to the relevance page
+    let link = document.createElement("a");
+    link.setAttribute("href", "/module/relevance");
+    link.className = "justify-content-end";
+    link.textContent = "Relevantie?";
+    linkSection.appendChild(link);
 
     let col = ["Serie", "Periode", "Patroon", "Zin", "Relevantie"]
 

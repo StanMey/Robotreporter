@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('overview/', views.load_module_view, name="load_module_view"),
     path('articles/<int:article_id>', views.load_article, name="load_article"),
+    path('relevance/', views.load_relevance_view, name="load_relevance_view"),
 
     path('overview/api/dataseries', views.load_all_data_series, name="load_all_data_series"),
     path('overview/api/dataseries/<str:serie_name>/close', views.load_data_serie_close, name="load_data_serie_close"),
