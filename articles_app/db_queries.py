@@ -1,5 +1,5 @@
 from datetime import datetime, date, timedelta
-from django.db.models import Max, Min
+from django.db.models import Min
 from .models import Stocks, Articles, Observations
 import json
 
@@ -19,6 +19,10 @@ def get_all_data_series():
                                         from articles_app_stocks
                                         GROUP BY component) AS B ON S.component = B.component AND S.date = B.ddate""")]
 
+    # load in the sector data
+    with open(r"./articles_app/data/sectorcompany.json") as f:
+        sector_info = json.load(f)
+
     data = {}
     for i in range(len(model_max_set)):
         component_max = model_max_set[i].component
@@ -32,6 +36,8 @@ def get_all_data_series():
         data[component_min]["min_date"] = model_min_set[i].get("min_date").strftime("%d-%m-%Y")
         data[component_max]["max_date"] = model_max_set[i].date.strftime("%d-%m-%Y")
         data[component_max]["close"] = float(model_max_set[i].s_close)
+        # add the sector
+        data[component_min]["sector"] = sector_info.get(component_min)
 
     return data
 

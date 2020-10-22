@@ -444,7 +444,7 @@ function buildArticlesModD(contentDiv, content) {
 
 // MODULE A timeseries
 async function renderModuleA() {
-    let col = ["Serie", "Oudste datum", "Recentste datum", "Laatste koers"]
+    let col = ["Serie", "sector", "Oudste datum", "Recentste datum", "Laatste koers"]
 
     clearDivContent(moduleContent);
     highLightSelectedButton(0);
@@ -470,12 +470,12 @@ async function renderModuleA() {
     // get all information about the available dataseries from db
     let dataseriesResponse = await fetch('api/dataseries');
     let data2 = await dataseriesResponse.json();
-
+    
     // format it to the form of: [["AMX", "1-9-20", "8-9-20", "43.5"],......]
     let rows = []
     for (key in data2) {
         info = data2[key];
-        rows.push([key, info['min_date'], info['max_date'], info['close']]);
+        rows.push([key, info['sector'], info['min_date'], info['max_date'], info['close']]);
     }
 
     createDataTable(section2, "timeseries_table", col, rows, true);
