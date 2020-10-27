@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.views.decorators.http import require_GET
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 
 import articles_app.db_queries as dbq
@@ -51,7 +50,6 @@ def load_relevance_view(request):
     return render(request, "articles_app/relevance.html")
 
 
-@require_GET
 def robots_txt(request):
     """Loads the robot.txt file.
 
