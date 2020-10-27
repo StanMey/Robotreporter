@@ -41,6 +41,7 @@ async function createFilterMenuModB(contentDiv) {
     //                 "Periode" : ["Vorige dag", "Deze week", "Deze maand"]}
 
     // build all the filter selects
+    console.log(filters);
     for(key in filters) {
         let selectList = document.createElement("select");
         selectList.id = key;
@@ -81,7 +82,7 @@ async function applyFiltersModB() {
 
     let choices = {};
     // get the selected values
-    ["Serie", "Patroon", "Periode"].forEach(function (item, index) {
+    ["Serie", "Sector", "Patroon", "Periode"].forEach(function (item, index) {
         let optionCount = $("#" + item + " option").length;
         let selectedSeries = $("#" + item).val();
         choices[item] = {"total": optionCount,
@@ -410,36 +411,6 @@ function buildArticlesModD(contentDiv, content) {
         }
     }
 }
-
-// /**
-//  * sends a request to the specified url from a form. this will change the window location.
-//  * @param {string} path the path to send the post request to
-//  * @param {object} params the paramiters to add to the url
-//  * @param {string} [method=post] the method to use on the form
-//  */
-
-// function post(path, params, method='post') {
-
-//     // The rest of this code assumes you are not using a library.
-//     // It can be made less wordy if you use one.
-//     const form = document.createElement('form');
-//     form.method = method;
-//     form.action = path;
-  
-//     for (const key in params) {
-//       if (params.hasOwnProperty(key)) {
-//         const hiddenField = document.createElement('input');
-//         hiddenField.type = 'hidden';
-//         hiddenField.name = key;
-//         hiddenField.value = params[key];
-  
-//         form.appendChild(hiddenField);
-//       }
-//     }
-  
-//     document.body.appendChild(form);
-//     form.submit();
-//   }
   
 
 // MODULE A timeseries

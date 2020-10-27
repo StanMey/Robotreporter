@@ -96,13 +96,19 @@ def get_available_filters():
         Returns:
         [type]: [description]
     """
-    unique_series = list(Observations.objects.order_by().values_list('serie', flat=True).distinct())
-    unique_patterns = list(Observations.objects.order_by().values_list('pattern', flat=True).distinct())
+    unique_series = list(Observations.objects.order_by('serie').values_list('serie', flat=True).distinct())
+    unique_patterns = list(Observations.objects.values_list('pattern', flat=True).distinct())
+
+    # load in the sector data
+    with open(r"./articles_app/data/sectorcompany.json") as f:
+        sector_info = json.load(f)
 
     data = {}
     data["Serie"] = unique_series
+    data["Sector"] = sorted(list(set(list(sector_info.values()))))
     data["Patroon"] = unique_patterns
     data["Periode"] = ["Vorige dag", "Deze week", "Deze maand"]
+    # print(data)
     return data
 
 
@@ -155,6 +161,17 @@ def get_filtered_observations(filters):
             else:
                 last = current_date - timedelta(1)
             queries = queries.filter(period_end=last)
+
+    # check if filters on sector are selected
+    sectors = filters.get("Sector")
+    if (sectors.get("total") != len(sectors.get("options"))) and (sectors.get("options") != []):
+        # load in the sector data
+        with open(r"./articles_app/data/sectorcompany.json") as f:
+            sector_info = json.load(f)
+
+        # filter all the selected sectors
+        options = sectors.get("options")
+        queries = [x for x in queries if sector_info.get(x.serie) in options]
 
     data = []
     # format the data into a json format
