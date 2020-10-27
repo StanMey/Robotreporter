@@ -194,7 +194,7 @@ def get_relevance_observations():
     """
     # get all the latest observations info
     relev_observations = Observations.objects.order_by('-period_end', 'relevance', '-period_begin')[:100]
-    
+
     data = []
 
     # format the data into a json format
