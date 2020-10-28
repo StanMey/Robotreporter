@@ -107,7 +107,8 @@ def get_available_observ_filters():
     data["Serie"] = unique_series
     data["Sector"] = sorted(list(set(list(sector_info.values()))))
     data["Patroon"] = unique_patterns
-    data["Periode"] = ["Vorige dag", "Deze week", "vorige week", "Deze maand"]
+    months = retrieve_filterable_months(True)
+    data["Periode"] = ["vorige dag", "deze week", "vorige week", *months]
     return data
 
 
@@ -123,34 +124,129 @@ def get_available_relev_filters():
 
     data = {}
     data["Sector"] = sorted(list(set(list(sector_info.values()))))
-    data["Periode"] = ["Vorige dag", "Deze week", "vorige week", "Deze maand"]
+    months = retrieve_filterable_months(True)
+    data["Periode"] = ["vorige dag", "deze week", "vorige week", *months]
     return data
 
 
-def get_period_range(filters):
+def retrieve_filterable_months(in_text):
+    """Gets the names of the current month and the last 2 months before that if in_text is True,
+    otherwise returns a tuple_pair (month, year) with the same info
+
+    Args:
+        in_text (bool): [description]
+
+    Returns:
+        list: returns the textual form of the months if 'in_text' is True, otherwise returns a tuple pair with the month and year
+    """
+    # get the current month and year in a tuple (month, year)
+    current = (datetime.now().month, datetime.now().year)
+
+    # get 2 previous months
+    if current[0] == 2:
+        last_month = (1, current[1])
+        last_last_month = (12, current[1] - 1)
+    elif current[0] == 1:
+        last_month = (12, current[1] - 1)
+        last_last_month = (11, current[1] - 1)
+    else:
+        last_month = (current[0] - 1, current[1])
+        last_last_month = (current[0] - 2, current[1])
+
+    filter_months = [current, last_month, last_last_month]
+
+    if in_text:
+        numb_to_month = {
+            1: "januari",
+            2: "februari",
+            3: "maart",
+            4: "april",
+            5: "mei",
+            6: "juni",
+            7: "juli",
+            8: "augustus",
+            9: "september",
+            10: "oktober",
+            11: "november",
+            12: "december"
+        }
+        return [numb_to_month.get(x) for (x, _) in filter_months]
+    else:
+        return filter_months
+
+
+def get_period_range(period_filters):
     """[summary]
 
     Args:
-        filters ([type]): [description]
+        filters (list): [description]
 
     Returns:
         [type]: [description]
     """
-    numb_to_month = {
-        1: "januari",
-        2: "februari",
-        3: "maart",
-        4: "april",
-        5: "mei",
-        6: "juni",
-        7: "juli",
-        8: "augustus",
-        9: "september",
-        10: "oktober",
-        11: "november",
-        12: "december"
-    }
-    return 1
+    all_dates = []
+    # get the months on which can be filtered
+    text_months = retrieve_filterable_months(True)
+    date_months = retrieve_filterable_months(False)
+    # get the current week
+    week = datetime.now().isocalendar()[:2]
+
+    # check for each month if it has to be filtered on
+    if text_months[0] in period_filters:
+        # this month has to be filtered upon
+        y = date_months[0][1]
+        m = date_months[0][0]
+        ndays = (date(y, m+1, 1) - date(y, m, 1)).days
+        d1 = datetime(y, m, 1)
+        d2 = datetime(y, m, ndays)
+        all_dates.append((d1, d2))
+
+    if text_months[1] in period_filters:
+        # this month has to be filtered upon
+        y = date_months[1][1]
+        m = date_months[1][0]
+        ndays = (date(y, m+1, 1) - date(y, m, 1)).days
+        d1 = datetime(y, m, 1)
+        d2 = datetime(y, m, ndays)
+        all_dates.append((d1, d2))
+
+    if text_months[2] in period_filters:
+        # this month has to be filtered upon
+        y = date_months[2][1]
+        m = date_months[2][0]
+        ndays = (date(y, m+1, 1) - date(y, m, 1)).days
+        d1 = datetime(y, m, 1)
+        d2 = datetime(y, m, ndays)
+        all_dates.append((d1, d2))
+
+    if "deze week" in period_filters:
+        # filter on this week
+        mon_date = datetime.strptime(f"{week[0]}-W{week[1]}" + '-1', '%G-W%V-%u')
+        fri_date = mon_date + timedelta(4)
+        all_dates.append((mon_date, fri_date))
+
+    if "vorige week" in period_filters:
+        # TODO correct for new year
+        # filter on last week
+        mon_date = datetime.strptime(f"{week[0]}-W{week[1] - 1}" + '-1', '%G-W%V-%u')
+        fri_date = mon_date + timedelta(4)
+        all_dates.append((mon_date, fri_date))
+
+    if "vorige dag" in period_filters:
+        # filter based on last day
+        current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
+        if current_date.weekday() == 5:
+            last = current_date - timedelta(1)
+        elif current_date.weekday() == 6:
+            last = current_date - timedelta(2)
+        else:
+            last = current_date - timedelta(1)
+        all_dates.append((last, current_date))
+
+    # get the max and min date over all dates
+    max_date = max([x for (_, x) in all_dates])
+    min_date = min([x for (x, _) in all_dates])
+    return (min_date, max_date)
 
 
 def get_filtered_observations(filters):
@@ -178,30 +274,10 @@ def get_filtered_observations(filters):
     # check if filters on periode are selected
     periods = filters.get("Periode")
     if periods.get("options") != []:
-        if "Deze maand" in periods.get("options"):
-            # Get all the observations of the latest month
-            m = datetime.now().month
-            y = datetime.now().year
-            ndays = (date(y, m+1, 1) - date(y, m, 1)).days
-            d1 = datetime(y, m, 1)
-            d2 = datetime(y, m, ndays)
-            queries = queries.filter(period_end__range=(d1, d2))
-        elif "Deze week" in periods.get("options"):
-            # Get all the observations of this week
-            week = datetime.now().isocalendar()[:2]
-            mon_date = datetime.strptime(f"{week[0]}-W{week[1]}" + '-1', '%G-W%V-%u')
-            fri_date = mon_date + timedelta(4)
-            queries = queries.filter(period_end__range=(mon_date, fri_date))
-        else:
-            # Get all the observations of yesterday
-            current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
-            if current_date.weekday() == 5:
-                last = current_date - timedelta(1)
-            elif current_date.weekday() == 6:
-                last = current_date - timedelta(2)
-            else:
-                last = current_date - timedelta(1)
-            queries = queries.filter(period_end=last)
+        # get the max and min range of the period
+        period_range = get_period_range(periods.get("options"))
+        # apply the filter
+        queries = queries.filter(period_end__range=period_range)
 
     # check if filters on sector are selected
     sectors = filters.get("Sector")
