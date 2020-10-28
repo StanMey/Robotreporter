@@ -90,7 +90,7 @@ def get_latest_observations():
     return data
 
 
-def get_available_filters():
+def get_available_observ_filters():
     """[summary]
 
         Returns:
@@ -107,9 +107,50 @@ def get_available_filters():
     data["Serie"] = unique_series
     data["Sector"] = sorted(list(set(list(sector_info.values()))))
     data["Patroon"] = unique_patterns
-    data["Periode"] = ["Vorige dag", "Deze week", "Deze maand"]
-    # print(data)
+    data["Periode"] = ["Vorige dag", "Deze week", "vorige week", "Deze maand"]
     return data
+
+
+def get_available_relev_filters():
+    """[summary]
+
+        Returns:
+        [type]: [description]
+    """
+    # load in the sector data
+    with open(r"./articles_app/data/sectorcompany.json") as f:
+        sector_info = json.load(f)
+
+    data = {}
+    data["Sector"] = sorted(list(set(list(sector_info.values()))))
+    data["Periode"] = ["Vorige dag", "Deze week", "vorige week", "Deze maand"]
+    return data
+
+
+def get_period_range(filters):
+    """[summary]
+
+    Args:
+        filters ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    numb_to_month = {
+        1: "januari",
+        2: "februari",
+        3: "maart",
+        4: "april",
+        5: "mei",
+        6: "juni",
+        7: "juli",
+        8: "augustus",
+        9: "september",
+        10: "oktober",
+        11: "november",
+        12: "december"
+    }
+    return 1
 
 
 def get_filtered_observations(filters):
@@ -247,16 +288,21 @@ def get_article(article_id):
     Returns:
         [type]: [description]
     """
-
-    selected_article = Articles.objects.get(id=article_id)
-
     article = {}
-    article["article_id"] = selected_article.id
-    article["title"] = selected_article.title
-    article["content"] = selected_article.content
-    article["date_show"] = selected_article.date.strftime("%d %b %Y")
-    article["date_whole"] = selected_article.date.strftime("%m-%d-%Y, %H:%M:%S")
-    article["author"] = selected_article.author
-    article["AI_version"] = selected_article.AI_version
+
+    if Articles.objects.filter(id=article_id).exists():
+        selected_article = Articles.objects.get(id=article_id)
+
+        article["found"] = True
+        article["article_id"] = selected_article.id
+        article["title"] = selected_article.title
+        article["content"] = selected_article.content
+        article["date_show"] = selected_article.date.strftime("%d %b %Y")
+        article["date_whole"] = selected_article.date.strftime("%m-%d-%Y, %H:%M:%S")
+        article["author"] = selected_article.author
+        article["AI_version"] = selected_article.AI_version
+        article["meta_data"] = selected_article.meta_data
+    else:
+        article["found"] = False
 
     return article

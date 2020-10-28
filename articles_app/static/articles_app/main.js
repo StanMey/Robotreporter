@@ -88,7 +88,6 @@ async function applyFiltersModB() {
         choices[item] = {"total": optionCount,
                            "options": selectedSeries}
     })
-    console.log(choices)
 
     const url = "api/observations/usefilters";
     const csrftoken = Cookies.get('csrftoken');
@@ -119,6 +118,39 @@ async function applyFiltersModB() {
     createDataTable(dataTable, "observations_table", col, rows, false);
 
 }
+
+async function createFilterMenuModC(contentDiv) {
+
+    // get all available filters
+    let response = await fetch('api/relevance/getfilters');
+    let filters = await response.json(); 
+
+    // build all the filter selects
+    console.log(filters);
+    for(key in filters) {
+        let selectList = document.createElement("select");
+        selectList.id = key;
+        selectList.multiple = true;
+        contentDiv.appendChild(selectList);
+
+        for(let i = 0; i < filters[key].length; i++) {
+            let option = document.createElement("option");
+            option.value = filters[key][i];
+            option.text = filters[key][i];
+            selectList.appendChild(option);
+        }
+    }
+
+    // activate multiselect on the filters
+    // http://davidstutz.github.io/bootstrap-multiselect/
+    for(key in filters) {
+        $(`#${key}`).multiselect({
+            includeSelectAllOption: true,
+            nonSelectedText: key
+        })
+    }
+}
+
 
 // GENERATING THE TABLES
 // https://www.valentinog.com/blog/html-table/
@@ -303,7 +335,11 @@ function createSingleSlider(contentDiv, title) {
     sliderCont.appendChild(sliderInput);
 }
 
-// 
+/**
+ * Multiple lines of JSDoc text are written here,
+ * wrapped normally.
+ * @param {string} contentDiv The class name of the div where the buttons should be loaded in.
+ */
 async function createButtonsModC(contentDiv) {
     let col1 = document.createElement("div");
     col1.className = "col d-flex justify-content-center";
@@ -316,18 +352,18 @@ async function createButtonsModC(contentDiv) {
     let button1 = document.createElement("button");
     button1.className = "btn btn-success buttonModC";
     button1.setAttribute("id", "button1ModC");
-    button1.innerHTML = "Herbereken Relevantie";
+    button1.innerHTML = "Stel artikel samen";
     col1.appendChild(button1);
 
     let button2 = document.createElement("button");
     button2.className = "btn btn-success buttonModC";
     button2.setAttribute("id", "button2ModC");
-    button2.innerHTML = "Generate Article!";
+    button2.innerHTML = "Genereer artikel!";
     col2.appendChild(button2);
 
     // Add functionality to both buttons 
     $('#button1ModC').on('click', function() {
-        alert("Herberekenen!!");
+        alert("een moment");
     })
 
    $('#button2ModC').on('click', function() {
@@ -336,15 +372,45 @@ async function createButtonsModC(contentDiv) {
 }
 
 
-//
+/**
+ * When the button 'generate article' is clicked, the filters that apply are read,
+ * Eventually a new article will be generated and the user is redirected to a page with the article. 
+ */
 async function generateArticle() {
-    // generate a new article
-    let response = await fetch('api/articles/generate');
+    // search for the filters that have been selected
+    let choices = {};
+    // get the selected values
+    ["Sector", "Periode"].forEach(function (item, index) {
+        let optionCount = $("#" + item + " option").length;
+        let selectedSeries = $("#" + item).val();
+        choices[item] = {"total": optionCount,
+                           "options": selectedSeries}
+    })
+    choices["manual"] = false;
+    console.log(choices)
+
+    // generate a new article and pass in the filters
+    const url = "api/articles/generate";
+    const csrftoken = Cookies.get('csrftoken');
+
+    let response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "X-CSRF-Token": csrftoken,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(choices),
+        mode: "same-origin"
+    })
     let data = await response.json();
 
     // get the id of the article and redirect to the article
     _id = data['article_number']
     window.open('/module/articles/' + _id, target="_self");
+}
+
+async function constructArticle() {
+
 }
 
 
@@ -495,7 +561,7 @@ async function renderModuleC() {
     let contentDiv = document.querySelector(moduleContent);
 
     let section1 = document.createElement("div");
-    section1.className = "row justify-content-center h-40 w-100 slider-container"
+    section1.className = "row justify-content-center h-40 w-100 filter-container"
     contentDiv.appendChild(section1); 
 
     let linkSection = document.createElement("div");
@@ -531,6 +597,7 @@ async function renderModuleC() {
     }
 
     // createImportanceSliders(section1);
+    createFilterMenuModC(section1);
     createDataTable(section2, "obser_relev_table", col, rows, false);
     createButtonsModC(section3);
 }
