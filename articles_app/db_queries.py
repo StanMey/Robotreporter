@@ -303,6 +303,49 @@ def get_filtered_observations(filters):
     return data
 
 
+def get_compose_options(filters):
+    """[summary]
+
+    Args:
+        filters ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    # get all the observations
+    queries = Observations.objects.all()
+
+    # check if filters on periode are selected
+    periods = filters.get("Periode")
+    if periods.get("options") != []:
+        # get the max and min range of the period
+        period_range = get_period_range(periods.get("options"))
+        # apply the filter
+        queries = queries.filter(period_end__range=period_range)
+    else:
+        # get only the last two weeks
+        period_range = get_period_range(["deze week", "vorige week"])
+        # apply the filter
+        queries = queries = queries.filter(period_end__range=period_range)
+
+    # load in the sector data
+    with open(r"./articles_app/data/sectorcompany.json") as f:
+        sector_info = json.load(f)
+
+    data = []
+    # format the data into a json format
+    for observation in queries.order_by("-period_end", "-relevance"):
+        point = {
+            "period": "{0} / {1}".format(observation.period_end.strftime("%d-%m-%Y"), observation.period_begin.strftime("%d-%m-%Y")),
+            "sector": sector_info.get(observation.serie),
+            "pattern": observation.pattern,
+            "observation": observation.observation,
+            "relevance": float(observation.relevance)
+        }
+        data.append(point)
+    return data
+
+
 def get_relevance_observations():
     """[summary]
 

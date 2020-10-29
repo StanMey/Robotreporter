@@ -149,6 +149,50 @@ def load_observations_with_filters(request):
 
 
 @login_required
+@csrf_exempt
+def load_compose_options(request):
+    """[summary]
+
+    Args:
+        request ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    if request.method == 'POST':
+        chosen_filters = json.loads(request.body)
+        print(chosen_filters)
+        data = dbq.get_compose_options(chosen_filters)
+    else:
+        data = {}
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+@login_required
+@csrf_exempt
+def compose_article(request):
+    """[summary]
+
+    Args:
+        request ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    if request.method == 'POST':
+        user_name = request.user.username
+        body = json.loads(request.body)
+        chosen_filters = body.get("filters")
+        content = body.get("content")
+        data = {"article_number": nlgq.construct_article(user_name, content, chosen_filters)}
+    else:
+        messages.error(request, "Can't do that right now")
+        data = {"article_number": dbq.get_articles_set(1)[1]['article_id']}
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+@login_required
 def load_latest_observations(request):
     """[summary]
 

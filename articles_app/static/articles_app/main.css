@@ -170,3 +170,26 @@
     margin-top: 1rem;
     margin-bottom: 0.5rem;
 }
+
+/* compose article datatable behaviour */
+.compose-view {
+    margin-top: 2rem;
+}
+
+.left-compose-table #leftDatatable tbody tr:hover {
+    background-color: #FFFDD0 !important;
+    cursor: pointer;
+}
+
+.left-compose-table {
+    margin-right: 1rem;
+}
+
+.right-compose-table #leftDatatable tbody tr:hover {
+    background-color: #FFFDD0 !important;
+    cursor: pointer;
+}
+
+.right-compose-table {
+    margin-left: 1rem;
+}
