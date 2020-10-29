@@ -13,9 +13,13 @@ urlpatterns = [
 
     path('overview/api/articles', views.load_articles_set, name="load_articles_set"),
     path('overview/api/articles/generate', views.generate_article, name="generate_article"),
+    path('overview/api/articles/composeoptions', views.load_compose_options, name="load_compose_options"),
+    path('overview/api/articles/composearticle', views.compose_article, name="compose_article"),
 
     path('overview/api/observations/latest', views.load_latest_observations, name="load_latest_observations"),
     path('overview/api/observations/getfilters', views.get_observations_filters, name="get_observations_filters"),
     path('overview/api/observations/usefilters', views.load_observations_with_filters, name="load_observations_with_filters"),
-    path('overview/api/observations/relevance', views.load_relevance_observations, name="load_relevance_observations")
+    path('overview/api/observations/relevance', views.load_relevance_observations, name="load_relevance_observations"),
+
+    path('overview/api/relevance/getfilters', views.get_relevance_filters, name="get_relevance_filters")
 ]

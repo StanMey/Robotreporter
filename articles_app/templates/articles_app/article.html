@@ -27,7 +27,14 @@
                       <p>
                           Auteur: {{ article.author}}<br>
                           Datum: {{ article.date_whole}}<br>
-                          Bot versie: {{article.AI_version}}
+                          Bot versie: {{article.AI_version}}<br>
+                          Handmatig geselecteerd: {{article.meta_data.manual}}<br>
+                          <br>
+                          <b>Focus</b><br>
+                          <u>Sectoren:</u><br>
+                          {{article.meta_data.filters.Sector}}<br>
+                          <u>Periode:</u><br>
+                          {{article.meta_data.filters.Periode}}
                       </p>
                     </div>
                 </div>

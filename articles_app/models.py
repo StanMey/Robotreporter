@@ -43,6 +43,7 @@ class Articles(models.Model):
     date = models.DateTimeField()
     author = models.CharField(max_length=100)
     AI_version = models.FloatField(null=True)
+    meta_data = JSONField(default=dict)
 
     def __str__(self):
         return "{0} - {1} - {2}".format(self.date, self.author, self.title)

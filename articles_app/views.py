@@ -1,8 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.views.decorators.http import require_GET
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 
 import articles_app.db_queries as dbq
@@ -51,7 +50,6 @@ def load_relevance_view(request):
     return render(request, "articles_app/relevance.html")
 
 
-@require_GET
 def robots_txt(request):
     """Loads the robot.txt file.
 
@@ -110,7 +108,21 @@ def get_observations_filters(request):
     Returns:
         django.http.response.HttpResponse: [description]
     """
-    data = dbq.get_available_filters()
+    data = dbq.get_available_observ_filters()
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+@login_required
+def get_relevance_filters(request):
+    """[summary]
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): [description]
+
+    Returns:
+        django.http.response.HttpResponse: [description]
+    """
+    data = dbq.get_available_relev_filters()
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
@@ -135,6 +147,50 @@ def load_observations_with_filters(request):
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 
+
+@login_required
+@csrf_exempt
+def load_compose_options(request):
+    """[summary]
+
+    Args:
+        request ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    if request.method == 'POST':
+        chosen_filters = json.loads(request.body)
+        print(chosen_filters)
+        data = dbq.get_compose_options(chosen_filters)
+    else:
+        data = {}
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+@login_required
+@csrf_exempt
+def compose_article(request):
+    """[summary]
+
+    Args:
+        request ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    if request.method == 'POST':
+        user_name = request.user.username
+        body = json.loads(request.body)
+        chosen_filters = body.get("filters")
+        content = body.get("content")
+        data = {"article_number": nlgq.construct_article(user_name, content, chosen_filters)}
+    else:
+        messages.error(request, "Can't do that right now")
+        data = {"article_number": dbq.get_articles_set(1)[1]['article_id']}
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 @login_required
 def load_latest_observations(request):
@@ -167,6 +223,7 @@ def load_relevance_observations(request):
 
 
 @login_required
+@csrf_exempt
 def generate_article(request):
     """[summary]
 
@@ -181,8 +238,15 @@ def generate_article(request):
         messages.info(request, "You don't have permission to generate an article")
         data = {"article_number": dbq.get_articles_set(1)[1]['article_id']}
     else:
-        user_name = request.user.username
-        data = {"article_number": nlgq.build_article(user_name)}
+        # user has permission to generate articles
+        if request.method == 'POST':
+            # user uses the right request method
+            chosen_filters = json.loads(request.body)
+            user_name = request.user.username
+            data = {"article_number": nlgq.build_article(user_name, chosen_filters)}
+        else:
+            messages.error(request, "Can't do that right now")
+            data = {"article_number": dbq.get_articles_set(1)[1]['article_id']}
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 
@@ -218,4 +282,8 @@ def load_article(request, article_id):
     context = {
         'article': article
     }
-    return render(request, "articles_app/article.html", context)
+    if article.get("found"):
+        print(article)
+        return render(request, "articles_app/article.html", context)
+    else:
+        raise Http404("Article does not exist")

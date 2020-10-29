@@ -7,25 +7,24 @@ import json
 from datetime import datetime, timedelta
 
 
-def build_article(user_name, bot=False):
+def build_article(user_name, filters, bot=False):
     """Build an article based on the most recent and relevant observations.
 
     Args:
         user_name (String): The name of the user that is generating the article
+        filters (dict): The filters that has been chosen for the selection of the Observations
 
     Returns:
         int: The id of the generated article
     """
-    current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
-    # current_date = datetime(year=2020, month=6, day=12)
+    # current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
+    current_date = datetime(year=2020, month=9, day=24)
     begin_date = current_date - timedelta(10)
 
     # retrieve 3 random observations from the Observations table
     observation_set = list(Observations.objects.filter(
                                     period_begin__gte=begin_date
                            ).order_by('-period_end', '-relevance')[:10])
-    # shuffle the sentences inplace
-    # np.random.shuffle(observation_set)
 
     sentences = []
     for observ in observation_set[:5]:
@@ -35,15 +34,71 @@ def build_article(user_name, bot=False):
     content = " ".join(sentences)
     print(content)
 
+    # get the meta data and save it into the article
+    meta = {}
+    meta["manual"] = filters.get("manual")
+    meta["filters"] = {}
+
+    for x in ["Sector", "Periode"]:
+        selection = filters.get(x)
+        print(selection)
+        if (selection.get("total") != len(selection.get("options"))) and (selection.get("options") != []):
+            meta["filters"][x] = selection.get("options")
+        else:
+            meta["filters"][x] = "Alles"
+
     article = Articles()
     article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
     article.content = content
     article.date = datetime.now()
-    article.AI_version = 1.1
+    article.AI_version = 1.2
+    article.meta_data = meta
     if bot:
         article.author = "nieuwsbot"
     else:
         article.author = user_name
+    article.save()
+
+    return article.id
+
+
+def construct_article(user_name, content, filters):
+    """Build an article based on a sentence construction the user has made.
+
+    Args:
+        user_name (String): The name of the user that is generating the article
+        content (list): The array with all the chosen observations by the user
+        filters (dict): The filters that has been chosen for the selection of the Observations
+
+    Returns:
+        int: The id of the newly generated article
+    """
+    sentences = []
+    for observ in content:
+        sentences.append(f"{observ[4]} (rel: {observ[3]})")
+
+    content = " ".join(sentences)
+
+    # get the meta data and save it into the article
+    meta = {}
+    meta["manual"] = filters.get("manual")
+    meta["filters"] = {}
+
+    for x in ["Sector", "Periode"]:
+        selection = filters.get(x)
+        if (selection.get("total") != len(selection.get("options"))) and (selection.get("options") != []):
+            meta["filters"][x] = selection.get("options")
+        else:
+            meta["filters"][x] = "Alles"
+
+    article = Articles()
+    # TODO get the max date
+    article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
+    article.content = content
+    article.date = datetime.now()
+    article.AI_version = 1.2
+    article.meta_data = meta
+    article.author = user_name
     article.save()
 
     return article.id

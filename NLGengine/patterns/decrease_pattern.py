@@ -28,7 +28,9 @@ class Decrease:
         self.period_begin = period_beg
         self.period_end = period_end
 
-        self.pattern = "daling"
+        self.combi_pattern = "combi-daling"
+        self.indiv_pattern = "invidu-daling"
+
         self.relevance = lambda x: Relevance.period_relevance(x)
         self.observations = []
 
@@ -48,7 +50,7 @@ class Decrease:
                 }
             # save the observation
             sentence = f"Alle fondsen binnen de {info} zijn vandaag gestegen."
-            observ = Observation(info, self.period_begin, self.period_end, "stijging", sentence, 9.0, data)
+            observ = Observation(info, self.period_begin, self.period_end, "combi-stijging", sentence, 9.0, data)
             self.observations.append(observ)
 
         if len(df_only_dec) == 1:
@@ -63,7 +65,7 @@ class Decrease:
                 }
             # save the observation
             sentence = f"{info.component} was vandaag met -{info.perc_delta} procent de enige daler"
-            observ = Observation(info.component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(info.perc_delta), data)
+            observ = Observation(info.component, self.period_begin, self.period_end, self.combi_pattern, sentence, self.relevance(info.perc_delta), data)
             self.observations.append(observ)
 
         if len(df_only_dec) == 2:
@@ -78,7 +80,7 @@ class Decrease:
                 }
             # save the observation
             sentence = f"Op {info.iloc[0].component} en {info.iloc[1].component} na stegen alle fondsen"
-            observ = Observation(info.iloc[0].component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(np.mean(info.perc_delta)), data)
+            observ = Observation(info.iloc[0].component, self.period_begin, self.period_end, self.combi_pattern, sentence, self.relevance(np.mean(info.perc_delta)), data)
             self.observations.append(observ)
 
     def x_largest_decrease(self):
@@ -99,7 +101,7 @@ class Decrease:
                 }
             # save the observation
             sentence = f"{info.component} daalde het hardst met {info.perc_delta} procent."
-            observ = Observation(info.component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(info.perc_delta), data)
+            observ = Observation(info.component, self.period_begin, self.period_end, self.combi_pattern, sentence, self.relevance(info.perc_delta), data)
             self.observations.append(observ)
 
         if len(df_large_dec) >= 2:
@@ -114,7 +116,7 @@ class Decrease:
                 }
             # save the observation
             sentence = f"In de {info.iloc[0].indexx} waren {info.iloc[0].component} ({info.iloc[0].perc_delta}%) en {info.iloc[1].component} ({info.iloc[1].perc_delta}%) de hardste dalers."
-            observ = Observation(info.iloc[0].component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(np.mean(info.perc_delta)), data)
+            observ = Observation(info.iloc[0].component, self.period_begin, self.period_end, self.combi_pattern, sentence, self.relevance(np.mean(info.perc_delta)), data)
             self.observations.append(observ)
 
         if len(df_large_dec) >= 3:
@@ -129,7 +131,27 @@ class Decrease:
                 }
             # save the observation
             sentence = f"{info.iloc[0].component} ({info.iloc[0].perc_delta}%), {info.iloc[1].component} ({info.iloc[1].perc_delta}%) en {info.iloc[2].component} ({info.iloc[2].perc_delta}%) waren de negatieve uitschieters."
-            observ = Observation(info.iloc[0].component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(np.mean(info.perc_delta)), data)
+            observ = Observation(info.iloc[0].component, self.period_begin, self.period_end, self.combi_pattern, sentence, self.relevance(np.mean(info.perc_delta)), data)
+            self.observations.append(observ)
+
+    def all_fallers(self):
+        """Gets all individual components that have decreased in the time period.
+        """
+        # filter on positive percentages and only get the difference of the end date
+        df_inc = self.df[(self.df["perc_delta"] < 0.0) & (self.df['date'].dt.strftime('%d-%m-%Y') == self.period_end.strftime('%d-%m-%Y'))]
+
+        # loop over all the rising stocks and save the observations
+        for index, info in df_inc.iterrows():
+            # collect the additional metadata
+            data = {
+                    "component": info.component,
+                    "perc_change": info.perc_delta,
+                    "abs_change": info.abs_delta,
+                    "relev": self.relevance(info.perc_delta)
+                }
+            # save the observation
+            sentence = f"Aandeel {info.component} met {info.perc_delta}% gedaald."
+            observ = Observation(info.component, self.period_begin, self.period_end, self.indiv_pattern, sentence, self.relevance(info.perc_delta), data)
             self.observations.append(observ)
 
     def prep_data(self, period: int):
@@ -182,3 +204,4 @@ class Decrease:
         self.prep_data(diff_days)
         self.x_largest_decrease()
         self.only_x_decrease()
+        self.all_fallers()

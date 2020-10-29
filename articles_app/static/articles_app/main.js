@@ -81,13 +81,12 @@ async function applyFiltersModB() {
 
     let choices = {};
     // get the selected values
-    ["Serie", "Patroon", "Periode"].forEach(function (item, index) {
+    ["Serie", "Sector", "Patroon", "Periode"].forEach(function (item, index) {
         let optionCount = $("#" + item + " option").length;
         let selectedSeries = $("#" + item).val();
         choices[item] = {"total": optionCount,
                            "options": selectedSeries}
     })
-    console.log(choices)
 
     const url = "api/observations/usefilters";
     const csrftoken = Cookies.get('csrftoken');
@@ -102,7 +101,6 @@ async function applyFiltersModB() {
         mode: "same-origin"
     })
     let data = await response.json();
-    console.log(data)
 
     const col = ["Serie", "Periode", "Patroon", "Zin"]
 
@@ -118,6 +116,38 @@ async function applyFiltersModB() {
     createDataTable(dataTable, "observations_table", col, rows, false);
 
 }
+
+async function createFilterMenuModC(contentDiv) {
+
+    // get all available filters
+    let response = await fetch('api/relevance/getfilters');
+    let filters = await response.json(); 
+
+    // build all the filter selects
+    for(key in filters) {
+        let selectList = document.createElement("select");
+        selectList.id = key;
+        selectList.multiple = true;
+        contentDiv.appendChild(selectList);
+
+        for(let i = 0; i < filters[key].length; i++) {
+            let option = document.createElement("option");
+            option.value = filters[key][i];
+            option.text = filters[key][i];
+            selectList.appendChild(option);
+        }
+    }
+
+    // activate multiselect on the filters
+    // http://davidstutz.github.io/bootstrap-multiselect/
+    for(key in filters) {
+        $(`#${key}`).multiselect({
+            includeSelectAllOption: true,
+            nonSelectedText: key
+        })
+    }
+}
+
 
 // GENERATING THE TABLES
 // https://www.valentinog.com/blog/html-table/
@@ -302,7 +332,11 @@ function createSingleSlider(contentDiv, title) {
     sliderCont.appendChild(sliderInput);
 }
 
-// 
+/**
+ * Multiple lines of JSDoc text are written here,
+ * wrapped normally.
+ * @param {string} contentDiv The class name of the div where the buttons should be loaded in.
+ */
 async function createButtonsModC(contentDiv) {
     let col1 = document.createElement("div");
     col1.className = "col d-flex justify-content-center";
@@ -315,18 +349,18 @@ async function createButtonsModC(contentDiv) {
     let button1 = document.createElement("button");
     button1.className = "btn btn-success buttonModC";
     button1.setAttribute("id", "button1ModC");
-    button1.innerHTML = "Herbereken Relevantie";
+    button1.innerHTML = "Stel artikel samen";
     col1.appendChild(button1);
 
     let button2 = document.createElement("button");
     button2.className = "btn btn-success buttonModC";
     button2.setAttribute("id", "button2ModC");
-    button2.innerHTML = "Generate Article!";
+    button2.innerHTML = "Genereer artikel!";
     col2.appendChild(button2);
 
     // Add functionality to both buttons 
     $('#button1ModC').on('click', function() {
-        alert("Herberekenen!!");
+        loadComposeView();
     })
 
    $('#button2ModC').on('click', function() {
@@ -335,10 +369,237 @@ async function createButtonsModC(contentDiv) {
 }
 
 
-//
+/**
+ * When the button 'generate article' is clicked, the filters that apply are read,
+ * Eventually a new article will be generated and the user is redirected to a page with the article. 
+ */
 async function generateArticle() {
-    // generate a new article
-    let response = await fetch('api/articles/generate');
+    // search for the filters that have been selected
+    let choices = {};
+    // get the selected values
+    ["Sector", "Periode"].forEach(function (item, index) {
+        let optionCount = $("#" + item + " option").length;
+        let selectedSeries = $("#" + item).val();
+        choices[item] = {"total": optionCount,
+                           "options": selectedSeries}
+    })
+    choices["manual"] = false;
+
+    // generate a new article and pass in the filters
+    const url = "api/articles/generate";
+    const csrftoken = Cookies.get('csrftoken');
+
+    let response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "X-CSRF-Token": csrftoken,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(choices),
+        mode: "same-origin"
+    })
+    let data = await response.json();
+
+    // get the id of the article and redirect to the article
+    _id = data['article_number']
+    window.open('/module/articles/' + _id, target="_self");
+}
+
+
+/**
+ * When
+ */
+async function loadComposeView() {
+    // search for the filters that have been selected
+    let choices = {};
+    // get the selected values
+    ["Sector", "Periode"].forEach(function (item, index) {
+        let optionCount = $("#" + item + " option").length;
+        let selectedSeries = $("#" + item).val();
+        choices[item] = {"total": optionCount,
+                           "options": selectedSeries}
+    })
+    choices["manual"] = true;
+
+    // generate a new article and pass in the filters
+    const url = "api/articles/composeoptions";
+    const csrftoken = Cookies.get('csrftoken');
+
+    let response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "X-CSRF-Token": csrftoken,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(choices),
+        mode: "same-origin"
+    })
+    let data = await response.json();
+
+    setUpComposerView(moduleContent);
+    buildComposerView(data, choices);
+}
+
+/**
+ * Build the div layout of where the selection datatables are to be.
+ * @param {String} contentDiv The class where all the div's have to be build under.
+ */
+function setUpComposerView(contentDiv) {
+
+    document.querySelector(contentDiv).innerHTML = ""
+
+    let contentViewDiv = document.querySelector(contentDiv);
+
+    let tablesDiv = document.createElement("div");
+    tablesDiv.className = "row compose-view";
+    contentViewDiv.appendChild(tablesDiv);
+
+    leftTableDiv = document.createElement("div");
+    leftTableDiv.className = "col table-responsive left-compose-table";
+    tablesDiv.appendChild(leftTableDiv);
+
+    rightTableDiv = document.createElement("div");
+    rightTableDiv.className = "col table-responsive right-compose-table justify-content-center";
+    tablesDiv.appendChild(rightTableDiv);
+}
+
+
+/**
+ * Builds the actual selection datatables and implements all the functionality.
+ * @param {dict} data A JSON dictionary with all the data.
+ * @param {dict} filters The filters the user has selected.
+ */
+function buildComposerView(data, filters) {
+    let selectedObservs = [];
+    let order = 1;
+
+    let leftTableDiv = document.querySelector(".left-compose-table")
+    let rightTableDiv = document.querySelector(".right-compose-table");
+
+    let leftText = document.createElement("h3");
+    leftText.innerHTML = "Observaties";
+    leftTableDiv.appendChild(leftText);
+
+    let rightText = document.createElement("h3");
+    rightText.innerHTML = "Geselecteerde zinnen";
+    rightTableDiv.appendChild(rightText);
+
+    let leftTbl = document.createElement("table");
+    leftTbl.className = "table table-bordered";
+    leftTbl.setAttribute("id", "leftDatatable");
+    leftTableDiv.appendChild(leftTbl);
+
+    let rightTbl = document.createElement("table");
+    rightTbl.className = "table table-bordered";
+    rightTbl.setAttribute("id", "rightDatatable");
+    rightTableDiv.appendChild(rightTbl);
+
+    let constructButton = document.createElement("button");
+    constructButton.className = "btn btn-success compose-button";
+    constructButton.setAttribute("id", "compose-text-button");
+    constructButton.innerHTML = "Bouw artikel!";
+    rightTableDiv.appendChild(constructButton);
+
+    // format the data
+    let rows = []
+    for (key in data) {
+        obj = data[key]
+        rows.push([obj['pattern'], obj['sector'], obj['period'], obj['relevance'], obj['observation']]);
+    }
+
+    // create the left DataTable
+    let leftTableColumns = ["patroon", "sector", "periode", "relevantie", "observatie"];
+    generateTableRows(leftTbl, rows);
+    generateTableHead(leftTbl, leftTableColumns);
+
+    // create the Datatable with jquery
+    let ldataTable = $('#leftDatatable').DataTable({
+        "scrollY": "550px",
+        "scrollCollapse": true
+    });
+
+    // create the right DataTable
+    let rightTableColumns = ["zin nummer", "observatie"];
+    generateTableRows(rightTbl, []);
+    generateTableHead(rightTbl, rightTableColumns);
+
+    // create the Datatable with jquery
+    let rdataTable = $('#rightDatatable').DataTable({
+        "scrollY": "550px",
+        "scrollCollapse": true
+    });
+
+    // add functionality to both the datatables
+    $('#leftDatatable tbody').on('click', 'tr', async function() {
+        // retrieve the data from the row
+        let observation = ldataTable.row( this ).data();
+
+        // add the observation to the article table and save it
+        selectedObservs.push(observation);
+        let newRow = [order, observation[4]];
+        order = selectedObservs.length + 1;
+
+        rdataTable.row.add(newRow).draw( false );
+
+        // recalculate the new order of the data
+        newData = []
+        for (let x = 0; x < selectedObservs.length; x++) {
+            newData.push([x+1, selectedObservs[x][4]]);
+        }
+
+        // clear the datatable and reinsert the new data
+        rdataTable.clear().rows.add(newData).draw();
+
+        // remove the observation from the left table
+        ldataTable.row( this ).remove().draw();
+    });
+
+    $('#rightDatatable tbody').on('click', 'tr', async function() {
+        // retrieve the data from the row
+        let observation = rdataTable.row( this ).data();
+        let index = observation[0];
+
+        // remove observation out of saved observations
+        selectedObservs.splice(index-1, 1);
+
+        // recalculate the new order of the data
+        newData = []
+        for (let x = 0; x < selectedObservs.length; x++) {
+            newData.push([x+1, selectedObservs[x][4]]);
+        }
+
+        // clear the datatable and reinsert the new data
+        rdataTable.clear().rows.add(newData).draw();
+    });
+
+    // Add functionality to generate article button
+    $('#compose-text-button').on('click', function() {
+        constructArticle(selectedObservs, filters);
+    })
+}
+
+
+/**
+ * Send the sentences that the user has chosen back to the back-end so that the article can be constructed.
+ * @param {Array} content All the sentences the user has chosen.
+ * @param {dict} filters The filters the user has selected.
+ */
+async function constructArticle(content, filters) {
+
+    // construct a new article and pass in the filters
+    const url = "api/articles/composearticle";
+    const csrftoken = Cookies.get('csrftoken');
+
+    let response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "X-CSRF-Token": csrftoken,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({'content': content,
+                              'filters': filters}),
+        mode: "same-origin"
+    })
     let data = await response.json();
 
     // get the id of the article and redirect to the article
@@ -410,36 +671,6 @@ function buildArticlesModD(contentDiv, content) {
         }
     }
 }
-
-// /**
-//  * sends a request to the specified url from a form. this will change the window location.
-//  * @param {string} path the path to send the post request to
-//  * @param {object} params the paramiters to add to the url
-//  * @param {string} [method=post] the method to use on the form
-//  */
-
-// function post(path, params, method='post') {
-
-//     // The rest of this code assumes you are not using a library.
-//     // It can be made less wordy if you use one.
-//     const form = document.createElement('form');
-//     form.method = method;
-//     form.action = path;
-  
-//     for (const key in params) {
-//       if (params.hasOwnProperty(key)) {
-//         const hiddenField = document.createElement('input');
-//         hiddenField.type = 'hidden';
-//         hiddenField.name = key;
-//         hiddenField.value = params[key];
-  
-//         form.appendChild(hiddenField);
-//       }
-//     }
-  
-//     document.body.appendChild(form);
-//     form.submit();
-//   }
   
 
 // MODULE A timeseries
@@ -524,7 +755,7 @@ async function renderModuleC() {
     let contentDiv = document.querySelector(moduleContent);
 
     let section1 = document.createElement("div");
-    section1.className = "row justify-content-center h-40 w-100 slider-container"
+    section1.className = "row justify-content-center h-40 w-100 filter-container"
     contentDiv.appendChild(section1); 
 
     let linkSection = document.createElement("div");
@@ -560,6 +791,7 @@ async function renderModuleC() {
     }
 
     // createImportanceSliders(section1);
+    createFilterMenuModC(section1);
     createDataTable(section2, "obser_relev_table", col, rows, false);
     createButtonsModC(section3);
 }
