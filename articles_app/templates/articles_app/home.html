@@ -55,32 +55,36 @@
   <main role="main">
         <section class="jumbotron text-center info-par first-par">
             <div class="container">
-                <h2>Wat is robotreporter?</h2>
-                <p class="lead text-muted">
-                    Robotreporter is een project die in opdracht van het <a href="https://ictinstitute.nl/">Ict Institute</a> uitgevoerd wordt.
-                    Het doel van dit project is het ontwikkelen van een werkend systeem voor generatieve AI, die nieuwsberichten kan maken op basis van data-analyse over trenddata.
-                    Dit systeem zal gedemonstreerd worden op deze website met behulp van koersdata afkomstig uit de <a href="https://nl.wikipedia.org/wiki/AMX_Index">AMX Index</a>.
-                </p>
-            </div>
-        </section>
+              
+<h2>Wat is Robotreporter</h2>
+Robotreporter is een generatief AI-systeem, dat zelf artikelen schrijft. Het systeem werkt met een combinatie van AI-technieken om artikelen te maken. Om te demonstreren hoe de de AI werkt, wordt er beursinformatie gebruikt. Het systeem bekijkt het koersverloop van alle aandelen in de Nederlandse AMX-index, en maakt artikelen over deze aandelenkoersen. 
 
-        <section class="jumbotron text-center info-par second-par">
-            <div class="container">
-                <h2>Hoe werkt het systeem?</h2>
-                <p class="lead text-muted">
-                    nog in te vullen....
-                </p>
-            </div>
-        </section>
+<h2>Project-achtergrond</h2>
+Robotreporter is gemaakt door Stan Meyberg (software-ontwikkeling) en Sieuwert van Otterloo (product owner). de ontwikkeling is een samenwerking tussen ICT Institute (een adviesbureau op het gebied van AI) en het lectoraat Artificial Intelligence van de Hogeschool Utrecht. Vanuit de Hogeschool is er kennis ingebracht hoe AI-systemen effectief maar ook transparant kunnen worden ontwikkeld. Dit sluit aan bij onderzoeksthema's zoals het spel Ethics Inc en de ontwikkelde AI Impact Assessment. Vanuit ICT Institute is er kennis ingebracht over wat voor eisen er aan AI-systemen worden gesteld in de praktijk. Eén van de doelen is om mensen op een zo praktisch mogelijke manier zelf AI te laten gebruiken. Het Robotreporter project zelf heeft geen winstoogmerk. Het systeem wordt opensource beschikbaar gesteld dankzij de sponsoring door ICT Institute.
 
-        <section class="jumbotron text-center info-par third-par">
-            <div class="container">
-                <h2>Opzet van de website</h2>
-                <p class="lead text-muted">
-                    nog in te vullen....
-                </p>
-            </div>
-        </section>
+<h2>Over het systeem</h2>
+Het Robotreporter-systeem bestaat uit vier modules A-D: 
+
+A. Data - Hierin zijn de dagelijkse koersen van alle aandelen van de AMX-aandelen verzameld. Hier zou men ook andere tijdseries in kunnen inladen. 
+
+B. Observaties - Module B speurt naar bijzondere of opvallende patronen. Dit kan zijn een stijging of daling van een enkel aandeel, of een verandering acne een meerdaagse trend of ontwikkeling in een sector. Er worden zoveel mogelijk juiste observaties verzameld.
+
+C. Generatie - In deze module worden alle feiten van een relevantie-score voorzien, en worden de hoogst scorende observaties samengevat in artikelen. De gebruiker die het artikel maakt kiest de settings en de titel. De slimme algoritmes doen de rest. 
+
+D. resultaten - Iedereen kan alle artikelen inzien, vergelijken en van commentaar voorzien. 
+
+Elke module gebruikt slimme algoritmes uit de data Science en kunstmatige intelligentie. Het systeem is ontwikkeld in de programmeertaal Python en framework Django. Het is gehost bij Transip. 
+
+<h2>Bronnen en inspiratie</h2>
+De <a hreef="https://www.washingtonpost.com/pr/wp/2017/09/01/the-washington-post-leverages-heliograf-to-cover-high-school-football/">Washington Post maakt sinds 2017 al gebruik van Heliograph</a> om korte verslagen van lokale sportwedstrijden te maken. 
+                Waarschijnlijk zouden de resultaten van dit soort lokale wedstrijden net gemeld worden als er geen robotjournalist was
+             
+                The Guardian <a href="https://www.theguardian.com/australia-news/2019/feb/01/political-donations-plunge-to-167m-down-from-average-25m-a-year">gebruikt het systeem ReporterMate</a> voor onder andere dit artikel over financiering van politieke campagnes.
+Om vast te stellen wat voor feiten in nieuwsberichten voorkomen, zijn er voor dit project artikelen geanalyseerd van FD.nl, marketwatch.com, rtlnieuws.nl en beleggen.nl. 
+
+
+                
+        
 
 
   </main>
