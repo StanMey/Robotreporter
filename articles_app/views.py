@@ -66,6 +66,30 @@ def robots_txt(request):
     return HttpResponse("\n".join(lines), content_type="text/plain")
 
 
+def privacy_statement(request):
+    """Loads the privacy statement file.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): [description]
+
+    Returns:
+        django.http.response.HttpResponse: [description]
+    """
+    return render(request, "articles_app/privacy.html")
+
+
+def cookie_statement(request):
+    """Loads the cookie statement file.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): [description]
+
+    Returns:
+        django.http.response.HttpResponse: [description]
+    """
+    return render(request, "articles_app/cookies.html")
+
+
 # retrieving data views
 @login_required
 def load_all_data_series(request):
