@@ -791,7 +791,7 @@ async function renderModuleC() {
     contentDiv.appendChild(section2);
 
     let section3 = document.createElement("div");
-    section3.className = "row justify-content-center h-20 w-100"
+    section3.className = "row justify-content-center h-20 w-100 generate-links"
     contentDiv.appendChild(section3);
 
     // add the link to the relevance page

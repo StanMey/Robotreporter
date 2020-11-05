@@ -164,7 +164,6 @@ def load_observations_with_filters(request):
     """
     if request.method == 'POST':
         chosen_filters = json.loads(request.body)
-        print(chosen_filters)
         data = dbq.get_filtered_observations(chosen_filters)
     else:
         data = {}
@@ -185,7 +184,6 @@ def load_compose_options(request):
     """
     if request.method == 'POST':
         chosen_filters = json.loads(request.body)
-        print(chosen_filters)
         data = dbq.get_compose_options(chosen_filters)
     else:
         data = {}
@@ -314,7 +312,6 @@ def load_article(request, article_id):
         'article': article
     }
     if article.get("found"):
-        print(article)
         return render(request, "articles_app/article.html", context)
     else:
         raise Http404("Article does not exist")
