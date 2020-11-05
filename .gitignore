@@ -10,6 +10,7 @@ media
 
 # local data #
 datadump.json
+media
 
 # IDE #
 .vscode

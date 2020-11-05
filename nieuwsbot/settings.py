@@ -31,7 +31,6 @@ else:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'robotreporter.nl', 'www.robotreporter.nl', '37.97.231.46']
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -69,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -91,10 +91,10 @@ if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'nieuwsbot_db', 
-            'USER': 'postgres', 
-            'PASSWORD': 'NieuwsBot@2020',
-            'HOST': '127.0.0.1', 
+            'NAME': 'nieuwsbot_db',
+            'USER': '',
+            'PASSWORD': '',
+            'HOST': '127.0.0.1',
             'PORT': '5432',
         }
     }
@@ -102,10 +102,10 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'nieuwsbot_db', 
-            'USER': 'stanbot_db', 
+            'NAME': 'nieuwsbot_db',
+            'USER': 'stanbot_db',
             'PASSWORD': 'Alakazam!@9213',
-            'HOST': 'localhost', 
+            'HOST': 'localhost',
             'PORT': '',
         }
     }
@@ -154,3 +154,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'load_module_view'
 LOGIN_URL = 'login'
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
