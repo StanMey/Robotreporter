@@ -32,17 +32,18 @@ def build_article(user_name, filters, bot=False):
                            ).order_by('-period_end', '-relevance')[:10])
 
     sentences = []
+    rel_sentences = []
     for observ in observation_set[:5]:
-        print(observ.period_end, observ.relevance, observ.observation)
-        sentences.append(f"{observ.observation} (rel: {observ.relevance})")
+        sentences.append(observ.observation)
+        rel_sentences.append(f"{observ.observation} (rel: {observ.relevance})")
 
     content = " ".join(sentences)
-    print(content)
 
     # get the meta data and save it into the article
     meta = {}
     meta["manual"] = filters.get("manual")
     meta["filters"] = {}
+    meta["relevance"] = rel_sentences
 
     for x in ["Sector", "Periode"]:
         selection = filters.get(x)
@@ -52,9 +53,26 @@ def build_article(user_name, filters, bot=False):
         else:
             meta["filters"][x] = "Alles"
 
-    # build a picture for the article
-    comps_focus = observation_set[0].meta_data.get("component")
-    sector_focus = ""
+    # select the focus of the image
+    comps_focus = []
+    sector_focus = []
+    for observ in observation_set[:3]:
+        if type(observ.meta_data.get("component")) == list:
+            comps_focus.extend(observ.meta_data.get("component"))
+        else:
+            comps_focus.append(observ.meta_data.get("component"))
+
+        if type(observ.meta_data.get("sector")) == list:
+            sector_focus.extend(observ.meta_data.get("sector"))
+        else:
+            sector_focus.append(observ.meta_data.get("sector"))
+
+    # delete the AMX and duplicates
+    comps_focus = [x for x in comps_focus if x != "AMX"]
+    comps_focus = list(dict.fromkeys(comps_focus))
+    sector_focus = sector_focus[0]
+
+    # build a image for the article
     img_array = generate_article_photo(comps_focus, sector_focus)
     file_name = f"{uuid.uuid1().hex}.jpg"
     save_url = f"./media/images/{file_name}"
@@ -199,9 +217,11 @@ def generate_article_photo(components: list, sector_focus: str = None):
         # two components to be showcased
         img1 = comps[0]
         img2 = comps[1]
+        print(img1.shape, img2.shape)
 
         # check for shapes of the images, if they are both more rectangular or cubic
         if (img1.shape[1] > 2*img1.shape[0]) and (img2.shape[1] > 2*img2.shape[0]):
+            print("both rectangular")
             # both widths are far wider than the height
             img1 = resize_image(img1, 300)
             img2 = resize_image(img2, 300)
@@ -217,9 +237,10 @@ def generate_article_photo(components: list, sector_focus: str = None):
             new_image = overlay_transparent(new_image, img2, x_pos2, y_pos2)
 
         elif (img1.shape[1] > 2*img1.shape[0]):
+            print("first more rectangular")
             # width of first image far wider than the height
-            img1 = resize_image(img1, 300)
-            img2 = resize_image(img2, 300)
+            img1 = resize_image(img1, 280)
+            img2 = resize_image(img2, 280)
 
             # calculate the positions of the images
             x_pos1 = int((background.shape[1] / 2) - (img1.shape[1] / 2))
@@ -232,24 +253,26 @@ def generate_article_photo(components: list, sector_focus: str = None):
             new_image = overlay_transparent(new_image, img2, x_pos2, y_pos2)
 
         elif (img2.shape[1] > 2*img2.shape[0]):
+            print("second more rectangular")
             # width of second image far wider than the height
-            img1 = resize_image(img1, 300)
-            img2 = resize_image(img2, 300)
+            img1 = resize_image(img1, 270)
+            img2 = resize_image(img2, 270)
 
             # calculate the positions of the images
             x_pos1 = int((background.shape[1] / 2) - (img1.shape[1] / 2))
             y_pos1 = int((background.shape[0] / 3) * 1 - (img1.shape[0] / 2))
             x_pos2 = int((background.shape[1] / 2) - (img2.shape[1] / 2))
             y_pos2 = int((background.shape[0] / 3) * 2 - (img2.shape[0] / 2))
-
+            print(img1.shape, img2.shape)
             # add the new images
             new_image = overlay_transparent(background, img1, x_pos1, y_pos1)
             new_image = overlay_transparent(new_image, img2, x_pos2, y_pos2)
 
         else:
+            print("no-one more rectangular")
             # no width far wider than the height
-            img1 = resize_image(img1, 280)
-            img2 = resize_image(img2, 280)
+            img1 = resize_image(img1, 270)
+            img2 = resize_image(img2, 270)
 
             # calculate the positions of the images
             x_pos1 = int((background.shape[1] / 4) * 1 - (img1.shape[1] / 2))
@@ -464,6 +487,12 @@ def run_week_observations(period_begin, period_end, overwrite):
             df_data.rename(columns={"s_close": "close"}, inplace=True)
             df_data['close'] = df_data['close'].astype('float')
 
+            # load in the sector data and add it to the dataframe
+            with open(r"./articles_app/data/sectorcompany.json") as f:
+                sector_info = json.load(f)
+            df_data["sector"] = df_data["component"].apply(lambda x: sector_info.get(x))
+            df_data.dropna(inplace=True)
+
             # run the analyser to find observations
             analyse = Analyse(df_data, *period)
             analyse.find_weekly_observations()
@@ -495,6 +524,12 @@ def run_trend_observations(period_end, delta_days, overwrite):
     # prepare the data for the analysis
     df_data.rename(columns={"s_close": "close"}, inplace=True)
     df_data['close'] = df_data['close'].astype('float')
+
+    # load in the sector data and add it to the dataframe
+    with open(r"./articles_app/data/sectorcompany.json") as f:
+        sector_info = json.load(f)
+    df_data["sector"] = df_data["component"].apply(lambda x: sector_info.get(x))
+    df_data.dropna(inplace=True)
 
     # run the analyser to find observations
     analyse = Analyse(df_data, begin_date, end_date)

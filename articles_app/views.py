@@ -325,6 +325,7 @@ def load_articles_set(request):
 @login_required
 def load_article(request, article_id):
     """[summary]
+    https://djangocentral.com/creating-comments-system-with-django/
 
     Args:
         request (django.core.handlers.wsgi.WSGIRequest): [description]

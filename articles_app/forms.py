@@ -3,8 +3,7 @@ from django import forms
 
 
 class CommentForm(forms.ModelForm):
-    """A form for making a comment
-    https://djangocentral.com/creating-comments-system-with-django/
+    """A form for making a comment.
     """
     class Meta:
         model = Comment
