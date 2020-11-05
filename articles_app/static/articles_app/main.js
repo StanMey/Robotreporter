@@ -523,11 +523,11 @@ function buildComposerView(data, filters) {
     let rows = []
     for (key in data) {
         obj = data[key]
-        rows.push([obj['pattern'], obj['sector'], obj['period'], obj['relevance'], obj['observation']]);
+        rows.push([obj['id'], obj['pattern'], obj['sector'], obj['period'], obj['relevance'], obj['observation']]);
     }
 
     // create the left DataTable
-    let leftTableColumns = ["patroon", "sector", "periode", "relevantie", "observatie"];
+    let leftTableColumns = ["id", "patroon", "sector", "periode", "relevantie", "observatie"];
     generateTableRows(leftTbl, rows);
     generateTableHead(leftTbl, leftTableColumns);
 
@@ -555,7 +555,7 @@ function buildComposerView(data, filters) {
 
         // add the observation to the article table and save it
         selectedObservs.push(observation);
-        let newRow = [order, observation[4]];
+        let newRow = [order, observation[5]];
         order = selectedObservs.length + 1;
 
         rdataTable.row.add(newRow).draw( false );
@@ -563,7 +563,7 @@ function buildComposerView(data, filters) {
         // recalculate the new order of the data
         newData = []
         for (let x = 0; x < selectedObservs.length; x++) {
-            newData.push([x+1, selectedObservs[x][4]]);
+            newData.push([x+1, selectedObservs[x][5]]);
         }
 
         // clear the datatable and reinsert the new data
@@ -580,11 +580,12 @@ function buildComposerView(data, filters) {
 
         // remove observation out of saved observations
         selectedObservs.splice(index-1, 1);
+        console.log(selectedObservs);
 
         // recalculate the new order of the data
         newData = []
         for (let x = 0; x < selectedObservs.length; x++) {
-            newData.push([x+1, selectedObservs[x][4]]);
+            newData.push([x+1, selectedObservs[x][5]]);
         }
 
         // clear the datatable and reinsert the new data

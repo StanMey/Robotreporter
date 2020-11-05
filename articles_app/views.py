@@ -282,31 +282,6 @@ def generate_article(request):
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
-def comment_detail(request):
-    """[summary]
-
-    Args:
-        request ([type]): [description]
-
-    Returns:
-        [type]: [description]
-    """
-    if request.method == "POST":
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
-            # create Comment object but not yet save it
-            new_comment = comment_form.save(commit=False)
-            # assign the article to the comment
-            new_comment.article = 1
-            # assign the user as the author to the comment
-            new_comment.author = request.user.username
-            # save the comment to the database
-            new_comment.save()
-    else:
-        comment_form = CommentForm()
-    return 1
-
-
 @login_required
 def load_articles_set(request):
     """[summary]

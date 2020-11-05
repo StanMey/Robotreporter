@@ -1,5 +1,3 @@
-
-
 from articles_app.models import Observations, Articles, Stocks
 from NLGengine.analyse import Analyse
 
@@ -107,19 +105,40 @@ def construct_article(user_name, content, filters, title):
     Returns:
         int: The id of the newly generated article
     """
+    # get all the chosen observations
+    observation_set = []
+    for observ in content:
+        observation_set.append(Observations.objects.get(id=observ[0]))
+
+    # build the article
     sentences = []
     rel_sentences = []
-    for observ in content:
-        sentences.append(f"{observ[4]}")
-        rel_sentences.append(f"{observ[4]} (rel: {observ[3]})")
+    for observ in observation_set:
+        sentences.append(observ.observation)
+        rel_sentences.append(f"{observ.observation} (rel: {observ.relevance})")
 
     content = " ".join(sentences)
+
+    # get the all the consecutively choices of the user and save them
+    count = 1
+    consequent_choices = []
+
+    for observ in observation_set:
+        choices = {
+            "components": observ.serie,
+            "pattern": observ.pattern,
+            "day_numb": observ.period_end.day,
+            "week_numb": observ.period_end.isocalendar()[1:2][0]
+        }
+        consequent_choices.append((count, choices))
+        count += 1
 
     # get the meta data and save it into the article
     meta = {}
     meta["manual"] = filters.get("manual")
     meta["filters"] = {}
     meta["relevance"] = rel_sentences
+    meta["choices"] = consequent_choices
 
     for x in ["Sector", "Periode"]:
         selection = filters.get(x)
@@ -128,9 +147,26 @@ def construct_article(user_name, content, filters, title):
         else:
             meta["filters"][x] = "Alles"
 
-    # build a picture for the article
-    comps_focus = ["SIGNIFY NV"]
-    sector_focus = ""
+    # select the focus of the image
+    comps_focus = []
+    sector_focus = []
+    for observ in observation_set[:3]:
+        if type(observ.meta_data.get("component")) == list:
+            comps_focus.extend(observ.meta_data.get("component"))
+        else:
+            comps_focus.append(observ.meta_data.get("component"))
+
+        if type(observ.meta_data.get("sector")) == list:
+            sector_focus.extend(observ.meta_data.get("sector"))
+        else:
+            sector_focus.append(observ.meta_data.get("sector"))
+
+    # delete the AMX and duplicates
+    comps_focus = [x for x in comps_focus if x != "AMX"]
+    comps_focus = list(dict.fromkeys(comps_focus))
+    sector_focus = sector_focus[0]
+
+    # build an image for the article
     img_array = generate_article_photo(comps_focus, sector_focus)
     file_name = f"{uuid.uuid1().hex}.jpg"
     save_url = f"./media/images/{file_name}"
@@ -217,7 +253,6 @@ def generate_article_photo(components: list, sector_focus: str = None):
         # two components to be showcased
         img1 = comps[0]
         img2 = comps[1]
-        print(img1.shape, img2.shape)
 
         # check for shapes of the images, if they are both more rectangular or cubic
         if (img1.shape[1] > 2*img1.shape[0]) and (img2.shape[1] > 2*img2.shape[0]):
@@ -263,7 +298,6 @@ def generate_article_photo(components: list, sector_focus: str = None):
             y_pos1 = int((background.shape[0] / 3) * 1 - (img1.shape[0] / 2))
             x_pos2 = int((background.shape[1] / 2) - (img2.shape[1] / 2))
             y_pos2 = int((background.shape[0] / 3) * 2 - (img2.shape[0] / 2))
-            print(img1.shape, img2.shape)
             # add the new images
             new_image = overlay_transparent(background, img1, x_pos1, y_pos1)
             new_image = overlay_transparent(new_image, img2, x_pos2, y_pos2)

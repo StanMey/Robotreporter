@@ -230,6 +230,7 @@ def get_compose_options(filters):
     # format the data into a json format
     for observation in queries.order_by("-period_end", "-relevance"):
         point = {
+            "id": observation.id,
             "period": "{0} / {1}".format(observation.period_end.strftime("%d-%m-%Y"), observation.period_begin.strftime("%d-%m-%Y")),
             "sector": sector_info.get(observation.serie),
             "pattern": observation.pattern,
