@@ -43,6 +43,7 @@ class Articles(models.Model):
     date = models.DateTimeField()
     author = models.CharField(max_length=100)
     AI_version = models.FloatField(null=True)
+    top_image = models.ImageField(upload_to="images/", null=True, verbose_name="")
     meta_data = JSONField(default=dict)
 
     def __str__(self):

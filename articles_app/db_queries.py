@@ -180,8 +180,15 @@ def get_filtered_observations(filters):
     data = []
     # format the data into a json format
     for observation in queries:
+
+        # get all the series the observation is based on
+        if type(observation.meta_data.get("component")) == list:
+            serie = ", ".join(observation.meta_data.get("component"))
+        else:
+            serie = observation.serie
+
         point = {
-            "serie": observation.serie,
+            "serie": serie,
             "period": "{0} / {1}".format(observation.period_end.strftime("%d-%m-%Y"), observation.period_begin.strftime("%d-%m-%Y")),
             "pattern": observation.pattern,
             "observation": observation.observation
@@ -308,6 +315,7 @@ def get_article(article_id):
 
         article["found"] = True
         article["article_id"] = selected_article.id
+        article["img_source"] = selected_article.top_image
         article["title"] = selected_article.title
         article["content"] = selected_article.content
         article["date_show"] = selected_article.date.strftime("%d %b %Y")

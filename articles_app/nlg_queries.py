@@ -1,9 +1,15 @@
+
+
 from articles_app.models import Observations, Articles, Stocks
 from NLGengine.analyse import Analyse
 
 import pandas as pd
+import numpy as np
+import os
 import json
 from datetime import datetime, timedelta
+import cv2
+import uuid
 
 
 def build_article(user_name, filters, bot=False):
@@ -20,7 +26,7 @@ def build_article(user_name, filters, bot=False):
     current_date = datetime(year=2020, month=9, day=24)
     begin_date = current_date - timedelta(10)
 
-    # retrieve 3 random observations from the Observations table
+    # retrieve 10 random observations from the Observations table
     observation_set = list(Observations.objects.filter(
                                     period_begin__gte=begin_date
                            ).order_by('-period_end', '-relevance')[:10])
@@ -46,8 +52,18 @@ def build_article(user_name, filters, bot=False):
         else:
             meta["filters"][x] = "Alles"
 
+    # build a picture for the article
+    comps_focus = observation_set[0].meta_data.get("component")
+    sector_focus = ""
+    img_array = generate_article_photo(comps_focus, sector_focus)
+    file_name = f"{uuid.uuid1().hex}.jpg"
+    save_url = f"./media/images/{file_name}"
+    retrieve_url = f"images/{file_name}"
+    cv2.imwrite(save_url, img_array)
+
     article = Articles()
     article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
+    article.top_image = retrieve_url
     article.content = content
     article.date = datetime.now()
     article.AI_version = 1.2
@@ -94,6 +110,15 @@ def construct_article(user_name, content, filters, title):
         else:
             meta["filters"][x] = "Alles"
 
+    # build a picture for the article
+    comps_focus = ["SIGNIFY NV"]
+    sector_focus = ""
+    img_array = generate_article_photo(comps_focus, sector_focus)
+    file_name = f"{uuid.uuid1().hex}.jpg"
+    save_url = f"./media/images/{file_name}"
+    retrieve_url = f"images/{file_name}"
+    cv2.imwrite(save_url, img_array)
+
     article = Articles()
     # TODO get the max date
     if title == "":
@@ -101,6 +126,7 @@ def construct_article(user_name, content, filters, title):
     else:
         article.title = title
 
+    article.top_image = retrieve_url
     article.content = content
     article.date = datetime.now()
     article.AI_version = 1.2
@@ -109,6 +135,210 @@ def construct_article(user_name, content, filters, title):
     article.save()
 
     return article.id
+
+
+# TODO format this function!!
+def generate_article_photo(components: list, sector_focus: str = None):
+    """[summary]
+
+    Args:
+        components (list): A list of the components that have to be in the photo of the article (max 2)
+        sector_focus (str, optional): [description]. Defaults to None.
+
+    Returns:
+        [type]: [description]
+    """
+    sector_dir = r"./articles_app/data/article_backgrounds/sector"
+    generic_dir = r"./articles_app/data/article_backgrounds/generic"
+    logos_dir = r"./articles_app/data/companylogos"
+
+    # select the background picture
+    if sector_focus and os.path.isfile(f"{sector_dir}/{sector_focus}_background.jpg"):
+        # there is a focus on a sector and a background picture exists for that sector
+        background = cv2.imread(f"{sector_dir}/{sector_focus}_background.jpg")
+    else:
+        # there is no focus on a sector or the sector does not exists, therefore a random picture is chosen
+        rdm_background = np.random.choice(os.listdir(generic_dir))
+        background = cv2.imread(f"{generic_dir}/{rdm_background}")
+
+    # resize the background to the good size
+    # resize dimensions in (width, height)
+    background = cv2.resize(background, (700, 422), interpolation=cv2.INTER_AREA)
+
+    # read in the images of the components
+    if len(components) == 1:
+        # only one component in the picture
+        comps = (cv2.imread(f"{logos_dir}/{components[0]}.png", cv2.IMREAD_UNCHANGED),)
+    elif len(components) == 2:
+        # two components in the picture
+        comps = (cv2.imread(f"{logos_dir}/{components[0]}.png", cv2.IMREAD_UNCHANGED), cv2.imread(f"{logos_dir}/{components[1]}.png", cv2.IMREAD_UNCHANGED))
+    else:
+        # more than two (pic the first 2)
+        comps = (cv2.imread(f"{logos_dir}/{components[0]}.png", cv2.IMREAD_UNCHANGED), cv2.imread(f"{logos_dir}/{components[1]}.png", cv2.IMREAD_UNCHANGED))
+
+    # check how many components there are
+    if len(comps) == 1:
+        # only one component to be showcased
+        # numpy shape returns (H, W, D)
+        img = comps[0]
+
+        # check for shape, if it is more rectangular or cubic
+        if img.shape[1] > 2*img.shape[0]:
+            # width is far wider than the height
+            img = resize_image(img, 450)
+        else:
+            # width is allmost equal to height
+            img = resize_image(img, 350)
+
+        # adding image into the middle of the background
+        x_pos = int((background.shape[1] / 2) - (img.shape[1] / 2))
+        y_pos = int((background.shape[0] / 2) - (img.shape[0] / 2))
+        new_image = overlay_transparent(background, img, x_pos, y_pos)
+
+    else:
+        # two components to be showcased
+        img1 = comps[0]
+        img2 = comps[1]
+
+        # check for shapes of the images, if they are both more rectangular or cubic
+        if (img1.shape[1] > 2*img1.shape[0]) and (img2.shape[1] > 2*img2.shape[0]):
+            # both widths are far wider than the height
+            img1 = resize_image(img1, 300)
+            img2 = resize_image(img2, 300)
+
+            # calculate the positions of the images
+            x_pos1 = int((background.shape[1] / 2) - (img1.shape[1] / 2))
+            y_pos1 = int((background.shape[0] / 3) * 1 - (img1.shape[0] / 2))
+            x_pos2 = int((background.shape[1] / 2) - (img2.shape[1] / 2))
+            y_pos2 = int((background.shape[0] / 3) * 2 - (img2.shape[0] / 2))
+
+            # add the new images
+            new_image = overlay_transparent(background, img1, x_pos1, y_pos1)
+            new_image = overlay_transparent(new_image, img2, x_pos2, y_pos2)
+
+        elif (img1.shape[1] > 2*img1.shape[0]):
+            # width of first image far wider than the height
+            img1 = resize_image(img1, 300)
+            img2 = resize_image(img2, 300)
+
+            # calculate the positions of the images
+            x_pos1 = int((background.shape[1] / 2) - (img1.shape[1] / 2))
+            y_pos1 = int((background.shape[0] / 3) * 1 - (img1.shape[0] / 2))
+            x_pos2 = int((background.shape[1] / 2) - (img2.shape[1] / 2))
+            y_pos2 = int((background.shape[0] / 3) * 2 - (img2.shape[0] / 2))
+
+            # add the new images
+            new_image = overlay_transparent(background, img1, x_pos1, y_pos1)
+            new_image = overlay_transparent(new_image, img2, x_pos2, y_pos2)
+
+        elif (img2.shape[1] > 2*img2.shape[0]):
+            # width of second image far wider than the height
+            img1 = resize_image(img1, 300)
+            img2 = resize_image(img2, 300)
+
+            # calculate the positions of the images
+            x_pos1 = int((background.shape[1] / 2) - (img1.shape[1] / 2))
+            y_pos1 = int((background.shape[0] / 3) * 1 - (img1.shape[0] / 2))
+            x_pos2 = int((background.shape[1] / 2) - (img2.shape[1] / 2))
+            y_pos2 = int((background.shape[0] / 3) * 2 - (img2.shape[0] / 2))
+
+            # add the new images
+            new_image = overlay_transparent(background, img1, x_pos1, y_pos1)
+            new_image = overlay_transparent(new_image, img2, x_pos2, y_pos2)
+
+        else:
+            # no width far wider than the height
+            img1 = resize_image(img1, 280)
+            img2 = resize_image(img2, 280)
+
+            # calculate the positions of the images
+            x_pos1 = int((background.shape[1] / 4) * 1 - (img1.shape[1] / 2))
+            y_pos1 = int((background.shape[0] / 2) - (img1.shape[0] / 2))
+            x_pos2 = int((background.shape[1] / 4) * 3 - (img2.shape[1] / 2))
+            y_pos2 = int((background.shape[0] / 2) - (img2.shape[0] / 2))
+
+            # add the new images
+            new_image = overlay_transparent(background, img1, x_pos1, y_pos1)
+            new_image = overlay_transparent(new_image, img2, x_pos2, y_pos2)
+
+    # cv2.imshow('dst', new_image)
+
+    # if cv2.waitKey(1) & 0xFF == ord('q'):
+    #     cv2.destroyAllWindows()
+    return new_image
+
+
+def test_photo():
+    # TODO throw away this method when tested and in production
+    comps = ["BAM Groep Koninklijke", "SIGNIFY NV"]
+    # comps = ["SIGNIFY NV", "Flow Traders"]
+    comps = ["BAM Groep Koninklijke", "Intertrust"]
+    sector = "Bouw"
+    generate_article_photo(comps, sector_focus=sector)
+
+
+def resize_image(img, width):
+    """Gets an image and the new width and resizes the height appropriatly
+
+    Args:
+        img ([type]): [description]
+        width ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    # get the ratio of the change and apply it to the height
+    height = int((width / img.shape[1]) * img.shape[0])
+    # resize the image
+    img = cv2.resize(img, (width, height), interpolation=cv2.INTER_AREA)
+    return img
+
+
+def overlay_transparent(background, overlay, x, y):
+    """
+    https://stackoverflow.com/questions/40895785/using-opencv-to-overlay-transparent-image-onto-another-image
+
+    Args:
+        background ([type]): [description]
+        overlay ([type]): [description]
+        x ([type]): [description]
+        y ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+
+    background_width = background.shape[1]
+    background_height = background.shape[0]
+
+    if x >= background_width or y >= background_height:
+        return background
+
+    h, w = overlay.shape[0], overlay.shape[1]
+
+    if x + w > background_width:
+        w = background_width - x
+        overlay = overlay[:, :w]
+
+    if y + h > background_height:
+        h = background_height - y
+        overlay = overlay[:h]
+
+    if overlay.shape[2] < 4:
+        overlay = np.concatenate(
+            [
+                overlay,
+                np.ones((overlay.shape[0], overlay.shape[1], 1), dtype=overlay.dtype) * 255
+            ],
+            axis=2,
+        )
+
+    overlay_image = overlay[..., :3]
+    mask = overlay[..., 3:] / 255.0
+
+    background[y:y+h, x:x+w] = (1.0 - mask) * background[y:y+h, x:x+w] + mask * overlay_image
+
+    return background
 
 
 def testing_find_observs():
