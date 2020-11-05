@@ -69,6 +69,18 @@ class ViewsTestCase(TestCase):
         lines = response.content.decode().splitlines()
         self.assertEqual(lines[0], "User-Agent: *")
 
+    # privacy statement page
+    def test_get_privacy_statement(self):
+        """The privacy statement page loads properly."""
+        response = self.client.get("/privacy", follow=True)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    # cookie statement page
+    def test_get_cookie_statement(self):
+        """The cookie statement page loads properly."""
+        response = self.client.get("/cookies", follow=True)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
     # module view page
     def test_module_view_user_cannot_access(self):
         """The module view is prohibited for not logged in users."""
