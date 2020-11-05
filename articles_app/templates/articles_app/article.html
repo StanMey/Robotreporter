@@ -19,7 +19,7 @@
             <div class="meta-data">
                 <div class="meta-button">
                     <button class="btn btn-success meta-button-style" type="button" data-toggle="collapse" data-target="#meta-collapse" aria-expanded="false" aria-controls="collapseExample">
-                        &lt; Metadata artikel
+                        v Metadata artikel
                     </button>
                 </div>
                 <div class="collapse" id="meta-collapse">
@@ -34,7 +34,9 @@
                           <u>Sectoren:</u><br>
                           {{article.meta_data.filters.Sector}}<br>
                           <u>Periode:</u><br>
-                          {{article.meta_data.filters.Periode}}
+                          {{article.meta_data.filters.Periode}}<br>
+                          <u>Relevantie:</u><br>
+                          {{article.meta_data.relevance}}
                       </p>
                     </div>
                 </div>

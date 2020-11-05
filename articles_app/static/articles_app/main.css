@@ -62,6 +62,47 @@
     width: 80%;
 }
 
+/* base.html FOOTER */
+footer {
+    position: fixed;
+    width: 100% !important;
+    height: 35px;
+    background-color: #fff7f1;
+    border-top: 1px solid #9c9c9c;
+    z-index: 10;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* privacy.html */
+.privacy-title {
+    margin-top: 2rem;
+}
+
+.priv-par {
+    padding: 2rem 2rem;
+    background-color: #FFF;
+}
+
+.priv-item {
+    margin-top: 1rem;
+}
+
+/* cookie.html */
+.cookie-title {
+    margin-top: 2rem;
+}
+
+.cookie-par {
+    padding: 2rem 2rem;
+    background-color: #FFF;
+}
+
+.cookie-item {
+    margin-top: 1rem;
+}
+
 /* modules.html ModA graphs*/
 #my_dataviz {
     padding-top: 2rem;

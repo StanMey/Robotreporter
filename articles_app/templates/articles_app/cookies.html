@@ -1,0 +1,52 @@
+{% extends "articles_app/base.html" %}
+
+{% load static %}
+{% block content %}
+<!--https://autoriteitpersoonsgegevens.nl/nl/privacy-over-deze-site/cookieverklaring-->
+<section class="text-center cookie-par cookie-title">
+    <h2>Cookieverklaring</h2>
+    <p class="lead text-muted">
+        Dit is de cookieverklaring van de website van het project Robotreporter.
+    </p>
+</section>
+
+<section class="jumbotron text-center cookie-par">
+    <div class="container">
+        <div class="cookie-item">
+            <h3>Cookies</h3>
+            <p class="lead text-muted">
+                De website van Robotreporter maakt op deze website gebruik van <i>session cookies</i> en van <i>session storage</i>.
+            </p>
+        </div>
+
+        <div class="cookie-item">
+            <h4>Session cookies</h4>
+            <p class="lead text-muted">
+                Session cookies zijn functionele cookies, bedoeld om de website goed te laten werken.
+                Bij functionele cookies is het niet vereist om de websitebezoekers eerst om toestemming te vragen.
+
+                Deze cookies bevatten elke keer dat u de website bezoekt een ander, tijdelijk nummer.
+                De session cookies worden verwijderd nadat u uw browser heeft afgesloten.
+            </p>
+        </div>
+
+        <div class="cookie-item">
+            <h4>Javascript</h4>
+            <p class="lead text-muted">
+                Op de website wordt javascript gebruikt om een deel van de functionaliteit uit te voeren.
+                Als uw apparaat geen javascript ondersteunt, wordt de website niet op de juiste manier of überhaupt niet weergegeven.
+            </p>
+        </div>
+
+        <div class="cookie-item">
+            <h4>Formulieren</h4>
+            <p class="lead text-muted">
+                De session cookies worden ook gebruikt om de formulieren goed te laten werken.
+                Denk hierbij aan het inloggen, registreren en het opvragen van data.<br>
+                De session cookies worden verwijderd nadat u uw browser heeft afgesloten.
+            </p>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

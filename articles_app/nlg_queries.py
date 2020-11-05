@@ -1,5 +1,4 @@
 from articles_app.models import Observations, Articles, Stocks
-from NLGengine.observation import Observation
 from NLGengine.analyse import Analyse
 
 import pandas as pd
@@ -62,20 +61,23 @@ def build_article(user_name, filters, bot=False):
     return article.id
 
 
-def construct_article(user_name, content, filters):
+def construct_article(user_name, content, filters, title):
     """Build an article based on a sentence construction the user has made.
 
     Args:
         user_name (String): The name of the user that is generating the article
         content (list): The array with all the chosen observations by the user
         filters (dict): The filters that has been chosen for the selection of the Observations
+        title (String): The title of the article
 
     Returns:
         int: The id of the newly generated article
     """
     sentences = []
+    rel_sentences = []
     for observ in content:
-        sentences.append(f"{observ[4]} (rel: {observ[3]})")
+        sentences.append(f"{observ[4]}")
+        rel_sentences.append(f"{observ[4]} (rel: {observ[3]})")
 
     content = " ".join(sentences)
 
@@ -83,6 +85,7 @@ def construct_article(user_name, content, filters):
     meta = {}
     meta["manual"] = filters.get("manual")
     meta["filters"] = {}
+    meta["relevance"] = rel_sentences
 
     for x in ["Sector", "Periode"]:
         selection = filters.get(x)
@@ -93,7 +96,11 @@ def construct_article(user_name, content, filters):
 
     article = Articles()
     # TODO get the max date
-    article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
+    if title == "":
+        article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
+    else:
+        article.title = title
+
     article.content = content
     article.date = datetime.now()
     article.AI_version = 1.2

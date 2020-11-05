@@ -53,37 +53,86 @@
   
 
   <main role="main">
-        <section class="jumbotron text-center info-par first-par">
+        <section class="jumbotron text-center info-par">
             <div class="container">
-                <h2>Wat is robotreporter?</h2>
+                <h2>Wat is robotreporter</h2>
                 <p class="lead text-muted">
-                    Robotreporter is een project die in opdracht van het <a href="https://ictinstitute.nl/">Ict Institute</a> uitgevoerd wordt.
-                    Het doel van dit project is het ontwikkelen van een werkend systeem voor generatieve AI, die nieuwsberichten kan maken op basis van data-analyse over trenddata.
-                    Dit systeem zal gedemonstreerd worden op deze website met behulp van koersdata afkomstig uit de <a href="https://nl.wikipedia.org/wiki/AMX_Index">AMX Index</a>.
+                  Robotreporter is een generatief AI-systeem, dat zelf artikelen schrijft. Het systeem werkt met een combinatie van AI-technieken om artikelen te maken.
+                  Om te demonstreren hoe de de AI werkt, wordt er beursinformatie gebruikt.
+                  Het systeem bekijkt het koersverloop van alle aandelen in de Nederlandse <a href="https://nl.wikipedia.org/wiki/AMX_Index">AMX-index</a>, en maakt artikelen over deze aandelenkoersen. 
                 </p>
             </div>
         </section>
 
-        <section class="jumbotron text-center info-par second-par">
+        <section class="jumbotron text-center info-par">
             <div class="container">
-                <h2>Hoe werkt het systeem?</h2>
+                <h2>Project-achtergrond</h2>
                 <p class="lead text-muted">
-                    nog in te vullen....
+                  Robotreporter is gemaakt door Stan Meyberg (software-ontwikkeling) en Sieuwert van Otterloo (product owner).
+                  De ontwikkeling is een samenwerking tussen <a href="https://ictinstitute.nl/">ICT Institute</a> (een adviesbureau op het gebied van AI) en het <a href="https://www.hu.nl/onderzoek/artificial-intelligence">lectoraat Artificial Intelligence</a> van de Hogeschool Utrecht.
+                  Vanuit de Hogeschool is er kennis ingebracht hoe AI-systemen effectief maar ook transparant kunnen worden ontwikkeld.
+                  Dit sluit aan bij onderzoeksthema's zoals het spel Ethics Inc en de ontwikkelde AI Impact Assessment.
+                  Vanuit ICT Institute is er kennis ingebracht over wat voor eisen er aan AI-systemen worden gesteld in de praktijk.
+                  Eén van de doelen is om mensen op een zo praktisch mogelijke manier zelf AI te laten gebruiken.
+                  Het Robotreporter project zelf heeft geen winstoogmerk. Het systeem wordt opensource beschikbaar gesteld dankzij de sponsoring door ICT Institute.
                 </p>
             </div>
         </section>
 
-        <section class="jumbotron text-center info-par third-par">
+        <section class="jumbotron text-center info-par">
             <div class="container">
-                <h2>Opzet van de website</h2>
+                <h2>Over het systeem</h2>
                 <p class="lead text-muted">
-                    nog in te vullen....
+                    Het Robotreporter-systeem bestaat uit vier modules A-D:<br>
+                    <br>
+                    <b>A. Data</b> - Hierin zijn de dagelijkse koersen van alle aandelen van de AMX-aandelen verzameld. Hier zou men ook andere tijdseries in kunnen inladen.<br>
+                    <br>
+                    <b>B. Observaties</b> - Module B speurt naar bijzondere of opvallende patronen. Dit kan zijn een stijging of daling van een enkel aandeel, of een verandering acne een meerdaagse trend of ontwikkeling in een sector. Er worden zoveel mogelijk juiste observaties verzameld.<br>
+                    <br>
+                    <b>C. Generatie</b> - In deze module worden alle feiten van een relevantie-score voorzien, en worden de hoogst scorende observaties samengevat in artikelen. De gebruiker die het artikel maakt kiest de settings en de titel. De slimme algoritmes doen de rest.<br>
+                    <br>
+                    <b>D. resultaten</b> - Iedereen kan alle artikelen inzien, vergelijken en van commentaar voorzien.<br>
+                    <br>
+                    Elke module gebruikt slimme algoritmes uit de data Science en kunstmatige intelligentie. Het systeem is ontwikkeld in de programmeertaal Python en framework Django. Het is gehost bij Transip.
                 </p>
             </div>
         </section>
 
+        <section class="jumbotron text-center info-par">
+          <div class="container">
+              <h2>Bronnen en inspiratie</h2>
+              <p class="lead text-muted">
+                De <a href="https://www.washingtonpost.com/pr/wp/2017/09/01/the-washington-post-leverages-heliograf-to-cover-high-school-football/">Washington Post maakt sinds 2017 al gebruik van Heliograph</a> om korte verslagen van lokale sportwedstrijden te maken. 
+                Waarschijnlijk zouden de resultaten van dit soort lokale wedstrijden niet gemeld worden als er geen robotjournalist was.
+             
+                The Guardian <a href="https://www.theguardian.com/australia-news/2019/feb/01/political-donations-plunge-to-167m-down-from-average-25m-a-year">gebruikt het systeem ReporterMate</a> voor onder andere dit artikel over financiering van politieke campagnes.
+                <br>
+                Om vast te stellen wat voor feiten in nieuwsberichten voorkomen, zijn er voor dit project artikelen geanalyseerd van FD.nl, marketwatch.com, rtlnieuws.nl en beleggen.nl. 
+              </p>
+          </div>
+      </section>
 
   </main>
+
+  <footer class="footer row align-items-center">
+    <div class="footer-left col text-center">
+      Initiatief van:
+      <a href="https://ictinstitute.nl/">
+        <img src="{% static 'articles_app/ict_institute_small.png' %}"  alt="ictinstitute logo" width="30" height="30">
+      </a>
+      en
+      <a href="https://www.hu.nl/onderzoek/artificial-intelligence">
+        <img src="{% static 'articles_app/hu_logo_small.jpg' %}" alt="HU logo" width="30" height="30">
+      </a>
+    </div>
+    <div class="footer-middle col text-center">
+      <a href="/">Over RobotReporter</a>
+    </div>
+    <div class="footer-right col text-center">
+      <a href="/privacy">Privacy Statement</a> /
+      <a href="/cookies">Cookie Statement</a>
+    </div>
+  </footer>
   
       <!-- Optional JavaScript -->
       <!-- Popper.js, then Bootstrap JS -->

@@ -476,6 +476,7 @@ function buildComposerView(data, filters) {
     let leftTableDiv = document.querySelector(".left-compose-table")
     let rightTableDiv = document.querySelector(".right-compose-table");
 
+    // build the titles of the datatables
     let leftText = document.createElement("h3");
     leftText.innerHTML = "Observaties";
     leftTableDiv.appendChild(leftText);
@@ -484,6 +485,23 @@ function buildComposerView(data, filters) {
     rightText.innerHTML = "Geselecteerde zinnen";
     rightTableDiv.appendChild(rightText);
 
+    // create the input for the title
+    let formGroup = document.createElement("div");
+    formGroup.className = "form-group";
+    rightTableDiv.appendChild(formGroup);
+    
+    let titleLabel = document.createElement("label");
+    titleLabel.setAttribute("for", "title-pick");
+    titleLabel.innerHTML = "Titel:";
+    formGroup.appendChild(titleLabel);
+
+    let titleInput = document.createElement("input");
+    titleInput.setAttribute("type", "text");
+    titleInput.className = "form-control";
+    titleInput.setAttribute("id", "title-pick");
+    formGroup.appendChild(titleInput);
+
+    // create the datatables
     let leftTbl = document.createElement("table");
     leftTbl.className = "table table-bordered";
     leftTbl.setAttribute("id", "leftDatatable");
@@ -494,6 +512,7 @@ function buildComposerView(data, filters) {
     rightTbl.setAttribute("id", "rightDatatable");
     rightTableDiv.appendChild(rightTbl);
 
+    // create the construct button
     let constructButton = document.createElement("button");
     constructButton.className = "btn btn-success compose-button";
     constructButton.setAttribute("id", "compose-text-button");
@@ -574,17 +593,21 @@ function buildComposerView(data, filters) {
 
     // Add functionality to generate article button
     $('#compose-text-button').on('click', function() {
-        constructArticle(selectedObservs, filters);
+        // get the title
+        title = document.getElementById("title-pick").value;
+        // construct the article
+        constructArticle(title, selectedObservs, filters);
     })
 }
 
 
 /**
  * Send the sentences that the user has chosen back to the back-end so that the article can be constructed.
+ * @param {string} title The title of the article.
  * @param {Array} content All the sentences the user has chosen.
  * @param {dict} filters The filters the user has selected.
  */
-async function constructArticle(content, filters) {
+async function constructArticle(title, content, filters) {
 
     // construct a new article and pass in the filters
     const url = "api/articles/composearticle";
@@ -596,7 +619,8 @@ async function constructArticle(content, filters) {
             "X-CSRF-Token": csrftoken,
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({'content': content,
+        body: JSON.stringify({'title': title,
+                              'content': content,
                               'filters': filters}),
         mode: "same-origin"
     })
