@@ -17,7 +17,7 @@ class WeekPattern:
             period_end (datetime): The date with the end of the period
         """
         assert isinstance(df_data, pd.DataFrame), "df_data should be a pandas Dataframe"
-        assert set(["component", "indexx", "close", "date"]).issubset(df_data.columns), "missing columns in dataset"
+        assert set(["component", "indexx", "close", "date", "sector"]).issubset(df_data.columns), "missing columns in dataset"
         self.df = df_data
 
         assert isinstance(period_beg, datetime), "period_beg should be a datetime object"
@@ -38,21 +38,30 @@ class WeekPattern:
             if row.perc_delta == 0.0:
                 # average week
                 data = {"component": row.component,
-                        "percentage": row.perc_delta}
+                        "sector": row.sector,
+                        "perc_change": row.perc_delta,
+                        "abs_change": row.abs_delta,
+                        "relev": self.relevance(row.perc_delta)}
                 sentence = f"{row.component} is deze week gelijk gebleven."
                 observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(row.perc_delta), data)
                 self.observations.append(observ)
             elif row.perc_delta > 0.0:
                 # positive week
                 data = {"component": row.component,
-                        "percentage": row.perc_delta}
+                        "sector": row.sector,
+                        "perc_change": row.perc_delta,
+                        "abs_change": row.abs_delta,
+                        "relev": self.relevance(row.perc_delta)}
                 sentence = f"{row.component} is met {row.perc_delta} procent gestegen deze week."
                 observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(row.perc_delta), data)
                 self.observations.append(observ)
             else:
                 # negative week
                 data = {"component": row.component,
-                        "percentage": row.perc_delta}
+                        "sector": row.sector,
+                        "perc_change": row.perc_delta,
+                        "abs_change": row.abs_delta,
+                        "relev": self.relevance(row.perc_delta)}
                 sentence = f"{row.component} is met {row.perc_delta} procent gedaald deze week."
                 observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(row.perc_delta), data)
                 self.observations.append(observ)

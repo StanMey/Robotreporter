@@ -19,7 +19,7 @@ class Decrease:
             period_end (datetime): The date with the end of the period
         """
         assert isinstance(df_data, pd.DataFrame), "df_data should be a pandas Dataframe"
-        assert set(["component", "indexx", "close", "date"]).issubset(df_data.columns), "missing columns in dataset"
+        assert set(["component", "indexx", "close", "date", "sector"]).issubset(df_data.columns), "missing columns in dataset"
         self.df = df_data
 
         assert isinstance(period_beg, datetime), "period_beg should be a datetime object"
@@ -46,11 +46,13 @@ class Decrease:
             # collect the additional metadata
             data = {
                     "component": info,
-                    "perc_change": 0.0
+                    "perc_change": 0.0,
+                    "sector": None,
+                    "relev": 9.5
                 }
             # save the observation
             sentence = f"Alle fondsen binnen de {info} zijn vandaag gestegen."
-            observ = Observation(info, self.period_begin, self.period_end, "combi-stijging", sentence, 9.0, data)
+            observ = Observation(info, self.period_begin, self.period_end, "combi-stijging", sentence, 9.5, data)
             self.observations.append(observ)
 
         if len(df_only_dec) == 1:
@@ -59,6 +61,7 @@ class Decrease:
             # collect the additional metadata
             data = {
                     "component": info.component,
+                    "sector": info.sector,
                     "perc_change": info.perc_delta,
                     "abs_change": info.abs_delta,
                     "relev": self.relevance(info.perc_delta)
@@ -74,6 +77,7 @@ class Decrease:
             # collect the additional metadata
             data = {
                     "component": list(info.component),
+                    "sector": list(info.sector),
                     "perc_change": list(info.perc_delta),
                     "abs_change": list(info.abs_delta),
                     "relev": [self.relevance(x.perc_delta) for (_, x) in info.iterrows()]
@@ -95,6 +99,7 @@ class Decrease:
             # collect the additional metadata
             data = {
                     "component": info.component,
+                    "sector": info.sector,
                     "perc_change": info.perc_delta,
                     "abs_change": info.abs_delta,
                     "relev": self.relevance(info.perc_delta)
@@ -110,6 +115,7 @@ class Decrease:
             # collect the additional metadata
             data = {
                     "component": list(info.component),
+                    "sector": list(info.sector),
                     "perc_change": list(info.perc_delta),
                     "abs_change": list(info.abs_delta),
                     "relev": [self.relevance(x.perc_delta) for (_, x) in info.iterrows()]
@@ -125,6 +131,7 @@ class Decrease:
             # collect the additional metadata
             data = {
                     "component": list(info.component),
+                    "sector": list(info.sector),
                     "perc_change": list(info.perc_delta),
                     "abs_change": list(info.abs_delta),
                     "relev": [self.relevance(x.perc_delta) for (_, x) in info.iterrows()]
@@ -145,6 +152,7 @@ class Decrease:
             # collect the additional metadata
             data = {
                     "component": info.component,
+                    "sector": info.sector,
                     "perc_change": info.perc_delta,
                     "abs_change": info.abs_delta,
                     "relev": self.relevance(info.perc_delta)

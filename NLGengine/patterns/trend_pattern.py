@@ -17,7 +17,7 @@ class Trend:
             period_end (datetime): The date with the end of the period
         """
         assert isinstance(df_data, pd.DataFrame), "df_data should be a pandas Dataframe"
-        assert set(["component", "indexx", "close", "date"]).issubset(df_data.columns), "missing columns in dataset"
+        assert set(["component", "indexx", "close", "date", "sector"]).issubset(df_data.columns), "missing columns in dataset"
         self.df = df_data
 
         assert isinstance(period_beg, datetime), "period_beg should be a datetime object"
@@ -43,6 +43,8 @@ class Trend:
         # loop over all component and select per component
         for component in all_components:
 
+            # get the sector of the current component
+            sector = self.df[self.df["component"] == component]["sector"].iloc[0]
             # select all the rows from a certain component
             df_one_component = self.df[self.df["component"] == component].copy().sort_values("date")
             # calculate the percentage difference
@@ -79,6 +81,8 @@ class Trend:
             if trend_count >= 2:
                 data = {
                     "component": component,
+                    "sector": sector,
+                    "relev": self.relevance(trend_count),
                     "trend_duration": trend_count
                 }
                 # select the sentence based on the latest percentage change

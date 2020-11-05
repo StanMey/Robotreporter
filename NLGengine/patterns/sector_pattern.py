@@ -50,7 +50,7 @@ class Sector:
                 data = {
                         "component": list(df_one_sector.component),
                         "perc_change": list(df_one_sector.perc_delta),
-                        "sector": sector,
+                        "sector": [sector],
                         "relev": [self.relevance(x.perc_delta) for (_, x) in df_one_sector.iterrows()]
                     }
                 # save the observation
@@ -64,7 +64,7 @@ class Sector:
                 data = {
                         "component": list(df_one_sector.component),
                         "perc_change": list(df_one_sector.perc_delta),
-                        "sector": sector,
+                        "sector": [sector],
                         "relev": [self.relevance(x.perc_delta) for (_, x) in df_one_sector.iterrows()]
                     }
                 # save the observation
