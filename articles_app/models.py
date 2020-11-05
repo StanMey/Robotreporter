@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import JSONField
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Stocks(models.Model):
@@ -51,3 +52,24 @@ class Articles(models.Model):
 
     def __repr__(self):
         return "{0} - {1} - {2}".format(self.date, self.author, self.title)
+
+
+class Comment(models.Model):
+    article = models.ForeignKey(Articles, on_delete=models.CASCADE, related_name="comments")
+    author = models.CharField(max_length=100)
+    body = models.TextField()
+    score = models.IntegerField(
+            default=5,
+            validators=[MaxValueValidator(10), MinValueValidator(1)]
+    )
+    created_on = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ["-created_on"]
+
+    def __str__(self):
+        return "Comment: {0}; by {1}".format(self.body, self.author)
+
+    def __repr__(self):
+        return "Comment: {0}; by {1}".format(self.body, self.author)

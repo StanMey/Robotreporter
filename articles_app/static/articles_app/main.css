@@ -172,8 +172,8 @@ footer {
 
 /* single article behaviour */
 .article-post {
-    margin-top: 4rem;
-    margin-bottom: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 7rem;
 }
 
 .article-post-title {
@@ -189,12 +189,29 @@ footer {
 }
 
 .meta-data {
-    margin-top: 5rem;
+    margin-top: 2rem;
     margin-bottom: 4rem;
 }
 
 .meta-button {
     text-align: center;
+}
+
+.comment-post-title {
+    margin-top: 1.5rem;
+    color: #999;
+}
+
+.comment-box {
+    margin-bottom: 2rem;
+}
+
+#div_id_score input {
+    width: 10%;
+}
+#div_id_body textarea {
+    width: 70%;
+    height: 100px;
 }
 
 /* home.html styling */

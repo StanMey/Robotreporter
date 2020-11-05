@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 
+from .forms import CommentForm
+
 import articles_app.db_queries as dbq
 import articles_app.nlg_queries as nlgq
 import articles_app.utils as util
@@ -280,6 +282,31 @@ def generate_article(request):
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
+def comment_detail(request):
+    """[summary]
+
+    Args:
+        request ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    if request.method == "POST":
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            # create Comment object but not yet save it
+            new_comment = comment_form.save(commit=False)
+            # assign the article to the comment
+            new_comment.article = 1
+            # assign the user as the author to the comment
+            new_comment.author = request.user.username
+            # save the comment to the database
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+    return 1
+
+
 @login_required
 def load_articles_set(request):
     """[summary]
@@ -308,10 +335,33 @@ def load_article(request, article_id):
     """
     article = dbq.get_article(article_id)
 
-    context = {
-        'article': article
-    }
-    if article.get("found"):
-        return render(request, "articles_app/article.html", context)
-    else:
+    if not article.get("found"):
+        # article not found
         raise Http404("Article does not exist")
+    else:
+        # article found
+
+        comments = article.get("query_set").comments.filter(active=True)[:3]
+
+        if request.method == "POST":
+            comment_form = CommentForm(data=request.POST)
+            if comment_form.is_valid():
+                # create Comment object but not yet save it
+                new_comment = comment_form.save(commit=False)
+                # assign the article to the comment
+                new_comment.article = article.get("query_set")
+                # assign the user as the author to the comment
+                new_comment.author = request.user.username
+                # save the comment to the database
+                new_comment.save()
+                messages.info(request, "Uw commentaar is ontvangen en zal gekeurd worden")
+        else:
+            comment_form = CommentForm()
+
+        context = {
+            'article': article,
+            'comments': comments,
+            'comment_form': comment_form
+        }
+        # TODO set a slider or stars in the crispy form
+        return render(request, "articles_app/article.html", context)

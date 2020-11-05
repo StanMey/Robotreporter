@@ -323,6 +323,7 @@ def get_article(article_id):
         article["author"] = selected_article.author
         article["AI_version"] = selected_article.AI_version
         article["meta_data"] = selected_article.meta_data
+        article["query_set"] = selected_article
     else:
         article["found"] = False
 

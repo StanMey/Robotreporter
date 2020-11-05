@@ -1,9 +1,14 @@
 {% extends "articles_app/base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% load static %}
 {% block content %}
 
 <div class="container">
+    <div class="article-link-back">
+        <a class="header-button" href="/module/overview"> &lt; Terug</a>
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="article-post">
@@ -14,6 +19,44 @@
             </div>
         </div>
     </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 comment-box">
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Geef feedback</legend>
+                    {{ comment_form | crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="comments-tab">
+                <div class="meta-button">
+                    <button class="btn btn-success meta-button-style" type="button" data-toggle="collapse" data-target="#comment-collapse" aria-expanded="false" aria-controls="collapseExample">
+                        v Zie commentaar
+                    </button>
+                </div>
+                <div class="collapse" id="comment-collapse">
+                    {% for comment in comments %}
+                        <div class="card card-body">
+                            <p class="comment-post-title">{{ comment.created_on }} door {{ comment.author }}</p>
+                            <p>
+                                {{ comment.body }}
+                            </p>
+                            <p>Score: {{ comment.score }}</p>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <div class="row justify-content-center">
         <div class="col-md-8">
