@@ -20,7 +20,9 @@ class Observation:
         self.period_end = prd_end
         self.pattern = pattern
         self.observation = obsrv
-        self.relevance = rlvnc
+        # base relevance and situalional relevance
+        self.relevance1 = rlvnc
+        self.relevance2 = rlvnc  # 0.0
         self.meta_data = m_data
 
     def __str__(self):

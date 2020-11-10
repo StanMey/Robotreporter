@@ -283,19 +283,16 @@ def get_articles_set(amount):
     """
     articles_set = Articles.objects.order_by('-date')[:amount]
 
-    data = {}
-    count = 1
+    data = []
     for article in articles_set:
         art = {}
         art["article_id"] = article.id
         art["title"] = article.title
-        art["content"] = article.content
+        art["img_source"] = article.top_image
+        art["content"] = f"{article.content[:120]}...."
         art["date_show"] = article.date.strftime("%d %b %Y")
-        art["date_whole"] = article.date.strftime("%d-%m-%Y, %H:%M:%S")
         art["author"] = article.author
-        art["AI_version"] = article.AI_version
-        data[count] = art
-        count += 1
+        data.append(art)
 
     return data
 

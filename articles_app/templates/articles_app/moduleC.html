@@ -1,0 +1,50 @@
+{% extends "articles_app/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+{% block content %}
+
+<div class="module-view">
+    
+    <div class="row justify-content-center selection-menu">
+        <div class="btn-group" role="group" aria-label="button-group">
+            <button type="button" onclick="location.href='/modules/moduleA'" class="btn btn-menu btn-mod-a">Timeseries</button>
+            <button type="button" onclick="location.href='/modules/moduleB'" class="btn btn-menu btn-mod-b">Observations</button>
+            <button type="button" onclick="location.href='/modules/moduleC'" class="btn btn-menu btn-mod-c">Article-generation</button>
+            <button type="button" onclick="location.href='/modules/moduleD'" class="btn btn-menu btn-mod-d">Articles</button>
+        </div>
+    </div>
+    
+    <div class="module-content">
+        <div class="row justify-content-center h-40 w-100 filter-container">
+
+        </div>
+
+        <div class="row justify-content-end w-100 relev-button">
+            <a class="justify-content-end" href="/modules/relevance">Relevantie?</a>
+        </div>
+
+        <div class="row justify-content-center h-40 w-100 mod-c-table">
+
+        </div>
+
+        <div class="row justify-content-center h-20 w-100 generate-links">
+            <div class="col d-flex justify-content-center">
+                <button class="btn btn-success button-mod-c" onclick=loadComposeView()>Stel artikel samen</button>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <button class="btn btn-success button-mod-c" onclick=generateArticle()>Genereer artikel</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $( document ).ready(function() {
+        renderModuleC();
+    });
+</script>
+
+{% endblock content %}

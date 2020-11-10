@@ -33,7 +33,7 @@ function highLightSelectedButton(buttonNumber) {
 async function createFilterMenuModB(contentDiv) {
 
     // get all available filters
-    let response = await fetch('api/observations/getfilters');
+    let response = await fetch('/data/api/observations/getfilters');
     let filters = await response.json(); 
 
     // let filters = {"Serie": ["AMX", "Aalberts", "postnl", "basic fit"],
@@ -88,7 +88,7 @@ async function applyFiltersModB() {
                            "options": selectedSeries}
     })
 
-    const url = "api/observations/usefilters";
+    const url = "/data/api/observations/usefilters";
     const csrftoken = Cookies.get('csrftoken');
 
     let response = await fetch(url, {
@@ -120,7 +120,7 @@ async function applyFiltersModB() {
 async function createFilterMenuModC(contentDiv) {
 
     // get all available filters
-    let response = await fetch('api/relevance/getfilters');
+    let response = await fetch('/data/api/relevance/getfilters');
     let filters = await response.json(); 
 
     // build all the filter selects
@@ -201,7 +201,7 @@ function createDataTable(table, id, columns, data, modA) {
         $('#datatable tbody').on('click', 'tr', async function() {
             let serie_name = dataTable.row( this ).data();
 
-            let response = await fetch("api/dataseries/" + serie_name[0] + "/close");
+            let response = await fetch("/data/api/dataseries/" + serie_name[0] + "/close");
             let data = await response.json();
 
             lineChart.updateClose(data, serie_name[0]);
@@ -332,42 +332,6 @@ function createSingleSlider(contentDiv, title) {
     sliderCont.appendChild(sliderInput);
 }
 
-/**
- * Multiple lines of JSDoc text are written here,
- * wrapped normally.
- * @param {string} contentDiv The class name of the div where the buttons should be loaded in.
- */
-async function createButtonsModC(contentDiv) {
-    let col1 = document.createElement("div");
-    col1.className = "col d-flex justify-content-center";
-    contentDiv.appendChild(col1);
-
-    let col2 = document.createElement("div");
-    col2.className = "col d-flex justify-content-center";
-    contentDiv.appendChild(col2);
-
-    let button1 = document.createElement("button");
-    button1.className = "btn btn-success buttonModC";
-    button1.setAttribute("id", "button1ModC");
-    button1.innerHTML = "Stel artikel samen";
-    col1.appendChild(button1);
-
-    let button2 = document.createElement("button");
-    button2.className = "btn btn-success buttonModC";
-    button2.setAttribute("id", "button2ModC");
-    button2.innerHTML = "Genereer artikel!";
-    col2.appendChild(button2);
-
-    // Add functionality to both buttons 
-    $('#button1ModC').on('click', function() {
-        loadComposeView();
-    })
-
-   $('#button2ModC').on('click', function() {
-        generateArticle();
-    })
-}
-
 
 /**
  * When the button 'generate article' is clicked, the filters that apply are read,
@@ -386,7 +350,7 @@ async function generateArticle() {
     choices["manual"] = false;
 
     // generate a new article and pass in the filters
-    const url = "api/articles/generate";
+    const url = "/data/api/articles/generate";
     const csrftoken = Cookies.get('csrftoken');
 
     let response = await fetch(url, {
@@ -402,7 +366,7 @@ async function generateArticle() {
 
     // get the id of the article and redirect to the article
     _id = data['article_number']
-    window.open('/module/articles/' + _id, target="_self");
+    window.open('/modules/articles/' + _id, target="_self");
 }
 
 
@@ -422,7 +386,7 @@ async function loadComposeView() {
     choices["manual"] = true;
 
     // generate a new article and pass in the filters
-    const url = "api/articles/composeoptions";
+    const url = "/data/api/articles/composeoptions";
     const csrftoken = Cookies.get('csrftoken');
 
     let response = await fetch(url, {
@@ -611,7 +575,7 @@ function buildComposerView(data, filters) {
 async function constructArticle(title, content, filters) {
 
     // construct a new article and pass in the filters
-    const url = "api/articles/composearticle";
+    const url = "/data/api/articles/composearticle";
     const csrftoken = Cookies.get('csrftoken');
 
     let response = await fetch(url, {
@@ -629,102 +593,28 @@ async function constructArticle(title, content, filters) {
 
     // get the id of the article and redirect to the article
     _id = data['article_number']
-    window.open('/module/articles/' + _id, target="_self");
+    window.open('/modules/articles/' + _id, target="_self");
 }
-
-
-// 
-function buildArticleCard(contentDiv, content) {
-
-    let _id = content['article_id']
-
-    let card = document.createElement("div");
-    card.className = "card";
-    contentDiv.appendChild(card);
-
-    let cardBody = document.createElement("div");
-    cardBody.className = "card-body";
-    card.appendChild(cardBody);
-
-    let cardTitle = document.createElement("h5");
-    cardTitle.className = "card-title";
-    cardTitle.innerHTML = content["title"];
-    cardBody.appendChild(cardTitle);
-
-    let cardSubTitle = document.createElement("h6");
-    cardSubTitle.className = "card-subtitle mb-2 text-muted";
-    cardSubTitle.innerHTML = content["date_show"];
-    cardBody.appendChild(cardSubTitle);
-
-    let cardText = document.createElement("p");
-    cardText.className = "card-text";
-    cardText.innerHTML = content["content"].substring(0, 200) + ".....";
-    cardBody.appendChild(cardText);
-
-    let cardLink = document.createElement("a");
-    cardLink.className = "card-link";
-    cardLink.setAttribute("id", "article_id_" + _id)
-    cardLink.innerHTML = "Naar artikel";
-    cardBody.appendChild(cardLink);
-
-    $('#article_id_' + _id).on('click', function() {
-        window.open('/module/articles/' + _id, target="_self");
-    })
-}
-
-// 
-function buildArticlesModD(contentDiv, content) {
-    // 
-    let rowAmount = 2;
-    let articlesPerRow = 3;
-
-    // 
-    let counter = 1
-    for (let i = 0; i < rowAmount; i++) {
-        let row = document.createElement("div");
-        row.className = "row w-100 articles-row"
-        contentDiv.appendChild(row);
-
-        //
-        for (let j = 0; j < articlesPerRow; j++) {
-            let colDiv = document.createElement("div")
-            colDiv.className = "col";
-            row.appendChild(colDiv);
-
-            buildArticleCard(colDiv, content[counter]);
-            counter += 1
-        }
-    }
-}
-  
 
 // MODULE A timeseries
 async function renderModuleA() {
     let col = ["Serie", "sector", "Oudste datum", "Recentste datum", "Laatste koers"]
 
-    clearDivContent(moduleContent);
     highLightSelectedButton(0);
 
-    let contentDiv = document.querySelector(moduleContent);
-
-    let section1 = document.createElement("div");
-    section1.className = "row justify-content-center h-50 w-100";
-    contentDiv.appendChild(section1)
-
-    let section2 = document.createElement("div");
-    section2.className = "row justify-content-center h-50 w-100";
-    contentDiv.appendChild(section2)
+    let section1 = document.querySelector(".section1");
+    let section2 = document.querySelector(".section2");
 
     lineChart = new LineChart(section1);
     lineChart.build();
 
-    let amxResponse = await fetch("api/dataseries/AMX/close");
+    let amxResponse = await fetch("/data/api/dataseries/AMX/close");
     let data1 = await amxResponse.json();
 
     lineChart.updateClose(data1, "AMX")
 
     // get all information about the available dataseries from db
-    let dataseriesResponse = await fetch('api/dataseries');
+    let dataseriesResponse = await fetch('/data/api/dataseries');
     let data2 = await dataseriesResponse.json();
     
     // format it to the form of: [["AMX", "1-9-20", "8-9-20", "43.5"],......]
@@ -740,24 +630,12 @@ async function renderModuleA() {
 
 // MODULE B Observations
 async function renderModuleB() {
-    clearDivContent(moduleContent);
     highLightSelectedButton(1);
-
-    let contentDiv = document.querySelector(moduleContent);
-
-    let section1 = document.createElement("div");
-    section1.className = "row justify-content-center h-50 w-100"
-    contentDiv.appendChild(section1)
-
-    let section2 = document.createElement("div");
-    section2.className = "row justify-content-center h-50 w-100"
-    section2.id = "datatable_sec";
-    contentDiv.appendChild(section2)
 
     let col = ["Serie", "Periode", "Patroon", "Zin"]
 
     // get all information about the available dataseries from db
-    let response = await fetch('api/observations/latest');
+    let response = await fetch('/data/api/observations/latest');
     let data = await response.json();
 
     // format it to the form of: [["AMX", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 5.00%"].....]
@@ -767,6 +645,9 @@ async function renderModuleB() {
         rows.push([obj['serie'], obj['period'], obj['pattern'], obj['observation']]);
     }
 
+    let section1 = document.querySelector(".section1");
+    let section2 = document.querySelector(".section2");
+
     createFilterMenuModB(section1);
     createDataTable(section2, "observations_table", col, rows, false);
 }
@@ -774,38 +655,14 @@ async function renderModuleB() {
 
 // MODULE C Observations-relevance
 async function renderModuleC() {
-    clearDivContent(moduleContent);
     highLightSelectedButton(2);
 
     let contentDiv = document.querySelector(moduleContent);
 
-    let section1 = document.createElement("div");
-    section1.className = "row justify-content-center h-40 w-100 filter-container"
-    contentDiv.appendChild(section1); 
-
-    let linkSection = document.createElement("div");
-    linkSection.className = "row justify-content-end w-100 relev-button"
-    contentDiv.appendChild(linkSection);
-
-    let section2 = document.createElement("div");
-    section2.className = "row justify-content-center h-40 w-100"
-    contentDiv.appendChild(section2);
-
-    let section3 = document.createElement("div");
-    section3.className = "row justify-content-center h-20 w-100 generate-links"
-    contentDiv.appendChild(section3);
-
-    // add the link to the relevance page
-    let link = document.createElement("a");
-    link.setAttribute("href", "/module/relevance");
-    link.className = "justify-content-end";
-    link.textContent = "Relevantie?";
-    linkSection.appendChild(link);
-
     let col = ["Serie", "Periode", "Patroon", "Zin", "Relevantie"]
 
     // get all information about the available dataseries from db
-    let response = await fetch('api/observations/relevance');
+    let response = await fetch('/data/api/observations/relevance');
     let data = await response.json();
 
     // format it to the form of: [["AMX", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 5.00%", 8].....]
@@ -815,23 +672,16 @@ async function renderModuleC() {
         rows.push([obj['serie'], obj['period'], obj['pattern'], obj['observation'], obj['relevance']]);
     }
 
+    let section1 = document.querySelector(".filter-container");
+    let section2 = document.querySelector(".mod-c-table");
+
     // createImportanceSliders(section1);
     createFilterMenuModC(section1);
     createDataTable(section2, "obser_relev_table", col, rows, false);
-    createButtonsModC(section3);
 }
 
 
 // MODULE D Articles
-async function renderModuleDArticles() {
-    clearDivContent(moduleContent);
+async function renderModuleD() {
     highLightSelectedButton(3);
-
-    let contentDiv = document.querySelector(moduleContent);
-
-    // get all information about the available dataseries from db
-    let response = await fetch('api/articles');
-    let data = await response.json();
-
-    buildArticlesModD(contentDiv, data);
 }

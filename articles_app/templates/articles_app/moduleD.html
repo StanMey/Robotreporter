@@ -1,0 +1,82 @@
+{% extends "articles_app/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+{% block content %}
+
+<div class="module-view">
+    
+    <div class="row justify-content-center selection-menu">
+        <div class="btn-group" role="group" aria-label="button-group">
+            <button type="button" onclick="location.href='/modules/moduleA'" class="btn btn-menu btn-mod-a">Timeseries</button>
+            <button type="button" onclick="location.href='/modules/moduleB'" class="btn btn-menu btn-mod-b">Observations</button>
+            <button type="button" onclick="location.href='/modules/moduleC'" class="btn btn-menu btn-mod-c">Article-generation</button>
+            <button type="button" onclick="location.href='/modules/moduleD'" class="btn btn-menu btn-mod-d">Articles</button>
+        </div>
+    </div>
+    
+    <div class="module-content">
+        <div class="row w-100 articles-row">
+            {% for article in page_obj %}
+            <article class="col-md">
+                <div class="card">
+                    <div class="card-body">
+                        <img class="card-img-top" src="{{ MEDIA_URL }}{{ article.img_source }}" height="254px" width="420px">
+                        <h5 class="card-title">{{ article.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ article.date_show }}</h6>
+                        <p class="card-text">{{ article.content }}</p>
+                        <a class="card-link" href="/modules/articles/{{article.article_id}}" target="_self">Naar artikel</a>
+                    </div>
+                </div>
+            </article>
+
+            {% if forloop.last %}
+                </div>
+            {% else %}
+                {% if forloop.counter|divisibleby:3 %}
+                    </div>
+                    <div class="row w-100 articles-row">
+                {% endif %}
+            {% endif %}
+
+            {% endfor %}
+            
+            {% if page_obj.has_other_pages %}
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#"><span>&laquo;</span></a></li>
+                    {% endif %}
+
+                    {% for i in page_obj.paginator.page_range %}
+                        {% if page_obj.number == i %}
+                            <li class="page-item active"><a class="page-link" href="#"><span>{{ i }}</span></a></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#"><span>&raquo;</span></a></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    $( document ).ready(function() {
+        renderModuleD();
+    });
+</script>
+
+{% endblock content %}

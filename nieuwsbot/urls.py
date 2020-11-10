@@ -25,7 +25,8 @@ from articles_app import views as app_views
 
 urlpatterns = [
     path('', app_views.home, name='home'),
-    path('module/', include('articles_app.urls')),
+    path('modules/', include('articles_app.urls')),
+    path('data/', include('articles_app.urls_data')),
     path('register/', user_views.register, name='register'),
     path('profile/', user_views.profile, name='profile'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
@@ -33,5 +34,6 @@ urlpatterns = [
     path('robots.txt/', app_views.robots_txt, name='robots_txt'),
     path('privacy/', app_views.privacy_statement, name="privacy_statement"),
     path('cookies/', app_views.cookie_statement, name="cookie_statement"),
+    path('about/', app_views.about_page, name="about_page"),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
