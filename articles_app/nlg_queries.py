@@ -1,5 +1,8 @@
 from articles_app.models import Observations, Articles, Stocks
 from NLGengine.analyse import Analyse
+from NLGengine.observation import Observation
+from NLGengine.content_determination.determinator import Determinator
+from NLGengine.micro_planning.planner import Planner
 
 import pandas as pd
 import numpy as np
@@ -24,16 +27,37 @@ def build_article(user_name, filters, bot=False):
     current_date = datetime(year=2020, month=9, day=24)
     begin_date = current_date - timedelta(10)
 
-    # retrieve 10 random observations from the Observations table
+    # retrieve all relevant observations from the Observations table
     observation_set = list(Observations.objects.filter(
                                     period_begin__gte=begin_date
-                           ).order_by('-period_end', '-relevance')[:10])
+                           ).order_by('-period_end', '-relevance'))
+
+    # get the initial observation
+    first = observation_set.pop(0)
+    new_observ = Observation(first.serie, first.period_begin, first.period_end, first.pattern, first.observation, float(first.relevance), first.meta_data)
+
+    # setup before the beginning of the generation
+    observation_set = [Observation(x.serie, x.period_begin, x.period_end, x.pattern, x.observation, float(x.relevance), x.meta_data) for x in observation_set]
+    chosen_observs = []
+
+    for x in range(0, 10):
+        determinator = Determinator(new_observ, observation_set, chosen_observs)
+        determinator.calculate_new_situational_relevance()
+
+        # 
+        observation_set = sorted(observation_set, key=lambda x: x.relevance2, reverse=True)
+        new_observ = observation_set.pop(0)
+        chosen_observs.append(new_observ)
+
+    # set the chosen observations to the planner
+    planner = Planner(chosen_observs)
+    planner.plan()
 
     sentences = []
     rel_sentences = []
-    for observ in observation_set[:5]:
+    for observ in planner.observations:
         sentences.append(observ.observation)
-        rel_sentences.append(f"{observ.observation} (rel: {observ.relevance})")
+        rel_sentences.append(f"{observ.observation} (rel: {observ.relevance2})")
 
     content = " ".join(sentences)
 
@@ -54,7 +78,7 @@ def build_article(user_name, filters, bot=False):
     # select the focus of the image
     comps_focus = []
     sector_focus = []
-    for observ in observation_set[:3]:
+    for observ in planner.observations:
         if type(observ.meta_data.get("component")) == list:
             comps_focus.extend(observ.meta_data.get("component"))
         else:
@@ -425,7 +449,7 @@ def find_new_observations(period_begin: datetime, period_end: datetime, overwrit
     if to_db:
         # write all the found observations into the database
         for observ in all_observations:
-            observation_to_database(observ.serie, observ.period_begin, observ.period_end, observ.pattern, observ.observation, observ.relevance, observ.meta_data)
+            observation_to_database(observ.serie, observ.period_begin, observ.period_end, observ.pattern, observ.observation, observ.relevance1, observ.meta_data)
 
     if to_prompt:
         # write all the found observations to the prompt

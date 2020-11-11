@@ -1,0 +1,9 @@
+{
+    "S_period_O_comp": 0.8,
+    "S_period_S_comp": -0.7,
+    "O_period_S_comp": 0.5,
+    "S_week_O_comp": 0.3,
+    "S_pattern_S_week": -0.2,
+    "O_pattern_S_week": 0.6,
+    "S_pattern_S_period": -0.6
+}

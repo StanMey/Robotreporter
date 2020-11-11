@@ -18,6 +18,10 @@ class Observation:
         self.serie = serie
         self.period_begin = prd_begin
         self.period_end = prd_end
+        self.month_number = self.period_end.month
+        self.week_number = self.period_end.isocalendar()[1:2][0]
+        self.day_number = self.period_end.day
+
         self.pattern = pattern
         self.observation = obsrv
         # base relevance and situalional relevance

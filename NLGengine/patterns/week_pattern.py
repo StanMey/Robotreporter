@@ -42,7 +42,7 @@ class WeekPattern:
                         "perc_change": row.perc_delta,
                         "abs_change": row.abs_delta,
                         "relev": self.relevance(row.perc_delta)}
-                sentence = f"{row.component} is deze week gelijk gebleven."
+                sentence = f"{row.component} is in week {self.period_end.isocalendar()[1:2][0]} gelijk gebleven."
                 observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(row.perc_delta), data)
                 self.observations.append(observ)
             elif row.perc_delta > 0.0:
@@ -52,7 +52,7 @@ class WeekPattern:
                         "perc_change": row.perc_delta,
                         "abs_change": row.abs_delta,
                         "relev": self.relevance(row.perc_delta)}
-                sentence = f"{row.component} is met {row.perc_delta} procent gestegen deze week."
+                sentence = f"{row.component} is met {row.perc_delta} procent gestegen in week {self.period_end.isocalendar()[1:2][0]}."
                 observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(row.perc_delta), data)
                 self.observations.append(observ)
             else:
@@ -62,7 +62,7 @@ class WeekPattern:
                         "perc_change": row.perc_delta,
                         "abs_change": row.abs_delta,
                         "relev": self.relevance(row.perc_delta)}
-                sentence = f"{row.component} is met {row.perc_delta} procent gedaald deze week."
+                sentence = f"{row.component} is met {row.perc_delta} procent gedaald in week {self.period_end.isocalendar()[1:2][0]}."
                 observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(row.perc_delta), data)
                 self.observations.append(observ)
 
