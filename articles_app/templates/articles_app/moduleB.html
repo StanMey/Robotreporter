@@ -1,0 +1,38 @@
+{% extends "articles_app/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+{% block content %}
+
+<div class="module-view">
+    
+    <div class="row justify-content-center selection-menu">
+        <div class="btn-group" role="group" aria-label="button-group">
+            <button type="button" onclick="location.href='/modules/moduleA'" class="btn btn-menu btn-mod-a">Timeseries</button>
+            <button type="button" onclick="location.href='/modules/moduleB'" class="btn btn-menu btn-mod-b">Observations</button>
+            <button type="button" onclick="location.href='/modules/moduleC'" class="btn btn-menu btn-mod-c">Article-generation</button>
+            <button type="button" onclick="location.href='/modules/moduleD'" class="btn btn-menu btn-mod-d">Articles</button>
+        </div>
+    </div>
+    
+    <div class="module-content">
+        <div class="row justify-content-center h-50 w-100 section1">
+
+        </div>
+
+        <div id="datatable_sec" class="row justify-content-center h-50 w-100 section2">
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    $( document ).ready(function() {
+        renderModuleB();
+    });
+</script>
+
+{% endblock content %}

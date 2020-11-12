@@ -9,6 +9,7 @@ db.sqlite3
 media
 
 # local data #
+*.env
 datadump.json
 media
 

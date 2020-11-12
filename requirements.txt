@@ -7,3 +7,6 @@ beautifulsoup4==4.9.1
 lxml==4.5.2
 html5lib==1.1
 pytest==6.1.0
+opencv-python==4.4.0.46
+Pillow==8.0.0
+python-decouple==3.3

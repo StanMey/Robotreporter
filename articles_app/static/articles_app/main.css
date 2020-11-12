@@ -144,7 +144,7 @@ footer {
 }
 
 /* ModC behaviour */
-.buttonModC {
+.button-mod-c {
     margin-top: 2rem;
     height: 4rem;
     width: 40%;
@@ -161,12 +161,12 @@ footer {
 /* articles ModD behaviour */
 .card {
     margin-top: 1rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
 .articles-row {
-    margin-top: 4rem !important;
+    margin-top: 3rem !important;
     margin: 1rem;
 }
 
@@ -186,6 +186,11 @@ footer {
 .article-post-info {
     margin-top: 1.5rem;
     color: #999;
+}
+
+.pagination {
+    margin-top: 3rem;
+    margin-bottom: 5rem;
 }
 
 .meta-data {

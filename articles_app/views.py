@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 
 from .forms import CommentForm
@@ -27,8 +28,8 @@ def home(request):
 
 
 @login_required
-def load_module_view(request):
-    """Loads the main menu from which the user can select all the modules.
+def load_moduleA_view(request):
+    """Loads.
 
     Args:
         request (django.core.handlers.wsgi.WSGIRequest): [description]
@@ -36,7 +37,52 @@ def load_module_view(request):
     Returns:
         django.http.response.HttpResponse: [description]
     """
-    return render(request, "articles_app/modules.html")
+    return render(request, "articles_app/moduleA.html")
+
+
+@login_required
+def load_moduleB_view(request):
+    """Loads.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): [description]
+
+    Returns:
+        django.http.response.HttpResponse: [description]
+    """
+    return render(request, "articles_app/moduleB.html")
+
+
+@login_required
+def load_moduleC_view(request):
+    """Loads.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): [description]
+
+    Returns:
+        django.http.response.HttpResponse: [description]
+    """
+    return render(request, "articles_app/moduleC.html")
+
+
+@login_required
+def load_moduleD_view(request):
+    """Loads.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): [description]
+
+    Returns:
+        django.http.response.HttpResponse: [description]
+    """
+    data = dbq.get_articles_set(60)
+    paginator = Paginator(data, 6)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, "articles_app/moduleD.html", {'page_obj': page_obj})
 
 
 @login_required
@@ -90,6 +136,18 @@ def cookie_statement(request):
         django.http.response.HttpResponse: [description]
     """
     return render(request, "articles_app/cookies.html")
+
+
+def about_page(request):
+    """Loads the about page when a user is logged in.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): [description]
+
+    Returns:
+        django.http.response.HttpResponse: [description]
+    """
+    return render(request, "articles_app/about.html")
 
 
 # retrieving data views
@@ -280,21 +338,6 @@ def generate_article(request):
             data = {"article_number": dbq.get_articles_set(1)[1]['article_id']}
 
     return HttpResponse(json.dumps(data), content_type="application/json")
-
-
-@login_required
-def load_articles_set(request):
-    """[summary]
-
-    Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
-
-    Returns:
-        django.http.response.HttpResponse: [description]
-    """
-    data = dbq.get_articles_set(6)
-
-    return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 @login_required

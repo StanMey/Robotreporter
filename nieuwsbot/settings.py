@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,10 +21,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@z1^c$!!0sug!sb93$t$%)jq48s73hj^+14azl&-x=a*_qgv_*'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config('DEBUG', cast=bool)
 
 if DEBUG:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'robotreporter.nl', 'www.robotreporter.nl']
@@ -91,9 +92,9 @@ if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'nieuwsbot_db',
-            'USER': '',
-            'PASSWORD': '',
+            'NAME': config("DB_DEV_NAME"),
+            'USER': config("DB_DEV_USER"),
+            'PASSWORD': config("DB_DEV_PASSWORD"),
             'HOST': '127.0.0.1',
             'PORT': '5432',
         }
@@ -102,9 +103,9 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'nieuwsbot_db',
-            'USER': 'stanbot_db',
-            'PASSWORD': 'Alakazam!@9213',
+            'NAME': config("DB_PROD_NAME"),
+            'USER': config("DB_PROD_USER"),
+            'PASSWORD': config("DB_PROD_PASSWORD"),
             'HOST': 'localhost',
             'PORT': '',
         }
@@ -152,8 +153,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'load_module_view'
+LOGIN_REDIRECT_URL = 'load_moduleD_view'
 LOGIN_URL = 'login'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config("EMAIL_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_PASS")

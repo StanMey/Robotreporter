@@ -81,44 +81,86 @@ class ViewsTestCase(TestCase):
         response = self.client.get("/cookies", follow=True)
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
-    # module view page
-    def test_module_view_user_cannot_access(self):
-        """The module view is prohibited for not logged in users."""
+    # moduleA view page
+    def test_moduleA_view_user_cannot_access(self):
+        """The module A view is prohibited for not logged in users."""
         # user is not logged in
-        response = self.client.get('/module/overview/')
+        response = self.client.get('/modules/moduleA/')
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
 
-    def test_module_view_user_can_access(self):
-        """The module view can be accessed by logged in users.
+    def test_moduleA_view_user_can_access(self):
+        """The module A view can be accessed by logged in users.
         """
         # user is logged in
-        response = self.client2.get('/module/overview/')
+        response = self.client2.get('/modules/moduleA/')
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    # moduleB view page
+    def test_moduleB_view_user_cannot_access(self):
+        """The module B view is prohibited for not logged in users."""
+        # user is not logged in
+        response = self.client.get('/modules/moduleB/')
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+
+    def test_moduleB_view_user_can_access(self):
+        """The module B view can be accessed by logged in users.
+        """
+        # user is logged in
+        response = self.client2.get('/modules/moduleB/')
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    # moduleC view page
+    def test_moduleC_view_user_cannot_access(self):
+        """The module C view is prohibited for not logged in users."""
+        # user is not logged in
+        response = self.client.get('/modules/moduleC/')
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+
+    def test_moduleC_view_user_can_access(self):
+        """The module C view can be accessed by logged in users.
+        """
+        # user is logged in
+        response = self.client2.get('/modules/moduleC/')
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    # moduleD view page
+    def test_moduleD_view_user_cannot_access(self):
+        """The module D view is prohibited for not logged in users."""
+        # user is not logged in
+        response = self.client.get('/modules/moduleD/')
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+
+    def test_moduleD_view_user_can_access(self):
+        """The module D view can be accessed by logged in users.
+        """
+        # user is logged in
+        response = self.client2.get('/modules/moduleD/')
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     # relevance view page
     def test_relevance_view_user_cannot_access(self):
         """The relevance view is prohibited for not logged in users."""
         # user is not logged in
-        response = self.client.get('/module/relevance/')
+        response = self.client.get('/modules/relevance/')
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
 
     def test_relevance_view_user_can_access(self):
         """The relevance view can be accessed by logged in users.
         """
         # user is logged in
-        response = self.client2.get('/module/relevance/')
+        response = self.client2.get('/modules/relevance/')
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     # single article page
     def test_article_view_user_cannot_access(self):
         """The article view is prohibited for not logged in users."""
         # user is not logged in
-        response = self.client.get(f"/module/articles/{self.article.id}")
+        response = self.client.get(f"/modules/articles/{self.article.id}")
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
 
     def test_article_view_user_can_access(self):
         """The article view can be accessed by logged in users.
         """
         # user is logged in
-        response = self.client2.get(f"/module/articles/{self.article.id}")
+        response = self.client2.get(f"/modules/articles/{self.article.id}")
         self.assertEqual(response.status_code, HTTPStatus.OK)
