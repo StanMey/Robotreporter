@@ -8,43 +8,27 @@ class Determinator:
         self.history = history
 
     def load_weights(self):
-        with open(r"./NLGengine/content_determination/base.json") as f:
+        # array made with: (round(np.random.rand(7,7) * 2 - 1, 2))
+        with open(r"./NLGengine/content_determination/weights.json") as f:
             self.weight_dict = json.load(f)
 
-    def apply_rules(self, comp, patt, sect, period, week):
-        weight = 0
+    def recalibrate_weights(self):
+        pass
 
-        if period and not comp:
-            weight += self.weight_dict.get("S_period_O_comp")
-        if period and comp:
-            weight += self.weight_dict.get("S_period_S_comp")
-        if not period and comp:
-            weight += self.weight_dict.get("O_period_S_comp")
-        if week and not comp:
-            weight += self.weight_dict.get("S_week_O_comp")
-        if patt and week:
-            weight += self.weight_dict.get("S_period_O_comp")
-        if not patt and week:
-            weight += self.weight_dict.get("S_pattern_S_week")
-        if period and not comp:
-            weight += self.weight_dict.get("O_pattern_S_week")
-        if patt and period:
-            weight += self.weight_dict.get("S_pattern_S_period")
-
-        return weight
+    def follow_up_weight(self, feature, previous, new):
+        info = self.weight_dict.get(feature)
+        index1 = info.get("index").index(previous)
+        index2 = info.get("index").index(new)
+        return info.get("matrix")[index1][index2]
 
     def calculate_new_situational_relevance(self):
         self.load_weights()
 
         for observ in self.all_observs:
-            if observ.pattern == "combi_pattern":
-                same_component = int(self.last_observ.serie in observ.meta_data.get("component"))
-            else:
-                same_component = int(self.last_observ.serie == observ.serie)
-            same_pattern = int(self.last_observ.pattern == observ.pattern)
-            same_sector = 0
-            same_period = int(self.last_observ.day_number == observ.day_number)
-            same_week = int(self.last_observ.week_number == observ.week_number)
+            # if observ.pattern == "combi_pattern":
+            #     same_component = int(self.last_observ.serie in observ.meta_data.get("component"))
+            # else:
+            #     same_component = int(self.last_observ.serie == observ.serie)
+            pattern_weight = self.follow_up_weight("pattern", self.last_observ.pattern, observ.pattern)
 
-            alpha = self.apply_rules(same_component, same_pattern, same_sector, same_period, same_week)
-            observ.relevance2 = observ.relevance1 + alpha
+            observ.relevance2 = observ.relevance1 + pattern_weight

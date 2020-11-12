@@ -6,4 +6,4 @@ class Planner:
         self.sort_on_date()
 
     def sort_on_date(self):
-        self.observations = sorted(self.observations, key=lambda x: x.week_number, reverse=True)
+        self.observations = sorted(self.observations, key=lambda x: (x.year, x.week_number, x.day_number), reverse=True)

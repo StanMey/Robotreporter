@@ -2,7 +2,8 @@ from articles_app.models import Observations, Articles, Stocks
 from NLGengine.analyse import Analyse
 from NLGengine.observation import Observation
 from NLGengine.content_determination.determinator import Determinator
-from NLGengine.micro_planning.planner import Planner
+from NLGengine.microplanning.planner import Planner
+from NLGengine.realisation.realiser import Realiser
 
 import pandas as pd
 import numpy as np
@@ -25,7 +26,7 @@ def build_article(user_name, filters, bot=False):
     """
     # current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
     current_date = datetime(year=2020, month=9, day=24)
-    begin_date = current_date - timedelta(10)
+    begin_date = current_date - timedelta(7)
 
     # retrieve all relevant observations from the Observations table
     observation_set = list(Observations.objects.filter(
@@ -53,9 +54,14 @@ def build_article(user_name, filters, bot=False):
     planner = Planner(chosen_observs)
     planner.plan()
 
+    # set the planned observations into the realiser
+    realiser = Realiser(planner.observations)
+    realiser.realise()
+
     sentences = []
     rel_sentences = []
-    for observ in planner.observations:
+    for observ in realiser.observs:
+        print(observ.year, observ.week_number, observ.day_number, observ.pattern, observ.observation)
         sentences.append(observ.observation)
         rel_sentences.append(f"{observ.observation} (rel: {observ.relevance2})")
 
@@ -106,7 +112,7 @@ def build_article(user_name, filters, bot=False):
     article.top_image = retrieve_url
     article.content = content
     article.date = datetime.now()
-    article.AI_version = 1.2
+    article.AI_version = 1.3
     article.meta_data = meta
     if bot:
         article.author = "nieuwsbot"
@@ -207,7 +213,7 @@ def construct_article(user_name, content, filters, title):
     article.top_image = retrieve_url
     article.content = content
     article.date = datetime.now()
-    article.AI_version = 1.2
+    article.AI_version = 1.3
     article.meta_data = meta
     article.author = user_name
     article.save()
