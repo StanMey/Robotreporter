@@ -121,7 +121,7 @@ class Increase:
                     "relev": [self.relevance(x.perc_delta) for (_, x) in info.iterrows()]
                 }
             # save the observation
-            sentence = f"In de {info.iloc[0].indexx} waren {info.iloc[0].component} (+{info.iloc[0].perc_delta}%) en {info.iloc[1].component} (+{info.iloc[1].perc_delta}%) de grootste stijgers."
+            sentence = f"In de {info.iloc[0].indexx} waren {info.iloc[0].component} ({info.iloc[0].perc_delta}%) en {info.iloc[1].component} ({info.iloc[1].perc_delta}%) de grootste stijgers."
             observ = Observation(info.iloc[0].component, self.period_begin, self.period_end, self.combi_pattern, sentence, self.relevance(np.mean(info.perc_delta)), data)
             self.observations.append(observ)
 
@@ -137,7 +137,7 @@ class Increase:
                     "relev": [self.relevance(x.perc_delta) for (_, x) in info.iterrows()]
                 }
             # save the observation
-            sentence = f"{info.iloc[0].component} (+{info.iloc[0].perc_delta}%), {info.iloc[1].component} (+{info.iloc[1].perc_delta}%) en {info.iloc[2].component} (+{info.iloc[2].perc_delta}%) waren de positieve uitschieters."
+            sentence = f"{info.iloc[0].component} ({info.iloc[0].perc_delta}%), {info.iloc[1].component} ({info.iloc[1].perc_delta}%) en {info.iloc[2].component} ({info.iloc[2].perc_delta}%) waren de positieve uitschieters."
             observ = Observation(info.iloc[0].component, self.period_begin, self.period_end, self.combi_pattern, sentence, self.relevance(np.mean(info.perc_delta)), data)
             self.observations.append(observ)
 

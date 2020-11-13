@@ -67,7 +67,7 @@ class Decrease:
                     "relev": self.relevance(info.perc_delta)
                 }
             # save the observation
-            sentence = f"{info.component} was vandaag met -{info.perc_delta} procent de enige daler"
+            sentence = f"{info.component} was vandaag met {info.perc_delta} procent de enige daler"
             observ = Observation(info.component, self.period_begin, self.period_end, self.combi_pattern, sentence, self.relevance(info.perc_delta), data)
             self.observations.append(observ)
 
