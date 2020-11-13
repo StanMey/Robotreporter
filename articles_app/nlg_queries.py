@@ -61,9 +61,18 @@ def build_article(user_name, filters, bot=False):
     sentences = []
     rel_sentences = []
     for observ in realiser.observs:
-        print(observ.year, observ.week_number, observ.day_number, observ.pattern, observ.observation)
-        sentences.append(observ.observation)
-        rel_sentences.append(f"{observ.observation} (rel: {observ.relevance2})")
+        print(observ.year, observ.week_number, observ.day_number, observ.pattern, observ.observation_new)
+        sentences.append(observ.observation_new)
+
+        # format the relevance
+        rel = {
+            "pattern": observ.pattern,
+            "period": "{0} / {1}".format(observ.period_begin.strftime("%d-%m-%Y"), observ.period_end.strftime("%d-%m-%Y")),
+            "norm_rel": round(observ.relevance1, 2),
+            "sit_rel": round(observ.relevance2, 2),
+            "sentence": observ.observation
+        }
+        rel_sentences.append(rel)
 
     content = " ".join(sentences)
 

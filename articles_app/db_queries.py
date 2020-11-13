@@ -308,7 +308,9 @@ def get_article(article_id):
     """
     article = {}
 
+    # check if article exists
     if Articles.objects.filter(id=article_id).exists():
+        # article exists
         selected_article = Articles.objects.get(id=article_id)
 
         article["found"] = True
@@ -320,9 +322,18 @@ def get_article(article_id):
         article["date_whole"] = selected_article.date.strftime("%m-%d-%Y, %H:%M:%S")
         article["author"] = selected_article.author
         article["AI_version"] = selected_article.AI_version
-        article["meta_data"] = selected_article.meta_data
         article["query_set"] = selected_article
+        article["meta_data"] = selected_article.meta_data
+        print(article.get("meta_data").get("relevance"))
+
+        # since 13-11-20 a new meta_data is implemented, therefore we have to check if the old format is in the article or not.
+        if ("relevance" in article.get("meta_data")) and (type(article.get("meta_data").get("relevance")[0]) == dict):
+            article['old_format'] = False
+        else:
+            article['old_format'] = True
+
     else:
+        # article doesn't exist so set found to false so a 404 error can be thrown
         article["found"] = False
 
     return article

@@ -68,20 +68,31 @@
                 </div>
                 <div class="collapse" id="meta-collapse">
                     <div class="card card-body">
-                      <p>
-                          Auteur: {{ article.author}}<br>
-                          Datum: {{ article.date_whole}}<br>
-                          Bot versie: {{article.AI_version}}<br>
-                          Handmatig geselecteerd: {{article.meta_data.manual}}<br>
-                          <br>
-                          <b>Focus</b><br>
-                          <u>Sectoren:</u><br>
-                          {{article.meta_data.filters.Sector}}<br>
-                          <u>Periode:</u><br>
-                          {{article.meta_data.filters.Periode}}<br>
-                          <u>Relevantie:</u><br>
-                          {{article.meta_data.relevance}}
-                      </p>
+                        <p>
+                            Auteur: {{ article.author}}<br>
+                            Datum: {{ article.date_whole}}<br>
+                            Bot versie: {{article.AI_version}}<br>
+                            Handmatig geselecteerd: {{article.meta_data.manual}}<br>
+                            <br>
+                            <b>Focus</b><br>
+                            <u>Sectoren:</u><br>
+                            {{article.meta_data.filters.Sector}}<br>
+                            <u>Periode:</u><br>
+                            {{article.meta_data.filters.Periode}}<br>
+                            <u>Relevantie:</u><br>
+                                {% if article.old_format %}
+                                    {{article.meta_data.relevance}}
+                                {% else %}
+                                    {% for observ in article.meta_data.relevance %}
+                                        patroon: {{observ.pattern}}<br>
+                                        periode: {{observ.period}}<br>
+                                        relevantie normaal: {{observ.norm_rel}}<br>
+                                        relevantie context: {{observ.sit_rel}}<br>
+                                        zin: {{observ.sentence}}<br>
+                                        <br>
+                                    {% endfor %}
+                                {% endif %}
+                        </p>
                     </div>
                 </div>
             </div>
