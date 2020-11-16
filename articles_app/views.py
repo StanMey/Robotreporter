@@ -29,7 +29,7 @@ def home(request):
 
 @login_required
 def load_moduleA_view(request):
-    """Loads.
+    """Loads the view of module A.
 
     Args:
         request (django.core.handlers.wsgi.WSGIRequest): [description]
@@ -42,7 +42,7 @@ def load_moduleA_view(request):
 
 @login_required
 def load_moduleB_view(request):
-    """Loads.
+    """Loads the view of module B.
 
     Args:
         request (django.core.handlers.wsgi.WSGIRequest): [description]
@@ -55,7 +55,7 @@ def load_moduleB_view(request):
 
 @login_required
 def load_moduleC_view(request):
-    """Loads.
+    """Loads the view of module C.
 
     Args:
         request (django.core.handlers.wsgi.WSGIRequest): [description]
@@ -68,7 +68,7 @@ def load_moduleC_view(request):
 
 @login_required
 def load_moduleD_view(request):
-    """Loads.
+    """Loads the view of module D with the help of a paginator.
 
     Args:
         request (django.core.handlers.wsgi.WSGIRequest): [description]
@@ -373,7 +373,7 @@ def load_article(request, article_id):
                 new_comment.author = request.user.username
                 # save the comment to the database
                 new_comment.save()
-                messages.info(request, "Uw commentaar is ontvangen en zal gekeurd worden")
+                messages.info(request, "Feedback ontvangen")
         else:
             comment_form = CommentForm()
 

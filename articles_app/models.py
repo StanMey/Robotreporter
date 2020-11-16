@@ -48,10 +48,10 @@ class Articles(models.Model):
     meta_data = JSONField(default=dict)
 
     def __str__(self):
-        return "{0} - {1} - {2}".format(self.date, self.author, self.title)
+        return "{0}; {1} - {2} - {3}".format(self.id, self.date, self.author, self.title)
 
     def __repr__(self):
-        return "{0} - {1} - {2}".format(self.date, self.author, self.title)
+        return "{0}; {1} - {2} - {3}".format(self.id, self.date, self.author, self.title)
 
 
 class Comment(models.Model):
@@ -63,7 +63,7 @@ class Comment(models.Model):
             validators=[MaxValueValidator(10), MinValueValidator(1)]
     )
     created_on = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
 
     class Meta:
         ordering = ["-created_on"]

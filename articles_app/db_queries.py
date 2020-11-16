@@ -324,7 +324,6 @@ def get_article(article_id):
         article["AI_version"] = selected_article.AI_version
         article["query_set"] = selected_article
         article["meta_data"] = selected_article.meta_data
-        print(article.get("meta_data").get("relevance"))
 
         # since 13-11-20 a new meta_data is implemented, therefore we have to check if the old format is in the article or not.
         if ("relevance" in article.get("meta_data")) and (type(article.get("meta_data").get("relevance")[0]) == dict):
