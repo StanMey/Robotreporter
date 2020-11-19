@@ -401,7 +401,7 @@ def load_article(request, article_id):
 
         # build the context
         context["article"] = article
-        context["comments"] = comment_form
+        context["comments"] = comments
         context["comment_form"] = comment_form
 
         # TODO set a slider or stars in the crispy form
