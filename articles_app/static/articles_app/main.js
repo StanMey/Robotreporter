@@ -596,6 +596,18 @@ async function constructArticle(title, content, filters) {
     window.open('/modules/articles/' + _id, target="_self");
 }
 
+
+/**
+ * Toggles the collapseble to show the whole observation.
+ * @param {int} oid The id of the observation.
+ */
+function showObservation(oid) {
+    // build the region of interest
+    let roi = "#" + oid + "-collapse";
+    // toggle the collapse
+    $(roi).collapse("toggle");
+}
+
 // MODULE A timeseries
 async function renderModuleA() {
     let col = ["Serie", "sector", "Oudste datum", "Recentste datum", "Laatste koers"]

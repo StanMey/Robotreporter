@@ -82,8 +82,8 @@ def get_latest_observations():
     for observation in latest_observations:
 
         # get all the series the observation is based on
-        if type(observation.meta_data.get("component")) == list:
-            serie = ", ".join(observation.meta_data.get("component"))
+        if type(observation.meta_data.get("components")) == list:
+            serie = ", ".join(observation.meta_data.get("components"))
         else:
             serie = observation.serie
 
@@ -272,6 +272,40 @@ def get_relevance_observations():
     return data
 
 
+def get_single_observation(oid):
+    """Get a single observation
+
+    Args:
+        oid (int): The id of the observation
+
+    Returns:
+        [type]: [description]
+    """
+    observ = {}
+
+    # check if observation exists
+    if Observations.objects.filter(id=oid).exists():
+        # observation exists
+        sel_observ = Observations.objects.get(id=oid)
+
+        observ["found"] = True
+        observ["oid"] = oid
+        observ["serie"] = sel_observ.serie
+        observ["prd_begin"] = sel_observ.period_begin
+        observ["prd_end"] = sel_observ.period_end
+        observ["pattern"] = sel_observ.pattern
+        observ["sector"] = sel_observ.sector
+        observ["observation"] = sel_observ.observation
+        observ["perc_change"] = float(sel_observ.perc_change)
+        observ["abs_change"] = float(sel_observ.abs_change)
+        observ["relevance"] = float(sel_observ.relevance)
+        observ["meta"] = sel_observ.meta_data
+
+    else:
+        observ["found"] = False
+    return observ
+
+
 def get_articles_set(amount):
     """[summary]
 
@@ -325,8 +359,8 @@ def get_article(article_id):
         article["query_set"] = selected_article
         article["meta_data"] = selected_article.meta_data
 
-        # since 13-11-20 a new meta_data is implemented, therefore we have to check if the old format is in the article or not.
-        if ("relevance" in article.get("meta_data")) and (type(article.get("meta_data").get("relevance")[0]) == dict):
+        # since 19-11-20 a new format for meta_data is implemented, therefore we have to check if the old format is in the article or not.
+        if article["AI_version"] >= 1.4:
             article['old_format'] = False
         else:
             article['old_format'] = True

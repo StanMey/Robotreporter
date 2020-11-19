@@ -19,10 +19,10 @@ def home(request):
     """Returns a static home page which every user sees when entering the page.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
     """
     return render(request, "articles_app/home.html")
 
@@ -32,10 +32,10 @@ def load_moduleA_view(request):
     """Loads the view of module A.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
     """
     return render(request, "articles_app/moduleA.html")
 
@@ -45,10 +45,10 @@ def load_moduleB_view(request):
     """Loads the view of module B.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
     """
     return render(request, "articles_app/moduleB.html")
 
@@ -58,10 +58,10 @@ def load_moduleC_view(request):
     """Loads the view of module C.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
     """
     return render(request, "articles_app/moduleC.html")
 
@@ -71,10 +71,10 @@ def load_moduleD_view(request):
     """Loads the view of module D with the help of a paginator.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
     """
     data = dbq.get_articles_set(60)
     paginator = Paginator(data, 6)
@@ -90,10 +90,10 @@ def load_relevance_view(request):
     """Returns a static page with the explanation of the relevance.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
     """
     return render(request, "articles_app/relevance.html")
 
@@ -102,10 +102,10 @@ def robots_txt(request):
     """Loads the robot.txt file.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
     """
     lines = [
         "User-Agent: *",
@@ -118,10 +118,10 @@ def privacy_statement(request):
     """Loads the privacy statement file.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
     """
     return render(request, "articles_app/privacy.html")
 
@@ -130,10 +130,10 @@ def cookie_statement(request):
     """Loads the cookie statement file.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
     """
     return render(request, "articles_app/cookies.html")
 
@@ -142,10 +142,10 @@ def about_page(request):
     """Loads the about page when a user is logged in.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
     """
     return render(request, "articles_app/about.html")
 
@@ -342,17 +342,18 @@ def generate_article(request):
 
 @login_required
 def load_article(request, article_id):
-    """[summary]
+    """Loads one single article.
     https://djangocentral.com/creating-comments-system-with-django/
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
-        article_id ([type]): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+        article_id (int): The id of the article
 
     Returns:
-        [type]: [description]
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
     """
     article = dbq.get_article(article_id)
+    context = {}
 
     if not article.get("found"):
         # article not found
@@ -377,10 +378,31 @@ def load_article(request, article_id):
         else:
             comment_form = CommentForm()
 
-        context = {
-            'article': article,
-            'comments': comments,
-            'comment_form': comment_form
-        }
+        if article.get("AI_version") >= 1.4:
+            # a new format as to the showcase of meta data is being used
+            chosen_observs = article.get("meta_data").get("observs")
+            sit_relev = article.get("meta_data").get("sit_relev")
+            meta_observs = []
+
+            for x in range(len(chosen_observs)):
+                # get the id of the observation
+                oid = chosen_observs[x]
+                # retrieve the observation
+                ob = dbq.get_single_observation(oid)
+
+                # retrieve the situational relevation and format the periods
+                ob["rel_sit"] = sit_relev[x]
+                ob["period_show"] = "{0} / {1}".format(ob.get("prd_begin").strftime("%d-%m-%Y"), ob.get("prd_end").strftime("%d-%m-%Y"))
+
+                meta_observs.append(ob)
+
+            # add meta_observs to the context
+            context["meta_observs"] = meta_observs
+
+        # build the context
+        context["article"] = article
+        context["comments"] = comment_form
+        context["comment_form"] = comment_form
+
         # TODO set a slider or stars in the crispy form
         return render(request, "articles_app/article.html", context)

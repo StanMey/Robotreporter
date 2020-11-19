@@ -211,6 +211,12 @@ footer {
     margin-bottom: 2rem;
 }
 
+.style-link, .style-link:hover, .style-link:visited, .style-link:active {
+    color: rgb(72, 103, 240);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 #div_id_score input {
     width: 15%;
 }

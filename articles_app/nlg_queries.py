@@ -5,13 +5,19 @@ from NLGengine.content_determination.determinator import Determinator
 from NLGengine.microplanning.planner import Planner
 from NLGengine.realisation.realiser import Realiser
 
+import articles_app.image_transform as imgtr
 import pandas as pd
 import numpy as np
+
 import os
 import json
 from datetime import datetime, timedelta
 import cv2
 import uuid
+
+
+# defining some statics
+AI_VERSION = 1.4
 
 
 def build_article(user_name, filters, bot=False):
@@ -114,20 +120,20 @@ def build_article(user_name, filters, bot=False):
     file_name = f"{uuid.uuid1().hex}.jpg"
     save_url = f"./media/images/{file_name}"
     retrieve_url = f"images/{file_name}"
-    cv2.imwrite(save_url, img_array)
+    # cv2.imwrite(save_url, img_array)
 
     article = Articles()
     article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
     article.top_image = retrieve_url
     article.content = content
     article.date = datetime.now()
-    article.AI_version = 1.3
+    article.AI_version = AI_VERSION
     article.meta_data = meta
     if bot:
         article.author = "nieuwsbot"
     else:
         article.author = user_name
-    article.save()
+    # article.save()
 
     return article.id
 
@@ -144,40 +150,30 @@ def construct_article(user_name, content, filters, title):
     Returns:
         int: The id of the newly generated article
     """
-    # get all the chosen observations
+    # get all the chosen observations, set the situational relevance to the normal relevance
+    # and select all sentences of the to be article
     observation_set = []
-    for observ in content:
-        observation_set.append(Observations.objects.get(id=observ[0]))
-
-    # build the article
+    sit_relev = []
+    observs_id = []
     sentences = []
-    rel_sentences = []
-    for observ in observation_set:
+    for row in content:
+        # get the observation from the database
+        observ = Observations.objects.get(id=row[0])
+        # save the observation, id and text into the coresponding array
+        observation_set.append(observ)
+        sit_relev.append(float(observ.relevance))
+        observs_id.append(observ.id)
         sentences.append(observ.observation)
-        rel_sentences.append(f"{observ.observation} (rel: {observ.relevance})")
 
+    # build the article by appending all observations
     content = " ".join(sentences)
-
-    # get the all the consecutively choices of the user and save them
-    count = 1
-    consequent_choices = []
-
-    for observ in observation_set:
-        choices = {
-            "components": observ.serie,
-            "pattern": observ.pattern,
-            "day_numb": observ.period_end.day,
-            "week_numb": observ.period_end.isocalendar()[1:2][0]
-        }
-        consequent_choices.append((count, choices))
-        count += 1
 
     # get the meta data and save it into the article
     meta = {}
     meta["manual"] = filters.get("manual")
     meta["filters"] = {}
-    meta["relevance"] = rel_sentences
-    meta["choices"] = consequent_choices
+    meta["observs"] = observs_id
+    meta["sit_relev"] = sit_relev
 
     for x in ["Sector", "Periode"]:
         selection = filters.get(x)
@@ -190,10 +186,10 @@ def construct_article(user_name, content, filters, title):
     comps_focus = []
     sector_focus = []
     for observ in observation_set[:3]:
-        if type(observ.meta_data.get("component")) == list:
-            comps_focus.extend(observ.meta_data.get("component"))
+        if observ.meta_data.get("components"):
+            comps_focus.extend(observ.meta_data.get("components"))
         else:
-            comps_focus.append(observ.meta_data.get("component"))
+            comps_focus.append(observ.serie)
 
         if type(observ.meta_data.get("sector")) == list:
             sector_focus.extend(observ.meta_data.get("sector"))
@@ -203,6 +199,7 @@ def construct_article(user_name, content, filters, title):
     # delete the AMX and duplicates
     comps_focus = [x for x in comps_focus if x != "AMX"]
     comps_focus = list(dict.fromkeys(comps_focus))
+    print(comps_focus)
     sector_focus = sector_focus[0]
 
     # build an image for the article
@@ -222,7 +219,7 @@ def construct_article(user_name, content, filters, title):
     article.top_image = retrieve_url
     article.content = content
     article.date = datetime.now()
-    article.AI_version = 1.3
+    article.AI_version = AI_VERSION
     article.meta_data = meta
     article.author = user_name
     article.save()
@@ -278,15 +275,15 @@ def generate_article_photo(components: list, sector_focus: str = None):
         # check for shape, if it is more rectangular or cubic
         if img.shape[1] > 2*img.shape[0]:
             # width is far wider than the height
-            img = resize_image(img, 450)
+            img = imgtr.resize_image(img, 450)
         else:
             # width is allmost equal to height
-            img = resize_image(img, 350)
+            img = imgtr.resize_image(img, 350)
 
         # adding image into the middle of the background
         x_pos = int((background.shape[1] / 2) - (img.shape[1] / 2))
         y_pos = int((background.shape[0] / 2) - (img.shape[0] / 2))
-        new_image = overlay_transparent(background, img, x_pos, y_pos)
+        new_image = imgtr.overlay_transparent(background, img, x_pos, y_pos)
 
     else:
         # two components to be showcased
@@ -297,8 +294,8 @@ def generate_article_photo(components: list, sector_focus: str = None):
         if (img1.shape[1] > 2*img1.shape[0]) and (img2.shape[1] > 2*img2.shape[0]):
             print("both rectangular")
             # both widths are far wider than the height
-            img1 = resize_image(img1, 300)
-            img2 = resize_image(img2, 300)
+            img1 = imgtr.resize_image(img1, 300)
+            img2 = imgtr.resize_image(img2, 300)
 
             # calculate the positions of the images
             x_pos1 = int((background.shape[1] / 2) - (img1.shape[1] / 2))
@@ -307,14 +304,14 @@ def generate_article_photo(components: list, sector_focus: str = None):
             y_pos2 = int((background.shape[0] / 3) * 2 - (img2.shape[0] / 2))
 
             # add the new images
-            new_image = overlay_transparent(background, img1, x_pos1, y_pos1)
-            new_image = overlay_transparent(new_image, img2, x_pos2, y_pos2)
+            new_image = imgtr.overlay_transparent(background, img1, x_pos1, y_pos1)
+            new_image = imgtr.overlay_transparent(new_image, img2, x_pos2, y_pos2)
 
         elif (img1.shape[1] > 2*img1.shape[0]):
             print("first more rectangular")
             # width of first image far wider than the height
-            img1 = resize_image(img1, 280)
-            img2 = resize_image(img2, 280)
+            img1 = imgtr.resize_image(img1, 280)
+            img2 = imgtr.resize_image(img2, 280)
 
             # calculate the positions of the images
             x_pos1 = int((background.shape[1] / 2) - (img1.shape[1] / 2))
@@ -323,14 +320,14 @@ def generate_article_photo(components: list, sector_focus: str = None):
             y_pos2 = int((background.shape[0] / 3) * 2 - (img2.shape[0] / 2))
 
             # add the new images
-            new_image = overlay_transparent(background, img1, x_pos1, y_pos1)
-            new_image = overlay_transparent(new_image, img2, x_pos2, y_pos2)
+            new_image = imgtr.overlay_transparent(background, img1, x_pos1, y_pos1)
+            new_image = imgtr.overlay_transparent(new_image, img2, x_pos2, y_pos2)
 
         elif (img2.shape[1] > 2*img2.shape[0]):
             print("second more rectangular")
             # width of second image far wider than the height
-            img1 = resize_image(img1, 270)
-            img2 = resize_image(img2, 270)
+            img1 = imgtr.resize_image(img1, 270)
+            img2 = imgtr.resize_image(img2, 270)
 
             # calculate the positions of the images
             x_pos1 = int((background.shape[1] / 2) - (img1.shape[1] / 2))
@@ -338,14 +335,14 @@ def generate_article_photo(components: list, sector_focus: str = None):
             x_pos2 = int((background.shape[1] / 2) - (img2.shape[1] / 2))
             y_pos2 = int((background.shape[0] / 3) * 2 - (img2.shape[0] / 2))
             # add the new images
-            new_image = overlay_transparent(background, img1, x_pos1, y_pos1)
-            new_image = overlay_transparent(new_image, img2, x_pos2, y_pos2)
+            new_image = imgtr.overlay_transparent(background, img1, x_pos1, y_pos1)
+            new_image = imgtr.overlay_transparent(new_image, img2, x_pos2, y_pos2)
 
         else:
             print("no-one more rectangular")
             # no width far wider than the height
-            img1 = resize_image(img1, 270)
-            img2 = resize_image(img2, 270)
+            img1 = imgtr.resize_image(img1, 270)
+            img2 = imgtr.resize_image(img2, 270)
 
             # calculate the positions of the images
             x_pos1 = int((background.shape[1] / 4) * 1 - (img1.shape[1] / 2))
@@ -354,8 +351,8 @@ def generate_article_photo(components: list, sector_focus: str = None):
             y_pos2 = int((background.shape[0] / 2) - (img2.shape[0] / 2))
 
             # add the new images
-            new_image = overlay_transparent(background, img1, x_pos1, y_pos1)
-            new_image = overlay_transparent(new_image, img2, x_pos2, y_pos2)
+            new_image = imgtr.overlay_transparent(background, img1, x_pos1, y_pos1)
+            new_image = imgtr.overlay_transparent(new_image, img2, x_pos2, y_pos2)
 
     # cv2.imshow('dst', new_image)
 
@@ -371,70 +368,6 @@ def test_photo():
     comps = ["BAM Groep Koninklijke", "Intertrust"]
     sector = "Bouw"
     generate_article_photo(comps, sector_focus=sector)
-
-
-def resize_image(img, width):
-    """Gets an image and the new width and resizes the height appropriatly
-
-    Args:
-        img ([type]): [description]
-        width ([type]): [description]
-
-    Returns:
-        [type]: [description]
-    """
-    # get the ratio of the change and apply it to the height
-    height = int((width / img.shape[1]) * img.shape[0])
-    # resize the image
-    img = cv2.resize(img, (width, height), interpolation=cv2.INTER_AREA)
-    return img
-
-
-def overlay_transparent(background, overlay, x, y):
-    """
-    https://stackoverflow.com/questions/40895785/using-opencv-to-overlay-transparent-image-onto-another-image
-
-    Args:
-        background ([type]): [description]
-        overlay ([type]): [description]
-        x ([type]): [description]
-        y ([type]): [description]
-
-    Returns:
-        [type]: [description]
-    """
-
-    background_width = background.shape[1]
-    background_height = background.shape[0]
-
-    if x >= background_width or y >= background_height:
-        return background
-
-    h, w = overlay.shape[0], overlay.shape[1]
-
-    if x + w > background_width:
-        w = background_width - x
-        overlay = overlay[:, :w]
-
-    if y + h > background_height:
-        h = background_height - y
-        overlay = overlay[:h]
-
-    if overlay.shape[2] < 4:
-        overlay = np.concatenate(
-            [
-                overlay,
-                np.ones((overlay.shape[0], overlay.shape[1], 1), dtype=overlay.dtype) * 255
-            ],
-            axis=2,
-        )
-
-    overlay_image = overlay[..., :3]
-    mask = overlay[..., 3:] / 255.0
-
-    background[y:y+h, x:x+w] = (1.0 - mask) * background[y:y+h, x:x+w] + mask * overlay_image
-
-    return background
 
 
 def testing_find_observs():
@@ -464,7 +397,17 @@ def find_new_observations(period_begin: datetime, period_end: datetime, overwrit
     if to_db:
         # write all the found observations into the database
         for observ in all_observations:
-            observation_to_database(observ.serie, observ.period_begin, observ.period_end, observ.pattern, observ.observation, observ.relevance1, observ.meta_data)
+            observation_to_database(observ.serie,
+                                    observ.period_begin,
+                                    observ.period_end,
+                                    observ.pattern,
+                                    observ.sector,
+                                    observ.indexx,
+                                    observ.observation,
+                                    observ.perc_change,
+                                    observ.abs_change,
+                                    observ.relevance1,
+                                    observ.meta_data)
 
     if to_prompt:
         # write all the found observations to the prompt
@@ -616,7 +559,7 @@ def run_trend_observations(period_end, delta_days, overwrite):
     return observs
 
 
-def observation_to_database(serie, period_begin, period_end, pattern, observation, relevance, meta):
+def observation_to_database(serie, period_begin, period_end, pattern, sector, indexx, observation, perc, oabs, relevance, meta):
     """Writes an observation to the database.
 
     Args:
@@ -624,7 +567,11 @@ def observation_to_database(serie, period_begin, period_end, pattern, observatio
         period_begin (datetime): The date with the beginning of the period of the observation
         period_end (datetime): The date with the end of the period of the observation
         pattern (String): A string with the pattern that was found
+        sector (String): A string with the sector
+        indexx (String): A string with the index of the component
         observation (String): A string with the sentence of the observation
+        perc (float): A float with the percentage change
+        oabs (float): A float with the absolute change
         relevance (Float): The relevance the observation holds
     """
     try:
@@ -633,7 +580,10 @@ def observation_to_database(serie, period_begin, period_end, pattern, observatio
         observ.period_begin = period_begin
         observ.period_end = period_end
         observ.pattern = pattern
+        observ.sector = sector
         observ.observation = observation
+        observ.perc_change = perc
+        observ.abs_change = oabs
         observ.relevance = relevance
         observ.meta_data = meta
         # save to the db

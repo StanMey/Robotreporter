@@ -59,7 +59,7 @@
         </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="meta-data">
                 <div class="meta-button">
                     <button class="btn btn-success meta-button-style" type="button" data-toggle="collapse" data-target="#meta-collapse" aria-expanded="false" aria-controls="collapseExample">
@@ -81,16 +81,65 @@
                             {{article.meta_data.filters.Periode}}<br>
                             <u>Relevantie:</u><br>
                                 {% if article.old_format %}
+                                    <!-- old format of relevance -->
                                     {{article.meta_data.relevance}}
                                 {% else %}
-                                    {% for observ in article.meta_data.relevance %}
-                                        patroon: {{observ.pattern}}<br>
-                                        periode: {{observ.period}}<br>
-                                        relevantie normaal: {{observ.norm_rel}}<br>
-                                        relevantie context: {{observ.sit_rel}}<br>
-                                        zin: {{observ.sentence}}<br>
-                                        <br>
-                                    {% endfor %}
+                                    <!-- new format of relevance -->
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">id</th>
+                                                <th scope="col">patroon</th>
+                                                <th scope="col">periode</th>
+                                                <th scope="col">relevantie normaal</th>
+                                                <th scope="col">relevantie context</th>
+                                                <th scope="col">zin</th>
+                                                <th scope="col">zie complete observatie</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for meta in meta_observs %}
+                                                <tr>
+                                                    <th scope="row">{{ meta.oid }}</th>
+                                                    <td>{{ meta.pattern }}</td>
+                                                    <td>{{ meta.period_show }}</td>
+                                                    <td>{{ meta.relevance }}</td>
+                                                    <td>{{ meta.rel_sit }}</td>
+                                                    <td>{{ meta.observation }}</td>
+                                                    <td><span class='style-link' data-toggle="collapse" onclick="showObservation({{ meta.oid }})" data-target="#{{ meta.oid }}" aria-expanded="false" aria-controls="collapseExample">bekijk</td>
+                                                </tr>
+                                                <tr class="collapse" id="{{ meta.oid }}-collapse">
+                                                    <td colspan="7">
+                                                        <p>
+                                                            <h5>Complete observatie</h5>
+                                                            <u>ID</u><br>
+                                                            {{ meta.oid }}<br>
+                                                            <u>Serie</u><br>
+                                                            {{ meta.serie }}<br>
+                                                            <u>Periode</u><br>
+                                                            {{ meta.period_show }}<br>
+                                                            <u>Patroon</u><br>
+                                                            {{ meta.pattern }}<br>
+                                                            <u>Sector</u><br>
+                                                            {{ meta.sector }}<br>
+                                                            <u>Observatie</u><br>
+                                                            {{ meta.observation }}<br>
+                                                            <u>Percentele verandering</u><br>
+                                                            {{ meta.perc_change }}<br>
+                                                            <u>Absolute verandering</u><br>
+                                                            {{ meta.abs_change }}<br>
+                                                            <u>Normale relevantie</u><br>
+                                                            {{ meta.relevance }}<br>
+                                                            <u>Context relevantie</u><br>
+                                                            {{ meta.rel_sit }}<br>
+                                                            <u>Extra meta data</u><br>
+                                                            {{ meta.meta }}<br>
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
                                 {% endif %}
                         </p>
                     </div>
