@@ -28,63 +28,84 @@ class Increase:
         self.period_begin = period_beg
         self.period_end = period_end
 
-        self.combi_pattern = "combi-stijging"
         self.indiv_pattern = "invidu-stijging"
+        self.combi_pattern = "combi-stijging"
+        self.combi_diff_threshold = 1.0
+        self.combi_diff_significance = 1.6
 
-        self.relevance = lambda x: Relevance.period_relevance(x)
+        self.indiv_relevance = lambda x: Relevance.period_single_relevance(x)
+        self.combi_relevance = lambda x: Relevance.period_combi_relevance(x)
         self.observations = []
 
     def only_x_increase(self):
         """Checks if there are any components that are the only one or ones (2) that have increased in the timeperiod.
         """
-        # only select the components that are positive
+        # only select the components that are positi ve
         df_only_inc = self.df[(self.df["perc_delta"] > 0.0) & (self.df["date"].dt.strftime('%d-%m-%Y') == self.period_end.strftime('%d-%m-%Y'))]
 
         if len(df_only_inc) == 0:
             # no component has been increasing, only decreasing components
+            # build the sentence
             info = "AMX"
-            # collect the additional metadata
-            data = {
-                    "component": info,
-                    "perc_change": 0.0,
-                    "sector": None,
-                    "relev": 9.5
-                }
-            # save the observation
             sentence = f"Alle fondsen binnen de {info} zijn vandaag gedaald."
-            observ = Observation(info, self.period_begin, self.period_end, "combi-daling", sentence, 9.5, data)
+            # build the observation object
+            data = {}
+            observ = Observation(info,
+                                 self.period_begin,
+                                 self.period_end,
+                                 "combi-daling",
+                                 None,
+                                 None,
+                                 None,
+                                 sentence,
+                                 9.5,
+                                 data)
+            # save the observation object
             self.observations.append(observ)
 
         if len(df_only_inc) == 1:
             # only 1 component has been increasing
             info = df_only_inc.iloc[0]
-            # collect the additional metadata
-            data = {
-                    "component": info.component,
-                    "sector": info.sector,
-                    "perc_change": info.perc_delta,
-                    "abs_change": info.abs_delta,
-                    "relev": self.relevance(info.perc_delta)
-                }
-            # save the observation
-            sentence = f"{info.component}, dat profiteert van de onrust op de beurzen, is de enige stijger."
-            observ = Observation(info.component, self.period_begin, self.period_end, self.combi_pattern, sentence, self.relevance(info.perc_delta), data)
+            # build the sentence
+            sentence = f"{info.component} was met {info.perc_delta} procent de enige stijger."
+            # build the observation object
+            data = {}
+            observ = Observation(info.component,
+                                 self.period_begin,
+                                 self.period_end,
+                                 self.combi_pattern,
+                                 info.sector,
+                                 info.perc_delta,
+                                 info.abs_delta,
+                                 sentence,
+                                 self.indiv_relevance(info.perc_delta + self.combi_diff_threshold),
+                                 data)
+            # save the observation object
             self.observations.append(observ)
 
         if len(df_only_inc) == 2:
             # only 2 components have been increasing
             info = df_only_inc.iloc[0:2]
-            # collect the additional metadata
+            # build the sentence
+            sentence = f"Op {info.iloc[0].component} en {info.iloc[1].component} na dalen alle {info.iloc[0].indexx} fondsen."
+            # build the observation object
             data = {
-                    "component": list(info.component),
-                    "sector": list(info.sector),
-                    "perc_change": list(info.perc_delta),
-                    "abs_change": list(info.abs_delta),
-                    "relev": [self.relevance(x.perc_delta) for (_, x) in info.iterrows()]
-                }
-            # save the observation
-            sentence = f"Op {info.iloc[0].component} en {info.iloc[1].component} na dalen alle {info.iloc[0].indexx} fondsen"
-            observ = Observation(info.iloc[0].component, self.period_begin, self.period_end, self.combi_pattern, sentence, self.relevance(np.mean(info.perc_delta)), data)
+                "components": list(info.component),
+                "sectors": list(info.sector),
+                "perc_change": list(info.perc_delta),
+                "abs_change": list(info.abs_delta),
+            }
+            observ = Observation(info.component,
+                                 self.period_begin,
+                                 self.period_end,
+                                 self.combi_pattern,
+                                 None,
+                                 None,
+                                 None,
+                                 sentence,
+                                 self.indiv_relevance(np.mean([info.iloc[0].perc_delta, info.iloc[1].perc_delta])),
+                                 data)
+            # save the observation object
             self.observations.append(observ)
 
     def x_largest_increase(self):
@@ -93,53 +114,84 @@ class Increase:
         # filter on positive percentages and only get the difference of the end date
         df_large_inc = self.df[(self.df["perc_delta"] > 0.0) & (self.df['date'].dt.strftime('%d-%m-%Y') == self.period_end.strftime('%d-%m-%Y'))]
 
-        if len(df_large_inc) >= 1:
-            # At least 1 component increasing
-            info = df_large_inc.iloc[0]
-            # collect the additional metadata
-            data = {
-                    "component": info.component,
-                    "sector": info.sector,
-                    "perc_change": info.perc_delta,
-                    "abs_change": info.abs_delta,
-                    "relev": self.relevance(info.perc_delta)
-                }
-            # save the observation
-            sentence = f"In de {info.indexx} ging {info.component} aan kop met een winst van {info.perc_delta} procent."
-            observ = Observation(info.component, self.period_begin, self.period_end, self.combi_pattern, sentence, self.relevance(info.perc_delta), data)
-            self.observations.append(observ)
-
-        if len(df_large_inc) >= 2:
-            # At least 2 components increasing
-            info = df_large_inc.iloc[0:2]
-            # collect the additional metadata
-            data = {
-                    "component": list(info.component),
-                    "sector": list(info.sector),
-                    "perc_change": list(info.perc_delta),
-                    "abs_change": list(info.abs_delta),
-                    "relev": [self.relevance(x.perc_delta) for (_, x) in info.iterrows()]
-                }
-            # save the observation
-            sentence = f"In de {info.iloc[0].indexx} waren {info.iloc[0].component} ({info.iloc[0].perc_delta}%) en {info.iloc[1].component} ({info.iloc[1].perc_delta}%) de grootste stijgers."
-            observ = Observation(info.iloc[0].component, self.period_begin, self.period_end, self.combi_pattern, sentence, self.relevance(np.mean(info.perc_delta)), data)
-            self.observations.append(observ)
-
         if len(df_large_inc) >= 3:
-            # at least 3 components increasing
-            info = df_large_inc.iloc[0:3]
-            # collect the additional metadata
-            data = {
-                    "component": list(info.component),
-                    "sector": list(info.sector),
-                    "perc_change": list(info.perc_delta),
-                    "abs_change": list(info.abs_delta),
-                    "relev": [self.relevance(x.perc_delta) for (_, x) in info.iterrows()]
+            # there are at least 3 increasing
+            first = df_large_inc.iloc[0]
+            second = df_large_inc.iloc[1]
+            third = df_large_inc.iloc[2]
+            if (third.perc_delta > self.combi_diff_significance) and ((((first.perc_delta - second.perc_delta) + (second.perc_delta - third.perc_delta)) / 2) < self.combi_diff_threshold):
+                # check whether there is a significant increase between the third and the rest, and between 1, 2 and 3 there is no significant increase
+                # build the sentence
+                sentence = f"{first.component} ({first.perc_delta}%), {second.component} ({second.perc_delta}%) en {third.component} ({third.perc_delta}%) waren de positieve uitschieters."
+                # build the observation object
+                data = {
+                    "components": [first.component, second.component, third.component],
+                    "sectors": [first.sector, second.sector, third.sector],
+                    "perc_change": [first.perc_delta, second.perc_delta, third.perc_delta],
+                    "abs_change": [first.abs_delta, second.abs_delta, third.abs_delta]
                 }
-            # save the observation
-            sentence = f"{info.iloc[0].component} ({info.iloc[0].perc_delta}%), {info.iloc[1].component} ({info.iloc[1].perc_delta}%) en {info.iloc[2].component} ({info.iloc[2].perc_delta}%) waren de positieve uitschieters."
-            observ = Observation(info.iloc[0].component, self.period_begin, self.period_end, self.combi_pattern, sentence, self.relevance(np.mean(info.perc_delta)), data)
-            self.observations.append(observ)
+                observ = Observation(first.component,
+                                     self.period_begin,
+                                     self.period_end,
+                                     self.combi_pattern,
+                                     None,
+                                     None,
+                                     None,
+                                     sentence,
+                                     self.combi_relevance((((first.perc_delta - second.perc_delta) + (second.perc_delta - third.perc_delta)) / 2)),
+                                     data)
+                # save the observation object
+                self.observations.append(observ)
+
+        elif len(df_large_inc) >= 2:
+            # there are at least 2 increasing
+            first = df_large_inc.iloc[0]
+            second = df_large_inc.iloc[1]
+            if (second.perc_delta > self.combi_diff_significance) and (((first.perc_delta - second.perc_delta) / 2) < self.combi_diff_threshold):
+                # check whether there is a significant increase between second and the rest, and between 1 and 2 there is no significant increase
+                # build the sentence
+                sentence = f"In de {first.indexx} waren {first.component} ({first.perc_delta}%) en {second.component} ({second.perc_delta}%) de grootste stijgers."
+                # build the observation object
+                data = {
+                    "components": [first.component, second.component],
+                    "sectors": [first.sector, second.sector],
+                    "perc_change": [first.perc_delta, second.perc_delta],
+                    "abs_change": [first.abs_delta, second.abs_delta]
+                }
+                observ = Observation(first.component,
+                                     self.period_begin,
+                                     self.period_end,
+                                     self.combi_pattern,
+                                     None,
+                                     None,
+                                     None,
+                                     sentence,
+                                     self.combi_relevance((first.perc_delta - second.perc_delta)),
+                                     data)
+                # save the observation object
+                self.observations.append(observ)
+
+        elif len(df_large_inc) >= 1:
+            # there are at least 1 increasing
+            first = df_large_inc.iloc[0]
+            if first.perc_delta > self.combi_diff_significance:
+                # check whether there is a significant increase between 1 and the rest
+                # build the sentence
+                sentence = f"In de {first.indexx} ging {first.component} aan kop met een winst van {first.perc_delta} procent."
+                # build the observation object
+                data = {}
+                observ = Observation(first.component,
+                                     self.period_begin,
+                                     self.period_end,
+                                     self.combi_pattern,
+                                     first.sector,
+                                     first.perc_delta,
+                                     first.abs_delta,
+                                     sentence,
+                                     self.indiv_relevance(first.perc_delta + self.combi_diff_threshold),
+                                     data)
+                # save the observation object
+                self.observations.append(observ)
 
     def all_risers(self):
         """Gets all individual components that have increased in the time period.
@@ -149,17 +201,21 @@ class Increase:
 
         # loop over all the rising stocks and save the observations
         for index, info in df_inc.iterrows():
-            # collect the additional metadata
-            data = {
-                    "component": info.component,
-                    "sector": info.sector,
-                    "perc_change": info.perc_delta,
-                    "abs_change": info.abs_delta,
-                    "relev": self.relevance(info.perc_delta)
-                }
-            # save the observation
+            # build the sentence
             sentence = f"Aandeel {info.component} met {info.perc_delta}% gestegen."
-            observ = Observation(info.component, self.period_begin, self.period_end, self.indiv_pattern, sentence, self.relevance(info.perc_delta), data)
+            # build the observation object
+            data = {}
+            observ = Observation(info.component,
+                                 self.period_begin,
+                                 self.period_end,
+                                 self.indiv_pattern,
+                                 info.sector,
+                                 info.perc_delta,
+                                 info.abs_delta,
+                                 sentence,
+                                 self.indiv_relevance(info.perc_delta),
+                                 data)
+            # save the observation object
             self.observations.append(observ)
 
     def prep_data(self, period: int):
@@ -210,6 +266,6 @@ class Increase:
         diff_days = np.busday_count(self.period_begin.strftime("%Y-%m-%d"), self.period_end.strftime("%Y-%m-%d"), weekmask=[1, 1, 1, 1, 1, 0, 0])
 
         self.prep_data(diff_days)
+        self.all_risers()
         self.x_largest_increase()
         self.only_x_increase()
-        self.all_risers()
