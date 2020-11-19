@@ -27,7 +27,10 @@ class Observations(models.Model):
     period_begin = models.DateTimeField()
     period_end = models.DateTimeField()
     pattern = models.CharField(max_length=200, default=None)
+    sector = models.CharField(max_length=200, default=None, null=True)
     observation = models.TextField()
+    perc_change = models.DecimalField(max_digits=8, decimal_places=2, null=True)
+    abs_change = models.DecimalField(max_digits=8, decimal_places=2, null=True)
     relevance = models.DecimalField(max_digits=4, decimal_places=2)
     meta_data = JSONField(default=dict)
 
