@@ -55,6 +55,7 @@ class Decrease:
                                  self.period_end,
                                  "combi-stijging",
                                  None,
+                                 info,
                                  None,
                                  None,
                                  sentence,
@@ -75,6 +76,7 @@ class Decrease:
                                  self.period_end,
                                  self.combi_pattern,
                                  info.sector,
+                                 info.indexx,
                                  info.perc_delta,
                                  info.abs_delta,
                                  sentence,
@@ -96,11 +98,12 @@ class Decrease:
                 "perc_change": list(info.perc_delta),
                 "abs_change": list(info.abs_delta),
             }
-            observ = Observation(info.component,
+            observ = Observation(info.iloc[0].component,
                                  self.period_begin,
                                  self.period_end,
                                  self.combi_pattern,
                                  None,
+                                 info.iloc[0].indexx,
                                  None,
                                  None,
                                  sentence,
@@ -123,7 +126,7 @@ class Decrease:
             if (abs(third.perc_delta) > self.combi_diff_significance) and (((abs(first.perc_delta - second.perc_delta) + abs(second.perc_delta - third.perc_delta)) / 2) < self.combi_diff_threshold):
                 # check whether there is a significant decrease between the third and the rest, and between 1, 2 and 3 there is no significant decrease
                 # build the sentence
-                sentence = f"{first.component} ({first.perc_delta}%), {second.component} ({second.perc_delta}%) en {third.component} ({third.perc_delta}%) waren de positieve uitschieters."
+                sentence = f"{first.component} ({first.perc_delta}%), {second.component} ({second.perc_delta}%) en {third.component} ({third.perc_delta}%) waren de negatieve uitschieters."
                 # build the observation object
                 data = {
                     "components": [first.component, second.component, third.component],
@@ -136,6 +139,7 @@ class Decrease:
                                      self.period_end,
                                      self.combi_pattern,
                                      None,
+                                     first.indexx,
                                      None,
                                      None,
                                      sentence,
@@ -164,6 +168,7 @@ class Decrease:
                                      self.period_end,
                                      self.combi_pattern,
                                      None,
+                                     first.indexx,
                                      None,
                                      None,
                                      sentence,
@@ -178,7 +183,7 @@ class Decrease:
             if abs(first.perc_delta) > self.combi_diff_significance:
                 # check whether there is a significant increase between 1 and the rest
                 # build the sentence
-                sentence = f"{first.component} daalde het hardst met {first.perc_delta} procent."
+                sentence = f"{first.component} daalde het hardst met {abs(first.perc_delta)} procent."
                 # build the observation object
                 data = {}
                 observ = Observation(first.component,
@@ -186,6 +191,7 @@ class Decrease:
                                      self.period_end,
                                      self.combi_pattern,
                                      first.sector,
+                                     first.indexx,
                                      first.perc_delta,
                                      first.abs_delta,
                                      sentence,
@@ -203,7 +209,7 @@ class Decrease:
         # loop over all the falling stocks and save the observations
         for index, info in df_inc.iterrows():
             # build the sentence
-            sentence = f"Aandeel {info.component} met {info.perc_delta}% gedaald."
+            sentence = f"Aandeel {info.component} met {abs(info.perc_delta)}% gedaald."
             # build the observation object
             data = {}
             observ = Observation(info.component,
@@ -211,6 +217,7 @@ class Decrease:
                                  self.period_end,
                                  self.indiv_pattern,
                                  info.sector,
+                                 info.indexx,
                                  info.perc_delta,
                                  info.abs_delta,
                                  sentence,

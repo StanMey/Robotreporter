@@ -58,6 +58,7 @@ class Sector:
                                      self.period_end,
                                      self.pattern,
                                      sector,
+                                     df_one_sector.iloc[0].indexx,
                                      np.mean(df_one_sector.perc_delta),  # the average percentage of the components in the sector
                                      None,
                                      sentence,
@@ -79,6 +80,7 @@ class Sector:
                                      self.period_end,
                                      self.pattern,
                                      sector,
+                                     df_one_sector.iloc[0].indexx,
                                      np.mean(df_one_sector.perc_delta),  # the average percentage of the components in the sector
                                      None,
                                      sentence,
@@ -119,6 +121,7 @@ class Sector:
                                          self.period_end,
                                          self.pattern,
                                          current_sector,
+                                         current_comp["indexx"].item(),
                                          current_comp["perc_delta"].item(),
                                          None,
                                          sentence,
@@ -140,6 +143,7 @@ class Sector:
                                          self.period_end,
                                          self.pattern,
                                          current_sector,
+                                         current_comp["indexx"].item(),
                                          current_comp["perc_delta"].item(),
                                          None,
                                          sentence,

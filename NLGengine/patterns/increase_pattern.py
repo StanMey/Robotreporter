@@ -55,6 +55,7 @@ class Increase:
                                  self.period_end,
                                  "combi-daling",
                                  None,
+                                 info,
                                  None,
                                  None,
                                  sentence,
@@ -75,6 +76,7 @@ class Increase:
                                  self.period_end,
                                  self.combi_pattern,
                                  info.sector,
+                                 info.indexx,
                                  info.perc_delta,
                                  info.abs_delta,
                                  sentence,
@@ -87,7 +89,7 @@ class Increase:
             # only 2 components have been increasing
             info = df_only_inc.iloc[0:2]
             # build the sentence
-            sentence = f"Op {info.iloc[0].component} en {info.iloc[1].component} na dalen alle {info.iloc[0].indexx} fondsen."
+            sentence = f"Op {info.iloc[0].component} en {info.iloc[1].component} na daalden alle {info.iloc[0].indexx} fondsen."
             # build the observation object
             data = {
                 "components": list(info.component),
@@ -95,11 +97,12 @@ class Increase:
                 "perc_change": list(info.perc_delta),
                 "abs_change": list(info.abs_delta),
             }
-            observ = Observation(info.component,
+            observ = Observation(info.iloc[0].component,
                                  self.period_begin,
                                  self.period_end,
                                  self.combi_pattern,
                                  None,
+                                 info.iloc[0].indexx,
                                  None,
                                  None,
                                  sentence,
@@ -135,6 +138,7 @@ class Increase:
                                      self.period_end,
                                      self.combi_pattern,
                                      None,
+                                     first.indexx,
                                      None,
                                      None,
                                      sentence,
@@ -163,6 +167,7 @@ class Increase:
                                      self.period_end,
                                      self.combi_pattern,
                                      None,
+                                     first.indexx,
                                      None,
                                      None,
                                      sentence,
@@ -185,6 +190,7 @@ class Increase:
                                      self.period_end,
                                      self.combi_pattern,
                                      first.sector,
+                                     first.indexx,
                                      first.perc_delta,
                                      first.abs_delta,
                                      sentence,
@@ -210,6 +216,7 @@ class Increase:
                                  self.period_end,
                                  self.indiv_pattern,
                                  info.sector,
+                                 info.indexx,
                                  info.perc_delta,
                                  info.abs_delta,
                                  sentence,

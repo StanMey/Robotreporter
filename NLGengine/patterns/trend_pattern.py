@@ -46,6 +46,8 @@ class Trend:
 
             # get the sector of the current component
             sector = self.df[self.df["component"] == component]["sector"].iloc[0]
+            # get the indexx of the current component
+            indexx = sector = self.df[self.df["component"] == component]["indexx"].iloc[0]
             # select all the rows from a certain component
             df_one_component = self.df[self.df["component"] == component].copy().sort_values("date")
             # calculate the percentage difference
@@ -100,6 +102,7 @@ class Trend:
                                      self.period_end,
                                      self.pattern,
                                      sector,
+                                     indexx,
                                      None,
                                      None,
                                      sentence,

@@ -4,7 +4,7 @@ from datetime import datetime
 class Observation:
     """An object for storing an observation.
     """
-    def __init__(self, serie: str, prd_begin: datetime, prd_end: datetime, pattern: str, sector: str, perc: float, absp: float, obsrv: str, rlvnc: int, m_data: dict, oid: int = None):
+    def __init__(self, serie: str, prd_begin: datetime, prd_end: datetime, pattern: str, sector: str, indexx: str, perc: float, absp: float, obsrv: str, rlvnc: int, m_data: dict, oid: int = None):
         """The init method.
 
         Args:
@@ -13,6 +13,7 @@ class Observation:
             prd_end (datetime): The end of the period of the observation
             pattern (str): The name of the pattern
             sector (str): The sector corresponding to the main component
+            indexx (str): The indexx of the component
             perc (float): The percentage change of the observation
             absp (float): The absolute change of the observation
             obsrv (str): The observation string
@@ -34,6 +35,7 @@ class Observation:
         # base information
         self.pattern = pattern
         self.sector = sector
+        self.indexx = indexx
         self.observation = obsrv
         self.perc_change = perc
         self.abs_change = absp
