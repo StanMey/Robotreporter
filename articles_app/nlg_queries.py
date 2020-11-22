@@ -41,20 +41,42 @@ def build_article(user_name, filters, bot=False):
 
     # get the initial observation
     first = observation_set.pop(0)
-    new_observ = Observation(first.serie, first.period_begin, first.period_end, first.pattern, first.observation, float(first.relevance), first.meta_data)
+    new_observ = Observation(first.serie,
+                             first.period_begin,
+                             first.period_end,
+                             first.pattern,
+                             first.sector,
+                             first.indexx,
+                             first.perc_change,
+                             first.abs_change,
+                             first.observation,
+                             float(first.relevance),
+                             first.meta_data,
+                             oid=first.id)
 
     # setup before the beginning of the generation
-    observation_set = [Observation(x.serie, x.period_begin, x.period_end, x.pattern, x.observation, float(x.relevance), x.meta_data) for x in observation_set]
+    observation_set = [Observation(x.serie,
+                                   x.period_begin,
+                                   x.period_end,
+                                   x.pattern,
+                                   x.sector,
+                                   x.indexx,
+                                   x.perc_change,
+                                   x.abs_change,
+                                   x.observation,
+                                   float(x.relevance),
+                                   x.meta_data,
+                                   oid=x.id) for x in observation_set]
     chosen_observs = []
 
     for x in range(0, 10):
         determinator = Determinator(new_observ, observation_set, chosen_observs)
         determinator.calculate_new_situational_relevance()
 
-        # 
-        observation_set = sorted(observation_set, key=lambda x: x.relevance2, reverse=True)
-        new_observ = observation_set.pop(0)
+        # get the newly chosen observation, save it and restart the process
+        new_observ = determinator.get_highest_relevance()
         chosen_observs.append(new_observ)
+        observation_set = determinator.all_observations
 
     # set the chosen observations to the planner
     planner = Planner(chosen_observs)
@@ -64,29 +86,27 @@ def build_article(user_name, filters, bot=False):
     realiser = Realiser(planner.observations)
     realiser.realise()
 
+    # select all the id's, corresponding situational relevances and the sentences of the to be article
+    observs_id = []
+    sit_relev = []
     sentences = []
-    rel_sentences = []
+
     for observ in realiser.observs:
-        print(observ.year, observ.week_number, observ.day_number, observ.pattern, observ.observation_new)
+        observs_id.append(observ.observ_id)
+        sit_relev.append(observ.relevance2)
         sentences.append(observ.observation_new)
 
-        # format the relevance
-        rel = {
-            "pattern": observ.pattern,
-            "period": "{0} / {1}".format(observ.period_begin.strftime("%d-%m-%Y"), observ.period_end.strftime("%d-%m-%Y")),
-            "norm_rel": round(observ.relevance1, 2),
-            "sit_rel": round(observ.relevance2, 2),
-            "sentence": observ.observation
-        }
-        rel_sentences.append(rel)
+        print(observ.year, observ.week_number, observ.day_number, observ.pattern, observ.observation_new)
 
+    # build the article by appending all sentences
     content = " ".join(sentences)
 
     # get the meta data and save it into the article
     meta = {}
     meta["manual"] = filters.get("manual")
     meta["filters"] = {}
-    meta["relevance"] = rel_sentences
+    meta["observs"] = observs_id
+    meta["sit_relev"] = sit_relev
 
     for x in ["Sector", "Periode"]:
         selection = filters.get(x)
@@ -100,15 +120,15 @@ def build_article(user_name, filters, bot=False):
     comps_focus = []
     sector_focus = []
     for observ in planner.observations:
-        if type(observ.meta_data.get("component")) == list:
-            comps_focus.extend(observ.meta_data.get("component"))
+        if observ.meta_data.get("components"):
+            comps_focus.extend(observ.meta_data.get("components"))
         else:
-            comps_focus.append(observ.meta_data.get("component"))
+            comps_focus.append(observ.serie)
 
-        if type(observ.meta_data.get("sector")) == list:
-            sector_focus.extend(observ.meta_data.get("sector"))
+        if observ.meta_data.get("sectors"):
+            sector_focus.extend(observ.meta_data.get("sectors"))
         else:
-            sector_focus.append(observ.meta_data.get("sector"))
+            sector_focus.append(observ.sector)
 
     # delete the AMX and duplicates
     comps_focus = [x for x in comps_focus if x != "AMX"]
@@ -120,7 +140,7 @@ def build_article(user_name, filters, bot=False):
     file_name = f"{uuid.uuid1().hex}.jpg"
     save_url = f"./media/images/{file_name}"
     retrieve_url = f"images/{file_name}"
-    # cv2.imwrite(save_url, img_array)
+    cv2.imwrite(save_url, img_array)
 
     article = Articles()
     article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
@@ -133,7 +153,7 @@ def build_article(user_name, filters, bot=False):
         article.author = "nieuwsbot"
     else:
         article.author = user_name
-    # article.save()
+    article.save()
 
     return article.id
 
@@ -191,10 +211,10 @@ def construct_article(user_name, content, filters, title):
         else:
             comps_focus.append(observ.serie)
 
-        if type(observ.meta_data.get("sector")) == list:
-            sector_focus.extend(observ.meta_data.get("sector"))
+        if observ.meta_data.get("sectors"):
+            sector_focus.extend(observ.meta_data.get("sectors"))
         else:
-            sector_focus.append(observ.meta_data.get("sector"))
+            sector_focus.append(observ.sector)
 
     # delete the AMX and duplicates
     comps_focus = [x for x in comps_focus if x != "AMX"]
