@@ -17,21 +17,23 @@ class Determinator:
     def recalibrate_weights(self):
         pass
 
-    def follow_up_weight(self, feature, previous, new):
+    def follow_up_weight(self, previous, new):
         """[summary]
 
         Args:
-            feature ([type]): [description]
             previous ([type]): [description]
             new ([type]): [description]
 
         Returns:
             [type]: [description]
         """
-        info = self.weight_dict.get(feature)
-        index1 = info.get("index").index(previous)
-        index2 = info.get("index").index(new)
-        return info.get("matrix")[index1][index2]
+        pattern_info = self.weight_dict.get("pattern")
+        pattern_weight = pattern_info.get("matrix")[pattern_info.get("index").index(previous.pattern)][pattern_info.get("index").index(new.pattern)]
+
+        week_weight = self.weight_dict.get("week").get("matrix")[int(previous.week_number == new.week_number)]
+        day_weight = self.weight_dict.get("day").get("matrix")[int(previous.day_number == new.day_number)]
+
+        return pattern_weight + week_weight + day_weight
 
     def reset_situational_relevance(self):
         """Reset the situational relevance of all observations before a new selection round.
@@ -44,10 +46,10 @@ class Determinator:
         """
         self.reset_situational_relevance()
         self.load_weights()
-        self.apply_rules()
+        # self.apply_rules()
 
         for observ in self.filtered_observations:
-            pattern_weight = self.follow_up_weight("pattern", self.last_observation.pattern, observ.pattern)
+            pattern_weight = self.follow_up_weight(self.last_observation, observ)
 
             observ.relevance2 = observ.relevance1 + pattern_weight
 
