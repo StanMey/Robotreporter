@@ -74,7 +74,7 @@ def get_latest_observations():
         [type]: [description]
     """
     # get all the latest observations info
-    latest_observations = Observations.objects.order_by('-period_end', '-period_begin')[:200]
+    latest_observations = Observations.objects.order_by('-period_end', '-period_begin')
 
     data = []
 
@@ -91,7 +91,8 @@ def get_latest_observations():
             "serie": serie,
             "period": "{0} / {1}".format(observation.period_end.strftime("%d-%m-%Y"), observation.period_begin.strftime("%d-%m-%Y")),
             "pattern": observation.pattern,
-            "observation": observation.observation
+            "observation": observation.observation,
+            "relevance": float(observation.relevance)
         }
         data.append(point)
     return data
@@ -191,7 +192,8 @@ def get_filtered_observations(filters):
             "serie": serie,
             "period": "{0} / {1}".format(observation.period_end.strftime("%d-%m-%Y"), observation.period_begin.strftime("%d-%m-%Y")),
             "pattern": observation.pattern,
-            "observation": observation.observation
+            "observation": observation.observation,
+            "relevance": float(observation.relevance)
         }
         data.append(point)
     return data
@@ -296,8 +298,8 @@ def get_single_observation(oid):
         observ["pattern"] = sel_observ.pattern
         observ["sector"] = sel_observ.sector
         observ["observation"] = sel_observ.observation
-        observ["perc_change"] = float(sel_observ.perc_change)
-        observ["abs_change"] = float(sel_observ.abs_change)
+        observ["perc_change"] = None if sel_observ.perc_change is None else float(sel_observ.perc_change)
+        observ["abs_change"] = None if sel_observ.abs_change is None else float(sel_observ.abs_change)
         observ["relevance"] = float(sel_observ.relevance)
         observ["meta"] = sel_observ.meta_data
 
