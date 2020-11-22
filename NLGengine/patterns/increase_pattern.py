@@ -28,7 +28,7 @@ class Increase:
         self.period_begin = period_beg
         self.period_end = period_end
 
-        self.indiv_pattern = "invidu-stijging"
+        self.indiv_pattern = "individu-stijging"
         self.combi_pattern = "combi-stijging"
         self.combi_diff_threshold = 1.0
         self.combi_diff_significance = 1.6
@@ -114,19 +114,22 @@ class Increase:
     def x_largest_increase(self):
         """Checks how many (1,2,3) components have increased the most in a certain timeperiod.
         """
+        # since we only want one of these observations below to return we add a 'not_found' variable which switches to False when an observation has been found
+        not_found = True
+
         # filter on positive percentages and only get the difference of the end date
         df_large_inc = self.df[(self.df["perc_delta"] > 0.0) & (self.df['date'].dt.strftime('%d-%m-%Y') == self.period_end.strftime('%d-%m-%Y'))]
 
-        if len(df_large_inc) >= 3:
+        if len(df_large_inc) >= 3 and not_found:
             # there are at least 3 increasing
             first = df_large_inc.iloc[0]
             second = df_large_inc.iloc[1]
             third = df_large_inc.iloc[2]
-            if (third.perc_delta > self.combi_diff_significance) and ((((first.perc_delta - second.perc_delta) + (second.perc_delta - third.perc_delta)) / 2) < self.combi_diff_threshold):
+            if (third.perc_delta > self.combi_diff_significance) and ((first.perc_delta - second.perc_delta) <= self.combi_diff_threshold) and ((second.perc_delta - third.perc_delta) <= self.combi_diff_threshold):
                 # check whether there is a significant increase between the third and the rest, and between 1, 2 and 3 there is no significant increase
                 # build the sentence
                 sentence = f"{first.component} ({first.perc_delta}%), {second.component} ({second.perc_delta}%) en {third.component} ({third.perc_delta}%) waren de positieve uitschieters."
-                # build the observation object
+                # build the observation objec t
                 data = {
                     "components": [first.component, second.component, third.component],
                     "sectors": [first.sector, second.sector, third.sector],
@@ -146,12 +149,13 @@ class Increase:
                                      data)
                 # save the observation object
                 self.observations.append(observ)
+                not_found = False
 
-        elif len(df_large_inc) >= 2:
+        if len(df_large_inc) >= 2 and not_found:
             # there are at least 2 increasing
             first = df_large_inc.iloc[0]
             second = df_large_inc.iloc[1]
-            if (second.perc_delta > self.combi_diff_significance) and (((first.perc_delta - second.perc_delta) / 2) < self.combi_diff_threshold):
+            if (second.perc_delta > self.combi_diff_significance) and ((first.perc_delta - second.perc_delta) <= self.combi_diff_threshold):
                 # check whether there is a significant increase between second and the rest, and between 1 and 2 there is no significant increase
                 # build the sentence
                 sentence = f"In de {first.indexx} waren {first.component} ({first.perc_delta}%) en {second.component} ({second.perc_delta}%) de grootste stijgers."
@@ -175,8 +179,9 @@ class Increase:
                                      data)
                 # save the observation object
                 self.observations.append(observ)
+                not_found = False
 
-        elif len(df_large_inc) >= 1:
+        if len(df_large_inc) >= 1 and not_found:
             # there are at least 1 increasing
             first = df_large_inc.iloc[0]
             if first.perc_delta > self.combi_diff_significance:
@@ -198,6 +203,7 @@ class Increase:
                                      data)
                 # save the observation object
                 self.observations.append(observ)
+                not_found = False
 
     def all_risers(self):
         """Gets all individual components that have increased in the time period.

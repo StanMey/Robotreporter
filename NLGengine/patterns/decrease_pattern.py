@@ -28,8 +28,8 @@ class Decrease:
         self.period_begin = period_beg
         self.period_end = period_end
 
+        self.indiv_pattern = "individu-daling"
         self.combi_pattern = "combi-daling"
-        self.indiv_pattern = "invidu-daling"
         self.combi_diff_threshold = 1.0
         self.combi_diff_significance = 1.6
 
@@ -115,15 +115,18 @@ class Decrease:
     def x_largest_decrease(self):
         """Checks how many (1,2,3) components have decreased the most in a certain timeperiod.
         """
+        # since we only want one of these observations below to return we add a 'not_found' variable which switches to False when an observation has been found
+        not_found = True
+
         # filter on negative percentages and only get the difference of the end date
         df_large_dec = self.df[(self.df["perc_delta"] < 0.0) & (self.df['date'].dt.strftime('%d-%m-%Y') == self.period_end.strftime('%d-%m-%Y'))]
 
-        if len(df_large_dec) >= 3:
+        if len(df_large_dec) >= 3 and not_found:
             # there are at least 3 decreasing
             first = df_large_dec.iloc[0]
             second = df_large_dec.iloc[1]
             third = df_large_dec.iloc[2]
-            if (abs(third.perc_delta) > self.combi_diff_significance) and (((abs(first.perc_delta - second.perc_delta) + abs(second.perc_delta - third.perc_delta)) / 2) < self.combi_diff_threshold):
+            if (abs(third.perc_delta) > self.combi_diff_significance) and (abs(first.perc_delta - second.perc_delta) <= self.combi_diff_threshold) and (abs(second.perc_delta - third.perc_delta) <= self.combi_diff_threshold):
                 # check whether there is a significant decrease between the third and the rest, and between 1, 2 and 3 there is no significant decrease
                 # build the sentence
                 sentence = f"{first.component} ({first.perc_delta}%), {second.component} ({second.perc_delta}%) en {third.component} ({third.perc_delta}%) waren de negatieve uitschieters."
@@ -147,8 +150,9 @@ class Decrease:
                                      data)
                 # save the observation object
                 self.observations.append(observ)
+                not_found = False
 
-        elif len(df_large_dec) >= 2:
+        if len(df_large_dec) >= 2 and not_found:
             # there are at least 2 decreasing
             first = df_large_dec.iloc[0]
             second = df_large_dec.iloc[1]
@@ -176,8 +180,9 @@ class Decrease:
                                      data)
                 # save the observation object
                 self.observations.append(observ)
+                not_found = False
 
-        elif len(df_large_dec) >= 1:
+        if len(df_large_dec) >= 1 and not_found:
             # there are at least 1 decreasing
             first = df_large_dec.iloc[0]
             if abs(first.perc_delta) > self.combi_diff_significance:
@@ -199,6 +204,7 @@ class Decrease:
                                      data)
                 # save the observation object
                 self.observations.append(observ)
+                not_found = False
 
     def all_fallers(self):
         """Gets all individual components that have decreased in the time period.
