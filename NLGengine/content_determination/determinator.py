@@ -46,12 +46,12 @@ class Determinator:
         """
         self.reset_situational_relevance()
         self.load_weights()
-        # self.apply_rules()
+        self.apply_rules()
 
         for observ in self.filtered_observations:
-            pattern_weight = self.follow_up_weight(self.last_observation, observ)
+            sit_weight = self.follow_up_weight(self.last_observation, observ)
 
-            observ.relevance2 = observ.relevance1 + pattern_weight
+            observ.relevance2 = observ.relevance1 + sit_weight
 
     def get_highest_relevance(self):
         """Gets the hightest situational relevance from the filtered observations
@@ -75,28 +75,30 @@ class Determinator:
         # rule 1. Individu-stijging can occur after combi-stijging, only if there is no duplication of data
         if "combi-stijging" in current_patterns:
             # get the components in the combi observation
-            comps = next(i for i in self.history if i.pattern == "combi-stijging").meta_data.get("components")
+            ob = next(i for i in self.history if i.pattern == "combi-stijging")
+            comps = ob.meta_data.get("components") if ob.meta_data.get("components") is not None else [ob.serie]
             # remove all the individu-stijging observations with those series
             self.filtered_observations = list(filter(lambda x: (x.pattern != "individu-stijging") and (x.serie not in comps), self.filtered_observations))
 
         # rule 2. Individu-daling can occur after combi-daling, only if there is no duplication of data
         if "combi-daling" in current_patterns:
             # get the components in the combi observation
-            comps = next(i for i in self.history if i.pattern == "combi-daling").meta_data.get("components")
+            comps = next(i for i in self.history if i.pattern == "combi-daling")
+            comps = ob.meta_data.get("components") if ob.meta_data.get("components") is not None else [ob.serie]
             # remove all the individu-daling observations with those series
             self.filtered_observations = list(filter(lambda x: (x.pattern != "individu-daling") and (x.serie not in comps), self.filtered_observations))
 
-        # rule 3. After 2 individual increases a new pattern
-        if len(self.history) >= 2 and all(x.pattern == "individu-stijging" for x in self.history[-2:]):
-            self.filtered_observations = list(filter(lambda x: x.pattern != "individu-stijging", self.filtered_observations))
+        # # rule 3. After 2 individual increases a new pattern
+        # if len(self.history) >= 2 and all(x.pattern == "individu-stijging" for x in self.history[-2:]):
+        #     self.filtered_observations = list(filter(lambda x: x.pattern != "individu-stijging", self.filtered_observations))
 
-        # rule 4. After 2 individual decreases a new pattern
-        if len(self.history) >= 2 and all(x.pattern == "individu-daling" for x in self.history[-2:]):
-            self.filtered_observations = list(filter(lambda x: x.pattern != "individu-daling", self.filtered_observations))
+        # # rule 4. After 2 individual decreases a new pattern
+        # if len(self.history) >= 2 and all(x.pattern == "individu-daling" for x in self.history[-2:]):
+        #     self.filtered_observations = list(filter(lambda x: x.pattern != "individu-daling", self.filtered_observations))
 
-        # rule 5. After 3 individual increases and decreases skip this pattern
-        if current_patterns.count("individu-daling") >= 3:
-            self.filtered_observations = list(filter(lambda x: x.pattern != "individu-daling", self.filtered_observations))
+        # # rule 5. After 3 individual increases and decreases skip this pattern
+        # if current_patterns.count("individu-daling") >= 3:
+        #     self.filtered_observations = list(filter(lambda x: x.pattern != "individu-daling", self.filtered_observations))
 
-        if current_patterns.count("individu-stijging") >= 3:
-            self.filtered_observations = list(filter(lambda x: x.pattern != "individu-stijging", self.filtered_observations))
+        # if current_patterns.count("individu-stijging") >= 3:
+        #     self.filtered_observations = list(filter(lambda x: x.pattern != "individu-stijging", self.filtered_observations))
