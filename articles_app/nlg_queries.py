@@ -6,6 +6,7 @@ from NLGengine.microplanning.planner import Planner
 from NLGengine.realisation.realiser import Realiser
 
 import articles_app.image_transform as imgtr
+import articles_app.utils as util
 import pandas as pd
 import numpy as np
 
@@ -31,12 +32,21 @@ def build_article(user_name, filters, bot=False):
         int: The id of the generated article
     """
     # current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
-    current_date = datetime(year=2020, month=9, day=24)
-    begin_date = current_date - timedelta(7)
+    current_date = datetime(year=2020, month=9, day=30)
+
+    # check if filters on period are activated
+    periods = filters.get("Periode")
+    if periods.get("options") != []:
+        # periods are selected, so only get those observations
+        # get the max and min range of the period
+        begin_date = util.get_period_range(periods.get("options"))[0]
+    else:
+        # if no filters are selected get the latest week
+        begin_date = current_date - timedelta(7)
 
     # retrieve all relevant observations from the Observations table
     observation_set = list(Observations.objects.filter(
-                                    period_begin__gte=begin_date
+                                    period_end__gte=begin_date
                            ).order_by('-period_end', '-relevance'))
 
     # get the initial observation
@@ -140,7 +150,7 @@ def build_article(user_name, filters, bot=False):
     file_name = f"{uuid.uuid1().hex}.jpg"
     save_url = f"./media/images/{file_name}"
     retrieve_url = f"images/{file_name}"
-    cv2.imwrite(save_url, img_array)
+    # cv2.imwrite(save_url, img_array)
 
     article = Articles()
     article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
@@ -153,7 +163,7 @@ def build_article(user_name, filters, bot=False):
         article.author = "nieuwsbot"
     else:
         article.author = user_name
-    article.save()
+    # article.save()
 
     return article.id
 
