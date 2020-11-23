@@ -31,8 +31,8 @@ def build_article(user_name, filters, bot=False):
     Returns:
         int: The id of the generated article
     """
-    # current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
-    current_date = datetime(year=2020, month=9, day=30)
+    current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
+    # current_date = datetime(year=2020, month=9, day=30)
 
     # check if filters on period are activated
     periods = filters.get("Periode")
@@ -150,7 +150,7 @@ def build_article(user_name, filters, bot=False):
     file_name = f"{uuid.uuid1().hex}.jpg"
     save_url = f"./media/images/{file_name}"
     retrieve_url = f"images/{file_name}"
-    # cv2.imwrite(save_url, img_array)
+    cv2.imwrite(save_url, img_array)
 
     article = Articles()
     article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
@@ -163,7 +163,7 @@ def build_article(user_name, filters, bot=False):
         article.author = "nieuwsbot"
     else:
         article.author = user_name
-    # article.save()
+    article.save()
 
     return article.id
 
