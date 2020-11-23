@@ -12,7 +12,10 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('author', 'body', 'article', 'created_on', 'active')
     list_filter = ('active', 'created_on')
     search_fields = ('author', 'body')
-    actions = ['approve_comments']
+    actions = ['approve_comments', 'disapprove_comments']
 
     def approve_comments(self, request, queryset):
         queryset.update(active=True)
+
+    def disapprove_comments(self, request, queryset):
+        queryset.update(active=False)

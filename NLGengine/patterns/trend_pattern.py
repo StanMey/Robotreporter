@@ -29,6 +29,7 @@ class Trend:
         self.pattern = "trend"
         self.relevance = lambda x: Relevance.trend_relevance(x)
         self.observations = []
+        self.trend_threshold = 2
 
     def check_for_turning_point(self):
         """
@@ -45,6 +46,8 @@ class Trend:
 
             # get the sector of the current component
             sector = self.df[self.df["component"] == component]["sector"].iloc[0]
+            # get the indexx of the current component
+            indexx = sector = self.df[self.df["component"] == component]["indexx"].iloc[0]
             # select all the rows from a certain component
             df_one_component = self.df[self.df["component"] == component].copy().sort_values("date")
             # calculate the percentage difference
@@ -78,23 +81,34 @@ class Trend:
                 count += 1
 
             # decide if the trend is strong enough
-            if trend_count >= 2:
-                data = {
-                    "component": component,
-                    "sector": sector,
-                    "relev": self.relevance(trend_count),
-                    "trend_duration": trend_count
-                }
+            if trend_count >= self.trend_threshold:
+                # build the sentence
                 # select the sentence based on the latest percentage change
                 if latest_perc >= 0.0:
                     sentence = f"{component} na {trend_count} negatieve dagen weer positief geëindigd."
-                    data["trend"] = "pos"
+                    data = {
+                        "trend_duration": trend_count,
+                        "trend": "pos"
+                    }
                 else:
                     sentence = f"{component} na {trend_count} positieve dagen weer negatief geëindigd."
-                    data["trend"] = "neg"
-
-                # save as Observation
-                observ = Observation(component, period_begin_trend, self.period_end, self.pattern, sentence, self.relevance(trend_count), data)
+                    data = {
+                        "trend_duration": trend_count,
+                        "trend": "neg"
+                    }
+                # build the observation object
+                observ = Observation(component,
+                                     period_begin_trend,
+                                     self.period_end,
+                                     self.pattern,
+                                     sector,
+                                     indexx,
+                                     None,
+                                     None,
+                                     sentence,
+                                     self.relevance(trend_count),
+                                     data)
+                # save the observation object
                 self.observations.append(observ)
 
     def analyse(self):

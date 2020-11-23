@@ -29,11 +29,12 @@ class Sector:
         self.period_end = period_end
 
         self.pattern = "sector"
-        self.relevance = lambda x: abs(x)
+        self.whole_relevance = lambda x: Relevance.whole_sector_relevance(x)
+        self.one_relevance = lambda x: Relevance.one_comp_sector_relevance(x)
         self.observations = []
 
     def analyse_general_sector_performance(self):
-        """[summary]
+        """Analyses a sector as a whole
         """
         # TODO check what extra to safe in the meta_data
         # TODO check calculation for relevance
@@ -46,34 +47,50 @@ class Sector:
 
             if (df_one_sector["perc_delta"] > 0.0).all():
                 # all components in the sector have increased
-                # collect the additional metadata
+                # build the sentence
+                sentence = f"De bedrijven in de sector {sector} in de {df_one_sector.iloc[0].indexx} deden het goed vandaag en stegen allemaal."
+                # build the observation object
                 data = {
-                        "component": list(df_one_sector.component),
-                        "perc_change": list(df_one_sector.perc_delta),
-                        "sector": [sector],
-                        "relev": [self.relevance(x.perc_delta) for (_, x) in df_one_sector.iterrows()]
-                    }
-                # save the observation
-                sentence = f"De bedrijven in de sector {sector} in de {df_one_sector.iloc[0].indexx} deden het goed vandaag."
-                observ = Observation(df_one_sector.iloc[0].component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(np.mean(df_one_sector.perc_delta)), data)
+                        "components": list(df_one_sector.component)
+                }
+                observ = Observation(df_one_sector.iloc[0].component,
+                                     self.period_begin,
+                                     self.period_end,
+                                     self.pattern,
+                                     sector,
+                                     df_one_sector.iloc[0].indexx,
+                                     np.mean(df_one_sector.perc_delta),  # the average percentage of the components in the sector
+                                     None,
+                                     sentence,
+                                     self.whole_relevance(np.mean(df_one_sector.perc_delta)),  # calculating relevance of the mean
+                                     data)
+                # save the observation object
                 self.observations.append(observ)
 
             if (df_one_sector["perc_delta"] < 0.0).all():
                 # all components in the sector have decreased
-                # collect the additional metadata
-                data = {
-                        "component": list(df_one_sector.component),
-                        "perc_change": list(df_one_sector.perc_delta),
-                        "sector": [sector],
-                        "relev": [self.relevance(x.perc_delta) for (_, x) in df_one_sector.iterrows()]
-                    }
-                # save the observation
+                # build the sentence
                 sentence = f"De bedrijven in de sector {sector} in de {df_one_sector.iloc[0].indexx} deden het niet goed vandaag en daalden allemaal."
-                observ = Observation(df_one_sector.iloc[0].component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(np.mean(df_one_sector.perc_delta)), data)
+                # build the observation object
+                data = {
+                        "components": list(df_one_sector.component)
+                }
+                observ = Observation(df_one_sector.iloc[0].component,
+                                     self.period_begin,
+                                     self.period_end,
+                                     self.pattern,
+                                     sector,
+                                     df_one_sector.iloc[0].indexx,
+                                     np.mean(df_one_sector.perc_delta),  # the average percentage of the components in the sector
+                                     None,
+                                     sentence,
+                                     self.whole_relevance(np.mean(df_one_sector.perc_delta)),  # calculating relevance of the mean
+                                     data)
+                # save the observation object
                 self.observations.append(observ)
 
     def analyse_component_sector_performance(self):
-        """[summary]
+        """Analyses one component of a sector against the rest of the components in its sector.
         """
         # get all the unique components that are in the dataframe
         all_components = self.df["component"].unique()
@@ -93,30 +110,46 @@ class Sector:
                 # has other sector peers in the current index
                 if (current_comp["perc_delta"].item() > sector_peers["perc_delta"]).all():
                     # component has the highest percentage relative to other components in the sector
-                    # collect the additional metadata
-                    data = {
-                            "component": component,
-                            "perc_change": current_comp.perc_delta.item(),
-                            "sector": current_sector,
-                            "relev": self.relevance(current_comp.perc_delta.item())
-                        }
-                    # save the observation
+                    # build the sentence
                     sentence = f"{component} presteerde bovenmaats ten opzichte van sectorgenoten in de {current_comp.indexx.item()}."
-                    observ = Observation(component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(np.mean(current_comp.perc_delta.item())), data)
+                    # build the observation object
+                    data = {
+                        "components": [component].extend(sector_peers["component"])
+                    }
+                    observ = Observation(component,
+                                         self.period_begin,
+                                         self.period_end,
+                                         self.pattern,
+                                         current_sector,
+                                         current_comp["indexx"].item(),
+                                         current_comp["perc_delta"].item(),
+                                         None,
+                                         sentence,
+                                         self.one_relevance(abs((current_comp["perc_delta"].item()) - (np.mean(sector_peers["perc_delta"])))),
+                                         data)
+                    # save the observation object
                     self.observations.append(observ)
 
                 if (current_comp["perc_delta"].item() < sector_peers["perc_delta"]).all():
                     # component has the lowest percentage relative to other components in the sector
-                    # collect the additional metadata
-                    data = {
-                            "component": component,
-                            "perc_change": current_comp.perc_delta.item(),
-                            "sector": current_sector,
-                            "relev": self.relevance(current_comp.perc_delta.item())
-                        }
-                    # save the observation
+                    # build the sentence
                     sentence = f"{component} presteerde ondermaats ten opzichte van sectorgenoten in de {current_comp.indexx.item()}."
-                    observ = Observation(component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(np.mean(current_comp.perc_delta.item())), data)
+                    # build the observation object
+                    data = {
+                        "components": [component].extend(sector_peers["component"])
+                    }
+                    observ = Observation(component,
+                                         self.period_begin,
+                                         self.period_end,
+                                         self.pattern,
+                                         current_sector,
+                                         current_comp["indexx"].item(),
+                                         current_comp["perc_delta"].item(),
+                                         None,
+                                         sentence,
+                                         self.one_relevance(abs((current_comp["perc_delta"].item()) - (np.mean(sector_peers["perc_delta"])))),
+                                         data)
+                    # save the observation object
                     self.observations.append(observ)
 
     def prep_data(self, period: int):
@@ -137,10 +170,13 @@ class Sector:
         for component in all_components:
             # select all the rows from a certain component
             df_one_component = self.df[self.df["component"] == component]["close"].copy()
+            # calculate the absolute difference
+            df_abs_diff = df_one_component.diff(periods=period)
             # calculate the percentage difference
             df_pct_diff = df_one_component.pct_change(periods=period)
 
             # add both values back in the dataframe
+            self.df.loc[df_abs_diff.index, 'abs_delta'] = df_abs_diff.values
             self.df.loc[df_pct_diff.index, 'perc_delta'] = df_pct_diff.values
 
         # format the percentage difference

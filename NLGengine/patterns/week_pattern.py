@@ -37,33 +37,60 @@ class WeekPattern:
         for _, row in self.df.iterrows():
             if row.perc_delta == 0.0:
                 # average week
-                data = {"component": row.component,
-                        "sector": row.sector,
-                        "perc_change": row.perc_delta,
-                        "abs_change": row.abs_delta,
-                        "relev": self.relevance(row.perc_delta)}
+                # build the sentence
                 sentence = f"{row.component} is in week {self.period_end.isocalendar()[1:2][0]} gelijk gebleven."
-                observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(row.perc_delta), data)
+                # build the observation object
+                data = {}
+                observ = Observation(row.component,
+                                     self.period_begin,
+                                     self.period_end,
+                                     self.pattern,
+                                     row.sector,
+                                     row.indexx,
+                                     row.perc_delta,
+                                     row.abs_delta,
+                                     sentence,
+                                     self.relevance(row.perc_delta),
+                                     data)
+                # save the observation object
                 self.observations.append(observ)
             elif row.perc_delta > 0.0:
                 # positive week
-                data = {"component": row.component,
-                        "sector": row.sector,
-                        "perc_change": row.perc_delta,
-                        "abs_change": row.abs_delta,
-                        "relev": self.relevance(row.perc_delta)}
+                # build the sentence
                 sentence = f"{row.component} is met {row.perc_delta} procent gestegen in week {self.period_end.isocalendar()[1:2][0]}."
-                observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(row.perc_delta), data)
+                # build the observation object
+                data = {}
+                observ = Observation(row.component,
+                                     self.period_begin,
+                                     self.period_end,
+                                     self.pattern,
+                                     row.sector,
+                                     row.indexx,
+                                     row.perc_delta,
+                                     row.abs_delta,
+                                     sentence,
+                                     self.relevance(row.perc_delta),
+                                     data)
+                # save the observation object
                 self.observations.append(observ)
             else:
                 # negative week
-                data = {"component": row.component,
-                        "sector": row.sector,
-                        "perc_change": row.perc_delta,
-                        "abs_change": row.abs_delta,
-                        "relev": self.relevance(row.perc_delta)}
+                # build the sentence
                 sentence = f"{row.component} is met {row.perc_delta} procent gedaald in week {self.period_end.isocalendar()[1:2][0]}."
-                observ = Observation(row.component, self.period_begin, self.period_end, self.pattern, sentence, self.relevance(row.perc_delta), data)
+                # build the observation object
+                data = {}
+                observ = Observation(row.component,
+                                     self.period_begin,
+                                     self.period_end,
+                                     self.pattern,
+                                     row.sector,
+                                     row.indexx,
+                                     row.perc_delta,
+                                     row.abs_delta,
+                                     sentence,
+                                     self.relevance(row.perc_delta),
+                                     data)
+                # save the observation object
                 self.observations.append(observ)
 
     def prep_data(self):

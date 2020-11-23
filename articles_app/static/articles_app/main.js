@@ -102,16 +102,16 @@ async function applyFiltersModB() {
     })
     let data = await response.json();
 
-    const col = ["Serie", "Periode", "Patroon", "Zin"]
+    const col = ["Serie", "Periode", "Patroon", "Zin", "Relevantie"]
 
     dataTable = document.getElementById("datatable_sec");
     dataTable.innerHTML = "";
 
-    // format it to the form of: [["AMX", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 5.00%"].....]
+    // format it to the form of: [["AMX", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 5.00%", 5].....]
     let rows = []
     for (key in data) {
         obj = data[key]
-        rows.push([obj['serie'], obj['period'], obj['pattern'], obj['observation']]);
+        rows.push([obj['serie'], obj['period'], obj['pattern'], obj['observation'], obj["relevance"]]);
     }
     createDataTable(dataTable, "observations_table", col, rows, false);
 
@@ -596,6 +596,18 @@ async function constructArticle(title, content, filters) {
     window.open('/modules/articles/' + _id, target="_self");
 }
 
+
+/**
+ * Toggles the collapseble to show the whole observation.
+ * @param {int} oid The id of the observation.
+ */
+function showObservation(oid) {
+    // build the region of interest
+    let roi = "#" + oid + "-collapse";
+    // toggle the collapse
+    $(roi).collapse("toggle");
+}
+
 // MODULE A timeseries
 async function renderModuleA() {
     let col = ["Serie", "sector", "Oudste datum", "Recentste datum", "Laatste koers"]
@@ -632,17 +644,17 @@ async function renderModuleA() {
 async function renderModuleB() {
     highLightSelectedButton(1);
 
-    let col = ["Serie", "Periode", "Patroon", "Zin"]
+    let col = ["Serie", "Periode", "Patroon", "Zin", "Relevantie"]
 
     // get all information about the available dataseries from db
     let response = await fetch('/data/api/observations/latest');
     let data = await response.json();
 
-    // format it to the form of: [["AMX", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 5.00%"].....]
+    // format it to the form of: [["AMX", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 5.00%", 5.0].....]
     let rows = []
     for (key in data) {
         obj = data[key]
-        rows.push([obj['serie'], obj['period'], obj['pattern'], obj['observation']]);
+        rows.push([obj['serie'], obj['period'], obj['pattern'], obj['observation'], obj["relevance"]]);
     }
 
     let section1 = document.querySelector(".section1");

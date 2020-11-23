@@ -27,7 +27,11 @@ class Observations(models.Model):
     period_begin = models.DateTimeField()
     period_end = models.DateTimeField()
     pattern = models.CharField(max_length=200, default=None)
+    sector = models.CharField(max_length=200, default=None, null=True)
+    indexx = models.CharField(max_length=200, default=None, null=True)
     observation = models.TextField()
+    perc_change = models.DecimalField(max_digits=8, decimal_places=2, null=True)
+    abs_change = models.DecimalField(max_digits=8, decimal_places=2, null=True)
     relevance = models.DecimalField(max_digits=4, decimal_places=2)
     meta_data = JSONField(default=dict)
 
@@ -48,10 +52,10 @@ class Articles(models.Model):
     meta_data = JSONField(default=dict)
 
     def __str__(self):
-        return "{0} - {1} - {2}".format(self.date, self.author, self.title)
+        return "{0}; {1} - {2} - {3}".format(self.id, self.date, self.author, self.title)
 
     def __repr__(self):
-        return "{0} - {1} - {2}".format(self.date, self.author, self.title)
+        return "{0}; {1} - {2} - {3}".format(self.id, self.date, self.author, self.title)
 
 
 class Comment(models.Model):
@@ -63,7 +67,7 @@ class Comment(models.Model):
             validators=[MaxValueValidator(10), MinValueValidator(1)]
     )
     created_on = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
 
     class Meta:
         ordering = ["-created_on"]
