@@ -50,3 +50,24 @@ def fill_observations():
 
 def remove_observations():
     Observations.objects.all().delete()
+
+
+def update_observs():
+    period_begin = datetime(year=2020, month=8, day=10)
+    period_end = datetime(year=2020, month=10, day=2)
+
+
+def test_observs():
+    Observations.objects.all().delete()
+
+    period_begin = datetime(year=2020, month=8, day=10)
+    period_end = datetime(year=2020, month=10, day=2)
+
+    begin_date = period_begin
+    for new_date in pd.date_range(period_begin, period_end).to_list()[1:]:
+        if (begin_date.weekday() in [5, 6]) or (new_date.weekday() in [5, 6]):
+            pass
+        else:
+            print(begin_date, new_date)
+            find_new_observations(begin_date, new_date, to_db=True, to_prompt=True)
+            begin_date = new_date

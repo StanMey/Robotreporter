@@ -2,13 +2,13 @@ from datetime import date, datetime, timedelta
 
 
 def is_view_only(user):
-    """[summary]
+    """Checks if an user has view only rights
 
     Args:
-        user ([type]): [description]
+        user (django.utils.functional.SimpleLazyObject): An user object containing information about the user that made the request
 
     Returns:
-        [type]: [description]
+        Bool: Returns whether the user has view_only rights
     """
     return user.groups.filter(name='view_only').exists()
 
@@ -18,7 +18,7 @@ def retrieve_filterable_months(in_text):
     otherwise returns a tuple_pair (month, year) with the same info
 
     Args:
-        in_text (bool): [description]
+        in_text (bool): Decides if the months are to be displayed numerical of in text
 
     Returns:
         list: returns the textual form of the months if 'in_text' is True, otherwise returns a tuple pair with the month and year
@@ -60,13 +60,13 @@ def retrieve_filterable_months(in_text):
 
 
 def get_period_range(period_filters):
-    """[summary]
+    """Gets the greatest range based on the filters.
 
     Args:
-        filters (list): [description]
+        filters list: The filters that has been chosen for the selection of the Observations
 
     Returns:
-        [type]: [description]
+        Tuple: A tuple containing the min and max date of the period range
     """
     all_dates = []
     # get the months on which can be filtered
