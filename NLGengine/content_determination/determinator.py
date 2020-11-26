@@ -1,39 +1,51 @@
 import json
+import numpy as np
+from datetime import datetime
 
 
 class Determinator:
-    def __init__(self, last_observ, all_observs: list, history: list):
-        self.last_observation = last_observ
+    """[summary]
+    """
+    def __init__(self, all_observs: list, history: list):
+        """The init function
+
+        Args:
+            all_observs (list): All the observations that can be chosen as the next one
+            history (list): A list with the already chosen observations
+        """
         self.all_observations = all_observs
         self.history = history
 
     def load_weights(self):
         """Loads in the weights from json.
         """
-        # array made with: (round(np.random.rand(7,7) * 2 - 1, 2))
+        # array made with: np.around((np.random.rand(3,4,3) * 2 - 1), decimals=2)
         with open(r"./NLGengine/content_determination/weights.json") as f:
-            self.weight_dict = json.load(f)
+            self.weight_array = json.load(f).get("matrix")
 
-    def recalibrate_weights(self):
-        pass
-
-    def follow_up_weight(self, previous, new):
+    def calibrate_weights(self):
         """[summary]
-
-        Args:
-            previous ([type]): [description]
-            new ([type]): [description]
 
         Returns:
             [type]: [description]
         """
-        pattern_info = self.weight_dict.get("pattern")
-        pattern_weight = pattern_info.get("matrix")[pattern_info.get("index").index(previous.pattern)][pattern_info.get("index").index(new.pattern)]
+        return 1
 
-        week_weight = self.weight_dict.get("week").get("matrix")[int(previous.week_number == new.week_number)]
-        day_weight = self.weight_dict.get("day").get("matrix")[int(previous.day_number == new.day_number)]
+    def follow_up_weight(self, observ, new_observ):
+        """Compares two observations and retrieves the corresponding weight
 
-        return pattern_weight + week_weight + day_weight
+        Args:
+            observ (NLGengine.observation.Observation): The first observation
+            new_observ (NLGengine.observation.Observation): The observation that follows the first observation
+
+        Returns:
+            float: The weight/fitness of the combination of observations
+        """
+        pattern_index = check_pattern(observ, new_observ)
+        period_index = check_period(observ, new_observ)
+        comp_index = check_component(observ, new_observ)
+
+        return self.weight_array[pattern_index][period_index][comp_index]
 
     def reset_situational_relevance(self):
         """Reset the situational relevance of all observations before a new selection round.
@@ -42,24 +54,160 @@ class Determinator:
             observ.relevance2 = observ.relevance1
 
     def calculate_new_situational_relevance(self):
-        """[summary]
+        """Reset the situational relevance and calculate the new situational relevance between the already chosen observations and the rest.
         """
         self.reset_situational_relevance()
         self.load_weights()
 
-        for observ in self.filtered_observations:
-            sit_weight = self.follow_up_weight(self.last_observation, observ)
-
-            observ.relevance2 = observ.relevance1 + sit_weight
+        for observ in self.all_observations:
+            for hist_observ in self.history:
+                observ.relevance2 += self.follow_up_weight(hist_observ, observ)
 
     def get_highest_relevance(self):
-        """Gets the hightest situational relevance from the filtered observations
+        """Gets the hightest situational relevance from the avaiable observations
         and filters this observation from all observations.
         """
-        # order the filtered observations
-        ordered_observs = sorted(self.filtered_observations, key=lambda x: x.relevance2, reverse=True)
+        # order the observations
+        ordered_observs = sorted(self.all_observations, key=lambda x: x.relevance2, reverse=True)
         # select the one with the highest situational relevance
         chosen_observ = ordered_observs.pop(0)
         # remove this observation from all observations
         self.all_observations = list(filter(lambda x: x.observ_id != chosen_observ.observ_id, self.all_observations))
         return chosen_observ
+
+
+def check_pattern(observ1, observ2):
+    """Checks if the two given observations have the same/overlapping, similar or no shared patterns.
+
+    Args:
+        observ1 (NLGengine.observation.Observation): The first observation to be compared
+        observ2 (NLGengine.observation.Observation): The second observation to be compared
+
+    Returns:
+        int: The corresponding index for the weights dictionary
+    """
+    pattern_set = set([observ1.pattern, observ2.pattern])
+
+    if len(pattern_set) == 1:
+        # the two patterns are the same
+        indexx = 0
+    elif ("combi-daling" in pattern_set) and ("individu-daling" in pattern_set):
+        # the two patterns are similar both not the same
+        indexx = 1
+    elif ("combi-stijging" in pattern_set) and ("individu-stijging" in pattern_set):
+        # the two patterns are similar both not the same
+        indexx = 1
+    else:
+        # patterns neither the same nor similar
+        indexx = 2
+
+    return indexx
+
+
+def check_period(observ1, observ2):
+    """Checks if the two given observations have identical, overlapping, next or no shared periods.
+
+    Args:
+        observ1 (NLGengine.observation.Observation): The first observation to be compared
+        observ2 (NLGengine.observation.Observation): The second observation to be compared
+
+    Returns:
+        int: The corresponding index for the weights dictionary
+    """
+    if (observ1.period_begin == observ2.period_begin) and (observ1.period_end == observ2.period_end):
+        # the two observations are periodically identical
+        indexx = 0
+    elif has_overlap(observ1.period_begin, observ1.period_end, observ2.period_begin, observ2.period_end):
+        # the two observations are overlapping
+        indexx = 1
+    elif (np.busday_count(observ1.period_end.date(), observ2.period_begin.date()) == 1) or (np.busday_count(observ2.period_end.date(), observ1.period_begin.date()) == 1):
+        # the two observations are after each other (next)
+        # so the start of observation 2 is 1 day after the end of observation 1 (minus the weekends) or vice versa.
+        indexx = 2
+    else:
+        # the two observations are different
+        indexx = 3
+
+    return indexx
+
+
+def check_component(observ1, observ2):
+    """Checks if the two given observations have the same/overlapping, similar (same sector) or no shared components.
+
+    Args:
+        observ1 (NLGengine.observation.Observation): The first observation to be compared
+        observ2 (NLGengine.observation.Observation): The second observation to be compared
+
+    Returns:
+        int: The corresponding index for the weights dictionary
+    """
+    if observ1.meta_data.get("components") and observ2.meta_data.get("components"):
+        # observations are both combi patterns and hold multiple components
+        if any(i in observ1.meta_data.get("components") for i in observ2.meta_data.get("components")):
+            # both observations have one or more overlapping component(s)
+            indexx = 0
+        elif any(i in observ1.meta_data.get("sectors") for i in observ2.meta_data.get("sectors")):
+            # both observations have one or more similar components(s)
+            indexx = 1
+        else:
+            # both observations don't have overlapping or similar component(s)
+            indexx = 2
+
+    elif observ1.meta_data.get("components"):
+        # observation 1 has multiple components
+        if observ2.serie in observ1.meta_data.get("components"):
+            # both observations have one or more overlapping component(s)
+            indexx = 0
+        elif observ2.sector in observ1.meta_data.get("sectors"):
+            # both observations have one or more similar component(s)
+            indexx = 1
+        else:
+            # both observations don't have overlapping or similar component(s)
+            indexx = 2
+
+    elif observ2.meta_data.get("components"):
+        # observation 2 has multiple components
+        if observ1.serie in observ2.meta_data.get("components"):
+            # both observations have one or more overlapping component(s)
+            indexx = 0
+        elif observ1.sector in observ2.meta_data.get("sectors"):
+            # both observations have one or more similar component(s)
+            indexx = 1
+        else:
+            # both observations don't have overlapping or similar component(s)
+            indexx = 2
+
+    else:
+        # neither of the observations has multiple components
+        if observ1.serie == observ2.serie:
+            # both observations have the same component
+            indexx = 0
+        elif observ1.sector == observ2.sector:
+            # both observations have similar components
+            indexx = 1
+        else:
+            # both observation share no overlapping of components
+            indexx = 2
+
+    return indexx
+
+
+def has_overlap(A_start: datetime, A_end: datetime, B_start: datetime, B_end: datetime):
+    """Checks if two periods have an overlap.
+    https://stackoverflow.com/questions/3721249/python-date-interval-intersection
+
+    Args:
+        A_start (datetime): The period_begin datetime of the first observation
+        A_end (datetime): The period_end datetime of the first observation
+        B_start (datetime): The period_begin datetime of the second observation
+        B_end (datetime): The period_end datetime of the second observation
+
+    Returns:
+        bool: Returns True if the two periods overlap
+    """
+    assert A_start <= A_end, "the start datetime is greater as the end datetime"
+    assert B_start <= B_end, "the start datetime is greater as the end datetime"
+
+    latest_start = max(A_start, B_start)
+    earliest_end = min(A_end, B_end)
+    return latest_start <= earliest_end

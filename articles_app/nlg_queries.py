@@ -31,8 +31,8 @@ def build_article(user_name, filters, bot=False):
     Returns:
         int: The id of the generated article
     """
-    current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
-    # current_date = datetime(year=2020, month=9, day=30)
+    # current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
+    current_date = datetime(year=2020, month=9, day=30)
 
     # check if filters on period are activated
     periods = filters.get("Periode")
@@ -49,20 +49,21 @@ def build_article(user_name, filters, bot=False):
                                     period_end__gte=begin_date
                            ).order_by('-period_end', '-relevance'))
 
-    # get the initial observation
+    # get the initial observation and pass it into the chosen_observs (history)
     first = observation_set.pop(0)
-    new_observ = Observation(first.serie,
-                             first.period_begin,
-                             first.period_end,
-                             first.pattern,
-                             first.sector,
-                             first.indexx,
-                             first.perc_change,
-                             first.abs_change,
-                             first.observation,
-                             float(first.relevance),
-                             first.meta_data,
-                             oid=first.id)
+    first_observ = Observation(first.serie,
+                               first.period_begin,
+                               first.period_end,
+                               first.pattern,
+                               first.sector,
+                               first.indexx,
+                               first.perc_change,
+                               first.abs_change,
+                               first.observation,
+                               float(first.relevance),
+                               first.meta_data,
+                               oid=first.id)
+    chosen_observs = [first_observ]
 
     # setup before the beginning of the generation
     observation_set = [Observation(x.serie,
@@ -77,10 +78,9 @@ def build_article(user_name, filters, bot=False):
                                    float(x.relevance),
                                    x.meta_data,
                                    oid=x.id) for x in observation_set]
-    chosen_observs = []
 
     for x in range(0, 10):
-        determinator = Determinator(new_observ, observation_set, chosen_observs)
+        determinator = Determinator(observation_set, chosen_observs)
         determinator.calculate_new_situational_relevance()
 
         # get the newly chosen observation, save it and restart the process
@@ -150,7 +150,7 @@ def build_article(user_name, filters, bot=False):
     file_name = f"{uuid.uuid1().hex}.jpg"
     save_url = f"./media/images/{file_name}"
     retrieve_url = f"images/{file_name}"
-    cv2.imwrite(save_url, img_array)
+    # cv2.imwrite(save_url, img_array)
 
     article = Articles()
     article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
@@ -163,7 +163,7 @@ def build_article(user_name, filters, bot=False):
         article.author = "nieuwsbot"
     else:
         article.author = user_name
-    article.save()
+    # article.save()
 
     return article.id
 
