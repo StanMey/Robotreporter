@@ -71,6 +71,8 @@ class Relevance:
         Returns:
             float: The outcome of the function
         """
+        assert trend >= 0, "trend is negative"
+
         return min(10.0, Relevance.tanh(trend / factor) * multi)
 
     # TODO make graph for choice of factor
