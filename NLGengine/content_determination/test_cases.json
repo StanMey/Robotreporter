@@ -1,0 +1,121 @@
+{
+    "test_cases": [
+        {
+            "id": 1,
+            "prev_observ": 979,
+            "new_observ": 963,
+            "score": -2.0
+        },
+        {
+            "id": 2,
+            "prev_observ": 979,
+            "new_observ": 965,
+
+            "score": 0.5
+        },
+        {
+            "id": 3,
+            "prev_observ": 979, 
+            "new_observ": 990,
+            "score": 1.5
+        },
+        {
+            "id": 4,
+            "prev_observ": 2,  
+            "new_observ": 1,
+            "score": 1.2
+        },
+        {
+            "id": 5,
+            "prev_observ": 2, 
+            "new_observ": 1,
+            "score": 1.2
+        },
+        {
+            "id": 6,
+            "prev_observ": 2, 
+            "new_observ": 1,
+            "score": 1.2
+        }
+    ],
+    "observations": {
+        "979": {
+            "serie": "BAM Groep Koninklijke",
+            "period_begin": "2020-06-26T00:00:00",
+            "period_end": "2020-06-29T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": null,
+            "indexx": null,
+            "observation": "In de AMX waren BAM Groep Koninklijke (5.0%) en SIGNIFY NV (4.52%) de grootste stijgers.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "5.20",
+            "meta_data": {
+                "sectors": [
+                    "Bouw",
+                    "Technologie"
+                ],
+                "abs_change": [
+                    0.07999999999999985,
+                    0.9600000000000009
+                ],
+                "components": [
+                    "BAM Groep Koninklijke",
+                    "SIGNIFY NV"
+                ],
+                "perc_change": [
+                    5.0,
+                    4.52
+                ]
+            }
+        },
+        "963": {
+            "serie": "BAM Groep Koninklijke",
+            "period_begin": "2020-06-26T00:00:00",
+            "period_end": "2020-06-29T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel BAM Groep Koninklijke met 5.0% gestegen.",
+            "perc_change": "5.00",
+            "abs_change": "0.08",
+            "relevance": "9.52",
+            "meta_data": {}
+        },
+        "965": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-06-26T00:00:00",
+            "period_end": "2020-06-29T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Aandeel Air France-KLM met 3.25% gestegen.",
+            "perc_change": "3.25",
+            "abs_change": "0.13",
+            "relevance": "8.34",
+            "meta_data": {}
+        },
+        "990": {
+            "serie": "Boskalis Westminster Koninklijke",
+            "period_begin": "2020-06-26T00:00:00",
+            "period_end": "2020-06-29T00:00:00",
+            "pattern": "sector",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Bouw in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "2.97",
+            "abs_change": null,
+            "relevance": "3.93",
+            "meta_data": {
+                "sectors": [
+                    "Bouw"
+                ],
+                "components": [
+                    "Boskalis Westminster Koninklijke",
+                    "Arcadis",
+                    "BAM Groep Koninklijke"
+                ]
+            }
+        }
+    }
+}
