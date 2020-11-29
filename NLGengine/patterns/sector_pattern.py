@@ -36,7 +36,6 @@ class Sector:
     def analyse_general_sector_performance(self):
         """Analyses a sector as a whole
         """
-        # TODO check what extra to safe in the meta_data
         # TODO check calculation for relevance
         # get all unique sectors
         sectors = self.df["sector"].unique()
@@ -51,7 +50,8 @@ class Sector:
                 sentence = f"De bedrijven in de sector {sector} in de {df_one_sector.iloc[0].indexx} deden het goed vandaag en stegen allemaal."
                 # build the observation object
                 data = {
-                        "components": list(df_one_sector.component)
+                    "components": list(df_one_sector.component),
+                    "sectors": [sector]
                 }
                 observ = Observation(df_one_sector.iloc[0].component,
                                      self.period_begin,
@@ -73,7 +73,8 @@ class Sector:
                 sentence = f"De bedrijven in de sector {sector} in de {df_one_sector.iloc[0].indexx} deden het niet goed vandaag en daalden allemaal."
                 # build the observation object
                 data = {
-                        "components": list(df_one_sector.component)
+                        "components": list(df_one_sector.component),
+                        "sectors": [sector]
                 }
                 observ = Observation(df_one_sector.iloc[0].component,
                                      self.period_begin,
@@ -113,9 +114,7 @@ class Sector:
                     # build the sentence
                     sentence = f"{component} presteerde bovenmaats ten opzichte van sectorgenoten in de {current_comp.indexx.item()}."
                     # build the observation object
-                    data = {
-                        "components": [component].extend(sector_peers["component"])
-                    }
+                    data = {}
                     observ = Observation(component,
                                          self.period_begin,
                                          self.period_end,
@@ -135,9 +134,7 @@ class Sector:
                     # build the sentence
                     sentence = f"{component} presteerde ondermaats ten opzichte van sectorgenoten in de {current_comp.indexx.item()}."
                     # build the observation object
-                    data = {
-                        "components": [component].extend(sector_peers["component"])
-                    }
+                    data = {}
                     observ = Observation(component,
                                          self.period_begin,
                                          self.period_end,
