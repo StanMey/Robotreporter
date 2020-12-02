@@ -23,14 +23,6 @@ class Determinator:
         with open(r"./NLGengine/content_determination/weights.json") as f:
             self.weight_array = json.load(f).get("matrix")
 
-    def calibrate_weights(self):
-        """[summary]
-
-        Returns:
-            [type]: [description]
-        """
-        return 1
-
     def follow_up_weight(self, observ, new_observ):
         """Compares two observations and retrieves the corresponding weight
 
