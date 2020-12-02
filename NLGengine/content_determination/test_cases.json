@@ -10,112 +10,1204 @@
             "id": 2,
             "prev_observ": 979,
             "new_observ": 965,
-
             "score": 0.5
         },
         {
             "id": 3,
-            "prev_observ": 979, 
+            "prev_observ": 979,
             "new_observ": 990,
             "score": 1.5
         },
         {
             "id": 4,
-            "prev_observ": 2,  
-            "new_observ": 1,
-            "score": 1.2
+            "prev_observ": 4944,
+            "new_observ": 4763,
+            "score": -1.0
         },
         {
             "id": 5,
-            "prev_observ": 2, 
-            "new_observ": 1,
-            "score": 1.2
+            "prev_observ": 5083,
+            "new_observ": 5064,
+            "score": -2.0
         },
         {
             "id": 6,
-            "prev_observ": 2, 
+            "prev_observ": 5183,
+            "new_observ": 5000,
+            "score": 1.5
+        },
+        {
+            "id": 7,
+            "prev_observ": 4924,
+            "new_observ": 5001,
+            "score": 2.0
+        },
+        {
+            "id": 8,
+            "prev_observ": 4593,
+            "new_observ": 4575,
+            "score": 1.5
+        },
+        {
+            "id": 9,
+            "prev_observ": 4842,
+            "new_observ": 4816,
+            "score": 2.0
+        },
+        {
+            "id": 10,
+            "prev_observ": 4901,
+            "new_observ": 4881,
+            "score": 2.0
+        },
+        {
+            "id": 11,
+            "prev_observ": 5169,
+            "new_observ": 5138,
+            "score": 1.8
+        },
+        {
+            "id": 12,
+            "prev_observ": 4278,
+            "new_observ": 4073,
+            "score": 1.5
+        },
+        {
+            "id": 13,
+            "prev_observ": 4866,
+            "new_observ": 4812,
+            "score": 2.0
+        },
+        {
+            "id": 14,
+            "prev_observ": 4866,
+            "new_observ": 4773,
+            "score": -2.0
+        },
+        {
+            "id": 15,
+            "prev_observ": 4717,
+            "new_observ": 4736,
+            "score": 1.0
+        },
+        {
+            "id": 16,
+            "prev_observ": 1456,
+            "new_observ": 1504,
+            "score": 1.5
+        },
+        {
+            "id": 17,
+            "prev_observ": 1456,
+            "new_observ": 1483,
+            "score": 1.0
+        },
+        {
+            "id": 18,
+            "prev_observ": 1456,
+            "new_observ": 1457,
+            "score": 2.0
+        },
+        {
+            "id": 19,
+            "prev_observ": 1456,
+            "new_observ": 1462,
+            "score": 1.5
+        },
+        {
+            "id": 20,
+            "prev_observ": 5203,
+            "new_observ": 5187,
+            "score": 1.5
+        },
+        {
+            "id": 21,
+            "prev_observ": 4980,
+            "new_observ": 3784,
+            "score": -2.0
+        },
+        {
+            "id": 22,
+            "prev_observ": 4381,
+            "new_observ": 1940,
+            "score": -2.0
+        },
+        {
+            "id": 23,
+            "prev_observ": 2508,
+            "new_observ": 2527,
+            "score": 2.0
+        },
+        {
+            "id": 24,
+            "prev_observ": 14,
             "new_observ": 1,
-            "score": 1.2
+            "score": -2.0
+        },
+        {
+            "id": 25,
+            "prev_observ": 1,
+            "new_observ": 2,
+            "score": 1.0
+        },
+        {
+            "id": 26,
+            "prev_observ": 4983,
+            "new_observ": 5205,
+            "score": 1.0
+        },
+        {
+            "id": 27,
+            "prev_observ": 5004,
+            "new_observ": 4942,
+            "score": 1.0
+        },
+        {
+            "id": 28,
+            "prev_observ": 4862,
+            "new_observ": 4817,
+            "score": 2.0
+        },
+        {
+            "id": 29,
+            "prev_observ": 4816,
+            "new_observ": 4817,
+            "score": -2.0
+        },
+        {
+            "id": 30,
+            "prev_observ": 4816,
+            "new_observ": 4862,
+            "score": 1.0
+        },
+        {
+            "id": 31,
+            "prev_observ": 4229,
+            "new_observ": 4113,
+            "score": -1.0
+        },
+        {
+            "id": 32,
+            "prev_observ": 4113,
+            "new_observ": 4153,
+            "score": 1.0
+        },
+        {
+            "id": 33,
+            "prev_observ": 4275,
+            "new_observ": 4074,
+            "score": 2.0
+        },
+        {
+            "id": 34,
+            "prev_observ": 1486,
+            "new_observ": 1469,
+            "score": 2.0
+        },
+        {
+            "id": 35,
+            "prev_observ": 34,
+            "new_observ": 4684,
+            "score": -2.0
+        },
+        {
+            "id": 36,
+            "prev_observ": 3189,
+            "new_observ": 2196,
+            "score": -1.0
+        },
+        {
+            "id": 37,
+            "prev_observ": 1456,
+            "new_observ": 1483,
+            "score": 1.0
+        },
+        {
+            "id": 38,
+            "prev_observ": 4187,
+            "new_observ": 1172,
+            "score": -2.0
+        },
+        {
+            "id": 39,
+            "prev_observ": 1642,
+            "new_observ": 1634,
+            "score": 0.0
+        },
+        {
+            "id": 40,
+            "prev_observ": 2852,
+            "new_observ": 1949,
+            "score": -2.0
+        },
+        {
+            "id": 41,
+            "prev_observ": 4151,
+            "new_observ": 4136,
+            "score": 0.0
+        },
+        {
+            "id": 42,
+            "prev_observ": 4294,
+            "new_observ": 4271,
+            "score": -2.0
+        },
+        {
+            "id": 43,
+            "prev_observ": 1145,
+            "new_observ": 1148,
+            "score": 1.0
+        },
+        {
+            "id": 44,
+            "prev_observ": 1152,
+            "new_observ": 1153,
+            "score": 2.0
+        },
+        {
+            "id": 45,
+            "prev_observ": 1111,
+            "new_observ": 1122,
+            "score": 2.0
+        },
+        {
+            "id": 46,
+            "prev_observ": 1122,
+            "new_observ": 1110,
+            "score": -1.0
+        },
+        {
+            "id": 47,
+            "prev_observ": 1108,
+            "new_observ": 1107,
+            "score": 2.0
+        },
+        {
+            "id": 48,
+            "prev_observ": 1125,
+            "new_observ": 1100,
+            "score": 2.0
+        },
+        {
+            "id": 49,
+            "prev_observ": 1097,
+            "new_observ": 1096,
+            "score": 1.0
+        },
+        {
+            "id": 50,
+            "prev_observ": 1113,
+            "new_observ": 1095,
+            "score": -2.0
+        },
+        {
+            "id": 51,
+            "prev_observ": 1113,
+            "new_observ": 1096,
+            "score": 1.0
+        },
+        {
+            "id": 52,
+            "prev_observ": 1173,
+            "new_observ": 1145,
+            "score": 2.0
+        },
+        {
+            "id": 53,
+            "prev_observ": 1173,
+            "new_observ": 1148,
+            "score": 0.0
+        },
+        {
+            "id": 54,
+            "prev_observ": 2035,
+            "new_observ": 660,
+            "score": -2.0
+        },
+        {
+            "id": 55,
+            "prev_observ": 1418,
+            "new_observ": 1453,
+            "score": 2.0
+        },
+        {
+            "id": 56,
+            "prev_observ": 1435,
+            "new_observ": 1403,
+            "score": 1.0
+        },
+        {
+            "id": 57,
+            "prev_observ": 1417,
+            "new_observ": 1488,
+            "score": -2.0
+        },
+        {
+            "id": 58,
+            "prev_observ": 1417,
+            "new_observ": 1455,
+            "score": -1.0
+        },
+        {
+            "id": 59,
+            "prev_observ": 1455, 
+            "new_observ": 1488,
+            "score": 2.0
+        },
+        {
+            "id": 60,
+            "prev_observ": 1460, 
+            "new_observ": 1444,
+            "score": 0.0
+        },
+        {
+            "id": 61,
+            "prev_observ": 5189, 
+            "new_observ": 5083,
+            "score": 0.0
+        },
+        {
+            "id": 62,
+            "prev_observ": 5083, 
+            "new_observ": 5064,
+            "score": -2.0
+        },
+        {
+            "id": 63,
+            "prev_observ": 5064, 
+            "new_observ": 5109,
+            "score": -1.0
+        },
+        {
+            "id": 64,
+            "prev_observ": 5109, 
+            "new_observ": 5050,
+            "score": -1.0
+        },
+        {
+            "id": 65,
+            "prev_observ": 5050, 
+            "new_observ": 5023,
+            "score": 1.0
+        },
+        {
+            "id": 66,
+            "prev_observ": 5023, 
+            "new_observ": 4921,
+            "score": 1.0
+        },
+        {
+            "id": 67,
+            "prev_observ": 4921, 
+            "new_observ": 4944,
+            "score": -2.0
+        },
+        {
+            "id": 68,
+            "prev_observ": 4944, 
+            "new_observ": 4763,
+            "score": -1.0
+        },
+        {
+            "id": 69,
+            "prev_observ": 4763, 
+            "new_observ": 4764,
+            "score": -2.0
+        },
+        {
+            "id": 70,
+            "prev_observ": 4796, 
+            "new_observ": 4921,
+            "score": -1.0
+        },
+        {
+            "id": 71,
+            "prev_observ": 878, 
+            "new_observ": 817,
+            "score": 0.0
+        },
+        {
+            "id": 72,
+            "prev_observ": 635, 
+            "new_observ": 608,
+            "score": 2.0
+        },
+        {
+            "id": 73,
+            "prev_observ": 392, 
+            "new_observ": 635,
+            "score": 2.0
+        },
+        {
+            "id": 74,
+            "prev_observ": 608, 
+            "new_observ": 392,
+            "score": 1.0
+        },
+        {
+            "id": 75,
+            "prev_observ": 5001, 
+            "new_observ": 4860,
+            "score": -1.0
+        },
+        {
+            "id": 76,
+            "prev_observ": 5000, 
+            "new_observ": 4690,
+            "score": 0.0
+        },
+        {
+            "id": 77,
+            "prev_observ": 3181, 
+            "new_observ": 2869,
+            "score": 0.0
+        },
+        {
+            "id": 78,
+            "prev_observ": 5159, 
+            "new_observ": 5140,
+            "score": 1.0
+        },
+        {
+            "id": 79,
+            "prev_observ": 5213, 
+            "new_observ": 5108,
+            "score": -2.0
+        },
+        {
+            "id": 80,
+            "prev_observ": 4669, 
+            "new_observ": 4883,
+            "score": 1.0
+        },
+        {
+            "id": 81,
+            "prev_observ": 4112, 
+            "new_observ": 4197,
+            "score": -2.0
+        },
+        {
+            "id": 82,
+            "prev_observ": 4639, 
+            "new_observ": 4627,
+            "score": 2.0
+        },
+        {
+            "id": 83,
+            "prev_observ": 4575, 
+            "new_observ": 4385,
+            "score": 1.0
+        },
+        {
+            "id": 84,
+            "prev_observ": 4575, 
+            "new_observ": 4585,
+            "score": 1.0
+        },
+        {
+            "id": 85,
+            "prev_observ": 4575, 
+            "new_observ": 4593,
+            "score": 2.0
+        },
+        {
+            "id": 86,
+            "prev_observ": 4525, 
+            "new_observ": 4549,
+            "score": 2.0
+        },
+        {
+            "id": 87,
+            "prev_observ": 4575, 
+            "new_observ": 4564,
+            "score": -2.0
+        },
+        {
+            "id": 88,
+            "prev_observ": 4575, 
+            "new_observ": 4574,
+            "score": 0.0
+        },
+        {
+            "id": 89,
+            "prev_observ": 2284, 
+            "new_observ": 2270,
+            "score": -2.0
+        },
+        {
+            "id": 90,
+            "prev_observ": 1174, 
+            "new_observ": 1175,
+            "score": 2.0
+        },
+        {
+            "id": 91,
+            "prev_observ": 1174, 
+            "new_observ": 1175,
+            "score": -2.0
+        },
+        {
+            "id": 92,
+            "prev_observ": 3303, 
+            "new_observ": 2312,
+            "score": -1.0
+        },
+        {
+            "id": 93,
+            "prev_observ": 421, 
+            "new_observ": 4618,
+            "score": -1.0
+        },
+        {
+            "id": 94,
+            "prev_observ": 1122, 
+            "new_observ": 1107,
+            "score": 1.0
+        },
+        {
+            "id": 95,
+            "prev_observ": 1122, 
+            "new_observ": 1108,
+            "score": 1.0
+        },
+        {
+            "id": 96,
+            "prev_observ": 1162, 
+            "new_observ": 1211,
+            "score": 1.0
+        },
+        {
+            "id": 97,
+            "prev_observ": 4984, 
+            "new_observ": 4999,
+            "score": 1.0
+        },
+        {
+            "id": 98,
+            "prev_observ": 1211, 
+            "new_observ": 2583,
+            "score": 0.0
+        },
+        {
+            "id": 99,
+            "prev_observ": 1634, 
+            "new_observ": 1940,
+            "score": -1.0
+        },
+        {
+            "id": 100,
+            "prev_observ": 4385, 
+            "new_observ": 3122,
+            "score": -1.0
+        },
+        {
+            "id": 101,
+            "prev_observ": 3189, 
+            "new_observ": 2196,
+            "score": -2.0
+        },
+        {
+            "id": 102,
+            "prev_observ": 5207, 
+            "new_observ": 5223,
+            "score": 2.0
+        },
+        {
+            "id": 103,
+            "prev_observ": 5198, 
+            "new_observ": 5183,
+            "score": 2.0
+        },
+        {
+            "id": 104,
+            "prev_observ": 5194, 
+            "new_observ": 5184,
+            "score": 1.0
+        },
+        {
+            "id": 105,
+            "prev_observ": 5169, 
+            "new_observ": 5138,
+            "score": 2.0
+        },
+        {
+            "id": 106,
+            "prev_observ": 5135, 
+            "new_observ": 5132,
+            "score": 0.0
+        },
+        {
+            "id": 107,
+            "prev_observ": 5118, 
+            "new_observ": 5132,
+            "score": -2.0
+        },
+        {
+            "id": 108,
+            "prev_observ": 5062, 
+            "new_observ": 5061,
+            "score": 0.0
+        },
+        {
+            "id": 109,
+            "prev_observ": 4993, 
+            "new_observ": 4987,
+            "score": 0.0
+        },
+        {
+            "id": 110,
+            "prev_observ": 4945, 
+            "new_observ": 4946,
+            "score": 1.0
+        },
+        {
+            "id": 111,
+            "prev_observ": 4928, 
+            "new_observ": 4903,
+            "score": 1.0
+        },
+        {
+            "id": 112,
+            "prev_observ": 225, 
+            "new_observ": 226,
+            "score": -2.0
+        },
+        {
+            "id": 113,
+            "prev_observ": 14, 
+            "new_observ": 45,
+            "score": 2.0
+        },
+        {
+            "id": 114,
+            "prev_observ": 1216, 
+            "new_observ": 2447,
+            "score": -2.0
+        },
+        {
+            "id": 115,
+            "prev_observ": 15, 
+            "new_observ": 233,
+            "score": -2.0
+        },
+        {
+            "id": 116,
+            "prev_observ": 40, 
+            "new_observ": 15,
+            "score": -1.0
+        },
+        {
+            "id": 117,
+            "prev_observ": 2530, 
+            "new_observ": 1204,
+            "score": -2.0
+        },
+        {
+            "id": 118,
+            "prev_observ": 2789, 
+            "new_observ": 2782,
+            "score": 0.0
+        },
+        {
+            "id": 119,
+            "prev_observ": 2882, 
+            "new_observ": 795,
+            "score": -1.0
+        },
+        {
+            "id": 120,
+            "prev_observ": 4994, 
+            "new_observ": 5191,
+            "score": 1.0
+        },
+        {
+            "id": 121,
+            "prev_observ": 5121, 
+            "new_observ": 5150,
+            "score": 2.0
+        },
+        {
+            "id": 122,
+            "prev_observ": 1783, 
+            "new_observ": 751,
+            "score": -2.0
+        },
+        {
+            "id": 123,
+            "prev_observ": 4707,
+            "new_observ": 3723,
+            "score": -1.0
+        },
+        {
+            "id": 124,
+            "prev_observ": 492,
+            "new_observ": 1736,
+            "score": -2.0
+        },
+        {
+            "id": 125,
+            "prev_observ": 1145, 
+            "new_observ": 1148,
+            "score": 0.0
+        },
+        {
+            "id": 126,
+            "prev_observ": 1146, 
+            "new_observ": 1127,
+            "score": -1.0
+        },
+        {
+            "id": 127,
+            "prev_observ": 1110, 
+            "new_observ": 1107,
+            "score": 1.0
+        },
+        {
+            "id": 128,
+            "prev_observ": 1121, 
+            "new_observ": 1137,
+            "score": 0.0
+        },
+        {
+            "id": 129,
+            "prev_observ": 1123, 
+            "new_observ": 1137,
+            "score": 2.0
+        },
+        {
+            "id": 130,
+            "prev_observ": 1095, 
+            "new_observ": 1107,
+            "score": 1.0
+        },
+        {
+            "id": 131,
+            "prev_observ": 1113, 
+            "new_observ": 1094,
+            "score": -2.0
+        },
+        {
+            "id": 132,
+            "prev_observ": 1113, 
+            "new_observ": 1117,
+            "score": 1.0
+        },
+        {
+            "id": 133,
+            "prev_observ": 1113, 
+            "new_observ": 1097,
+            "score": 1.0
+        },
+        {
+            "id": 134,
+            "prev_observ": 3808, 
+            "new_observ": 3801,
+            "score": 0.0
+        },
+        {
+            "id": 135,
+            "prev_observ": 3802, 
+            "new_observ": 3797,
+            "score": 0.0
+        },
+        {
+            "id": 136,
+            "prev_observ": 3809, 
+            "new_observ": 3810,
+            "score": 1.0
+        },
+        {
+            "id": 137,
+            "prev_observ": 5169, 
+            "new_observ": 5146,
+            "score": 1.0
+        },
+        {
+            "id": 138,
+            "prev_observ": 5146, 
+            "new_observ": 5166,
+            "score": -1.0
+        },
+        {
+            "id": 139,
+            "prev_observ": 4987, 
+            "new_observ": 5203,
+            "score": 2.0
+        },
+        {
+            "id": 140,
+            "prev_observ": 5187, 
+            "new_observ": 4987,
+            "score": 2.0
+        },
+        {
+            "id": 141,
+            "prev_observ": 5061, 
+            "new_observ": 5035,
+            "score": 1.0
+        },
+        {
+            "id": 142,
+            "prev_observ": 5038, 
+            "new_observ": 5061,
+            "score": 1.0
+        },
+        {
+            "id": 143,
+            "prev_observ": 5035, 
+            "new_observ": 1149,
+            "score": -2.0
+        },
+        {
+            "id": 144,
+            "prev_observ": 1117, 
+            "new_observ": 5035,
+            "score": -2.0
+        },
+        {
+            "id": 145,
+            "prev_observ": 5136, 
+            "new_observ": 5120,
+            "score": -2.0
+        },
+        {
+            "id": 146,
+            "prev_observ": 5136, 
+            "new_observ": 5149,
+            "score": 1.0
+        },
+        {
+            "id": 147,
+            "prev_observ": 4691, 
+            "new_observ": 4500,
+            "score": 0.0
+        },
+        {
+            "id": 148,
+            "prev_observ": 4691, 
+            "new_observ": 2130,
+            "score": -2.0
+        },
+        {
+            "id": 149,
+            "prev_observ": 1145, 
+            "new_observ": 1148,
+            "score": 0.0
+        },
+        {
+            "id": 150,
+            "prev_observ": 3732, 
+            "new_observ": 3744,
+            "score": 2.0
+        },
+        {
+            "id": 151,
+            "prev_observ": 3759, 
+            "new_observ": 3724,
+            "score": 2.0
+        },
+        {
+            "id": 152,
+            "prev_observ": 3723, 
+            "new_observ": 3759,
+            "score": 1.0
+        },
+        {
+            "id": 153,
+            "prev_observ": 3731, 
+            "new_observ": 3736,
+            "score": 0.0
+        },
+        {
+            "id": 154,
+            "prev_observ": 3723, 
+            "new_observ": 3731,
+            "score": 1.0
+        },
+        {
+            "id": 155,
+            "prev_observ": 3768, 
+            "new_observ": 3734,
+            "score": -1.0
+        },
+        {
+            "id": 156,
+            "prev_observ": 3738, 
+            "new_observ": 3766,
+            "score": 1.0
+        },
+        {
+            "id": 157,
+            "prev_observ": 2446, 
+            "new_observ": 2437,
+            "score": -2.0
+        },
+        {
+            "id": 158,
+            "prev_observ": 2480, 
+            "new_observ": 2449,
+            "score": 2.0
+        },
+        {
+            "id": 159,
+            "prev_observ": 2454, 
+            "new_observ": 2449,
+            "score": 0.0
+        },
+        {
+            "id": 160,
+            "prev_observ": 2454, 
+            "new_observ": 2480,
+            "score":  0.0
+        },
+        {
+            "id": 161,
+            "prev_observ": 2470, 
+            "new_observ": 2446,
+            "score": 1.00
+        },
+        {
+            "id": 162,
+            "prev_observ": 5198, 
+            "new_observ": 5102,
+            "score": 1.0
+        },
+        {
+            "id": 163,
+            "prev_observ": 28, 
+            "new_observ": 29,
+            "score": 0.0
+        },
+        {
+            "id": 164,
+            "prev_observ": 28, 
+            "new_observ": 1120,
+            "score": -1.0
+        },
+        {
+            "id": 165,
+            "prev_observ": 1121, 
+            "new_observ": 1122,
+            "score": 0.0
+        },
+        {
+            "id": 166,
+            "prev_observ": 1128, 
+            "new_observ": 3743,
+            "score": -1.0
+        },
+        {
+            "id": 167,
+            "prev_observ": 5184, 
+            "new_observ": 4986,
+            "score": 1.0
+        },
+        {
+            "id": 168,
+            "prev_observ": 107, 
+            "new_observ": 106,
+            "score": 1.0
+        },
+        {
+            "id": 169,
+            "prev_observ": 163, 
+            "new_observ": 107,
+            "score": 1.0
+        },
+        {
+            "id": 170,
+            "prev_observ": 4, 
+            "new_observ": 13,
+            "score": 1.0
+        },
+        {
+            "id": 171,
+            "prev_observ": 51, 
+            "new_observ": 59,
+            "score": 1.0
+        },
+        {
+            "id": 172,
+            "prev_observ": 237, 
+            "new_observ": 259,
+            "score": 0.0
+        },
+        {
+            "id": 173,
+            "prev_observ": 251, 
+            "new_observ": 237,
+            "score": 2.0
+        },
+        {
+            "id": 174,
+            "prev_observ": 309, 
+            "new_observ": 278,
+            "score": 1.0
+        },
+        {
+            "id": 175,
+            "prev_observ": 444, 
+            "new_observ": 412,
+            "score": -1.0
+        },
+        {
+            "id": 176,
+            "prev_observ": 1146, 
+            "new_observ": 1118,
+            "score": 2.0
+        },
+        {
+            "id": 177,
+            "prev_observ": 660, 
+            "new_observ": 661,
+            "score": -2.0
+        },
+        {
+            "id": 178,
+            "prev_observ": 493, 
+            "new_observ": 521,
+            "score": 1.0
+        },
+        {
+            "id": 179,
+            "prev_observ": 327, 
+            "new_observ": 317,
+            "score": 2.0
+        },
+        {
+            "id": 180,
+            "prev_observ": 277, 
+            "new_observ": 327,
+            "score": 2.0
+        },
+        {
+            "id": 181,
+            "prev_observ": 317, 
+            "new_observ": 277,
+            "score": 1.0
+        },
+        {
+            "id": 182,
+            "prev_observ": 79, 
+            "new_observ": 3732,
+            "score": -2.0
+        },
+        {
+            "id": 183,
+            "prev_observ": 3726, 
+            "new_observ": 1151,
+            "score": -2.0
+        },
+        {
+            "id": 184,
+            "prev_observ": 1107, 
+            "new_observ": 1108,
+            "score": 1.0
+        },
+        {
+            "id": 185,
+            "prev_observ": 1142, 
+            "new_observ": 1100,
+            "score": -1.0
+        },
+        {
+            "id": 186,
+            "prev_observ": 5146, 
+            "new_observ": 5153,
+            "score": 1.0
+        },
+        {
+            "id": 187,
+            "prev_observ": 5166, 
+            "new_observ": 5144,
+            "score": 1.0
+        },
+        {
+            "id": 188,
+            "prev_observ": 5165, 
+            "new_observ": 5121,
+            "score": 1.0
+        },
+        {
+            "id": 189,
+            "prev_observ": 2336, 
+            "new_observ": 2371,
+            "score": -1.0
+        },
+        {
+            "id": 190,
+            "prev_observ": 2338, 
+            "new_observ": 2368,
+            "score": 2.0
+        },
+        {
+            "id": 191,
+            "prev_observ": 2339, 
+            "new_observ": 2338,
+            "score": 1.0
+        },
+        {
+            "id": 192,
+            "prev_observ": 1071, 
+            "new_observ": 1052,
+            "score": 0.0
+        },
+        {
+            "id": 193,
+            "prev_observ": 1064, 
+            "new_observ": 1071,
+            "score": -1.0
+        },
+        {
+            "id": 194,
+            "prev_observ": 1044, 
+            "new_observ": 1073,
+            "score": 1.0
+        },
+        {
+            "id": 195,
+            "prev_observ": 5046, 
+            "new_observ": 1114,
+            "score": -2.0
+        },
+        {
+            "id": 196,
+            "prev_observ": 3810, 
+            "new_observ": 1174,
+            "score": 0.0
+        },
+        {
+            "id": 197,
+            "prev_observ": 1597, 
+            "new_observ": 1599,
+            "score": 2.0
+        },
+        {
+            "id": 198,
+            "prev_observ": 1597, 
+            "new_observ": 1598,
+            "score": 2.0
+        },
+        {
+            "id": 199,
+            "prev_observ": 1574, 
+            "new_observ": 1597,
+            "score": 2.0
+        },
+        {
+            "id": 200,
+            "prev_observ": 1597, 
+            "new_observ": 1573,
+            "score": 2.0
+        },
+        {
+            "id": 201,
+            "prev_observ": 1145, 
+            "new_observ": 3742,
+            "score": -2.0
         }
     ],
     "observations": {
-        "979": {
-            "serie": "BAM Groep Koninklijke",
-            "period_begin": "2020-06-26T00:00:00",
-            "period_end": "2020-06-29T00:00:00",
-            "pattern": "combi-stijging",
-            "sector": null,
-            "indexx": null,
-            "observation": "In de AMX waren BAM Groep Koninklijke (5.0%) en SIGNIFY NV (4.52%) de grootste stijgers.",
-            "perc_change": null,
-            "abs_change": null,
-            "relevance": "5.20",
-            "meta_data": {
-                "sectors": [
-                    "Bouw",
-                    "Technologie"
-                ],
-                "abs_change": [
-                    0.07999999999999985,
-                    0.9600000000000009
-                ],
-                "components": [
-                    "BAM Groep Koninklijke",
-                    "SIGNIFY NV"
-                ],
-                "perc_change": [
-                    5.0,
-                    4.52
-                ]
-            }
-        },
-        "963": {
-            "serie": "BAM Groep Koninklijke",
-            "period_begin": "2020-06-26T00:00:00",
-            "period_end": "2020-06-29T00:00:00",
-            "pattern": "individu-stijging",
-            "sector": "Bouw",
-            "indexx": null,
-            "observation": "Aandeel BAM Groep Koninklijke met 5.0% gestegen.",
-            "perc_change": "5.00",
-            "abs_change": "0.08",
-            "relevance": "9.52",
-            "meta_data": {}
-        },
-        "965": {
-            "serie": "Air France-KLM",
-            "period_begin": "2020-06-26T00:00:00",
-            "period_end": "2020-06-29T00:00:00",
-            "pattern": "individu-stijging",
-            "sector": "Transport & logistiek",
-            "indexx": null,
-            "observation": "Aandeel Air France-KLM met 3.25% gestegen.",
-            "perc_change": "3.25",
-            "abs_change": "0.13",
-            "relevance": "8.34",
-            "meta_data": {}
-        },
-        "990": {
-            "serie": "Boskalis Westminster Koninklijke",
-            "period_begin": "2020-06-26T00:00:00",
-            "period_end": "2020-06-29T00:00:00",
-            "pattern": "sector",
-            "sector": "Bouw",
-            "indexx": null,
-            "observation": "De bedrijven in de sector Bouw in de AMX deden het goed vandaag en stegen allemaal.",
-            "perc_change": "2.97",
-            "abs_change": null,
-            "relevance": "3.93",
-            "meta_data": {
-                "sectors": [
-                    "Bouw"
-                ],
-                "components": [
-                    "Boskalis Westminster Koninklijke",
-                    "Arcadis",
-                    "BAM Groep Koninklijke"
-                ]
-            }
-        }
+
     }
-}
+} 
