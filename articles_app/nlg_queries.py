@@ -18,7 +18,7 @@ import uuid
 
 
 # defining some statics
-AI_VERSION = 1.4
+AI_VERSION = 1.5
 
 
 def build_article(user_name, filters, bot=False):
@@ -49,20 +49,21 @@ def build_article(user_name, filters, bot=False):
                                     period_end__gte=begin_date
                            ).order_by('-period_end', '-relevance'))
 
-    # get the initial observation
+    # get the initial observation and pass it into the chosen_observs (history)
     first = observation_set.pop(0)
-    new_observ = Observation(first.serie,
-                             first.period_begin,
-                             first.period_end,
-                             first.pattern,
-                             first.sector,
-                             first.indexx,
-                             first.perc_change,
-                             first.abs_change,
-                             first.observation,
-                             float(first.relevance),
-                             first.meta_data,
-                             oid=first.id)
+    first_observ = Observation(first.serie,
+                               first.period_begin,
+                               first.period_end,
+                               first.pattern,
+                               first.sector,
+                               first.indexx,
+                               first.perc_change,
+                               first.abs_change,
+                               first.observation,
+                               float(first.relevance),
+                               first.meta_data,
+                               oid=first.id)
+    chosen_observs = [first_observ]
 
     # setup before the beginning of the generation
     observation_set = [Observation(x.serie,
@@ -77,10 +78,9 @@ def build_article(user_name, filters, bot=False):
                                    float(x.relevance),
                                    x.meta_data,
                                    oid=x.id) for x in observation_set]
-    chosen_observs = []
 
     for x in range(0, 10):
-        determinator = Determinator(new_observ, observation_set, chosen_observs)
+        determinator = Determinator(observation_set, chosen_observs)
         determinator.calculate_new_situational_relevance()
 
         # get the newly chosen observation, save it and restart the process
@@ -410,13 +410,14 @@ def testing_find_observs():
     find_new_observations(period_begin, period_end, to_prompt=True, overwrite=True)
 
 
-def find_new_observations(period_begin: datetime, period_end: datetime, overwrite=False, to_db=False, to_prompt=False):
+def find_new_observations(period_begin: datetime, period_end: datetime, overwrite=False, to_db=False, to_prompt=False, to_list=False):
     """Runs all functions to find observations, collects the observations and deals with them in the proper way.
 
     Args:
         overwrite (bool, optional) : Decide whether duplicate observations are handled. Defaults to False
         to_db (bool, optional): Decide whether the new observations are to be written into the database. Defaults to False.
         to_prompt (bool, optional): Decide whether the new observations are to be written to the prompt. Defaults to False.
+        to_list (bool, optional): Decide whether the new observations are to be returned as a list of observations. Defaults to False.
     """
     all_observations = []
 
@@ -444,6 +445,10 @@ def find_new_observations(period_begin: datetime, period_end: datetime, overwrit
         for observ in all_observations:
             print(observ)
             print(observ.period_begin, observ.period_end)
+
+    if to_list:
+        # return the list of observations
+        return all_observations
 
 
 def run_period_observations(period_begin, period_end, overwrite):

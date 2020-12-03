@@ -1,0 +1,5436 @@
+{
+    "test_cases": [
+        {
+            "id": 1,
+            "prev_observ": 979,
+            "new_observ": 963,
+            "score": -2.0
+        },
+        {
+            "id": 2,
+            "prev_observ": 979,
+            "new_observ": 965,
+            "score": 0.5
+        },
+        {
+            "id": 3,
+            "prev_observ": 979,
+            "new_observ": 990,
+            "score": 1.5
+        },
+        {
+            "id": 4,
+            "prev_observ": 4944,
+            "new_observ": 4763,
+            "score": -1.0
+        },
+        {
+            "id": 5,
+            "prev_observ": 5083,
+            "new_observ": 5064,
+            "score": -2.0
+        },
+        {
+            "id": 6,
+            "prev_observ": 5183,
+            "new_observ": 5000,
+            "score": 1.5
+        },
+        {
+            "id": 7,
+            "prev_observ": 4924,
+            "new_observ": 5001,
+            "score": 2.0
+        },
+        {
+            "id": 8,
+            "prev_observ": 4593,
+            "new_observ": 4575,
+            "score": 1.5
+        },
+        {
+            "id": 9,
+            "prev_observ": 4842,
+            "new_observ": 4816,
+            "score": 2.0
+        },
+        {
+            "id": 10,
+            "prev_observ": 4901,
+            "new_observ": 4881,
+            "score": 2.0
+        },
+        {
+            "id": 11,
+            "prev_observ": 5169,
+            "new_observ": 5138,
+            "score": 1.8
+        },
+        {
+            "id": 12,
+            "prev_observ": 4278,
+            "new_observ": 4073,
+            "score": 1.5
+        },
+        {
+            "id": 13,
+            "prev_observ": 4866,
+            "new_observ": 4812,
+            "score": 2.0
+        },
+        {
+            "id": 14,
+            "prev_observ": 4866,
+            "new_observ": 4773,
+            "score": -2.0
+        },
+        {
+            "id": 15,
+            "prev_observ": 4717,
+            "new_observ": 4736,
+            "score": 1.0
+        },
+        {
+            "id": 16,
+            "prev_observ": 1456,
+            "new_observ": 1504,
+            "score": 1.5
+        },
+        {
+            "id": 17,
+            "prev_observ": 1456,
+            "new_observ": 1483,
+            "score": 1.0
+        },
+        {
+            "id": 18,
+            "prev_observ": 1456,
+            "new_observ": 1457,
+            "score": 2.0
+        },
+        {
+            "id": 19,
+            "prev_observ": 1456,
+            "new_observ": 1462,
+            "score": 1.5
+        },
+        {
+            "id": 20,
+            "prev_observ": 5203,
+            "new_observ": 5187,
+            "score": 1.5
+        },
+        {
+            "id": 21,
+            "prev_observ": 4980,
+            "new_observ": 3784,
+            "score": -2.0
+        },
+        {
+            "id": 22,
+            "prev_observ": 4381,
+            "new_observ": 1940,
+            "score": -2.0
+        },
+        {
+            "id": 23,
+            "prev_observ": 2508,
+            "new_observ": 2527,
+            "score": 2.0
+        },
+        {
+            "id": 24,
+            "prev_observ": 14,
+            "new_observ": 1,
+            "score": -2.0
+        },
+        {
+            "id": 25,
+            "prev_observ": 1,
+            "new_observ": 2,
+            "score": 1.0
+        },
+        {
+            "id": 26,
+            "prev_observ": 4983,
+            "new_observ": 5205,
+            "score": 1.0
+        },
+        {
+            "id": 27,
+            "prev_observ": 5004,
+            "new_observ": 4942,
+            "score": 1.0
+        },
+        {
+            "id": 28,
+            "prev_observ": 4862,
+            "new_observ": 4817,
+            "score": 2.0
+        },
+        {
+            "id": 29,
+            "prev_observ": 4816,
+            "new_observ": 4817,
+            "score": -2.0
+        },
+        {
+            "id": 30,
+            "prev_observ": 4816,
+            "new_observ": 4862,
+            "score": 1.0
+        },
+        {
+            "id": 31,
+            "prev_observ": 4229,
+            "new_observ": 4113,
+            "score": -1.0
+        },
+        {
+            "id": 32,
+            "prev_observ": 4113,
+            "new_observ": 4153,
+            "score": 1.0
+        },
+        {
+            "id": 33,
+            "prev_observ": 4275,
+            "new_observ": 4074,
+            "score": 2.0
+        },
+        {
+            "id": 34,
+            "prev_observ": 1486,
+            "new_observ": 1469,
+            "score": 2.0
+        },
+        {
+            "id": 35,
+            "prev_observ": 34,
+            "new_observ": 4684,
+            "score": -2.0
+        },
+        {
+            "id": 36,
+            "prev_observ": 3189,
+            "new_observ": 2196,
+            "score": -1.0
+        },
+        {
+            "id": 37,
+            "prev_observ": 1456,
+            "new_observ": 1483,
+            "score": 1.0
+        },
+        {
+            "id": 38,
+            "prev_observ": 4187,
+            "new_observ": 1172,
+            "score": -2.0
+        },
+        {
+            "id": 39,
+            "prev_observ": 1642,
+            "new_observ": 1634,
+            "score": 0.0
+        },
+        {
+            "id": 40,
+            "prev_observ": 2852,
+            "new_observ": 1949,
+            "score": -2.0
+        },
+        {
+            "id": 41,
+            "prev_observ": 4151,
+            "new_observ": 4136,
+            "score": 0.0
+        },
+        {
+            "id": 42,
+            "prev_observ": 4294,
+            "new_observ": 4271,
+            "score": -2.0
+        },
+        {
+            "id": 43,
+            "prev_observ": 1145,
+            "new_observ": 1148,
+            "score": 1.0
+        },
+        {
+            "id": 44,
+            "prev_observ": 1152,
+            "new_observ": 1153,
+            "score": 2.0
+        },
+        {
+            "id": 45,
+            "prev_observ": 1111,
+            "new_observ": 1122,
+            "score": 2.0
+        },
+        {
+            "id": 46,
+            "prev_observ": 1122,
+            "new_observ": 1110,
+            "score": -1.0
+        },
+        {
+            "id": 47,
+            "prev_observ": 1108,
+            "new_observ": 1107,
+            "score": 2.0
+        },
+        {
+            "id": 48,
+            "prev_observ": 1125,
+            "new_observ": 1100,
+            "score": 2.0
+        },
+        {
+            "id": 49,
+            "prev_observ": 1097,
+            "new_observ": 1096,
+            "score": 1.0
+        },
+        {
+            "id": 50,
+            "prev_observ": 1113,
+            "new_observ": 1095,
+            "score": -2.0
+        },
+        {
+            "id": 51,
+            "prev_observ": 1113,
+            "new_observ": 1096,
+            "score": 1.0
+        },
+        {
+            "id": 52,
+            "prev_observ": 1173,
+            "new_observ": 1145,
+            "score": 2.0
+        },
+        {
+            "id": 53,
+            "prev_observ": 1173,
+            "new_observ": 1148,
+            "score": 0.0
+        },
+        {
+            "id": 54,
+            "prev_observ": 2035,
+            "new_observ": 660,
+            "score": -2.0
+        },
+        {
+            "id": 55,
+            "prev_observ": 1418,
+            "new_observ": 1453,
+            "score": 2.0
+        },
+        {
+            "id": 56,
+            "prev_observ": 1435,
+            "new_observ": 1403,
+            "score": 1.0
+        },
+        {
+            "id": 57,
+            "prev_observ": 1417,
+            "new_observ": 1488,
+            "score": -2.0
+        },
+        {
+            "id": 58,
+            "prev_observ": 1417,
+            "new_observ": 1455,
+            "score": -1.0
+        },
+        {
+            "id": 59,
+            "prev_observ": 1455,
+            "new_observ": 1488,
+            "score": 2.0
+        },
+        {
+            "id": 60,
+            "prev_observ": 1460,
+            "new_observ": 1444,
+            "score": 0.0
+        },
+        {
+            "id": 61,
+            "prev_observ": 5189,
+            "new_observ": 5083,
+            "score": 0.0
+        },
+        {
+            "id": 62,
+            "prev_observ": 5083,
+            "new_observ": 5064,
+            "score": -2.0
+        },
+        {
+            "id": 63,
+            "prev_observ": 5064,
+            "new_observ": 5109,
+            "score": -1.0
+        },
+        {
+            "id": 64,
+            "prev_observ": 5109,
+            "new_observ": 5050,
+            "score": -1.0
+        },
+        {
+            "id": 65,
+            "prev_observ": 5050,
+            "new_observ": 5023,
+            "score": 1.0
+        },
+        {
+            "id": 66,
+            "prev_observ": 5023,
+            "new_observ": 4921,
+            "score": 1.0
+        },
+        {
+            "id": 67,
+            "prev_observ": 4921,
+            "new_observ": 4944,
+            "score": -2.0
+        },
+        {
+            "id": 68,
+            "prev_observ": 4944,
+            "new_observ": 4763,
+            "score": -1.0
+        },
+        {
+            "id": 69,
+            "prev_observ": 4763,
+            "new_observ": 4764,
+            "score": -2.0
+        },
+        {
+            "id": 70,
+            "prev_observ": 4796,
+            "new_observ": 4921,
+            "score": -1.0
+        },
+        {
+            "id": 71,
+            "prev_observ": 878,
+            "new_observ": 817,
+            "score": 0.0
+        },
+        {
+            "id": 72,
+            "prev_observ": 635,
+            "new_observ": 608,
+            "score": 2.0
+        },
+        {
+            "id": 73,
+            "prev_observ": 392,
+            "new_observ": 635,
+            "score": 2.0
+        },
+        {
+            "id": 74,
+            "prev_observ": 608,
+            "new_observ": 392,
+            "score": 1.0
+        },
+        {
+            "id": 75,
+            "prev_observ": 5001,
+            "new_observ": 4860,
+            "score": -1.0
+        },
+        {
+            "id": 76,
+            "prev_observ": 5000,
+            "new_observ": 4690,
+            "score": 0.0
+        },
+        {
+            "id": 77,
+            "prev_observ": 3181,
+            "new_observ": 2869,
+            "score": 0.0
+        },
+        {
+            "id": 78,
+            "prev_observ": 5159,
+            "new_observ": 5140,
+            "score": 1.0
+        },
+        {
+            "id": 79,
+            "prev_observ": 5213,
+            "new_observ": 5108,
+            "score": -2.0
+        },
+        {
+            "id": 80,
+            "prev_observ": 4669,
+            "new_observ": 4883,
+            "score": 1.0
+        },
+        {
+            "id": 81,
+            "prev_observ": 4112,
+            "new_observ": 4197,
+            "score": -2.0
+        },
+        {
+            "id": 82,
+            "prev_observ": 4639,
+            "new_observ": 4627,
+            "score": 2.0
+        },
+        {
+            "id": 83,
+            "prev_observ": 4575,
+            "new_observ": 4385,
+            "score": 1.0
+        },
+        {
+            "id": 84,
+            "prev_observ": 4575,
+            "new_observ": 4585,
+            "score": 1.0
+        },
+        {
+            "id": 85,
+            "prev_observ": 4575,
+            "new_observ": 4593,
+            "score": 2.0
+        },
+        {
+            "id": 86,
+            "prev_observ": 4525,
+            "new_observ": 4549,
+            "score": 2.0
+        },
+        {
+            "id": 87,
+            "prev_observ": 4575,
+            "new_observ": 4564,
+            "score": -2.0
+        },
+        {
+            "id": 88,
+            "prev_observ": 4575,
+            "new_observ": 4574,
+            "score": 0.0
+        },
+        {
+            "id": 89,
+            "prev_observ": 2284,
+            "new_observ": 2270,
+            "score": -2.0
+        },
+        {
+            "id": 90,
+            "prev_observ": 1174,
+            "new_observ": 1175,
+            "score": 2.0
+        },
+        {
+            "id": 91,
+            "prev_observ": 1174,
+            "new_observ": 1175,
+            "score": -2.0
+        },
+        {
+            "id": 92,
+            "prev_observ": 3303,
+            "new_observ": 2312,
+            "score": -1.0
+        },
+        {
+            "id": 93,
+            "prev_observ": 421,
+            "new_observ": 4618,
+            "score": -1.0
+        },
+        {
+            "id": 94,
+            "prev_observ": 1122,
+            "new_observ": 1107,
+            "score": 1.0
+        },
+        {
+            "id": 95,
+            "prev_observ": 1122,
+            "new_observ": 1108,
+            "score": 1.0
+        },
+        {
+            "id": 96,
+            "prev_observ": 1162,
+            "new_observ": 1211,
+            "score": 1.0
+        },
+        {
+            "id": 97,
+            "prev_observ": 4984,
+            "new_observ": 4999,
+            "score": 1.0
+        },
+        {
+            "id": 98,
+            "prev_observ": 1211,
+            "new_observ": 2583,
+            "score": 0.0
+        },
+        {
+            "id": 99,
+            "prev_observ": 1634,
+            "new_observ": 1940,
+            "score": -1.0
+        },
+        {
+            "id": 100,
+            "prev_observ": 4385,
+            "new_observ": 3122,
+            "score": -1.0
+        },
+        {
+            "id": 101,
+            "prev_observ": 3189,
+            "new_observ": 2196,
+            "score": -2.0
+        },
+        {
+            "id": 102,
+            "prev_observ": 5207,
+            "new_observ": 5223,
+            "score": 2.0
+        },
+        {
+            "id": 103,
+            "prev_observ": 5198,
+            "new_observ": 5183,
+            "score": 2.0
+        },
+        {
+            "id": 104,
+            "prev_observ": 5194,
+            "new_observ": 5184,
+            "score": 1.0
+        },
+        {
+            "id": 105,
+            "prev_observ": 5169,
+            "new_observ": 5138,
+            "score": 2.0
+        },
+        {
+            "id": 106,
+            "prev_observ": 5135,
+            "new_observ": 5132,
+            "score": 0.0
+        },
+        {
+            "id": 107,
+            "prev_observ": 5118,
+            "new_observ": 5132,
+            "score": -2.0
+        },
+        {
+            "id": 108,
+            "prev_observ": 5062,
+            "new_observ": 5061,
+            "score": 0.0
+        },
+        {
+            "id": 109,
+            "prev_observ": 4993,
+            "new_observ": 4987,
+            "score": 0.0
+        },
+        {
+            "id": 110,
+            "prev_observ": 4945,
+            "new_observ": 4946,
+            "score": 1.0
+        },
+        {
+            "id": 111,
+            "prev_observ": 4928,
+            "new_observ": 4903,
+            "score": 1.0
+        },
+        {
+            "id": 112,
+            "prev_observ": 225,
+            "new_observ": 226,
+            "score": -2.0
+        },
+        {
+            "id": 113,
+            "prev_observ": 14,
+            "new_observ": 45,
+            "score": 2.0
+        },
+        {
+            "id": 114,
+            "prev_observ": 1216,
+            "new_observ": 2447,
+            "score": -2.0
+        },
+        {
+            "id": 115,
+            "prev_observ": 15,
+            "new_observ": 233,
+            "score": -2.0
+        },
+        {
+            "id": 116,
+            "prev_observ": 40,
+            "new_observ": 15,
+            "score": -1.0
+        },
+        {
+            "id": 117,
+            "prev_observ": 2530,
+            "new_observ": 1204,
+            "score": -2.0
+        },
+        {
+            "id": 118,
+            "prev_observ": 2789,
+            "new_observ": 2782,
+            "score": 0.0
+        },
+        {
+            "id": 119,
+            "prev_observ": 2882,
+            "new_observ": 795,
+            "score": -1.0
+        },
+        {
+            "id": 120,
+            "prev_observ": 4994,
+            "new_observ": 5191,
+            "score": 1.0
+        },
+        {
+            "id": 121,
+            "prev_observ": 5121,
+            "new_observ": 5150,
+            "score": 2.0
+        },
+        {
+            "id": 122,
+            "prev_observ": 1783,
+            "new_observ": 751,
+            "score": -2.0
+        },
+        {
+            "id": 123,
+            "prev_observ": 4707,
+            "new_observ": 3723,
+            "score": -1.0
+        },
+        {
+            "id": 124,
+            "prev_observ": 492,
+            "new_observ": 1736,
+            "score": -2.0
+        },
+        {
+            "id": 125,
+            "prev_observ": 1145,
+            "new_observ": 1148,
+            "score": 0.0
+        },
+        {
+            "id": 126,
+            "prev_observ": 1146,
+            "new_observ": 1127,
+            "score": -1.0
+        },
+        {
+            "id": 127,
+            "prev_observ": 1110,
+            "new_observ": 1107,
+            "score": 1.0
+        },
+        {
+            "id": 128,
+            "prev_observ": 1121,
+            "new_observ": 1137,
+            "score": 0.0
+        },
+        {
+            "id": 129,
+            "prev_observ": 1123,
+            "new_observ": 1137,
+            "score": 2.0
+        },
+        {
+            "id": 130,
+            "prev_observ": 1095,
+            "new_observ": 1107,
+            "score": 1.0
+        },
+        {
+            "id": 131,
+            "prev_observ": 1113,
+            "new_observ": 1094,
+            "score": -2.0
+        },
+        {
+            "id": 132,
+            "prev_observ": 1113,
+            "new_observ": 1117,
+            "score": 1.0
+        },
+        {
+            "id": 133,
+            "prev_observ": 1113,
+            "new_observ": 1097,
+            "score": 1.0
+        },
+        {
+            "id": 134,
+            "prev_observ": 3808,
+            "new_observ": 3801,
+            "score": 0.0
+        },
+        {
+            "id": 135,
+            "prev_observ": 3802,
+            "new_observ": 3797,
+            "score": 0.0
+        },
+        {
+            "id": 136,
+            "prev_observ": 3809,
+            "new_observ": 3810,
+            "score": 1.0
+        },
+        {
+            "id": 137,
+            "prev_observ": 5169,
+            "new_observ": 5146,
+            "score": 1.0
+        },
+        {
+            "id": 138,
+            "prev_observ": 5146,
+            "new_observ": 5166,
+            "score": -1.0
+        },
+        {
+            "id": 139,
+            "prev_observ": 4987,
+            "new_observ": 5203,
+            "score": 2.0
+        },
+        {
+            "id": 140,
+            "prev_observ": 5187,
+            "new_observ": 4987,
+            "score": 2.0
+        },
+        {
+            "id": 141,
+            "prev_observ": 5061,
+            "new_observ": 5035,
+            "score": 1.0
+        },
+        {
+            "id": 142,
+            "prev_observ": 5038,
+            "new_observ": 5061,
+            "score": 1.0
+        },
+        {
+            "id": 143,
+            "prev_observ": 5035,
+            "new_observ": 1149,
+            "score": -2.0
+        },
+        {
+            "id": 144,
+            "prev_observ": 1117,
+            "new_observ": 5035,
+            "score": -2.0
+        },
+        {
+            "id": 145,
+            "prev_observ": 5136,
+            "new_observ": 5120,
+            "score": -2.0
+        },
+        {
+            "id": 146,
+            "prev_observ": 5136,
+            "new_observ": 5149,
+            "score": 1.0
+        },
+        {
+            "id": 147,
+            "prev_observ": 4691,
+            "new_observ": 4500,
+            "score": 0.0
+        },
+        {
+            "id": 148,
+            "prev_observ": 4691,
+            "new_observ": 2130,
+            "score": -2.0
+        },
+        {
+            "id": 149,
+            "prev_observ": 1145,
+            "new_observ": 1148,
+            "score": 0.0
+        },
+        {
+            "id": 150,
+            "prev_observ": 3732,
+            "new_observ": 3744,
+            "score": 2.0
+        },
+        {
+            "id": 151,
+            "prev_observ": 3759,
+            "new_observ": 3724,
+            "score": 2.0
+        },
+        {
+            "id": 152,
+            "prev_observ": 3723,
+            "new_observ": 3759,
+            "score": 1.0
+        },
+        {
+            "id": 153,
+            "prev_observ": 3731,
+            "new_observ": 3736,
+            "score": 0.0
+        },
+        {
+            "id": 154,
+            "prev_observ": 3723,
+            "new_observ": 3731,
+            "score": 1.0
+        },
+        {
+            "id": 155,
+            "prev_observ": 3768,
+            "new_observ": 3734,
+            "score": -1.0
+        },
+        {
+            "id": 156,
+            "prev_observ": 3738,
+            "new_observ": 3766,
+            "score": 1.0
+        },
+        {
+            "id": 157,
+            "prev_observ": 2446,
+            "new_observ": 2437,
+            "score": -2.0
+        },
+        {
+            "id": 158,
+            "prev_observ": 2480,
+            "new_observ": 2449,
+            "score": 2.0
+        },
+        {
+            "id": 159,
+            "prev_observ": 2454,
+            "new_observ": 2449,
+            "score": 0.0
+        },
+        {
+            "id": 160,
+            "prev_observ": 2454,
+            "new_observ": 2480,
+            "score": 0.0
+        },
+        {
+            "id": 161,
+            "prev_observ": 2470,
+            "new_observ": 2446,
+            "score": 1.0
+        },
+        {
+            "id": 162,
+            "prev_observ": 5198,
+            "new_observ": 5102,
+            "score": 1.0
+        },
+        {
+            "id": 163,
+            "prev_observ": 28,
+            "new_observ": 29,
+            "score": 0.0
+        },
+        {
+            "id": 164,
+            "prev_observ": 28,
+            "new_observ": 1120,
+            "score": -1.0
+        },
+        {
+            "id": 165,
+            "prev_observ": 1121,
+            "new_observ": 1122,
+            "score": 0.0
+        },
+        {
+            "id": 166,
+            "prev_observ": 1128,
+            "new_observ": 3743,
+            "score": -1.0
+        },
+        {
+            "id": 167,
+            "prev_observ": 5184,
+            "new_observ": 4986,
+            "score": 1.0
+        },
+        {
+            "id": 168,
+            "prev_observ": 107,
+            "new_observ": 106,
+            "score": 1.0
+        },
+        {
+            "id": 169,
+            "prev_observ": 163,
+            "new_observ": 107,
+            "score": 1.0
+        },
+        {
+            "id": 170,
+            "prev_observ": 4,
+            "new_observ": 13,
+            "score": 1.0
+        },
+        {
+            "id": 171,
+            "prev_observ": 51,
+            "new_observ": 59,
+            "score": 1.0
+        },
+        {
+            "id": 172,
+            "prev_observ": 237,
+            "new_observ": 259,
+            "score": 0.0
+        },
+        {
+            "id": 173,
+            "prev_observ": 251,
+            "new_observ": 237,
+            "score": 2.0
+        },
+        {
+            "id": 174,
+            "prev_observ": 309,
+            "new_observ": 278,
+            "score": 1.0
+        },
+        {
+            "id": 175,
+            "prev_observ": 444,
+            "new_observ": 412,
+            "score": -1.0
+        },
+        {
+            "id": 176,
+            "prev_observ": 1146,
+            "new_observ": 1118,
+            "score": 2.0
+        },
+        {
+            "id": 177,
+            "prev_observ": 660,
+            "new_observ": 661,
+            "score": -2.0
+        },
+        {
+            "id": 178,
+            "prev_observ": 493,
+            "new_observ": 521,
+            "score": 1.0
+        },
+        {
+            "id": 179,
+            "prev_observ": 327,
+            "new_observ": 317,
+            "score": 2.0
+        },
+        {
+            "id": 180,
+            "prev_observ": 277,
+            "new_observ": 327,
+            "score": 2.0
+        },
+        {
+            "id": 181,
+            "prev_observ": 317,
+            "new_observ": 277,
+            "score": 1.0
+        },
+        {
+            "id": 182,
+            "prev_observ": 79,
+            "new_observ": 3732,
+            "score": -2.0
+        },
+        {
+            "id": 183,
+            "prev_observ": 3726,
+            "new_observ": 1151,
+            "score": -2.0
+        },
+        {
+            "id": 184,
+            "prev_observ": 1107,
+            "new_observ": 1108,
+            "score": 1.0
+        },
+        {
+            "id": 185,
+            "prev_observ": 1142,
+            "new_observ": 1100,
+            "score": -1.0
+        },
+        {
+            "id": 186,
+            "prev_observ": 5146,
+            "new_observ": 5153,
+            "score": 1.0
+        },
+        {
+            "id": 187,
+            "prev_observ": 5166,
+            "new_observ": 5144,
+            "score": 1.0
+        },
+        {
+            "id": 188,
+            "prev_observ": 5165,
+            "new_observ": 5121,
+            "score": 1.0
+        },
+        {
+            "id": 189,
+            "prev_observ": 2336,
+            "new_observ": 2371,
+            "score": -1.0
+        },
+        {
+            "id": 190,
+            "prev_observ": 2338,
+            "new_observ": 2368,
+            "score": 2.0
+        },
+        {
+            "id": 191,
+            "prev_observ": 2339,
+            "new_observ": 2338,
+            "score": 1.0
+        },
+        {
+            "id": 192,
+            "prev_observ": 1071,
+            "new_observ": 1052,
+            "score": 0.0
+        },
+        {
+            "id": 193,
+            "prev_observ": 1064,
+            "new_observ": 1071,
+            "score": -1.0
+        },
+        {
+            "id": 194,
+            "prev_observ": 1044,
+            "new_observ": 1073,
+            "score": 1.0
+        },
+        {
+            "id": 195,
+            "prev_observ": 5046,
+            "new_observ": 1114,
+            "score": -2.0
+        },
+        {
+            "id": 196,
+            "prev_observ": 3810,
+            "new_observ": 1174,
+            "score": 0.0
+        },
+        {
+            "id": 197,
+            "prev_observ": 1597,
+            "new_observ": 1599,
+            "score": 2.0
+        },
+        {
+            "id": 198,
+            "prev_observ": 1597,
+            "new_observ": 1598,
+            "score": 2.0
+        },
+        {
+            "id": 199,
+            "prev_observ": 1574,
+            "new_observ": 1597,
+            "score": 2.0
+        },
+        {
+            "id": 200,
+            "prev_observ": 1597,
+            "new_observ": 1573,
+            "score": 2.0
+        },
+        {
+            "id": 201,
+            "prev_observ": 1145,
+            "new_observ": 3742,
+            "score": -2.0
+        }
+    ],
+    "observations": {
+        "979": {
+            "serie": "BAM Groep Koninklijke",
+            "period_begin": "2020-06-26T00:00:00",
+            "period_end": "2020-06-29T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": null,
+            "indexx": null,
+            "observation": "In de AMX waren BAM Groep Koninklijke (5.0%) en SIGNIFY NV (4.52%) de grootste stijgers.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "5.20",
+            "meta_data": {
+                "sectors": [
+                    "Bouw",
+                    "Technologie"
+                ],
+                "abs_change": [
+                    0.07999999999999985,
+                    0.9600000000000009
+                ],
+                "components": [
+                    "BAM Groep Koninklijke",
+                    "SIGNIFY NV"
+                ],
+                "perc_change": [
+                    5.0,
+                    4.52
+                ]
+            }
+        },
+        "963": {
+            "serie": "BAM Groep Koninklijke",
+            "period_begin": "2020-06-26T00:00:00",
+            "period_end": "2020-06-29T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel BAM Groep Koninklijke met 5.0% gestegen.",
+            "perc_change": "5.00",
+            "abs_change": "0.08",
+            "relevance": "9.52",
+            "meta_data": {}
+        },
+        "965": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-06-26T00:00:00",
+            "period_end": "2020-06-29T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Aandeel Air France-KLM met 3.25% gestegen.",
+            "perc_change": "3.25",
+            "abs_change": "0.13",
+            "relevance": "8.34",
+            "meta_data": {}
+        },
+        "990": {
+            "serie": "Boskalis Westminster Koninklijke",
+            "period_begin": "2020-06-26T00:00:00",
+            "period_end": "2020-06-29T00:00:00",
+            "pattern": "sector",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Bouw in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "2.97",
+            "abs_change": null,
+            "relevance": "3.93",
+            "meta_data": {
+                "sectors": [
+                    "Bouw"
+                ],
+                "components": [
+                    "Boskalis Westminster Koninklijke",
+                    "Arcadis",
+                    "BAM Groep Koninklijke"
+                ]
+            }
+        },
+        "4944": {
+            "serie": "Eurocommercial Properties",
+            "period_begin": "2020-09-25T00:00:00",
+            "period_end": "2020-09-28T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "In de AMX ging Eurocommercial Properties aan kop met een winst van 9.05 procent.",
+            "perc_change": "9.05",
+            "abs_change": "0.80",
+            "relevance": "9.99",
+            "meta_data": {}
+        },
+        "4763": {
+            "serie": "NSI",
+            "period_begin": "2020-09-22T00:00:00",
+            "period_end": "2020-09-23T00:00:00",
+            "pattern": "combi-daling",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "NSI daalde het hardst met 5.27 procent.",
+            "perc_change": "-5.27",
+            "abs_change": "-1.55",
+            "relevance": "9.81",
+            "meta_data": {}
+        },
+        "5083": {
+            "serie": "Eurocommercial Properties",
+            "period_begin": "2020-09-29T00:00:00",
+            "period_end": "2020-09-30T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "In de AMX ging Eurocommercial Properties aan kop met een winst van 7.03 procent.",
+            "perc_change": "7.03",
+            "abs_change": "0.65",
+            "relevance": "9.95",
+            "meta_data": {}
+        },
+        "5064": {
+            "serie": "Eurocommercial Properties",
+            "period_begin": "2020-09-29T00:00:00",
+            "period_end": "2020-09-30T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "Aandeel Eurocommercial Properties met 7.03% gestegen.",
+            "perc_change": "7.03",
+            "abs_change": "0.65",
+            "relevance": "9.89",
+            "meta_data": {}
+        },
+        "5183": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-10-01T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "Aandeel AALBERTS NV met 0.61% gestegen.",
+            "perc_change": "0.61",
+            "abs_change": "0.19",
+            "relevance": "2.22",
+            "meta_data": {}
+        },
+        "5000": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-09-28T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "week",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "AALBERTS NV is met 1.99 procent gestegen in week 40.",
+            "perc_change": "1.99",
+            "abs_change": "0.61",
+            "relevance": "1.81",
+            "meta_data": {}
+        },
+        "4924": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-09-25T00:00:00",
+            "period_end": "2020-09-28T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "Aandeel AALBERTS NV met 4.5% gestegen.",
+            "perc_change": "4.50",
+            "abs_change": "1.32",
+            "relevance": "9.31",
+            "meta_data": {}
+        },
+        "5001": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-09-23T00:00:00",
+            "period_end": "2020-09-28T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "AALBERTS NV na 2 negatieve dagen weer positief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "3.54",
+            "meta_data": {
+                "trend": "pos",
+                "trend_duration": 2
+            }
+        },
+        "4593": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-09-17T00:00:00",
+            "period_end": "2020-09-18T00:00:00",
+            "pattern": "sector",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "AALBERTS NV presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-1.76",
+            "abs_change": null,
+            "relevance": "0.25",
+            "meta_data": {}
+        },
+        "4575": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-09-17T00:00:00",
+            "period_end": "2020-09-18T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "Aandeel AALBERTS NV met 1.76% gedaald.",
+            "perc_change": "-1.76",
+            "abs_change": "-0.57",
+            "relevance": "5.72",
+            "meta_data": {}
+        },
+        "4842": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-09-23T00:00:00",
+            "period_end": "2020-09-24T00:00:00",
+            "pattern": "sector",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Consumenten diensten in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-8.99",
+            "abs_change": null,
+            "relevance": "8.51",
+            "meta_data": {
+                "sectors": [
+                    "Consumenten diensten"
+                ],
+                "components": [
+                    "Basic-Fit"
+                ]
+            }
+        },
+        "4816": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-09-23T00:00:00",
+            "period_end": "2020-09-24T00:00:00",
+            "pattern": "combi-daling",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "Basic-Fit daalde het hardst met 8.99 procent.",
+            "perc_change": "-8.99",
+            "abs_change": "-2.00",
+            "relevance": "9.99",
+            "meta_data": {}
+        },
+        "4901": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-09-24T00:00:00",
+            "period_end": "2020-09-25T00:00:00",
+            "pattern": "sector",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "AALBERTS NV presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-3.23",
+            "abs_change": null,
+            "relevance": "7.36",
+            "meta_data": {}
+        },
+        "4881": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-09-24T00:00:00",
+            "period_end": "2020-09-25T00:00:00",
+            "pattern": "combi-daling",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "AALBERTS NV daalde het hardst met 3.23 procent.",
+            "perc_change": "-3.23",
+            "abs_change": "-0.98",
+            "relevance": "9.16",
+            "meta_data": {}
+        },
+        "5169": {
+            "serie": "Flow Traders",
+            "period_begin": "2020-09-23T00:00:00",
+            "period_end": "2020-10-01T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "Flow Traders na 5 positieve dagen weer negatief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "7.29",
+            "meta_data": {
+                "trend": "neg",
+                "trend_duration": 5
+            }
+        },
+        "5138": {
+            "serie": "Flow Traders",
+            "period_begin": "2020-09-30T00:00:00",
+            "period_end": "2020-10-01T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Financi\u00c3\u00able dienstverleners",
+            "indexx": null,
+            "observation": "Aandeel Flow Traders met 3.64% gedaald.",
+            "perc_change": "-3.64",
+            "abs_change": "-1.24",
+            "relevance": "8.73",
+            "meta_data": {}
+        },
+        "4278": {
+            "serie": "Flow Traders",
+            "period_begin": "2020-09-10T00:00:00",
+            "period_end": "2020-09-11T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Financi\u00c3\u00able dienstverleners",
+            "indexx": null,
+            "observation": "Aandeel Flow Traders met 0.71% gedaald.",
+            "perc_change": "-0.71",
+            "abs_change": "-0.24",
+            "relevance": "2.57",
+            "meta_data": {}
+        },
+        "4073": {
+            "serie": "Flow Traders",
+            "period_begin": "2020-09-07T00:00:00",
+            "period_end": "2020-09-11T00:00:00",
+            "pattern": "week",
+            "sector": "Financi\u00c3\u00able dienstverleners",
+            "indexx": null,
+            "observation": "Flow Traders is met -0.41 procent gedaald in week 37.",
+            "perc_change": "-0.41",
+            "abs_change": "-0.14",
+            "relevance": "0.38",
+            "meta_data": {}
+        },
+        "4866": {
+            "serie": "WDP",
+            "period_begin": "2020-09-18T00:00:00",
+            "period_end": "2020-09-24T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "WDP na 3 negatieve dagen weer positief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "5.05",
+            "meta_data": {
+                "trend": "pos",
+                "trend_duration": 3
+            }
+        },
+        "4812": {
+            "serie": "WDP",
+            "period_begin": "2020-09-23T00:00:00",
+            "period_end": "2020-09-24T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "Aandeel WDP met 0.74% gestegen.",
+            "perc_change": "0.74",
+            "abs_change": "0.22",
+            "relevance": "2.67",
+            "meta_data": {}
+        },
+        "4773": {
+            "serie": "WDP",
+            "period_begin": "2020-09-22T00:00:00",
+            "period_end": "2020-09-23T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "Aandeel WDP met 1.07% gedaald.",
+            "perc_change": "-1.07",
+            "abs_change": "-0.32",
+            "relevance": "3.76",
+            "meta_data": {}
+        },
+        "4717": {
+            "serie": "WDP",
+            "period_begin": "2020-09-21T00:00:00",
+            "period_end": "2020-09-22T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "Aandeel WDP met 0.73% gedaald.",
+            "perc_change": "-0.73",
+            "abs_change": "-0.22",
+            "relevance": "2.64",
+            "meta_data": {}
+        },
+        "4736": {
+            "serie": "WDP",
+            "period_begin": "2020-09-21T00:00:00",
+            "period_end": "2020-09-22T00:00:00",
+            "pattern": "sector",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "WDP presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-0.73",
+            "abs_change": null,
+            "relevance": "3.16",
+            "meta_data": {}
+        },
+        "1456": {
+            "serie": "BE Semiconductor Industries",
+            "period_begin": "2020-07-08T00:00:00",
+            "period_end": "2020-07-09T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": null,
+            "indexx": null,
+            "observation": "Op BE Semiconductor Industries en Intertrust na daalden alle AMX fondsen.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "2.22",
+            "meta_data": {
+                "sectors": [
+                    "Technologie",
+                    "Financi\u00c3\u00able dienstverleners"
+                ],
+                "abs_change": [
+                    0.2700000000000031,
+                    0.08000000000000007
+                ],
+                "components": [
+                    "BE Semiconductor Industries",
+                    "Intertrust"
+                ],
+                "perc_change": [
+                    0.69,
+                    0.53
+                ]
+            }
+        },
+        "1504": {
+            "serie": "BE Semiconductor Industries",
+            "period_begin": "2020-07-06T00:00:00",
+            "period_end": "2020-07-09T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "BE Semiconductor Industries na 2 negatieve dagen weer positief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "3.54",
+            "meta_data": {
+                "trend": "pos",
+                "trend_duration": 2
+            }
+        },
+        "1483": {
+            "serie": "ALTICE EUROPE N.V.",
+            "period_begin": "2020-07-08T00:00:00",
+            "period_end": "2020-07-09T00:00:00",
+            "pattern": "sector",
+            "sector": "Telecommunicatie",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Telecommunicatie in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-2.44",
+            "abs_change": null,
+            "relevance": "3.29",
+            "meta_data": {
+                "sectors": [
+                    "Telecommunicatie"
+                ],
+                "components": [
+                    "ALTICE EUROPE N.V."
+                ]
+            }
+        },
+        "1457": {
+            "serie": "Fugro",
+            "period_begin": "2020-07-08T00:00:00",
+            "period_end": "2020-07-09T00:00:00",
+            "pattern": "combi-daling",
+            "sector": null,
+            "indexx": null,
+            "observation": "Fugro (-2.9%), Eurocommercial Properties (-2.75%) en NSI (-2.63%) waren de negatieve uitschieters.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "8.54",
+            "meta_data": {
+                "sectors": [
+                    "Olie & Gas",
+                    "Vastgoed",
+                    "Vastgoed"
+                ],
+                "abs_change": [
+                    -0.10000000000000009,
+                    -0.3200000000000003,
+                    -0.9000000000000057
+                ],
+                "components": [
+                    "Fugro",
+                    "Eurocommercial Properties",
+                    "NSI"
+                ],
+                "perc_change": [
+                    -2.9,
+                    -2.75,
+                    -2.63
+                ]
+            }
+        },
+        "1462": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-07-08T00:00:00",
+            "period_end": "2020-07-09T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Aandeel Air France-KLM met 2.21% gedaald.",
+            "perc_change": "-2.21",
+            "abs_change": "-0.09",
+            "relevance": "6.74",
+            "meta_data": {}
+        },
+        "5203": {
+            "serie": "GrandVision",
+            "period_begin": "2020-10-01T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "sector",
+            "sector": "Consumenten goederen",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Consumenten goederen in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "0.41",
+            "abs_change": null,
+            "relevance": "0.57",
+            "meta_data": {
+                "sectors": [
+                    "Consumenten goederen"
+                ],
+                "components": [
+                    "GrandVision"
+                ]
+            }
+        },
+        "5187": {
+            "serie": "GrandVision",
+            "period_begin": "2020-10-01T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Consumenten goederen",
+            "indexx": null,
+            "observation": "Aandeel GrandVision met 0.41% gestegen.",
+            "perc_change": "0.41",
+            "abs_change": "0.10",
+            "relevance": "1.50",
+            "meta_data": {}
+        },
+        "4980": {
+            "serie": "ALTICE EUROPE N.V.",
+            "period_begin": "2020-09-28T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "week",
+            "sector": "Telecommunicatie",
+            "indexx": null,
+            "observation": "ALTICE EUROPE N.V. is in week 40 gelijk gebleven.",
+            "perc_change": "0.00",
+            "abs_change": "0.00",
+            "relevance": "0.00",
+            "meta_data": {}
+        },
+        "3784": {
+            "serie": "SIGNIFY NV",
+            "period_begin": "2020-08-31T00:00:00",
+            "period_end": "2020-09-04T00:00:00",
+            "pattern": "week",
+            "sector": "Technologie",
+            "indexx": null,
+            "observation": "SIGNIFY NV is in week 36 gelijk gebleven.",
+            "perc_change": "0.00",
+            "abs_change": "0.00",
+            "relevance": "0.00",
+            "meta_data": {}
+        },
+        "4381": {
+            "serie": "PostNL Koninklijke",
+            "period_begin": "2020-09-14T00:00:00",
+            "period_end": "2020-09-18T00:00:00",
+            "pattern": "week",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "PostNL Koninklijke is in week 38 gelijk gebleven.",
+            "perc_change": "0.00",
+            "abs_change": "0.00",
+            "relevance": "0.00",
+            "meta_data": {}
+        },
+        "1940": {
+            "serie": "GrandVision",
+            "period_begin": "2020-07-20T00:00:00",
+            "period_end": "2020-07-24T00:00:00",
+            "pattern": "week",
+            "sector": "Consumenten goederen",
+            "indexx": null,
+            "observation": "GrandVision is in week 30 gelijk gebleven.",
+            "perc_change": "0.00",
+            "abs_change": "0.00",
+            "relevance": "0.00",
+            "meta_data": {}
+        },
+        "2508": {
+            "serie": "PostNL Koninklijke",
+            "period_begin": "2020-07-31T00:00:00",
+            "period_end": "2020-08-03T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "In de AMX ging PostNL Koninklijke aan kop met een winst van 11.65 procent.",
+            "perc_change": "11.65",
+            "abs_change": "0.24",
+            "relevance": "10.00",
+            "meta_data": {}
+        },
+        "2527": {
+            "serie": "PostNL Koninklijke",
+            "period_begin": "2020-07-31T00:00:00",
+            "period_end": "2020-08-03T00:00:00",
+            "pattern": "sector",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "PostNL Koninklijke presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "11.65",
+            "abs_change": null,
+            "relevance": "10.00",
+            "meta_data": {}
+        },
+        "14": {
+            "serie": "Fugro",
+            "period_begin": "2020-06-05T00:00:00",
+            "period_end": "2020-06-08T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "In de AMX ging Fugro aan kop met een winst van 14.58 procent.",
+            "perc_change": "14.58",
+            "abs_change": "0.63",
+            "relevance": "10.00",
+            "meta_data": {}
+        },
+        "1": {
+            "serie": "Fugro",
+            "period_begin": "2020-06-05T00:00:00",
+            "period_end": "2020-06-08T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "Aandeel Fugro met 14.58% gestegen.",
+            "perc_change": "14.58",
+            "abs_change": "0.63",
+            "relevance": "10.00",
+            "meta_data": {}
+        },
+        "2": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-06-05T00:00:00",
+            "period_end": "2020-06-08T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Aandeel Air France-KLM met 8.44% gestegen.",
+            "perc_change": "8.44",
+            "abs_change": "0.47",
+            "relevance": "9.96",
+            "meta_data": {}
+        },
+        "4983": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-09-28T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "week",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "Basic-Fit is met 3.94 procent gestegen in week 40.",
+            "perc_change": "3.94",
+            "abs_change": "0.80",
+            "relevance": "3.47",
+            "meta_data": {}
+        },
+        "5205": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-10-01T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "sector",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Consumenten diensten in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "3.43",
+            "abs_change": null,
+            "relevance": "4.46",
+            "meta_data": {
+                "sectors": [
+                    "Consumenten diensten"
+                ],
+                "components": [
+                    "Basic-Fit"
+                ]
+            }
+        },
+        "5004": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-09-23T00:00:00",
+            "period_end": "2020-09-28T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "Basic-Fit na 2 negatieve dagen weer positief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "3.54",
+            "meta_data": {
+                "trend": "pos",
+                "trend_duration": 2
+            }
+        },
+        "4942": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-09-25T00:00:00",
+            "period_end": "2020-09-28T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "Aandeel Basic-Fit met 0.5% gestegen.",
+            "perc_change": "0.50",
+            "abs_change": "0.10",
+            "relevance": "1.83",
+            "meta_data": {}
+        },
+        "4862": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-09-21T00:00:00",
+            "period_end": "2020-09-24T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "Basic-Fit na 2 positieve dagen weer negatief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "3.54",
+            "meta_data": {
+                "trend": "neg",
+                "trend_duration": 2
+            }
+        },
+        "4817": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-09-23T00:00:00",
+            "period_end": "2020-09-24T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "Aandeel Basic-Fit met 8.99% gedaald.",
+            "perc_change": "-8.99",
+            "abs_change": "-2.00",
+            "relevance": "9.97",
+            "meta_data": {}
+        },
+        "4229": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-09-09T00:00:00",
+            "period_end": "2020-09-10T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "Aandeel Basic-Fit met 0.61% gedaald.",
+            "perc_change": "-0.61",
+            "abs_change": "-0.15",
+            "relevance": "2.22",
+            "meta_data": {}
+        },
+        "4113": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-09-07T00:00:00",
+            "period_end": "2020-09-08T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "Aandeel Basic-Fit met 2.17% gedaald.",
+            "perc_change": "-2.17",
+            "abs_change": "-0.55",
+            "relevance": "6.66",
+            "meta_data": {}
+        },
+        "4153": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-09-01T00:00:00",
+            "period_end": "2020-09-08T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "Basic-Fit na 4 positieve dagen weer negatief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "6.30",
+            "meta_data": {
+                "trend": "neg",
+                "trend_duration": 4
+            }
+        },
+        "4275": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-09-10T00:00:00",
+            "period_end": "2020-09-11T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "Aandeel Basic-Fit met 1.44% gedaald.",
+            "perc_change": "-1.44",
+            "abs_change": "-0.35",
+            "relevance": "4.88",
+            "meta_data": {}
+        },
+        "4074": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-09-07T00:00:00",
+            "period_end": "2020-09-11T00:00:00",
+            "pattern": "week",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "Basic-Fit is met -5.51 procent gedaald in week 37.",
+            "perc_change": "-5.51",
+            "abs_change": "-1.40",
+            "relevance": "4.68",
+            "meta_data": {}
+        },
+        "1486": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-07-08T00:00:00",
+            "period_end": "2020-07-09T00:00:00",
+            "pattern": "sector",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Consumenten diensten in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-1.49",
+            "abs_change": null,
+            "relevance": "2.06",
+            "meta_data": {
+                "sectors": [
+                    "Consumenten diensten"
+                ],
+                "components": [
+                    "Basic-Fit"
+                ]
+            }
+        },
+        "1469": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-07-08T00:00:00",
+            "period_end": "2020-07-09T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "Aandeel Basic-Fit met 1.49% gedaald.",
+            "perc_change": "-1.49",
+            "abs_change": "-0.35",
+            "relevance": "5.02",
+            "meta_data": {}
+        },
+        "34": {
+            "serie": "Aperam",
+            "period_begin": "2020-06-05T00:00:00",
+            "period_end": "2020-06-08T00:00:00",
+            "pattern": "sector",
+            "sector": "Basismaterialen",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Basismaterialen in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-0.07",
+            "abs_change": null,
+            "relevance": "0.10",
+            "meta_data": {
+                "sectors": [
+                    "Basismaterialen"
+                ],
+                "components": [
+                    "Aperam"
+                ]
+            }
+        },
+        "4684": {
+            "serie": "BE Semiconductor Industries",
+            "period_begin": "2020-09-21T00:00:00",
+            "period_end": "2020-09-25T00:00:00",
+            "pattern": "week",
+            "sector": "Technologie",
+            "indexx": null,
+            "observation": "BE Semiconductor Industries is met -0.06 procent gedaald in week 39.",
+            "perc_change": "-0.06",
+            "abs_change": "-0.02",
+            "relevance": "0.06",
+            "meta_data": {}
+        },
+        "3189": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-08-17T00:00:00",
+            "period_end": "2020-08-18T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "Aandeel AALBERTS NV met 0.03% gestegen.",
+            "perc_change": "0.03",
+            "abs_change": "0.01",
+            "relevance": "0.11",
+            "meta_data": {}
+        },
+        "2196": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-07-24T00:00:00",
+            "period_end": "2020-07-27T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "Aandeel AALBERTS NV met 0.03% gestegen.",
+            "perc_change": "0.03",
+            "abs_change": "0.01",
+            "relevance": "0.11",
+            "meta_data": {}
+        },
+        "4187": {
+            "serie": "Corbion",
+            "period_begin": "2020-09-08T00:00:00",
+            "period_end": "2020-09-09T00:00:00",
+            "pattern": "sector",
+            "sector": "Chemie",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Chemie in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-0.13",
+            "abs_change": null,
+            "relevance": "0.18",
+            "meta_data": {
+                "sectors": [
+                    "Chemie"
+                ],
+                "components": [
+                    "Corbion"
+                ]
+            }
+        },
+        "1172": {
+            "serie": "BE Semiconductor Industries",
+            "period_begin": "2020-07-01T00:00:00",
+            "period_end": "2020-07-02T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Technologie",
+            "indexx": null,
+            "observation": "Aandeel BE Semiconductor Industries met 0.05% gestegen.",
+            "perc_change": "0.05",
+            "abs_change": "0.02",
+            "relevance": "0.18",
+            "meta_data": {}
+        },
+        "1642": {
+            "serie": "Corbion",
+            "period_begin": "2020-07-13T00:00:00",
+            "period_end": "2020-07-17T00:00:00",
+            "pattern": "week",
+            "sector": "Chemie",
+            "indexx": null,
+            "observation": "Corbion is in week 29 gelijk gebleven.",
+            "perc_change": "0.00",
+            "abs_change": "0.00",
+            "relevance": "0.00",
+            "meta_data": {}
+        },
+        "1634": {
+            "serie": "Flow Traders",
+            "period_begin": "2020-07-13T00:00:00",
+            "period_end": "2020-07-17T00:00:00",
+            "pattern": "week",
+            "sector": "Financi\u00c3\u00able dienstverleners",
+            "indexx": null,
+            "observation": "Flow Traders is in week 29 gelijk gebleven.",
+            "perc_change": "0.00",
+            "abs_change": "0.00",
+            "relevance": "0.00",
+            "meta_data": {}
+        },
+        "2852": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-08-10T00:00:00",
+            "period_end": "2020-08-14T00:00:00",
+            "pattern": "week",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "Basic-Fit is in week 33 gelijk gebleven.",
+            "perc_change": "0.00",
+            "abs_change": "0.00",
+            "relevance": "0.00",
+            "meta_data": {}
+        },
+        "1949": {
+            "serie": "PostNL Koninklijke",
+            "period_begin": "2020-07-20T00:00:00",
+            "period_end": "2020-07-24T00:00:00",
+            "pattern": "week",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "PostNL Koninklijke is in week 30 gelijk gebleven.",
+            "perc_change": "0.00",
+            "abs_change": "0.00",
+            "relevance": "0.00",
+            "meta_data": {}
+        },
+        "4151": {
+            "serie": "Flow Traders",
+            "period_begin": "2020-09-07T00:00:00",
+            "period_end": "2020-09-08T00:00:00",
+            "pattern": "sector",
+            "sector": "Financi\u00c3\u00able dienstverleners",
+            "indexx": null,
+            "observation": "Flow Traders presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "0.12",
+            "abs_change": null,
+            "relevance": "0.03",
+            "meta_data": {}
+        },
+        "4136": {
+            "serie": "Intertrust",
+            "period_begin": "2020-09-07T00:00:00",
+            "period_end": "2020-09-08T00:00:00",
+            "pattern": "sector",
+            "sector": "Financi\u00c3\u00able dienstverleners",
+            "indexx": null,
+            "observation": "Intertrust presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "0.13",
+            "abs_change": null,
+            "relevance": "0.03",
+            "meta_data": {}
+        },
+        "4294": {
+            "serie": "Aperam",
+            "period_begin": "2020-09-10T00:00:00",
+            "period_end": "2020-09-11T00:00:00",
+            "pattern": "sector",
+            "sector": "Basismaterialen",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Basismaterialen in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-0.08",
+            "abs_change": null,
+            "relevance": "0.11",
+            "meta_data": {
+                "sectors": [
+                    "Basismaterialen"
+                ],
+                "components": [
+                    "Aperam"
+                ]
+            }
+        },
+        "4271": {
+            "serie": "BE Semiconductor Industries",
+            "period_begin": "2020-09-10T00:00:00",
+            "period_end": "2020-09-11T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Technologie",
+            "indexx": null,
+            "observation": "Aandeel BE Semiconductor Industries met 0.03% gestegen.",
+            "perc_change": "0.03",
+            "abs_change": "0.01",
+            "relevance": "0.11",
+            "meta_data": {}
+        },
+        "1145": {
+            "serie": "ALTICE EUROPE N.V.",
+            "period_begin": "2020-06-23T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "ALTICE EUROPE N.V. na 5 negatieve dagen weer positief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "7.29",
+            "meta_data": {
+                "trend": "pos",
+                "trend_duration": 5
+            }
+        },
+        "1148": {
+            "serie": "BE Semiconductor Industries",
+            "period_begin": "2020-06-24T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "BE Semiconductor Industries na 4 positieve dagen weer negatief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "6.30",
+            "meta_data": {
+                "trend": "neg",
+                "trend_duration": 4
+            }
+        },
+        "1152": {
+            "serie": "SBM Offshore",
+            "period_begin": "2020-06-25T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "SBM Offshore na 3 negatieve dagen weer positief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "5.05",
+            "meta_data": {
+                "trend": "pos",
+                "trend_duration": 3
+            }
+        },
+        "1153": {
+            "serie": "Vopak Koninklijke",
+            "period_begin": "2020-06-25T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "Vopak Koninklijke na 3 negatieve dagen weer positief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "5.05",
+            "meta_data": {
+                "trend": "pos",
+                "trend_duration": 3
+            }
+        },
+        "1111": {
+            "serie": "Boskalis Westminster Koninklijke",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel Boskalis Westminster Koninklijke met 0.11% gestegen.",
+            "perc_change": "0.11",
+            "abs_change": "0.02",
+            "relevance": "0.41",
+            "meta_data": {}
+        },
+        "1122": {
+            "serie": "Boskalis Westminster Koninklijke",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "sector",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Bouw in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "0.45",
+            "abs_change": null,
+            "relevance": "0.63",
+            "meta_data": {
+                "sectors": [
+                    "Bouw"
+                ],
+                "components": [
+                    "Boskalis Westminster Koninklijke",
+                    "Arcadis",
+                    "BAM Groep Koninklijke"
+                ]
+            }
+        },
+        "1110": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "Aandeel AALBERTS NV met 0.21% gestegen.",
+            "perc_change": "0.21",
+            "abs_change": "0.06",
+            "relevance": "0.78",
+            "meta_data": {}
+        },
+        "1108": {
+            "serie": "Arcadis",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel Arcadis met 0.62% gestegen.",
+            "perc_change": "0.62",
+            "abs_change": "0.10",
+            "relevance": "2.26",
+            "meta_data": {}
+        },
+        "1107": {
+            "serie": "BAM Groep Koninklijke",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel BAM Groep Koninklijke met 0.62% gestegen.",
+            "perc_change": "0.62",
+            "abs_change": "0.01",
+            "relevance": "2.26",
+            "meta_data": {}
+        },
+        "1125": {
+            "serie": "WDP",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "sector",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Vastgoed in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "2.20",
+            "abs_change": null,
+            "relevance": "2.99",
+            "meta_data": {
+                "sectors": [
+                    "Vastgoed"
+                ],
+                "components": [
+                    "WDP",
+                    "Eurocommercial Properties",
+                    "NSI"
+                ]
+            }
+        },
+        "1100": {
+            "serie": "NSI",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "Aandeel NSI met 1.6% gestegen.",
+            "perc_change": "1.60",
+            "abs_change": "0.55",
+            "relevance": "5.31",
+            "meta_data": {}
+        },
+        "1097": {
+            "serie": "WDP",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "Aandeel WDP met 1.85% gestegen.",
+            "perc_change": "1.85",
+            "abs_change": "0.45",
+            "relevance": "5.94",
+            "meta_data": {}
+        },
+        "1096": {
+            "serie": "Fagron",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Gezondheidszorg",
+            "indexx": null,
+            "observation": "Aandeel Fagron met 2.3% gestegen.",
+            "perc_change": "2.30",
+            "abs_change": "0.43",
+            "relevance": "6.92",
+            "meta_data": {}
+        },
+        "1113": {
+            "serie": "Eurocommercial Properties",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": null,
+            "indexx": null,
+            "observation": "Eurocommercial Properties (3.16%), OCI (2.91%) en ALTICE EUROPE N.V. (2.62%) waren de positieve uitschieters.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "7.14",
+            "meta_data": {
+                "sectors": [
+                    "Vastgoed",
+                    "Industrie",
+                    "Telecommunicatie"
+                ],
+                "abs_change": [
+                    0.35999999999999943,
+                    0.27000000000000135,
+                    0.08999999999999986
+                ],
+                "components": [
+                    "Eurocommercial Properties",
+                    "OCI",
+                    "ALTICE EUROPE N.V."
+                ],
+                "perc_change": [
+                    3.16,
+                    2.91,
+                    2.62
+                ]
+            }
+        },
+        "1095": {
+            "serie": "ALTICE EUROPE N.V.",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Telecommunicatie",
+            "indexx": null,
+            "observation": "Aandeel ALTICE EUROPE N.V. met 2.62% gestegen.",
+            "perc_change": "2.62",
+            "abs_change": "0.09",
+            "relevance": "7.48",
+            "meta_data": {}
+        },
+        "1173": {
+            "serie": "ALTICE EUROPE N.V.",
+            "period_begin": "2020-07-01T00:00:00",
+            "period_end": "2020-07-02T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": null,
+            "indexx": null,
+            "observation": "ALTICE EUROPE N.V. (5.38%), OCI (4.61%) en SIGNIFY NV (3.82%) waren de positieve uitschieters.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "3.09",
+            "meta_data": {
+                "sectors": [
+                    "Telecommunicatie",
+                    "Industrie",
+                    "Technologie"
+                ],
+                "abs_change": [
+                    0.1900000000000004,
+                    0.4399999999999995,
+                    0.879999999999999
+                ],
+                "components": [
+                    "ALTICE EUROPE N.V.",
+                    "OCI",
+                    "SIGNIFY NV"
+                ],
+                "perc_change": [
+                    5.38,
+                    4.61,
+                    3.82
+                ]
+            }
+        },
+        "2035": {
+            "serie": "OCI",
+            "period_begin": "2020-07-21T00:00:00",
+            "period_end": "2020-07-22T00:00:00",
+            "pattern": "combi-daling",
+            "sector": null,
+            "indexx": null,
+            "observation": "OCI (-2.9%), SIGNIFY NV (-2.61%) en Fugro (-2.34%) waren de negatieve uitschieters.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "7.04",
+            "meta_data": {
+                "sectors": [
+                    "Industrie",
+                    "Technologie",
+                    "Olie & Gas"
+                ],
+                "abs_change": [
+                    -0.3099999999999987,
+                    -0.6600000000000001,
+                    -0.08000000000000007
+                ],
+                "components": [
+                    "OCI",
+                    "SIGNIFY NV",
+                    "Fugro"
+                ],
+                "perc_change": [
+                    -2.9,
+                    -2.61,
+                    -2.34
+                ]
+            }
+        },
+        "660": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-06-19T00:00:00",
+            "period_end": "2020-06-22T00:00:00",
+            "pattern": "combi-daling",
+            "sector": null,
+            "indexx": null,
+            "observation": "Air France-KLM (-4.39%), OCI (-3.81%) en Eurocommercial Properties (-3.74%) waren de negatieve uitschieters.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "6.60",
+            "meta_data": {
+                "sectors": [
+                    "Transport & logistiek",
+                    "Industrie",
+                    "Vastgoed"
+                ],
+                "abs_change": [
+                    -0.1999999999999993,
+                    -0.41999999999999993,
+                    -0.4800000000000004
+                ],
+                "components": [
+                    "Air France-KLM",
+                    "OCI",
+                    "Eurocommercial Properties"
+                ],
+                "perc_change": [
+                    -4.39,
+                    -3.81,
+                    -3.74
+                ]
+            }
+        },
+        "1418": {
+            "serie": "PostNL Koninklijke",
+            "period_begin": "2020-07-07T00:00:00",
+            "period_end": "2020-07-08T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Aandeel PostNL Koninklijke met 0.5% gedaald.",
+            "perc_change": "-0.50",
+            "abs_change": "-0.01",
+            "relevance": "1.83",
+            "meta_data": {}
+        },
+        "1453": {
+            "serie": "PostNL Koninklijke",
+            "period_begin": "2020-07-02T00:00:00",
+            "period_end": "2020-07-08T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "PostNL Koninklijke na 3 positieve dagen weer negatief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "5.05",
+            "meta_data": {
+                "trend": "neg",
+                "trend_duration": 3
+            }
+        },
+        "1435": {
+            "serie": "Pharming Group",
+            "period_begin": "2020-07-07T00:00:00",
+            "period_end": "2020-07-08T00:00:00",
+            "pattern": "sector",
+            "sector": "Gezondheidszorg",
+            "indexx": null,
+            "observation": "Pharming Group presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-3.31",
+            "abs_change": null,
+            "relevance": "5.83",
+            "meta_data": {}
+        },
+        "1403": {
+            "serie": "Pharming Group",
+            "period_begin": "2020-07-07T00:00:00",
+            "period_end": "2020-07-08T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Gezondheidszorg",
+            "indexx": null,
+            "observation": "Aandeel Pharming Group met 3.31% gedaald.",
+            "perc_change": "-3.31",
+            "abs_change": "-0.04",
+            "relevance": "8.41",
+            "meta_data": {}
+        },
+        "1417": {
+            "serie": "NSI",
+            "period_begin": "2020-07-07T00:00:00",
+            "period_end": "2020-07-08T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "Aandeel NSI met 0.58% gedaald.",
+            "perc_change": "-0.58",
+            "abs_change": "-0.20",
+            "relevance": "2.11",
+            "meta_data": {}
+        },
+        "1488": {
+            "serie": "Intertrust",
+            "period_begin": "2020-07-08T00:00:00",
+            "period_end": "2020-07-09T00:00:00",
+            "pattern": "sector",
+            "sector": "Financi\u00c3\u00able dienstverleners",
+            "indexx": null,
+            "observation": "Intertrust presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "0.53",
+            "abs_change": null,
+            "relevance": "3.14",
+            "meta_data": {}
+        },
+        "1455": {
+            "serie": "Intertrust",
+            "period_begin": "2020-07-08T00:00:00",
+            "period_end": "2020-07-09T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Financi\u00c3\u00able dienstverleners",
+            "indexx": null,
+            "observation": "Aandeel Intertrust met 0.53% gestegen.",
+            "perc_change": "0.53",
+            "abs_change": "0.08",
+            "relevance": "1.94",
+            "meta_data": {}
+        },
+        "1460": {
+            "serie": "NSI",
+            "period_begin": "2020-07-08T00:00:00",
+            "period_end": "2020-07-09T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "Aandeel NSI met 2.63% gedaald.",
+            "perc_change": "-2.63",
+            "abs_change": "-0.90",
+            "relevance": "7.50",
+            "meta_data": {}
+        },
+        "1444": {
+            "serie": "NSI",
+            "period_begin": "2020-07-07T00:00:00",
+            "period_end": "2020-07-08T00:00:00",
+            "pattern": "sector",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "NSI presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-0.58",
+            "abs_change": null,
+            "relevance": "1.76",
+            "meta_data": {}
+        },
+        "5189": {
+            "serie": "Eurocommercial Properties",
+            "period_begin": "2020-10-01T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "In de AMX ging Eurocommercial Properties aan kop met een winst van 5.22 procent.",
+            "perc_change": "5.22",
+            "abs_change": "0.52",
+            "relevance": "9.80",
+            "meta_data": {}
+        },
+        "5109": {
+            "serie": "WDP",
+            "period_begin": "2020-09-29T00:00:00",
+            "period_end": "2020-09-30T00:00:00",
+            "pattern": "sector",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "WDP presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "1.44",
+            "abs_change": null,
+            "relevance": "8.38",
+            "meta_data": {}
+        },
+        "5050": {
+            "serie": "WDP",
+            "period_begin": "2020-09-28T00:00:00",
+            "period_end": "2020-09-29T00:00:00",
+            "pattern": "sector",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "WDP presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "1.19",
+            "abs_change": null,
+            "relevance": "8.14",
+            "meta_data": {}
+        },
+        "5023": {
+            "serie": "NSI",
+            "period_begin": "2020-09-28T00:00:00",
+            "period_end": "2020-09-29T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "Aandeel NSI met 1.71% gedaald.",
+            "perc_change": "-1.71",
+            "abs_change": "-0.50",
+            "relevance": "5.60",
+            "meta_data": {}
+        },
+        "4921": {
+            "serie": "Eurocommercial Properties",
+            "period_begin": "2020-09-25T00:00:00",
+            "period_end": "2020-09-28T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "Aandeel Eurocommercial Properties met 9.05% gestegen.",
+            "perc_change": "9.05",
+            "abs_change": "0.80",
+            "relevance": "9.98",
+            "meta_data": {}
+        },
+        "4764": {
+            "serie": "NSI",
+            "period_begin": "2020-09-22T00:00:00",
+            "period_end": "2020-09-23T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "Aandeel NSI met 5.27% gedaald.",
+            "perc_change": "-5.27",
+            "abs_change": "-1.55",
+            "relevance": "9.60",
+            "meta_data": {}
+        },
+        "4796": {
+            "serie": "WDP",
+            "period_begin": "2020-09-22T00:00:00",
+            "period_end": "2020-09-23T00:00:00",
+            "pattern": "sector",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "WDP presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-1.07",
+            "abs_change": null,
+            "relevance": "6.78",
+            "meta_data": {}
+        },
+        "878": {
+            "serie": "Vopak Koninklijke",
+            "period_begin": "2020-06-24T00:00:00",
+            "period_end": "2020-06-25T00:00:00",
+            "pattern": "sector",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Olie & Gas in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "0.86",
+            "abs_change": null,
+            "relevance": "1.19",
+            "meta_data": {
+                "sectors": [
+                    "Olie & Gas"
+                ],
+                "components": [
+                    "Vopak Koninklijke",
+                    "SBM Offshore",
+                    "Fugro"
+                ]
+            }
+        },
+        "817": {
+            "serie": "Vopak Koninklijke",
+            "period_begin": "2020-06-23T00:00:00",
+            "period_end": "2020-06-24T00:00:00",
+            "pattern": "sector",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Olie & Gas in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-2.63",
+            "abs_change": null,
+            "relevance": "3.52",
+            "meta_data": {
+                "sectors": [
+                    "Olie & Gas"
+                ],
+                "components": [
+                    "Vopak Koninklijke",
+                    "SBM Offshore",
+                    "Fugro"
+                ]
+            }
+        },
+        "635": {
+            "serie": "Vopak Koninklijke",
+            "period_begin": "2020-06-18T00:00:00",
+            "period_end": "2020-06-19T00:00:00",
+            "pattern": "sector",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "Vopak Koninklijke presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "0.73",
+            "abs_change": null,
+            "relevance": "3.06",
+            "meta_data": {}
+        },
+        "608": {
+            "serie": "Vopak Koninklijke",
+            "period_begin": "2020-06-18T00:00:00",
+            "period_end": "2020-06-19T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "Aandeel Vopak Koninklijke met 0.73% gestegen.",
+            "perc_change": "0.73",
+            "abs_change": "0.36",
+            "relevance": "2.64",
+            "meta_data": {}
+        },
+        "392": {
+            "serie": "Vopak Koninklijke",
+            "period_begin": "2020-06-15T00:00:00",
+            "period_end": "2020-06-19T00:00:00",
+            "pattern": "week",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "Vopak Koninklijke is met 3.54 procent gestegen in week 25.",
+            "perc_change": "3.54",
+            "abs_change": "1.69",
+            "relevance": "3.15",
+            "meta_data": {}
+        },
+        "4860": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-09-21T00:00:00",
+            "period_end": "2020-09-24T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "AALBERTS NV na 2 positieve dagen weer negatief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "3.54",
+            "meta_data": {
+                "trend": "neg",
+                "trend_duration": 2
+            }
+        },
+        "4690": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-09-21T00:00:00",
+            "period_end": "2020-09-25T00:00:00",
+            "pattern": "week",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "AALBERTS NV is met -4.9 procent gedaald in week 39.",
+            "perc_change": "-4.90",
+            "abs_change": "-1.51",
+            "relevance": "4.23",
+            "meta_data": {}
+        },
+        "3181": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-08-17T00:00:00",
+            "period_end": "2020-08-21T00:00:00",
+            "pattern": "week",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "AALBERTS NV is met -1.74 procent gedaald in week 34.",
+            "perc_change": "-1.74",
+            "abs_change": "-0.57",
+            "relevance": "1.59",
+            "meta_data": {}
+        },
+        "2869": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-08-10T00:00:00",
+            "period_end": "2020-08-14T00:00:00",
+            "pattern": "week",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "AALBERTS NV is met 2.45 procent gestegen in week 33.",
+            "perc_change": "2.45",
+            "abs_change": "0.78",
+            "relevance": "2.22",
+            "meta_data": {}
+        },
+        "5159": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-09-30T00:00:00",
+            "period_end": "2020-10-01T00:00:00",
+            "pattern": "sector",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Air France-KLM presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-1.35",
+            "abs_change": null,
+            "relevance": "6.04",
+            "meta_data": {}
+        },
+        "5140": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-09-30T00:00:00",
+            "period_end": "2020-10-01T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Aandeel Air France-KLM met 1.35% gedaald.",
+            "perc_change": "-1.35",
+            "abs_change": "-0.04",
+            "relevance": "4.62",
+            "meta_data": {}
+        },
+        "5213": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-10-01T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "sector",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Air France-KLM presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-1.71",
+            "abs_change": null,
+            "relevance": "1.58",
+            "meta_data": {}
+        },
+        "5108": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-09-29T00:00:00",
+            "period_end": "2020-09-30T00:00:00",
+            "pattern": "sector",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Air France-KLM presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "2.07",
+            "abs_change": null,
+            "relevance": "2.49",
+            "meta_data": {}
+        },
+        "4669": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-09-21T00:00:00",
+            "period_end": "2020-09-25T00:00:00",
+            "pattern": "week",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Air France-KLM is met -12.43 procent gedaald in week 39.",
+            "perc_change": "-12.43",
+            "abs_change": "-0.42",
+            "relevance": "8.16",
+            "meta_data": {}
+        },
+        "4883": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-09-24T00:00:00",
+            "period_end": "2020-09-25T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Aandeel Air France-KLM met 1.99% gedaald.",
+            "perc_change": "-1.99",
+            "abs_change": "-0.06",
+            "relevance": "6.27",
+            "meta_data": {}
+        },
+        "4112": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-09-07T00:00:00",
+            "period_end": "2020-09-08T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Aandeel Air France-KLM met 2.36% gedaald.",
+            "perc_change": "-2.36",
+            "abs_change": "-0.09",
+            "relevance": "7.03",
+            "meta_data": {}
+        },
+        "4197": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-09-08T00:00:00",
+            "period_end": "2020-09-09T00:00:00",
+            "pattern": "sector",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Air France-KLM presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-0.27",
+            "abs_change": null,
+            "relevance": "6.89",
+            "meta_data": {}
+        },
+        "4639": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-09-18T00:00:00",
+            "period_end": "2020-09-21T00:00:00",
+            "pattern": "sector",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Industrie in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-4.94",
+            "abs_change": null,
+            "relevance": "5.99",
+            "meta_data": {
+                "sectors": [
+                    "Industrie"
+                ],
+                "components": [
+                    "AALBERTS NV",
+                    "OCI",
+                    "TKH Group"
+                ]
+            }
+        },
+        "4627": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-09-18T00:00:00",
+            "period_end": "2020-09-21T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "Aandeel AALBERTS NV met 3.32% gedaald.",
+            "perc_change": "-3.32",
+            "abs_change": "-1.06",
+            "relevance": "8.42",
+            "meta_data": {}
+        },
+        "4385": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-09-14T00:00:00",
+            "period_end": "2020-09-18T00:00:00",
+            "pattern": "week",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "AALBERTS NV is met -0.06 procent gedaald in week 38.",
+            "perc_change": "-0.06",
+            "abs_change": "-0.02",
+            "relevance": "0.06",
+            "meta_data": {}
+        },
+        "4585": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-09-17T00:00:00",
+            "period_end": "2020-09-18T00:00:00",
+            "pattern": "sector",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Industrie in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-1.70",
+            "abs_change": null,
+            "relevance": "2.34",
+            "meta_data": {
+                "sectors": [
+                    "Industrie"
+                ],
+                "components": [
+                    "AALBERTS NV",
+                    "OCI",
+                    "TKH Group"
+                ]
+            }
+        },
+        "4525": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-09-16T00:00:00",
+            "period_end": "2020-09-17T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "Aandeel AALBERTS NV met 0.18% gedaald.",
+            "perc_change": "-0.18",
+            "abs_change": "-0.06",
+            "relevance": "0.66",
+            "meta_data": {}
+        },
+        "4549": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-09-14T00:00:00",
+            "period_end": "2020-09-17T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "AALBERTS NV na 2 positieve dagen weer negatief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "3.54",
+            "meta_data": {
+                "trend": "neg",
+                "trend_duration": 2
+            }
+        },
+        "4564": {
+            "serie": "Fagron",
+            "period_begin": "2020-09-17T00:00:00",
+            "period_end": "2020-09-18T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Gezondheidszorg",
+            "indexx": null,
+            "observation": "Aandeel Fagron met 0.76% gestegen.",
+            "perc_change": "0.76",
+            "abs_change": "0.16",
+            "relevance": "2.74",
+            "meta_data": {}
+        },
+        "4574": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-09-17T00:00:00",
+            "period_end": "2020-09-18T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Aandeel Air France-KLM met 1.88% gedaald.",
+            "perc_change": "-1.88",
+            "abs_change": "-0.07",
+            "relevance": "6.02",
+            "meta_data": {}
+        },
+        "2284": {
+            "serie": "Arcadis",
+            "period_begin": "2020-07-27T00:00:00",
+            "period_end": "2020-07-28T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "In de AMX ging Arcadis aan kop met een winst van 13.66 procent.",
+            "perc_change": "13.66",
+            "abs_change": "2.23",
+            "relevance": "10.00",
+            "meta_data": {}
+        },
+        "2270": {
+            "serie": "Arcadis",
+            "period_begin": "2020-07-27T00:00:00",
+            "period_end": "2020-07-28T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel Arcadis met 13.66% gestegen.",
+            "perc_change": "13.66",
+            "abs_change": "2.23",
+            "relevance": "10.00",
+            "meta_data": {}
+        },
+        "1174": {
+            "serie": "BAM Groep Koninklijke",
+            "period_begin": "2020-07-01T00:00:00",
+            "period_end": "2020-07-02T00:00:00",
+            "pattern": "combi-daling",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "BAM Groep Koninklijke daalde het hardst met 12.96 procent.",
+            "perc_change": "-12.96",
+            "abs_change": "-0.21",
+            "relevance": "10.00",
+            "meta_data": {}
+        },
+        "1175": {
+            "serie": "BAM Groep Koninklijke",
+            "period_begin": "2020-07-01T00:00:00",
+            "period_end": "2020-07-02T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel BAM Groep Koninklijke met 12.96% gedaald.",
+            "perc_change": "-12.96",
+            "abs_change": "-0.21",
+            "relevance": "10.00",
+            "meta_data": {}
+        },
+        "3303": {
+            "serie": "Boskalis Westminster Koninklijke",
+            "period_begin": "2020-08-19T00:00:00",
+            "period_end": "2020-08-20T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "In de AMX ging Boskalis Westminster Koninklijke aan kop met een winst van 13.08 procent.",
+            "perc_change": "13.08",
+            "abs_change": "2.15",
+            "relevance": "10.00",
+            "meta_data": {}
+        },
+        "2312": {
+            "serie": "Arcadis",
+            "period_begin": "2020-07-27T00:00:00",
+            "period_end": "2020-07-28T00:00:00",
+            "pattern": "sector",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Arcadis presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "13.66",
+            "abs_change": null,
+            "relevance": "9.99",
+            "meta_data": {}
+        },
+        "421": {
+            "serie": "Arcadis",
+            "period_begin": "2020-06-15T00:00:00",
+            "period_end": "2020-06-16T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel Arcadis met 6.09% gestegen.",
+            "perc_change": "6.09",
+            "abs_change": "0.97",
+            "relevance": "9.78",
+            "meta_data": {}
+        },
+        "4618": {
+            "serie": "BAM Groep Koninklijke",
+            "period_begin": "2020-09-18T00:00:00",
+            "period_end": "2020-09-21T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel BAM Groep Koninklijke met 6.03% gedaald.",
+            "perc_change": "-6.03",
+            "abs_change": "-0.07",
+            "relevance": "9.77",
+            "meta_data": {}
+        },
+        "1162": {
+            "serie": "Arcadis",
+            "period_begin": "2020-07-01T00:00:00",
+            "period_end": "2020-07-02T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel Arcadis met 1.6% gestegen.",
+            "perc_change": "1.60",
+            "abs_change": "0.26",
+            "relevance": "5.31",
+            "meta_data": {}
+        },
+        "1211": {
+            "serie": "Arcadis",
+            "period_begin": "2020-07-02T00:00:00",
+            "period_end": "2020-07-03T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel Arcadis met 0.97% gestegen.",
+            "perc_change": "0.97",
+            "abs_change": "0.16",
+            "relevance": "3.44",
+            "meta_data": {}
+        },
+        "4984": {
+            "serie": "Arcadis",
+            "period_begin": "2020-09-28T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "week",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Arcadis is met 4.89 procent gestegen in week 40.",
+            "perc_change": "4.89",
+            "abs_change": "0.88",
+            "relevance": "4.22",
+            "meta_data": {}
+        },
+        "4999": {
+            "serie": "Boskalis Westminster Koninklijke",
+            "period_begin": "2020-09-28T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "week",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Boskalis Westminster Koninklijke is met 3.94 procent gestegen in week 40.",
+            "perc_change": "3.94",
+            "abs_change": "0.67",
+            "relevance": "3.47",
+            "meta_data": {}
+        },
+        "2583": {
+            "serie": "Arcadis",
+            "period_begin": "2020-08-03T00:00:00",
+            "period_end": "2020-08-04T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel Arcadis met 1.38% gestegen.",
+            "perc_change": "1.38",
+            "abs_change": "0.25",
+            "relevance": "4.70",
+            "meta_data": {}
+        },
+        "3122": {
+            "serie": "Vopak Koninklijke",
+            "period_begin": "2020-08-14T00:00:00",
+            "period_end": "2020-08-17T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "Aandeel Vopak Koninklijke met 0.02% gestegen.",
+            "perc_change": "0.02",
+            "abs_change": "0.01",
+            "relevance": "0.07",
+            "meta_data": {}
+        },
+        "5207": {
+            "serie": "Intertrust",
+            "period_begin": "2020-10-01T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "sector",
+            "sector": "Financi\u00c3\u00able dienstverleners",
+            "indexx": null,
+            "observation": "Intertrust presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "2.78",
+            "abs_change": null,
+            "relevance": "3.54",
+            "meta_data": {}
+        },
+        "5223": {
+            "serie": "Intertrust",
+            "period_begin": "2020-09-28T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "Intertrust na 3 negatieve dagen weer positief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "5.05",
+            "meta_data": {
+                "trend": "pos",
+                "trend_duration": 3
+            }
+        },
+        "5198": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-10-01T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "sector",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Industrie in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "1.59",
+            "abs_change": null,
+            "relevance": "2.19",
+            "meta_data": {
+                "sectors": [
+                    "Industrie"
+                ],
+                "components": [
+                    "AALBERTS NV",
+                    "OCI",
+                    "TKH Group"
+                ]
+            }
+        },
+        "5194": {
+            "serie": "Pharming Group",
+            "period_begin": "2020-10-01T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Gezondheidszorg",
+            "indexx": null,
+            "observation": "Aandeel Pharming Group met 1.06% gedaald.",
+            "perc_change": "-1.06",
+            "abs_change": "-0.01",
+            "relevance": "3.73",
+            "meta_data": {}
+        },
+        "5184": {
+            "serie": "Fagron",
+            "period_begin": "2020-10-01T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Gezondheidszorg",
+            "indexx": null,
+            "observation": "Aandeel Fagron met 0.55% gestegen.",
+            "perc_change": "0.55",
+            "abs_change": "0.12",
+            "relevance": "2.01",
+            "meta_data": {}
+        },
+        "5135": {
+            "serie": "SBM Offshore",
+            "period_begin": "2020-09-30T00:00:00",
+            "period_end": "2020-10-01T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "Aandeel SBM Offshore met 0.15% gestegen.",
+            "perc_change": "0.15",
+            "abs_change": "0.02",
+            "relevance": "0.55",
+            "meta_data": {}
+        },
+        "5132": {
+            "serie": "Fagron",
+            "period_begin": "2020-09-30T00:00:00",
+            "period_end": "2020-10-01T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Gezondheidszorg",
+            "indexx": null,
+            "observation": "Aandeel Fagron met 0.56% gestegen.",
+            "perc_change": "0.56",
+            "abs_change": "0.12",
+            "relevance": "2.04",
+            "meta_data": {}
+        },
+        "5118": {
+            "serie": "Fagron",
+            "period_begin": "2020-09-24T00:00:00",
+            "period_end": "2020-09-30T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "Fagron na 3 positieve dagen weer negatief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "5.05",
+            "meta_data": {
+                "trend": "neg",
+                "trend_duration": 3
+            }
+        },
+        "5062": {
+            "serie": "Intertrust",
+            "period_begin": "2020-09-24T00:00:00",
+            "period_end": "2020-09-29T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "Intertrust na 2 positieve dagen weer negatief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "3.54",
+            "meta_data": {
+                "trend": "neg",
+                "trend_duration": 2
+            }
+        },
+        "5061": {
+            "serie": "GrandVision",
+            "period_begin": "2020-09-22T00:00:00",
+            "period_end": "2020-09-29T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "GrandVision na 4 positieve dagen weer negatief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "6.30",
+            "meta_data": {
+                "trend": "neg",
+                "trend_duration": 4
+            }
+        },
+        "4993": {
+            "serie": "OCI",
+            "period_begin": "2020-09-28T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "week",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "OCI is met 10.01 procent gestegen in week 40.",
+            "perc_change": "10.01",
+            "abs_change": "1.05",
+            "relevance": "7.26",
+            "meta_data": {}
+        },
+        "4987": {
+            "serie": "GrandVision",
+            "period_begin": "2020-09-28T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "week",
+            "sector": "Consumenten goederen",
+            "indexx": null,
+            "observation": "GrandVision is met 2.31 procent gestegen in week 40.",
+            "perc_change": "2.31",
+            "abs_change": "0.55",
+            "relevance": "2.09",
+            "meta_data": {}
+        },
+        "4945": {
+            "serie": "Vopak Koninklijke",
+            "period_begin": "2020-09-25T00:00:00",
+            "period_end": "2020-09-28T00:00:00",
+            "pattern": "combi-daling",
+            "sector": null,
+            "indexx": null,
+            "observation": "Op Vopak Koninklijke en ALTICE EUROPE N.V. na stegen alle fondsen",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "1.27",
+            "meta_data": {
+                "sectors": [
+                    "Olie & Gas",
+                    "Telecommunicatie"
+                ],
+                "abs_change": [
+                    -0.21999999999999886,
+                    -0.009999999999999787
+                ],
+                "components": [
+                    "Vopak Koninklijke",
+                    "ALTICE EUROPE N.V."
+                ],
+                "perc_change": [
+                    -0.45,
+                    -0.24
+                ]
+            }
+        },
+        "4946": {
+            "serie": "Vopak Koninklijke",
+            "period_begin": "2020-09-25T00:00:00",
+            "period_end": "2020-09-28T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "Aandeel Vopak Koninklijke met 0.45% gedaald.",
+            "perc_change": "-0.45",
+            "abs_change": "-0.22",
+            "relevance": "1.65",
+            "meta_data": {}
+        },
+        "4928": {
+            "serie": "OCI",
+            "period_begin": "2020-09-25T00:00:00",
+            "period_end": "2020-09-28T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "Aandeel OCI met 2.74% gestegen.",
+            "perc_change": "2.74",
+            "abs_change": "0.28",
+            "relevance": "7.67",
+            "meta_data": {}
+        },
+        "4903": {
+            "serie": "OCI",
+            "period_begin": "2020-09-24T00:00:00",
+            "period_end": "2020-09-25T00:00:00",
+            "pattern": "sector",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "OCI presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "0.99",
+            "abs_change": null,
+            "relevance": "6.81",
+            "meta_data": {}
+        },
+        "225": {
+            "serie": "Fugro",
+            "period_begin": "2020-06-10T00:00:00",
+            "period_end": "2020-06-11T00:00:00",
+            "pattern": "combi-daling",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "Fugro daalde het hardst met 12.13 procent.",
+            "perc_change": "-12.13",
+            "abs_change": "-0.53",
+            "relevance": "10.00",
+            "meta_data": {}
+        },
+        "226": {
+            "serie": "Fugro",
+            "period_begin": "2020-06-10T00:00:00",
+            "period_end": "2020-06-11T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "Aandeel Fugro met 12.13% gedaald.",
+            "perc_change": "-12.13",
+            "abs_change": "-0.53",
+            "relevance": "10.00",
+            "meta_data": {}
+        },
+        "45": {
+            "serie": "Fugro",
+            "period_begin": "2020-06-05T00:00:00",
+            "period_end": "2020-06-08T00:00:00",
+            "pattern": "sector",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "Fugro presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "14.58",
+            "abs_change": null,
+            "relevance": "9.99",
+            "meta_data": {}
+        },
+        "1216": {
+            "serie": "Pharming Group",
+            "period_begin": "2020-07-02T00:00:00",
+            "period_end": "2020-07-03T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": "Gezondheidszorg",
+            "indexx": null,
+            "observation": "In de AMX ging Pharming Group aan kop met een winst van 5.88 procent.",
+            "perc_change": "5.88",
+            "abs_change": "0.07",
+            "relevance": "9.88",
+            "meta_data": {}
+        },
+        "2447": {
+            "serie": "Pharming Group",
+            "period_begin": "2020-07-30T00:00:00",
+            "period_end": "2020-07-31T00:00:00",
+            "pattern": "combi-daling",
+            "sector": "Gezondheidszorg",
+            "indexx": null,
+            "observation": "Pharming Group daalde het hardst met 5.94 procent.",
+            "perc_change": "-5.94",
+            "abs_change": "-0.06",
+            "relevance": "9.88",
+            "meta_data": {}
+        },
+        "15": {
+            "serie": "Fagron",
+            "period_begin": "2020-06-05T00:00:00",
+            "period_end": "2020-06-08T00:00:00",
+            "pattern": "combi-daling",
+            "sector": "Gezondheidszorg",
+            "indexx": null,
+            "observation": "Fagron daalde het hardst met 5.83 procent.",
+            "perc_change": "-5.83",
+            "abs_change": "-1.24",
+            "relevance": "9.87",
+            "meta_data": {}
+        },
+        "233": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-06-10T00:00:00",
+            "period_end": "2020-06-11T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "Aandeel AALBERTS NV met 6.75% gedaald.",
+            "perc_change": "-6.75",
+            "abs_change": "-1.88",
+            "relevance": "9.86",
+            "meta_data": {}
+        },
+        "40": {
+            "serie": "Vopak Koninklijke",
+            "period_begin": "2020-06-05T00:00:00",
+            "period_end": "2020-06-08T00:00:00",
+            "pattern": "sector",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "Vopak Koninklijke presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-0.89",
+            "abs_change": null,
+            "relevance": "9.87",
+            "meta_data": {}
+        },
+        "2530": {
+            "serie": "Pharming Group",
+            "period_begin": "2020-07-31T00:00:00",
+            "period_end": "2020-08-03T00:00:00",
+            "pattern": "sector",
+            "sector": "Gezondheidszorg",
+            "indexx": null,
+            "observation": "Pharming Group presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "6.32",
+            "abs_change": null,
+            "relevance": "9.74",
+            "meta_data": {}
+        },
+        "1204": {
+            "serie": "Pharming Group",
+            "period_begin": "2020-07-02T00:00:00",
+            "period_end": "2020-07-03T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Gezondheidszorg",
+            "indexx": null,
+            "observation": "Aandeel Pharming Group met 5.88% gestegen.",
+            "perc_change": "5.88",
+            "abs_change": "0.07",
+            "relevance": "9.74",
+            "meta_data": {}
+        },
+        "2789": {
+            "serie": "Fagron",
+            "period_begin": "2020-08-06T00:00:00",
+            "period_end": "2020-08-07T00:00:00",
+            "pattern": "sector",
+            "sector": "Gezondheidszorg",
+            "indexx": null,
+            "observation": "Fagron presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-2.08",
+            "abs_change": null,
+            "relevance": "9.63",
+            "meta_data": {}
+        },
+        "2782": {
+            "serie": "Pharming Group",
+            "period_begin": "2020-08-06T00:00:00",
+            "period_end": "2020-08-07T00:00:00",
+            "pattern": "sector",
+            "sector": "Gezondheidszorg",
+            "indexx": null,
+            "observation": "Pharming Group presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "5.00",
+            "abs_change": null,
+            "relevance": "9.63",
+            "meta_data": {}
+        },
+        "2882": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-08-10T00:00:00",
+            "period_end": "2020-08-11T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "Aandeel AALBERTS NV met 5.22% gestegen.",
+            "perc_change": "5.22",
+            "abs_change": "1.66",
+            "relevance": "9.59",
+            "meta_data": {}
+        },
+        "795": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-06-23T00:00:00",
+            "period_end": "2020-06-24T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "Aandeel AALBERTS NV met 5.1% gedaald.",
+            "perc_change": "-5.10",
+            "abs_change": "-1.52",
+            "relevance": "9.55",
+            "meta_data": {}
+        },
+        "4994": {
+            "serie": "BE Semiconductor Industries",
+            "period_begin": "2020-09-28T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "week",
+            "sector": "Technologie",
+            "indexx": null,
+            "observation": "BE Semiconductor Industries is met 0.27 procent gestegen in week 40.",
+            "perc_change": "0.27",
+            "abs_change": "0.10",
+            "relevance": "0.25",
+            "meta_data": {}
+        },
+        "5191": {
+            "serie": "BE Semiconductor Industries",
+            "period_begin": "2020-10-01T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Technologie",
+            "indexx": null,
+            "observation": "Aandeel BE Semiconductor Industries met 2.12% gedaald.",
+            "perc_change": "-2.12",
+            "abs_change": "-0.80",
+            "relevance": "6.55",
+            "meta_data": {}
+        },
+        "5121": {
+            "serie": "BE Semiconductor Industries",
+            "period_begin": "2020-09-30T00:00:00",
+            "period_end": "2020-10-01T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Technologie",
+            "indexx": null,
+            "observation": "Aandeel BE Semiconductor Industries met 3.33% gestegen.",
+            "perc_change": "3.33",
+            "abs_change": "1.22",
+            "relevance": "8.43",
+            "meta_data": {}
+        },
+        "5150": {
+            "serie": "BE Semiconductor Industries",
+            "period_begin": "2020-09-30T00:00:00",
+            "period_end": "2020-10-01T00:00:00",
+            "pattern": "sector",
+            "sector": "Technologie",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Technologie in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "2.80",
+            "abs_change": null,
+            "relevance": "3.74",
+            "meta_data": {
+                "sectors": [
+                    "Technologie"
+                ],
+                "components": [
+                    "BE Semiconductor Industries",
+                    "SIGNIFY NV"
+                ]
+            }
+        },
+        "1783": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-07-15T00:00:00",
+            "period_end": "2020-07-16T00:00:00",
+            "pattern": "combi-daling",
+            "sector": null,
+            "indexx": null,
+            "observation": "AALBERTS NV (-2.87%), Air France-KLM (-2.06%) en Pharming Group (-1.69%) waren de negatieve uitschieters.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "4.33",
+            "meta_data": {
+                "sectors": [
+                    "Industrie",
+                    "Transport & logistiek",
+                    "Gezondheidszorg"
+                ],
+                "abs_change": [
+                    -0.8599999999999994,
+                    -0.09000000000000075,
+                    -0.020000000000000018
+                ],
+                "components": [
+                    "AALBERTS NV",
+                    "Air France-KLM",
+                    "Pharming Group"
+                ],
+                "perc_change": [
+                    -2.87,
+                    -2.06,
+                    -1.69
+                ]
+            }
+        },
+        "751": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-06-22T00:00:00",
+            "period_end": "2020-06-23T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "In de AMX ging AALBERTS NV aan kop met een winst van 6.09 procent.",
+            "perc_change": "6.09",
+            "abs_change": "1.71",
+            "relevance": "9.90",
+            "meta_data": {}
+        },
+        "4707": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-09-21T00:00:00",
+            "period_end": "2020-09-22T00:00:00",
+            "pattern": "combi-daling",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Air France-KLM daalde het hardst met 4.44 procent.",
+            "perc_change": "-4.44",
+            "abs_change": "-0.15",
+            "relevance": "9.65",
+            "meta_data": {}
+        },
+        "3723": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-08-28T00:00:00",
+            "period_end": "2020-08-31T00:00:00",
+            "pattern": "combi-daling",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Air France-KLM daalde het hardst met 4.06 procent.",
+            "perc_change": "-4.06",
+            "abs_change": "-0.16",
+            "relevance": "9.54",
+            "meta_data": {}
+        },
+        "492": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-06-16T00:00:00",
+            "period_end": "2020-06-17T00:00:00",
+            "pattern": "combi-daling",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Air France-KLM daalde het hardst met 3.91 procent.",
+            "perc_change": "-3.91",
+            "abs_change": "-0.19",
+            "relevance": "9.48",
+            "meta_data": {}
+        },
+        "1736": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-07-14T00:00:00",
+            "period_end": "2020-07-15T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "In de AMX ging Air France-KLM aan kop met een winst van 6.6 procent.",
+            "perc_change": "6.60",
+            "abs_change": "0.27",
+            "relevance": "9.93",
+            "meta_data": {}
+        },
+        "1146": {
+            "serie": "Aperam",
+            "period_begin": "2020-06-26T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "Aperam na 2 positieve dagen weer negatief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "3.54",
+            "meta_data": {
+                "trend": "neg",
+                "trend_duration": 2
+            }
+        },
+        "1127": {
+            "serie": "Corbion",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "sector",
+            "sector": "Chemie",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Chemie in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-1.25",
+            "abs_change": null,
+            "relevance": "1.73",
+            "meta_data": {
+                "sectors": [
+                    "Chemie"
+                ],
+                "components": [
+                    "Corbion"
+                ]
+            }
+        },
+        "1121": {
+            "serie": "PostNL Koninklijke",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "sector",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Transport & logistiek in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "1.28",
+            "abs_change": null,
+            "relevance": "1.77",
+            "meta_data": {
+                "sectors": [
+                    "Transport & logistiek"
+                ],
+                "components": [
+                    "PostNL Koninklijke",
+                    "Air France-KLM"
+                ]
+            }
+        },
+        "1137": {
+            "serie": "SBM Offshore",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "sector",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "SBM Offshore presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "1.61",
+            "abs_change": null,
+            "relevance": "1.31",
+            "meta_data": {}
+        },
+        "1123": {
+            "serie": "Vopak Koninklijke",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "sector",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Olie & Gas in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "1.30",
+            "abs_change": null,
+            "relevance": "1.80",
+            "meta_data": {
+                "sectors": [
+                    "Olie & Gas"
+                ],
+                "components": [
+                    "Vopak Koninklijke",
+                    "SBM Offshore",
+                    "Fugro"
+                ]
+            }
+        },
+        "1094": {
+            "serie": "OCI",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "Aandeel OCI met 2.91% gestegen.",
+            "perc_change": "2.91",
+            "abs_change": "0.27",
+            "relevance": "7.92",
+            "meta_data": {}
+        },
+        "1117": {
+            "serie": "Corbion",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Chemie",
+            "indexx": null,
+            "observation": "Aandeel Corbion met 1.25% gedaald.",
+            "perc_change": "-1.25",
+            "abs_change": "-0.40",
+            "relevance": "4.32",
+            "meta_data": {}
+        },
+        "3808": {
+            "serie": "SIGNIFY NV",
+            "period_begin": "2020-08-31T00:00:00",
+            "period_end": "2020-09-01T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Technologie",
+            "indexx": null,
+            "observation": "Aandeel SIGNIFY NV met 0.18% gestegen.",
+            "perc_change": "0.18",
+            "abs_change": "0.05",
+            "relevance": "0.66",
+            "meta_data": {}
+        },
+        "3801": {
+            "serie": "TKH Group",
+            "period_begin": "2020-08-31T00:00:00",
+            "period_end": "2020-09-01T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "Aandeel TKH Group met 0.97% gestegen.",
+            "perc_change": "0.97",
+            "abs_change": "0.32",
+            "relevance": "3.44",
+            "meta_data": {}
+        },
+        "3802": {
+            "serie": "GrandVision",
+            "period_begin": "2020-08-31T00:00:00",
+            "period_end": "2020-09-01T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Consumenten goederen",
+            "indexx": null,
+            "observation": "Aandeel GrandVision met 0.83% gestegen.",
+            "perc_change": "0.83",
+            "abs_change": "0.20",
+            "relevance": "2.98",
+            "meta_data": {}
+        },
+        "3797": {
+            "serie": "PostNL Koninklijke",
+            "period_begin": "2020-08-31T00:00:00",
+            "period_end": "2020-09-01T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Aandeel PostNL Koninklijke met 2.8% gestegen.",
+            "perc_change": "2.80",
+            "abs_change": "0.07",
+            "relevance": "7.76",
+            "meta_data": {}
+        },
+        "3809": {
+            "serie": "PostNL Koninklijke",
+            "period_begin": "2020-08-31T00:00:00",
+            "period_end": "2020-09-01T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": null,
+            "indexx": null,
+            "observation": "In de AMX waren PostNL Koninklijke (2.8%) en BE Semiconductor Industries (2.62%) de grootste stijgers.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "8.06",
+            "meta_data": {
+                "sectors": [
+                    "Transport & logistiek",
+                    "Technologie"
+                ],
+                "abs_change": [
+                    0.06999999999999984,
+                    1.0500000000000043
+                ],
+                "components": [
+                    "PostNL Koninklijke",
+                    "BE Semiconductor Industries"
+                ],
+                "perc_change": [
+                    2.8,
+                    2.62
+                ]
+            }
+        },
+        "3810": {
+            "serie": "Eurocommercial Properties",
+            "period_begin": "2020-08-31T00:00:00",
+            "period_end": "2020-09-01T00:00:00",
+            "pattern": "combi-daling",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "Eurocommercial Properties daalde het hardst met 5.38 procent.",
+            "perc_change": "-5.38",
+            "abs_change": "-0.54",
+            "relevance": "9.82",
+            "meta_data": {}
+        },
+        "5146": {
+            "serie": "Intertrust",
+            "period_begin": "2020-09-30T00:00:00",
+            "period_end": "2020-10-01T00:00:00",
+            "pattern": "sector",
+            "sector": "Financi\u00c3\u00able dienstverleners",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Financi\u00c3\u00able dienstverleners in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-2.30",
+            "abs_change": null,
+            "relevance": "3.11",
+            "meta_data": {
+                "sectors": [
+                    "Financi\u00c3\u00able dienstverleners"
+                ],
+                "components": [
+                    "Intertrust",
+                    "Flow Traders"
+                ]
+            }
+        },
+        "5166": {
+            "serie": "NSI",
+            "period_begin": "2020-09-30T00:00:00",
+            "period_end": "2020-10-01T00:00:00",
+            "pattern": "sector",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "NSI presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-0.83",
+            "abs_change": null,
+            "relevance": "3.86",
+            "meta_data": {}
+        },
+        "5035": {
+            "serie": "GrandVision",
+            "period_begin": "2020-09-28T00:00:00",
+            "period_end": "2020-09-29T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Consumenten goederen",
+            "indexx": null,
+            "observation": "Aandeel GrandVision met 0.21% gedaald.",
+            "perc_change": "-0.21",
+            "abs_change": "-0.05",
+            "relevance": "0.78",
+            "meta_data": {}
+        },
+        "5038": {
+            "serie": "GrandVision",
+            "period_begin": "2020-09-28T00:00:00",
+            "period_end": "2020-09-29T00:00:00",
+            "pattern": "sector",
+            "sector": "Consumenten goederen",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Consumenten goederen in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-0.21",
+            "abs_change": null,
+            "relevance": "0.29",
+            "meta_data": {
+                "sectors": [
+                    "Consumenten goederen"
+                ],
+                "components": [
+                    "GrandVision"
+                ]
+            }
+        },
+        "1149": {
+            "serie": "Corbion",
+            "period_begin": "2020-06-26T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "Corbion na 2 positieve dagen weer negatief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "3.54",
+            "meta_data": {
+                "trend": "neg",
+                "trend_duration": 2
+            }
+        },
+        "5136": {
+            "serie": "Corbion",
+            "period_begin": "2020-09-30T00:00:00",
+            "period_end": "2020-10-01T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": "Chemie",
+            "indexx": null,
+            "observation": "In de AMX ging Corbion aan kop met een winst van 5.1 procent.",
+            "perc_change": "5.10",
+            "abs_change": "2.00",
+            "relevance": "9.78",
+            "meta_data": {}
+        },
+        "5120": {
+            "serie": "Corbion",
+            "period_begin": "2020-09-30T00:00:00",
+            "period_end": "2020-10-01T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Chemie",
+            "indexx": null,
+            "observation": "Aandeel Corbion met 5.1% gestegen.",
+            "perc_change": "5.10",
+            "abs_change": "2.00",
+            "relevance": "9.55",
+            "meta_data": {}
+        },
+        "5149": {
+            "serie": "Corbion",
+            "period_begin": "2020-09-30T00:00:00",
+            "period_end": "2020-10-01T00:00:00",
+            "pattern": "sector",
+            "sector": "Chemie",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Chemie in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "5.10",
+            "abs_change": null,
+            "relevance": "6.13",
+            "meta_data": {
+                "sectors": [
+                    "Chemie"
+                ],
+                "components": [
+                    "Corbion"
+                ]
+            }
+        },
+        "4691": {
+            "serie": "Corbion",
+            "period_begin": "2020-09-15T00:00:00",
+            "period_end": "2020-09-21T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "Corbion na 3 negatieve dagen weer positief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "5.05",
+            "meta_data": {
+                "trend": "pos",
+                "trend_duration": 3
+            }
+        },
+        "4500": {
+            "serie": "Corbion",
+            "period_begin": "2020-09-10T00:00:00",
+            "period_end": "2020-09-16T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "Corbion na 3 positieve dagen weer negatief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "5.05",
+            "meta_data": {
+                "trend": "neg",
+                "trend_duration": 3
+            }
+        },
+        "2130": {
+            "serie": "Corbion",
+            "period_begin": "2020-07-20T00:00:00",
+            "period_end": "2020-07-23T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "Corbion na 2 positieve dagen weer negatief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "3.54",
+            "meta_data": {
+                "trend": "neg",
+                "trend_duration": 2
+            }
+        },
+        "3732": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-08-28T00:00:00",
+            "period_end": "2020-08-31T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "Aandeel AALBERTS NV met 1.43% gedaald.",
+            "perc_change": "-1.43",
+            "abs_change": "-0.46",
+            "relevance": "4.85",
+            "meta_data": {}
+        },
+        "3744": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-08-28T00:00:00",
+            "period_end": "2020-08-31T00:00:00",
+            "pattern": "sector",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Industrie in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-1.36",
+            "abs_change": null,
+            "relevance": "1.89",
+            "meta_data": {
+                "sectors": [
+                    "Industrie"
+                ],
+                "components": [
+                    "AALBERTS NV",
+                    "OCI",
+                    "TKH Group"
+                ]
+            }
+        },
+        "3759": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-08-28T00:00:00",
+            "period_end": "2020-08-31T00:00:00",
+            "pattern": "sector",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Air France-KLM presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-4.06",
+            "abs_change": null,
+            "relevance": "3.58",
+            "meta_data": {}
+        },
+        "3724": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-08-28T00:00:00",
+            "period_end": "2020-08-31T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Aandeel Air France-KLM met 4.06% gedaald.",
+            "perc_change": "-4.06",
+            "abs_change": "-0.16",
+            "relevance": "9.06",
+            "meta_data": {}
+        },
+        "3731": {
+            "serie": "Aperam",
+            "period_begin": "2020-08-28T00:00:00",
+            "period_end": "2020-08-31T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Basismaterialen",
+            "indexx": null,
+            "observation": "Aandeel Aperam met 1.51% gedaald.",
+            "perc_change": "-1.51",
+            "abs_change": "-0.38",
+            "relevance": "5.07",
+            "meta_data": {}
+        },
+        "3736": {
+            "serie": "Arcadis",
+            "period_begin": "2020-08-28T00:00:00",
+            "period_end": "2020-08-31T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel Arcadis met 1.08% gedaald.",
+            "perc_change": "-1.08",
+            "abs_change": "-0.21",
+            "relevance": "3.80",
+            "meta_data": {}
+        },
+        "3768": {
+            "serie": "Flow Traders",
+            "period_begin": "2020-08-28T00:00:00",
+            "period_end": "2020-08-31T00:00:00",
+            "pattern": "sector",
+            "sector": "Financi\u00c3\u00able dienstverleners",
+            "indexx": null,
+            "observation": "Flow Traders presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-1.20",
+            "abs_change": null,
+            "relevance": "1.03",
+            "meta_data": {}
+        },
+        "3734": {
+            "serie": "Flow Traders",
+            "period_begin": "2020-08-28T00:00:00",
+            "period_end": "2020-08-31T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Financi\u00c3\u00able dienstverleners",
+            "indexx": null,
+            "observation": "Aandeel Flow Traders met 1.2% gedaald.",
+            "perc_change": "-1.20",
+            "abs_change": "-0.40",
+            "relevance": "4.17",
+            "meta_data": {}
+        },
+        "3738": {
+            "serie": "NSI",
+            "period_begin": "2020-08-28T00:00:00",
+            "period_end": "2020-08-31T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "Aandeel NSI met 0.83% gedaald.",
+            "perc_change": "-0.83",
+            "abs_change": "-0.25",
+            "relevance": "2.98",
+            "meta_data": {}
+        },
+        "3766": {
+            "serie": "NSI",
+            "period_begin": "2020-08-28T00:00:00",
+            "period_end": "2020-08-31T00:00:00",
+            "pattern": "sector",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "NSI presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-0.83",
+            "abs_change": null,
+            "relevance": "4.02",
+            "meta_data": {}
+        },
+        "2446": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-07-30T00:00:00",
+            "period_end": "2020-07-31T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "In de AMX ging Basic-Fit aan kop met een winst van 7.9 procent.",
+            "perc_change": "7.90",
+            "abs_change": "1.60",
+            "relevance": "9.97",
+            "meta_data": {}
+        },
+        "2437": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-07-30T00:00:00",
+            "period_end": "2020-07-31T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "Aandeel Basic-Fit met 7.9% gestegen.",
+            "perc_change": "7.90",
+            "abs_change": "1.60",
+            "relevance": "9.94",
+            "meta_data": {}
+        },
+        "2480": {
+            "serie": "Arcadis",
+            "period_begin": "2020-07-30T00:00:00",
+            "period_end": "2020-07-31T00:00:00",
+            "pattern": "sector",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Arcadis presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-2.64",
+            "abs_change": null,
+            "relevance": "5.49",
+            "meta_data": {}
+        },
+        "2449": {
+            "serie": "Arcadis",
+            "period_begin": "2020-07-30T00:00:00",
+            "period_end": "2020-07-31T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel Arcadis met 2.64% gedaald.",
+            "perc_change": "-2.64",
+            "abs_change": "-0.47",
+            "relevance": "7.52",
+            "meta_data": {}
+        },
+        "2454": {
+            "serie": "Aperam",
+            "period_begin": "2020-07-30T00:00:00",
+            "period_end": "2020-07-31T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Basismaterialen",
+            "indexx": null,
+            "observation": "Aandeel Aperam met 1.15% gedaald.",
+            "perc_change": "-1.15",
+            "abs_change": "-0.28",
+            "relevance": "4.02",
+            "meta_data": {}
+        },
+        "2470": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-07-30T00:00:00",
+            "period_end": "2020-07-31T00:00:00",
+            "pattern": "sector",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Consumenten diensten in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "7.90",
+            "abs_change": null,
+            "relevance": "8.03",
+            "meta_data": {
+                "sectors": [
+                    "Consumenten diensten"
+                ],
+                "components": [
+                    "Basic-Fit"
+                ]
+            }
+        },
+        "5102": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-09-29T00:00:00",
+            "period_end": "2020-09-30T00:00:00",
+            "pattern": "sector",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "AALBERTS NV presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "1.22",
+            "abs_change": null,
+            "relevance": "3.74",
+            "meta_data": {}
+        },
+        "28": {
+            "serie": "Intertrust",
+            "period_begin": "2020-06-05T00:00:00",
+            "period_end": "2020-06-08T00:00:00",
+            "pattern": "sector",
+            "sector": "Financi\u00c3\u00able dienstverleners",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Financi\u00c3\u00able dienstverleners in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-1.88",
+            "abs_change": null,
+            "relevance": "2.57",
+            "meta_data": {
+                "sectors": [
+                    "Financi\u00c3\u00able dienstverleners"
+                ],
+                "components": [
+                    "Intertrust",
+                    "Flow Traders"
+                ]
+            }
+        },
+        "29": {
+            "serie": "PostNL Koninklijke",
+            "period_begin": "2020-06-05T00:00:00",
+            "period_end": "2020-06-08T00:00:00",
+            "pattern": "sector",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Transport & logistiek in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "5.48",
+            "abs_change": null,
+            "relevance": "6.45",
+            "meta_data": {
+                "sectors": [
+                    "Transport & logistiek"
+                ],
+                "components": [
+                    "PostNL Koninklijke",
+                    "Air France-KLM"
+                ]
+            }
+        },
+        "1120": {
+            "serie": "AALBERTS NV",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "sector",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Industrie in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "1.40",
+            "abs_change": null,
+            "relevance": "1.94",
+            "meta_data": {
+                "sectors": [
+                    "Industrie"
+                ],
+                "components": [
+                    "AALBERTS NV",
+                    "OCI",
+                    "TKH Group"
+                ]
+            }
+        },
+        "1128": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "sector",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Consumenten diensten in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-2.57",
+            "abs_change": null,
+            "relevance": "3.45",
+            "meta_data": {
+                "sectors": [
+                    "Consumenten diensten"
+                ],
+                "components": [
+                    "Basic-Fit"
+                ]
+            }
+        },
+        "3743": {
+            "serie": "Intertrust",
+            "period_begin": "2020-08-28T00:00:00",
+            "period_end": "2020-08-31T00:00:00",
+            "pattern": "sector",
+            "sector": "Financi\u00c3\u00able dienstverleners",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Financi\u00c3\u00able dienstverleners in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-1.38",
+            "abs_change": null,
+            "relevance": "1.92",
+            "meta_data": {
+                "sectors": [
+                    "Financi\u00c3\u00able dienstverleners"
+                ],
+                "components": [
+                    "Intertrust",
+                    "Flow Traders"
+                ]
+            }
+        },
+        "4986": {
+            "serie": "Fagron",
+            "period_begin": "2020-09-28T00:00:00",
+            "period_end": "2020-10-02T00:00:00",
+            "pattern": "week",
+            "sector": "Gezondheidszorg",
+            "indexx": null,
+            "observation": "Fagron is met 0.55 procent gestegen in week 40.",
+            "perc_change": "0.55",
+            "abs_change": "0.12",
+            "relevance": "0.51",
+            "meta_data": {}
+        },
+        "107": {
+            "serie": "Fagron",
+            "period_begin": "2020-06-08T00:00:00",
+            "period_end": "2020-06-09T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": null,
+            "indexx": null,
+            "observation": "Op Fagron en Vopak Koninklijke na daalden alle AMX fondsen.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "6.05",
+            "meta_data": {
+                "sectors": [
+                    "Gezondheidszorg",
+                    "Olie & Gas"
+                ],
+                "abs_change": [
+                    0.4200000000000017,
+                    0.8100000000000023
+                ],
+                "components": [
+                    "Fagron",
+                    "Vopak Koninklijke"
+                ],
+                "perc_change": [
+                    2.1,
+                    1.69
+                ]
+            }
+        },
+        "106": {
+            "serie": "Fagron",
+            "period_begin": "2020-06-08T00:00:00",
+            "period_end": "2020-06-09T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": null,
+            "indexx": null,
+            "observation": "In de AMX waren Fagron (2.1%) en Vopak Koninklijke (1.69%) de grootste stijgers.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "5.81",
+            "meta_data": {
+                "sectors": [
+                    "Gezondheidszorg",
+                    "Olie & Gas"
+                ],
+                "abs_change": [
+                    0.4200000000000017,
+                    0.8100000000000023
+                ],
+                "components": [
+                    "Fagron",
+                    "Vopak Koninklijke"
+                ],
+                "perc_change": [
+                    2.1,
+                    1.69
+                ]
+            }
+        },
+        "163": {
+            "serie": "Fagron",
+            "period_begin": "2020-06-04T00:00:00",
+            "period_end": "2020-06-09T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "Fagron na 2 negatieve dagen weer positief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "3.54",
+            "meta_data": {
+                "trend": "pos",
+                "trend_duration": 2
+            }
+        },
+        "4": {
+            "serie": "BAM Groep Koninklijke",
+            "period_begin": "2020-06-05T00:00:00",
+            "period_end": "2020-06-08T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel BAM Groep Koninklijke met 2.76% gestegen.",
+            "perc_change": "2.76",
+            "abs_change": "0.05",
+            "relevance": "7.70",
+            "meta_data": {}
+        },
+        "13": {
+            "serie": "Arcadis",
+            "period_begin": "2020-06-05T00:00:00",
+            "period_end": "2020-06-08T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel Arcadis met 0.62% gestegen.",
+            "perc_change": "0.62",
+            "abs_change": "0.11",
+            "relevance": "2.26",
+            "meta_data": {}
+        },
+        "51": {
+            "serie": "Aperam",
+            "period_begin": "2020-06-01T00:00:00",
+            "period_end": "2020-06-05T00:00:00",
+            "pattern": "week",
+            "sector": "Basismaterialen",
+            "indexx": null,
+            "observation": "Aperam is met 6.94 procent gestegen in week 23.",
+            "perc_change": "6.94",
+            "abs_change": "1.76",
+            "relevance": "5.64",
+            "meta_data": {}
+        },
+        "59": {
+            "serie": "Arcadis",
+            "period_begin": "2020-06-01T00:00:00",
+            "period_end": "2020-06-05T00:00:00",
+            "pattern": "week",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Arcadis is met 13.99 procent gestegen in week 23.",
+            "perc_change": "13.99",
+            "abs_change": "2.16",
+            "relevance": "8.58",
+            "meta_data": {}
+        },
+        "237": {
+            "serie": "Arcadis",
+            "period_begin": "2020-06-10T00:00:00",
+            "period_end": "2020-06-11T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel Arcadis met 4.77% gedaald.",
+            "perc_change": "-4.77",
+            "abs_change": "-0.79",
+            "relevance": "9.43",
+            "meta_data": {}
+        },
+        "259": {
+            "serie": "Aperam",
+            "period_begin": "2020-06-10T00:00:00",
+            "period_end": "2020-06-11T00:00:00",
+            "pattern": "sector",
+            "sector": "Basismaterialen",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Basismaterialen in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-5.07",
+            "abs_change": null,
+            "relevance": "6.11",
+            "meta_data": {
+                "sectors": [
+                    "Basismaterialen"
+                ],
+                "components": [
+                    "Aperam"
+                ]
+            }
+        },
+        "251": {
+            "serie": "Boskalis Westminster Koninklijke",
+            "period_begin": "2020-06-10T00:00:00",
+            "period_end": "2020-06-11T00:00:00",
+            "pattern": "sector",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Bouw in de AMX deden het niet goed vandaag en daalden allemaal.",
+            "perc_change": "-6.98",
+            "abs_change": null,
+            "relevance": "7.52",
+            "meta_data": {
+                "sectors": [
+                    "Bouw"
+                ],
+                "components": [
+                    "Boskalis Westminster Koninklijke",
+                    "Arcadis",
+                    "BAM Groep Koninklijke"
+                ]
+            }
+        },
+        "309": {
+            "serie": "Aperam",
+            "period_begin": "2020-06-11T00:00:00",
+            "period_end": "2020-06-12T00:00:00",
+            "pattern": "sector",
+            "sector": "Basismaterialen",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Basismaterialen in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "2.27",
+            "abs_change": null,
+            "relevance": "3.08",
+            "meta_data": {
+                "sectors": [
+                    "Basismaterialen"
+                ],
+                "components": [
+                    "Aperam"
+                ]
+            }
+        },
+        "278": {
+            "serie": "Aperam",
+            "period_begin": "2020-06-11T00:00:00",
+            "period_end": "2020-06-12T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Basismaterialen",
+            "indexx": null,
+            "observation": "Aandeel Aperam met 2.27% gestegen.",
+            "perc_change": "2.27",
+            "abs_change": "0.56",
+            "relevance": "6.86",
+            "meta_data": {}
+        },
+        "444": {
+            "serie": "Arcadis",
+            "period_begin": "2020-06-15T00:00:00",
+            "period_end": "2020-06-16T00:00:00",
+            "pattern": "combi-stijging",
+            "sector": null,
+            "indexx": null,
+            "observation": "Arcadis (6.09%), SIGNIFY NV (6.09%) en OCI (5.66%) waren de positieve uitschieters.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "7.70",
+            "meta_data": {
+                "sectors": [
+                    "Bouw",
+                    "Technologie",
+                    "Industrie"
+                ],
+                "abs_change": [
+                    0.9699999999999989,
+                    1.2300000000000004,
+                    0.5899999999999999
+                ],
+                "components": [
+                    "Arcadis",
+                    "SIGNIFY NV",
+                    "OCI"
+                ],
+                "perc_change": [
+                    6.09,
+                    6.09,
+                    5.66
+                ]
+            }
+        },
+        "412": {
+            "serie": "BAM Groep Koninklijke",
+            "period_begin": "2020-06-15T00:00:00",
+            "period_end": "2020-06-19T00:00:00",
+            "pattern": "week",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "BAM Groep Koninklijke is met 4.37 procent gestegen in week 25.",
+            "perc_change": "4.37",
+            "abs_change": "0.07",
+            "relevance": "3.82",
+            "meta_data": {}
+        },
+        "1118": {
+            "serie": "Aperam",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Basismaterialen",
+            "indexx": null,
+            "observation": "Aandeel Aperam met 1.17% gedaald.",
+            "perc_change": "-1.17",
+            "abs_change": "-0.29",
+            "relevance": "4.08",
+            "meta_data": {}
+        },
+        "661": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-06-19T00:00:00",
+            "period_end": "2020-06-22T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Aandeel Air France-KLM met 4.39% gedaald.",
+            "perc_change": "-4.39",
+            "abs_change": "-0.20",
+            "relevance": "9.25",
+            "meta_data": {}
+        },
+        "493": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-06-16T00:00:00",
+            "period_end": "2020-06-17T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Aandeel Air France-KLM met 3.91% gedaald.",
+            "perc_change": "-3.91",
+            "abs_change": "-0.19",
+            "relevance": "8.95",
+            "meta_data": {}
+        },
+        "521": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-06-16T00:00:00",
+            "period_end": "2020-06-17T00:00:00",
+            "pattern": "sector",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Air France-KLM presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-3.91",
+            "abs_change": null,
+            "relevance": "10.00",
+            "meta_data": {}
+        },
+        "327": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-06-08T00:00:00",
+            "period_end": "2020-06-12T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "Air France-KLM na 3 negatieve dagen weer positief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "5.05",
+            "meta_data": {
+                "trend": "pos",
+                "trend_duration": 3
+            }
+        },
+        "317": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-06-11T00:00:00",
+            "period_end": "2020-06-12T00:00:00",
+            "pattern": "sector",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Air France-KLM presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "3.21",
+            "abs_change": null,
+            "relevance": "8.61",
+            "meta_data": {}
+        },
+        "277": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-06-11T00:00:00",
+            "period_end": "2020-06-12T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Aandeel Air France-KLM met 3.21% gestegen.",
+            "perc_change": "3.21",
+            "abs_change": "0.15",
+            "relevance": "8.30",
+            "meta_data": {}
+        },
+        "79": {
+            "serie": "Air France-KLM",
+            "period_begin": "2020-06-08T00:00:00",
+            "period_end": "2020-06-12T00:00:00",
+            "pattern": "week",
+            "sector": "Transport & logistiek",
+            "indexx": null,
+            "observation": "Air France-KLM is met -20.03 procent gedaald in week 24.",
+            "perc_change": "-20.03",
+            "abs_change": "-1.21",
+            "relevance": "9.51",
+            "meta_data": {}
+        },
+        "3726": {
+            "serie": "ALTICE EUROPE N.V.",
+            "period_begin": "2020-08-28T00:00:00",
+            "period_end": "2020-08-31T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Telecommunicatie",
+            "indexx": null,
+            "observation": "Aandeel ALTICE EUROPE N.V. met 2.62% gedaald.",
+            "perc_change": "-2.62",
+            "abs_change": "-0.10",
+            "relevance": "7.48",
+            "meta_data": {}
+        },
+        "1151": {
+            "serie": "Flow Traders",
+            "period_begin": "2020-06-25T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "trend",
+            "sector": "AMX",
+            "indexx": null,
+            "observation": "Flow Traders na 3 negatieve dagen weer positief ge\u00ebindigd.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "5.05",
+            "meta_data": {
+                "trend": "pos",
+                "trend_duration": 3
+            }
+        },
+        "1142": {
+            "serie": "NSI",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "sector",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "NSI presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "1.60",
+            "abs_change": null,
+            "relevance": "2.48",
+            "meta_data": {}
+        },
+        "5153": {
+            "serie": "Intertrust",
+            "period_begin": "2020-09-30T00:00:00",
+            "period_end": "2020-10-01T00:00:00",
+            "pattern": "sector",
+            "sector": "Financi\u00c3\u00able dienstverleners",
+            "indexx": null,
+            "observation": "Intertrust presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-0.96",
+            "abs_change": null,
+            "relevance": "6.35",
+            "meta_data": {}
+        },
+        "5144": {
+            "serie": "NSI",
+            "period_begin": "2020-09-30T00:00:00",
+            "period_end": "2020-10-01T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "Aandeel NSI met 0.83% gedaald.",
+            "perc_change": "-0.83",
+            "abs_change": "-0.25",
+            "relevance": "2.98",
+            "meta_data": {}
+        },
+        "5165": {
+            "serie": "BE Semiconductor Industries",
+            "period_begin": "2020-09-30T00:00:00",
+            "period_end": "2020-10-01T00:00:00",
+            "pattern": "sector",
+            "sector": "Technologie",
+            "indexx": null,
+            "observation": "BE Semiconductor Industries presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "3.33",
+            "abs_change": null,
+            "relevance": "2.86",
+            "meta_data": {}
+        },
+        "2336": {
+            "serie": "NSI",
+            "period_begin": "2020-07-28T00:00:00",
+            "period_end": "2020-07-29T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "Aandeel NSI met 0.5% gestegen.",
+            "perc_change": "0.50",
+            "abs_change": "0.15",
+            "relevance": "1.83",
+            "meta_data": {}
+        },
+        "2371": {
+            "serie": "NSI",
+            "period_begin": "2020-07-28T00:00:00",
+            "period_end": "2020-07-29T00:00:00",
+            "pattern": "sector",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "NSI presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "0.50",
+            "abs_change": null,
+            "relevance": "2.55",
+            "meta_data": {}
+        },
+        "2338": {
+            "serie": "Fugro",
+            "period_begin": "2020-07-28T00:00:00",
+            "period_end": "2020-07-29T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "Aandeel Fugro met 0.3% gestegen.",
+            "perc_change": "0.30",
+            "abs_change": "0.01",
+            "relevance": "1.10",
+            "meta_data": {}
+        },
+        "2368": {
+            "serie": "Fugro",
+            "period_begin": "2020-07-28T00:00:00",
+            "period_end": "2020-07-29T00:00:00",
+            "pattern": "sector",
+            "sector": "Olie & Gas",
+            "indexx": null,
+            "observation": "Fugro presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "0.30",
+            "abs_change": null,
+            "relevance": "2.86",
+            "meta_data": {}
+        },
+        "2339": {
+            "serie": "GrandVision",
+            "period_begin": "2020-07-28T00:00:00",
+            "period_end": "2020-07-29T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Consumenten goederen",
+            "indexx": null,
+            "observation": "Aandeel GrandVision met 0.2% gestegen.",
+            "perc_change": "0.20",
+            "abs_change": "0.05",
+            "relevance": "0.74",
+            "meta_data": {}
+        },
+        "1071": {
+            "serie": "Corbion",
+            "period_begin": "2020-06-29T00:00:00",
+            "period_end": "2020-06-30T00:00:00",
+            "pattern": "sector",
+            "sector": "Chemie",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Chemie in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "0.16",
+            "abs_change": null,
+            "relevance": "0.22",
+            "meta_data": {
+                "sectors": [
+                    "Chemie"
+                ],
+                "components": [
+                    "Corbion"
+                ]
+            }
+        },
+        "1052": {
+            "serie": "Corbion",
+            "period_begin": "2020-06-29T00:00:00",
+            "period_end": "2020-06-30T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Chemie",
+            "indexx": null,
+            "observation": "Aandeel Corbion met 0.16% gestegen.",
+            "perc_change": "0.16",
+            "abs_change": "0.05",
+            "relevance": "0.59",
+            "meta_data": {}
+        },
+        "1064": {
+            "serie": "Boskalis Westminster Koninklijke",
+            "period_begin": "2020-06-29T00:00:00",
+            "period_end": "2020-06-30T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Bouw",
+            "indexx": null,
+            "observation": "Aandeel Boskalis Westminster Koninklijke met 0.85% gedaald.",
+            "perc_change": "-0.85",
+            "abs_change": "-0.15",
+            "relevance": "3.04",
+            "meta_data": {}
+        },
+        "1044": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-06-29T00:00:00",
+            "period_end": "2020-06-30T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "Aandeel Basic-Fit met 3.78% gestegen.",
+            "perc_change": "3.78",
+            "abs_change": "0.85",
+            "relevance": "8.85",
+            "meta_data": {}
+        },
+        "1073": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-06-29T00:00:00",
+            "period_end": "2020-06-30T00:00:00",
+            "pattern": "sector",
+            "sector": "Consumenten diensten",
+            "indexx": null,
+            "observation": "De bedrijven in de sector Consumenten diensten in de AMX deden het goed vandaag en stegen allemaal.",
+            "perc_change": "3.78",
+            "abs_change": null,
+            "relevance": "4.85",
+            "meta_data": {
+                "sectors": [
+                    "Consumenten diensten"
+                ],
+                "components": [
+                    "Basic-Fit"
+                ]
+            }
+        },
+        "5046": {
+            "serie": "Pharming Group",
+            "period_begin": "2020-09-28T00:00:00",
+            "period_end": "2020-09-29T00:00:00",
+            "pattern": "sector",
+            "sector": "Gezondheidszorg",
+            "indexx": null,
+            "observation": "Pharming Group presteerde ondermaats ten opzichte van sectorgenoten in de AMX.",
+            "perc_change": "-3.09",
+            "abs_change": null,
+            "relevance": "7.48",
+            "meta_data": {}
+        },
+        "1114": {
+            "serie": "Basic-Fit",
+            "period_begin": "2020-06-30T00:00:00",
+            "period_end": "2020-07-01T00:00:00",
+            "pattern": "combi-daling",
+            "sector": null,
+            "indexx": null,
+            "observation": "In de AMX waren Basic-Fit (-2.57%) en Basic-Fit (-2.57%) de hardste dalers.",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "2.56",
+            "meta_data": {
+                "sectors": [
+                    "Consumenten diensten",
+                    "Technologie"
+                ],
+                "abs_change": [
+                    -0.6000000000000014,
+                    -0.6700000000000017
+                ],
+                "components": [
+                    "Basic-Fit",
+                    "BE Semiconductor Industries"
+                ],
+                "perc_change": [
+                    -2.57,
+                    -1.69
+                ]
+            }
+        },
+        "1597": {
+            "serie": "NSI",
+            "period_begin": "2020-07-10T00:00:00",
+            "period_end": "2020-07-13T00:00:00",
+            "pattern": "combi-daling",
+            "sector": null,
+            "indexx": null,
+            "observation": "Op NSI en ALTICE EUROPE N.V. na stegen alle fondsen",
+            "perc_change": null,
+            "abs_change": null,
+            "relevance": "1.07",
+            "meta_data": {
+                "sectors": [
+                    "Vastgoed",
+                    "Telecommunicatie"
+                ],
+                "abs_change": [
+                    -0.09999999999999432,
+                    -0.010000000000000231
+                ],
+                "components": [
+                    "NSI",
+                    "ALTICE EUROPE N.V."
+                ],
+                "perc_change": [
+                    -0.3,
+                    -0.28
+                ]
+            }
+        },
+        "1599": {
+            "serie": "ALTICE EUROPE N.V.",
+            "period_begin": "2020-07-10T00:00:00",
+            "period_end": "2020-07-13T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Telecommunicatie",
+            "indexx": null,
+            "observation": "Aandeel ALTICE EUROPE N.V. met 0.28% gedaald.",
+            "perc_change": "-0.28",
+            "abs_change": "-0.01",
+            "relevance": "1.03",
+            "meta_data": {}
+        },
+        "1598": {
+            "serie": "NSI",
+            "period_begin": "2020-07-10T00:00:00",
+            "period_end": "2020-07-13T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "Aandeel NSI met 0.3% gedaald.",
+            "perc_change": "-0.30",
+            "abs_change": "-0.10",
+            "relevance": "1.10",
+            "meta_data": {}
+        },
+        "1574": {
+            "serie": "Aperam",
+            "period_begin": "2020-07-10T00:00:00",
+            "period_end": "2020-07-13T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Basismaterialen",
+            "indexx": null,
+            "observation": "Aandeel Aperam met 4.97% gestegen.",
+            "perc_change": "4.97",
+            "abs_change": "1.23",
+            "relevance": "9.51",
+            "meta_data": {}
+        },
+        "1573": {
+            "serie": "OCI",
+            "period_begin": "2020-07-10T00:00:00",
+            "period_end": "2020-07-13T00:00:00",
+            "pattern": "individu-stijging",
+            "sector": "Industrie",
+            "indexx": null,
+            "observation": "Aandeel OCI met 5.47% gestegen.",
+            "perc_change": "5.47",
+            "abs_change": "0.54",
+            "relevance": "9.66",
+            "meta_data": {}
+        },
+        "3742": {
+            "serie": "WDP",
+            "period_begin": "2020-08-28T00:00:00",
+            "period_end": "2020-08-31T00:00:00",
+            "pattern": "individu-daling",
+            "sector": "Vastgoed",
+            "indexx": null,
+            "observation": "Aandeel WDP met 0.03% gedaald.",
+            "perc_change": "-0.03",
+            "abs_change": "-0.01",
+            "relevance": "0.11",
+            "meta_data": {}
+        }
+    }
+}

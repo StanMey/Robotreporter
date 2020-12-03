@@ -51,7 +51,7 @@ class Trend:
             # select all the rows from a certain component
             df_one_component = self.df[self.df["component"] == component].copy().sort_values("date")
             # calculate the percentage difference
-            df_pct_diff = df_one_component['close'].pct_change(periods=1)
+            df_pct_diff = df_one_component['close'].diff(periods=1)
 
             count = 0
             trend_count = 0

@@ -159,7 +159,7 @@ class Decrease:
             if (abs(second.perc_delta) > self.combi_diff_significance) and (abs(first.perc_delta - second.perc_delta) < self.combi_diff_threshold):
                 # check whether there is a significant decrease between second and the rest, and between 1 and 2 there is no significant decrease
                 # build the sentence
-                sentence = f"In de {first.indexx} waren {first.component} ({first.perc_delta}%) en {first.component} ({first.perc_delta}%) de hardste dalers."
+                sentence = f"In de {first.indexx} waren {first.component} ({first.perc_delta}%) en {second.component} ({second.perc_delta}%) de hardste dalers."
                 # build the observation object
                 data = {
                     "components": [first.component, second.component],
