@@ -26,7 +26,7 @@ class Realiser:
                     # the observations are in the same week
                     if observ.day_number == curr_observ.day_number:
                         # the observations have the same end day
-                        observ.observation_new = f"{DateMessage.day_difference_to_string(0, self.is_current)} {observ.observation}"
+                        observ.observation_new = observ.observation
                     else:
                         # not the same end day, but in the same week
                         # calculate the day difference

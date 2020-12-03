@@ -18,7 +18,7 @@ import uuid
 
 
 # defining some statics
-AI_VERSION = 1.4
+AI_VERSION = 1.5
 
 
 def build_article(user_name, filters, bot=False):
@@ -31,8 +31,8 @@ def build_article(user_name, filters, bot=False):
     Returns:
         int: The id of the generated article
     """
-    # current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
-    current_date = datetime(year=2020, month=9, day=30)
+    current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
+    # current_date = datetime(year=2020, month=9, day=30)
 
     # check if filters on period are activated
     periods = filters.get("Periode")
@@ -150,7 +150,7 @@ def build_article(user_name, filters, bot=False):
     file_name = f"{uuid.uuid1().hex}.jpg"
     save_url = f"./media/images/{file_name}"
     retrieve_url = f"images/{file_name}"
-    # cv2.imwrite(save_url, img_array)
+    cv2.imwrite(save_url, img_array)
 
     article = Articles()
     article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
@@ -163,7 +163,7 @@ def build_article(user_name, filters, bot=False):
         article.author = "nieuwsbot"
     else:
         article.author = user_name
-    # article.save()
+    article.save()
 
     return article.id
 
@@ -410,13 +410,14 @@ def testing_find_observs():
     find_new_observations(period_begin, period_end, to_prompt=True, overwrite=True)
 
 
-def find_new_observations(period_begin: datetime, period_end: datetime, overwrite=False, to_db=False, to_prompt=False):
+def find_new_observations(period_begin: datetime, period_end: datetime, overwrite=False, to_db=False, to_prompt=False, to_list=False):
     """Runs all functions to find observations, collects the observations and deals with them in the proper way.
 
     Args:
         overwrite (bool, optional) : Decide whether duplicate observations are handled. Defaults to False
         to_db (bool, optional): Decide whether the new observations are to be written into the database. Defaults to False.
         to_prompt (bool, optional): Decide whether the new observations are to be written to the prompt. Defaults to False.
+        to_list (bool, optional): Decide whether the new observations are to be returned as a list of observations. Defaults to False.
     """
     all_observations = []
 
@@ -444,6 +445,10 @@ def find_new_observations(period_begin: datetime, period_end: datetime, overwrit
         for observ in all_observations:
             print(observ)
             print(observ.period_begin, observ.period_end)
+
+    if to_list:
+        # return the list of observations
+        return all_observations
 
 
 def run_period_observations(period_begin, period_end, overwrite):
