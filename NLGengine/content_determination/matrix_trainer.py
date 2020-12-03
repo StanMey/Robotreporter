@@ -1,27 +1,38 @@
 from NLGengine.observation import Observation
 from NLGengine.content_determination.determinator import check_component, check_pattern, check_period
 
-from datetime import datetime
 from dateutil.parser import parse
 
 import numpy as np
 import os
 import json
+import itertools
 
 
 class MatrixTrainer:
-    def __init__(self, n_estimators: int = 100, file_path: str = r"NLGengine/content_determination/test_cases.json"):
-        self.n_estimators = n_estimators
+    def __init__(self, n_estimators: int = 100, subset: int = 10, combine: bool = True, overwrite: bool = False,
+                 s_file: str = r"NLGengine/content_determination/test_cases.json",
+                 t_file: str = r"NLGengine/content_determination/weights.json"):
 
-        assert os.path.exists(file_path), "File does not exist"
-        self.file_path = file_path
+        self.apply_combine = combine
+        self.overwrite = overwrite
+
+        assert n_estimators >= subset, "Subset has more elements than amount of estimators"
+        self.n_estimators = n_estimators
+        self.subset = subset
+
+        assert os.path.exists(s_file), "Source file does not exist"
+        self.source_file = s_file
+
+        assert os.path.exists(t_file), "Target file does not exist"
+        self.target_file = t_file
 
     def load_data(self):
         """[summary]
         """
         # open the file with the json data
         try:
-            with open(self.file_path) as f:
+            with open(self.source_file) as f:
                 data = json.load(f)
             self.test_cases = data.get("test_cases")
             self.test_observations = self.format_observations(data.get("observations"))
@@ -65,12 +76,14 @@ class MatrixTrainer:
 
         return matrix[pattern_index][period_index][comp_index]
 
-    def fit(self):
+    def fit(self, matrices: list):
+        """[summary]
+        """
         # build all the matrices
-        self.matrices = [generate_matrix() for x in range(self.n_estimators)]
+        graded_matrices = list()
 
         # loop over all the matrices and initiate the X and y lists
-        for matrix in self.matrices:
+        for matrix in matrices:
             X = list()  # a list with the predictions
             y = list()  # a list with the preferred values
 
@@ -84,17 +97,66 @@ class MatrixTrainer:
 
             # calculate the score and save the score and the corresponding matrix
             grade = score(X, y)
-            self.graded_matrices.append((grade, matrix))
+            graded_matrices.append((grade, matrix))
+
+        return graded_matrices
+
+    def combine_and_tweak(self, graded_matrices: list):
+        """[summary]
+        """
+        # get the highest scoring x matrices.
+        graded_subset = sorted(graded_matrices, key=lambda x: x[0])[:self.subset]
+
+        # get all unique 2 combinations of these matrices
+        combinations = list(itertools.combinations(graded_subset, 2))
+
+        # calculate the mean matrix of all combinations
+        combi_matrices = []
+        for combi in combinations:
+            combi_matrices.append((combi[0][1] + combi[1][1]) / 2.0)
+
+        return combi_matrices
+
+    def save_matrix(self, graded_matrix: tuple):
+        """[summary]
+        """
+        data = {
+            "score": graded_matrix[0],
+            "matrix": graded_matrix[1].tolist()
+        }
+
+        with open(self.target_file, 'w') as outfile:
+            json.dump(data, outfile)
 
     def run(self):
         """[summary]
         """
         self.load_data()
-        self.fit()
+
+        # build all the matrices
+        matrices = [generate_matrix() for x in range(self.n_estimators)]
+        # fit the matrices
+        self.graded_matrices = self.fit(matrices)
+
+        # check if the function combine and tweak can be called
+        if self.apply_combine:
+            # call function combine_and_tweak to combine a subset of matrices in search for a better score
+            combi_matrices = self.combine_and_tweak(self.graded_matrices)
+            # fit the matrices
+            new_graded = self.fit(combi_matrices)
+            # extend list of already graded matrices with the new scores
+            self.graded_matrices.extend(new_graded)
+
+        # get the top scoring matrix
+        highest = sorted(self.graded_matrices, key=lambda x: x[0])[0]
+        print(highest)
+        # save the matrix
+        if self.overwrite:
+            self.save_matrix(highest)
 
 
 def generate_matrix(shape: tuple = (3, 4, 3), mean: int = 0, pos_lim: int = 2, neg_lim: int = -2):
-    matrix = np.random.randint(neg_lim, pos_lim, size=shape)
+    matrix = np.random.random(shape) * 4 - 2
 
     return matrix
 
