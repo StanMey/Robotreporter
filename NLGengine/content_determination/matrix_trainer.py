@@ -10,9 +10,21 @@ import itertools
 
 
 class MatrixTrainer:
+    """[summary]
+    """
     def __init__(self, n_estimators: int = 100, subset: int = 10, combine: bool = True, overwrite: bool = False,
                  s_file: str = r"NLGengine/content_determination/test_cases.json",
                  t_file: str = r"NLGengine/content_determination/weights.json"):
+        """[summary]
+
+        Args:
+            n_estimators (int, optional): The amount of matrices to be generated for the estimation. Defaults to 100.
+            subset (int, optional): The subset to take when the best scoring matrices are combined. Defaults to 10.
+            combine (bool, optional): If the best scoring matrices are to be combined. Defaults to True.
+            overwrite (bool, optional): [description]. Defaults to False.
+            s_file (str, optional): [description]. Defaults to r"NLGengine/content_determination/test_cases.json".
+            t_file (str, optional): [description]. Defaults to r"NLGengine/content_determination/weights.json".
+        """
 
         self.apply_combine = combine
         self.overwrite = overwrite
@@ -39,7 +51,15 @@ class MatrixTrainer:
         except IOError:
             print("file not accessible")
 
-    def format_observations(self, json_obs):
+    def format_observations(self, json_obs: dict):
+        """[summary]
+
+        Args:
+            json_obs (dict): [description]
+
+        Returns:
+            [type]: [description]
+        """
         observations = {}
         for key in json_obs:
             info = json_obs.get(key)
@@ -78,6 +98,12 @@ class MatrixTrainer:
 
     def fit(self, matrices: list):
         """[summary]
+
+        Args:
+            matrices (list): [description]
+
+        Returns:
+            [type]: [description]
         """
         # build all the matrices
         graded_matrices = list()
@@ -103,6 +129,12 @@ class MatrixTrainer:
 
     def combine_and_tweak(self, graded_matrices: list):
         """[summary]
+
+        Args:
+            graded_matrices (list): [description]
+
+        Returns:
+            [type]: [description]
         """
         # get the highest scoring x matrices.
         graded_subset = sorted(graded_matrices, key=lambda x: x[0])[:self.subset]
@@ -173,5 +205,5 @@ def score(X: list, y: list):
     """
     assert len(X) == len(y), "The size of the two lists are not the same"
 
-    mean = np.mean([abs(a - b) for a, b in zip(X, y)])
+    mean = np.mean([(a - b) ** 2 for a, b in zip(X, y)])
     return mean
