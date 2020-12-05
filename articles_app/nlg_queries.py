@@ -291,10 +291,16 @@ def generate_article_photo(components: list, sector_focus: str = None):
         comps = (cv2.imread(f"{logos_dir}/{components[0]}.png", cv2.IMREAD_UNCHANGED),)
     elif len(components) == 2:
         # two components in the picture
-        comps = (cv2.imread(f"{logos_dir}/{components[0]}.png", cv2.IMREAD_UNCHANGED), cv2.imread(f"{logos_dir}/{components[1]}.png", cv2.IMREAD_UNCHANGED))
+        comps = (cv2.imread(f"{logos_dir}/{components[0]}.png",
+                 cv2.IMREAD_UNCHANGED),
+                 cv2.imread(f"{logos_dir}/{components[1]}.png",
+                 cv2.IMREAD_UNCHANGED))
     else:
         # more than two (pic the first 2)
-        comps = (cv2.imread(f"{logos_dir}/{components[0]}.png", cv2.IMREAD_UNCHANGED), cv2.imread(f"{logos_dir}/{components[1]}.png", cv2.IMREAD_UNCHANGED))
+        comps = (cv2.imread(f"{logos_dir}/{components[0]}.png",
+                 cv2.IMREAD_UNCHANGED),
+                 cv2.imread(f"{logos_dir}/{components[1]}.png",
+                 cv2.IMREAD_UNCHANGED))
 
     # check how many components there are
     if len(comps) == 1:
@@ -522,7 +528,9 @@ def run_week_observations(period_begin, period_end, overwrite):
         open_periods = all_periods
     else:
         # check for every week if there is already an observation made
-        open_periods = [x for x in all_periods if not Observations.objects.filter(pattern="week").filter(period_begin=x[0]).filter(period_end=x[1]).exists()]
+        open_periods = [x for x in all_periods if not Observations.objects.filter(pattern="week")
+                                                                          .filter(period_begin=x[0])
+                                                                          .filter(period_end=x[1]).exists()]
 
     # run a new observation if the week hasn't been observerd
     if len(open_periods) > 0:
@@ -589,7 +597,10 @@ def run_trend_observations(period_end, delta_days, overwrite):
     if overwrite:
         observs.extend(analyse.observations)
     else:
-        observs.extend([x for x in analyse.observations if not Observations.objects.filter(pattern=x.pattern).filter(serie=x.serie).filter(period_end=x.period_end).filter(period_end=x.period_end).exists()])
+        observs.extend([x for x in analyse.observations if not Observations.objects.filter(pattern=x.pattern)
+                                                                                   .filter(serie=x.serie)
+                                                                                   .filter(period_end=x.period_end)
+                                                                                   .filter(period_end=x.period_end).exists()])
 
     return observs
 
