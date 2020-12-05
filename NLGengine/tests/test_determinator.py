@@ -1,9 +1,9 @@
 import pytest
+import numpy as np
 
 from datetime import datetime
 from NLGengine.observation import Observation
-from NLGengine.content_determination.determinator import Determinator, check_pattern, check_period, check_component, has_overlap
-
+from NLGengine.content_determination.determinator import check_pattern, check_period, check_component, has_overlap, generate_smoothing_mean
 
 # new_date = datetime(year=2020, month=9, day=30).replace(hour=00, minute=00, second=00, microsecond=0)
 
@@ -245,3 +245,22 @@ def test_has_overlap():
     date6 = datetime(year=2020, month=10, day=10).replace(hour=00, minute=00, second=00, microsecond=0)
 
     assert not has_overlap(date3, date4, date5, date6)
+
+
+def test_generate_smoothing_mean():
+    """Tests the generate_smoothing_mean function
+    """
+    x = np.array([1.0])
+    y = generate_smoothing_mean(1)
+    assert len(x) == len(y)
+    assert x == y
+
+    x = generate_smoothing_mean(6)
+    y = np.array([0.16666667, 0.33333333, 0.5, 0.66666667, 0.83333333, 1.0])
+    assert len(x) == len(y)
+    assert all([round(a, 3) == round(b, 3) for a, b in zip(x, y)])
+
+    x = generate_smoothing_mean(8)
+    y = np.array([0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1.0])
+    assert len(x) == len(y)
+    assert all([round(a, 3) == round(b, 3) for a, b in zip(x, y)])
