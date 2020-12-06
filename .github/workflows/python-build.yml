@@ -38,6 +38,11 @@ jobs:
           pip install flake8
           flake8 .
 
+      - name: set environment variables
+        uses: allenevans/set-env@v2.0.0
+        with:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+
       # Tests the django/web based functionality with the django manage.py test
       - name: Test Django
         run: |
