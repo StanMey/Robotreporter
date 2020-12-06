@@ -80,7 +80,7 @@ def get_period_range(period_filters):
         # this month has to be filtered upon
         y = date_months[0][1]
         m = date_months[0][0]
-        ndays = (date(y, m+1, 1) - date(y, m, 1)).days
+        ndays = (date(y, m + 1, 1) - date(y, m, 1)).days
         d1 = datetime(y, m, 1)
         d2 = datetime(y, m, ndays)
         all_dates.append((d1, d2))
@@ -89,7 +89,7 @@ def get_period_range(period_filters):
         # this month has to be filtered upon
         y = date_months[1][1]
         m = date_months[1][0]
-        ndays = (date(y, m+1, 1) - date(y, m, 1)).days
+        ndays = (date(y, m + 1, 1) - date(y, m, 1)).days
         d1 = datetime(y, m, 1)
         d2 = datetime(y, m, ndays)
         all_dates.append((d1, d2))
@@ -98,7 +98,7 @@ def get_period_range(period_filters):
         # this month has to be filtered upon
         y = date_months[2][1]
         m = date_months[2][0]
-        ndays = (date(y, m+1, 1) - date(y, m, 1)).days
+        ndays = (date(y, m + 1, 1) - date(y, m, 1)).days
         d1 = datetime(y, m, 1)
         d2 = datetime(y, m, ndays)
         all_dates.append((d1, d2))

@@ -31,8 +31,8 @@ def build_article(user_name, filters, bot=False):
     Returns:
         int: The id of the generated article
     """
-    current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
-    # current_date = datetime(year=2020, month=9, day=30)
+    # current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
+    current_date = datetime(year=2020, month=9, day=30)
 
     # check if filters on period are activated
     periods = filters.get("Periode")
@@ -45,9 +45,8 @@ def build_article(user_name, filters, bot=False):
         begin_date = current_date - timedelta(7)
 
     # retrieve all relevant observations from the Observations table
-    observation_set = list(Observations.objects.filter(
-                                    period_end__gte=begin_date
-                           ).order_by('-period_end', '-relevance'))
+    observation_set = list(Observations.objects.filter(period_end__gte=begin_date)
+                                               .order_by('-period_end', '-relevance'))
 
     # get the initial observation and pass it into the chosen_observs (history)
     first = observation_set.pop(0)
@@ -150,7 +149,7 @@ def build_article(user_name, filters, bot=False):
     file_name = f"{uuid.uuid1().hex}.jpg"
     save_url = f"./media/images/{file_name}"
     retrieve_url = f"images/{file_name}"
-    cv2.imwrite(save_url, img_array)
+    # cv2.imwrite(save_url, img_array)
 
     article = Articles()
     article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
@@ -163,7 +162,7 @@ def build_article(user_name, filters, bot=False):
         article.author = "nieuwsbot"
     else:
         article.author = user_name
-    article.save()
+    # article.save()
 
     return article.id
 
@@ -309,7 +308,7 @@ def generate_article_photo(components: list, sector_focus: str = None):
         img = comps[0]
 
         # check for shape, if it is more rectangular or cubic
-        if img.shape[1] > 2*img.shape[0]:
+        if img.shape[1] > 2 * img.shape[0]:
             # width is far wider than the height
             img = imgtr.resize_image(img, 450)
         else:
@@ -327,7 +326,7 @@ def generate_article_photo(components: list, sector_focus: str = None):
         img2 = comps[1]
 
         # check for shapes of the images, if they are both more rectangular or cubic
-        if (img1.shape[1] > 2*img1.shape[0]) and (img2.shape[1] > 2*img2.shape[0]):
+        if (img1.shape[1] > 2 * img1.shape[0]) and (img2.shape[1] > 2 * img2.shape[0]):
             print("both rectangular")
             # both widths are far wider than the height
             img1 = imgtr.resize_image(img1, 300)
@@ -343,7 +342,7 @@ def generate_article_photo(components: list, sector_focus: str = None):
             new_image = imgtr.overlay_transparent(background, img1, x_pos1, y_pos1)
             new_image = imgtr.overlay_transparent(new_image, img2, x_pos2, y_pos2)
 
-        elif (img1.shape[1] > 2*img1.shape[0]):
+        elif (img1.shape[1] > 2 * img1.shape[0]):
             print("first more rectangular")
             # width of first image far wider than the height
             img1 = imgtr.resize_image(img1, 280)
@@ -359,7 +358,7 @@ def generate_article_photo(components: list, sector_focus: str = None):
             new_image = imgtr.overlay_transparent(background, img1, x_pos1, y_pos1)
             new_image = imgtr.overlay_transparent(new_image, img2, x_pos2, y_pos2)
 
-        elif (img2.shape[1] > 2*img2.shape[0]):
+        elif (img2.shape[1] > 2 * img2.shape[0]):
             print("second more rectangular")
             # width of second image far wider than the height
             img1 = imgtr.resize_image(img1, 270)
