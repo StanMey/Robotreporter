@@ -41,7 +41,7 @@ jobs:
       # Tests the django/web based functionality with the django manage.py test
       - name: Test Django
         run: |
-          echo testing django here
+          python manage.py test
 
       # Test the NLGengine library
       - name: Test NLGengine
