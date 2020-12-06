@@ -68,6 +68,8 @@ jobs:
         with:
           SECRET_KEY: ${{ secrets.SecretKey }}
           DEBUG: ${{ secrets.DEBUG }}
+          EMAIL_USER: ${{ secrets.EmailUser }}
+          EMAIL_PASS: ${{ secrets.EmailPass }}
       
       # Run migrations
       - name: Run migrations
