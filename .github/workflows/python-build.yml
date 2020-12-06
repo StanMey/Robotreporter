@@ -42,6 +42,7 @@ jobs:
         uses: allenevans/set-env@v2.0.0
         with:
           SECRET_KEY: ${{ secrets.SecretKey }}
+          DEBUG: ${{ secrets.DEBUG }}
 
       # Tests the django/web based functionality with the django manage.py test
       - name: Test Django
