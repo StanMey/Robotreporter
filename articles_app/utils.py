@@ -80,7 +80,7 @@ def get_period_range(period_filters):
         # this month has to be filtered upon
         y = date_months[0][1]
         m = date_months[0][0]
-        ndays = (date(y, m + 1, 1) - date(y, m, 1)).days
+        ndays = days_in_month(y, m)
         d1 = datetime(y, m, 1)
         d2 = datetime(y, m, ndays)
         all_dates.append((d1, d2))
@@ -89,7 +89,7 @@ def get_period_range(period_filters):
         # this month has to be filtered upon
         y = date_months[1][1]
         m = date_months[1][0]
-        ndays = (date(y, m + 1, 1) - date(y, m, 1)).days
+        ndays = days_in_month(y, m)
         d1 = datetime(y, m, 1)
         d2 = datetime(y, m, ndays)
         all_dates.append((d1, d2))
@@ -98,7 +98,7 @@ def get_period_range(period_filters):
         # this month has to be filtered upon
         y = date_months[2][1]
         m = date_months[2][0]
-        ndays = (date(y, m + 1, 1) - date(y, m, 1)).days
+        ndays = days_in_month(y, m)
         d1 = datetime(y, m, 1)
         d2 = datetime(y, m, ndays)
         all_dates.append((d1, d2))
@@ -131,3 +131,22 @@ def get_period_range(period_filters):
     max_date = max([x for (_, x) in all_dates])
     min_date = min([x for (x, _) in all_dates])
     return (min_date, max_date)
+
+
+def days_in_month(year: int, month: int):
+    """Calculate the amount of days in a certain month in a certain year
+
+    Args:
+        year (int): The year as integer
+        month (int): The month as integer
+
+    Returns:
+        int: Returns the amount of days in the month
+    """
+    if month == 12:
+        # use january as the next month and increase the year
+        ndays = (date(year + 1, 1, 1) - date(year, 12, 1)).days
+    else:
+        # calculate the days between this month and the first of the next month
+        ndays = (date(year, month + 1, 1) - date(year, month, 1)).days
+    return ndays
