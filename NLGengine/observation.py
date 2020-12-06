@@ -4,7 +4,8 @@ from datetime import datetime
 class Observation:
     """An object for storing an observation.
     """
-    def __init__(self, serie: str, prd_begin: datetime, prd_end: datetime, pattern: str, sector: str, indexx: str, perc: float, absp: float, obsrv: str, rlvnc: int, m_data: dict, oid: int = None):
+    def __init__(self, serie: str, prd_begin: datetime, prd_end: datetime, pattern: str, sector: str, indexx: str,
+                 perc: float, absp: float, obsrv: str, rlvnc: int, m_data: dict, oid: int = None):
         """The init method.
 
         Args:

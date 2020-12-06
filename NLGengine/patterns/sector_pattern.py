@@ -47,7 +47,8 @@ class Sector:
             if (df_one_sector["perc_delta"] > 0.0).all():
                 # all components in the sector have increased
                 # build the sentence
-                sentence = f"De bedrijven in de sector {sector} in de {df_one_sector.iloc[0].indexx} deden het goed vandaag en stegen allemaal."
+                sentence = f"""De bedrijven in de sector {sector} in de {df_one_sector.iloc[0].indexx}
+                            deden het goed vandaag en stegen allemaal."""
                 # build the observation object
                 data = {
                     "components": list(df_one_sector.component),
@@ -70,11 +71,12 @@ class Sector:
             if (df_one_sector["perc_delta"] < 0.0).all():
                 # all components in the sector have decreased
                 # build the sentence
-                sentence = f"De bedrijven in de sector {sector} in de {df_one_sector.iloc[0].indexx} deden het niet goed vandaag en daalden allemaal."
+                sentence = f"""De bedrijven in de sector {sector} in de {df_one_sector.iloc[0].indexx}
+                            deden het niet goed vandaag en daalden allemaal."""
                 # build the observation object
                 data = {
-                        "components": list(df_one_sector.component),
-                        "sectors": [sector]
+                    "components": list(df_one_sector.component),
+                    "sectors": [sector]
                 }
                 observ = Observation(df_one_sector.iloc[0].component,
                                      self.period_begin,
@@ -115,6 +117,8 @@ class Sector:
                     sentence = f"{component} presteerde bovenmaats ten opzichte van sectorgenoten in de {current_comp.indexx.item()}."
                     # build the observation object
                     data = {}
+                    # calculate the relevance
+                    rel = abs((current_comp["perc_delta"].item()) - (np.mean(sector_peers["perc_delta"])))
                     observ = Observation(component,
                                          self.period_begin,
                                          self.period_end,
@@ -124,7 +128,7 @@ class Sector:
                                          current_comp["perc_delta"].item(),
                                          None,
                                          sentence,
-                                         self.one_relevance(abs((current_comp["perc_delta"].item()) - (np.mean(sector_peers["perc_delta"])))),
+                                         self.one_relevance(rel),
                                          data)
                     # save the observation object
                     self.observations.append(observ)
@@ -135,6 +139,8 @@ class Sector:
                     sentence = f"{component} presteerde ondermaats ten opzichte van sectorgenoten in de {current_comp.indexx.item()}."
                     # build the observation object
                     data = {}
+                    # calculate the relevance
+                    rel = abs((current_comp["perc_delta"].item()) - (np.mean(sector_peers["perc_delta"])))
                     observ = Observation(component,
                                          self.period_begin,
                                          self.period_end,
@@ -144,7 +150,7 @@ class Sector:
                                          current_comp["perc_delta"].item(),
                                          None,
                                          sentence,
-                                         self.one_relevance(abs((current_comp["perc_delta"].item()) - (np.mean(sector_peers["perc_delta"])))),
+                                         self.one_relevance(rel),
                                          data)
                     # save the observation object
                     self.observations.append(observ)

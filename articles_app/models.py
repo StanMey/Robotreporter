@@ -36,10 +36,16 @@ class Observations(models.Model):
     meta_data = JSONField(default=dict)
 
     def __str__(self):
-        return "{0} with {1}; on: {2} / {3}".format(self.serie, self.pattern, self.period_begin.strftime("%Y-%m-%d"), self.period_end.strftime("%Y-%m-%d"))
+        return "{0} with {1}; on: {2} / {3}".format(self.serie,
+                                                    self.pattern,
+                                                    self.period_begin.strftime("%Y-%m-%d"),
+                                                    self.period_end.strftime("%Y-%m-%d"))
 
     def __repr__(self):
-        return "{0} - {1}/{2} - {3}".format(self.serie, self.period_begin.strftime("%Y-%m-%d"), self.period_end.strftime("%Y-%m-%d"), self.observation)
+        return "{0} - {1}/{2} - {3}".format(self.serie,
+                                            self.period_begin.strftime("%Y-%m-%d"),
+                                            self.period_end.strftime("%Y-%m-%d"),
+                                            self.observation)
 
 
 class Articles(models.Model):
@@ -62,10 +68,8 @@ class Comment(models.Model):
     article = models.ForeignKey(Articles, on_delete=models.CASCADE, related_name="comments")
     author = models.CharField(max_length=100)
     body = models.TextField()
-    score = models.IntegerField(
-            default=5,
-            validators=[MaxValueValidator(10), MinValueValidator(1)]
-    )
+    score = models.IntegerField(default=5,
+                                validators=[MaxValueValidator(10), MinValueValidator(1)])
     created_on = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
 

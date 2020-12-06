@@ -41,9 +41,9 @@ class Decrease:
         """Checks if there are any components that are the only one or ones (2) that have decreased in the timeperiod.
         """
         # only select the components that are negative
-        df_only_dec = self.df[(self.df["perc_delta"] < 0.0) & (self.df["date"].dt.strftime('%d-%m-%Y') == self.period_end.strftime('%d-%m-%Y'))]
+        df_dec = self.df[(self.df["perc_delta"] < 0.0) & (self.df["date"].dt.strftime('%d-%m-%Y') == self.period_end.strftime('%d-%m-%Y'))]
 
-        if len(df_only_dec) == 0:
+        if len(df_dec) == 0:
             # no component has been decreasing, only increasing components
             # build the sentence
             info = "AMX"
@@ -64,9 +64,9 @@ class Decrease:
             # save the observation object
             self.observations.append(observ)
 
-        if len(df_only_dec) == 1:
+        if len(df_dec) == 1:
             # only 1 component has been decreasing
-            info = df_only_dec.iloc[0]
+            info = df_dec.iloc[0]
             # build the sentence
             sentence = f"{info.component} was vandaag met {info.perc_delta} procent de enige daler"
             # build the observation object
@@ -85,9 +85,9 @@ class Decrease:
             # save the observation object
             self.observations.append(observ)
 
-        if len(df_only_dec) == 2:
+        if len(df_dec) == 2:
             # only 2 components have been decreasing
-            info = df_only_dec.iloc[0:2]
+            info = df_dec.iloc[0:2]
             # collect the additional metadata
             # build the sentence
             sentence = f"Op {info.iloc[0].component} en {info.iloc[1].component} na stegen alle fondsen"
@@ -115,7 +115,8 @@ class Decrease:
     def x_largest_decrease(self):
         """Checks how many (1,2,3) components have decreased the most in a certain timeperiod.
         """
-        # since we only want one of these observations below to return we add a 'not_found' variable which switches to False when an observation has been found
+        # since we only want one of these observations below to return we add a 'not_found' variable
+        # which switches to False when an observation has been found
         not_found = True
 
         # filter on negative percentages and only get the difference of the end date
@@ -127,9 +128,11 @@ class Decrease:
             second = df_large_dec.iloc[1]
             third = df_large_dec.iloc[2]
             if (abs(third.perc_delta) > self.combi_diff_significance) and (abs(first.perc_delta - second.perc_delta) <= self.combi_diff_threshold) and (abs(second.perc_delta - third.perc_delta) <= self.combi_diff_threshold):
-                # check whether there is a significant decrease between the third and the rest, and between 1, 2 and 3 there is no significant decrease
+                # check whether there is a significant decrease between the third and the rest,
+                # and between 1, 2 and 3 there is no significant decrease
                 # build the sentence
-                sentence = f"{first.component} ({first.perc_delta}%), {second.component} ({second.perc_delta}%) en {third.component} ({third.perc_delta}%) waren de negatieve uitschieters."
+                sentence = f"""{first.component} ({first.perc_delta}%), {second.component} ({second.perc_delta}%)
+                               en {third.component} ({third.perc_delta}%) waren de negatieve uitschieters."""
                 # build the observation object
                 data = {
                     "components": [first.component, second.component, third.component],
@@ -137,6 +140,8 @@ class Decrease:
                     "perc_change": [first.perc_delta, second.perc_delta, third.perc_delta],
                     "abs_change": [first.abs_delta, second.abs_delta, third.abs_delta]
                 }
+                # calculate the relevance
+                rel = ((abs(first.perc_delta - second.perc_delta) + abs(second.perc_delta - third.perc_delta)) / 2)
                 observ = Observation(first.component,
                                      self.period_begin,
                                      self.period_end,
@@ -146,7 +151,7 @@ class Decrease:
                                      None,
                                      None,
                                      sentence,
-                                     self.combi_relevance(((abs(first.perc_delta - second.perc_delta) + abs(second.perc_delta - third.perc_delta)) / 2)),
+                                     self.combi_relevance(rel),
                                      data)
                 # save the observation object
                 self.observations.append(observ)
@@ -157,9 +162,11 @@ class Decrease:
             first = df_large_dec.iloc[0]
             second = df_large_dec.iloc[1]
             if (abs(second.perc_delta) > self.combi_diff_significance) and (abs(first.perc_delta - second.perc_delta) < self.combi_diff_threshold):
-                # check whether there is a significant decrease between second and the rest, and between 1 and 2 there is no significant decrease
+                # check whether there is a significant decrease between second and the rest,
+                # and between 1 and 2 there is no significant decrease
                 # build the sentence
-                sentence = f"In de {first.indexx} waren {first.component} ({first.perc_delta}%) en {second.component} ({second.perc_delta}%) de hardste dalers."
+                sentence = f"""In de {first.indexx} waren {first.component} ({first.perc_delta}%) en
+                            {second.component} ({second.perc_delta}%) de hardste dalers."""
                 # build the observation object
                 data = {
                     "components": [first.component, second.component],
@@ -277,7 +284,9 @@ class Decrease:
         """Runs the analysis over the data.
         """
         # get the amount of days between the start and end date (not including the weekend)
-        diff_days = np.busday_count(self.period_begin.strftime("%Y-%m-%d"), self.period_end.strftime("%Y-%m-%d"), weekmask=[1, 1, 1, 1, 1, 0, 0])
+        diff_days = np.busday_count(self.period_begin.strftime("%Y-%m-%d"),
+                                    self.period_end.strftime("%Y-%m-%d"),
+                                    weekmask=[1, 1, 1, 1, 1, 0, 0])
 
         self.prep_data(diff_days)
         self.x_largest_decrease()

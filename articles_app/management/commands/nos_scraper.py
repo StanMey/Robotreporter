@@ -97,7 +97,7 @@ def get_index_ohlc_info(response):
     filter1 = str(re.findall("AMX.*?ASCX", all_text)[0])
     # filter out all the extra spaces
     filter2 = re.sub('\s+', ' ', filter1)
-    # Split the remaining text on 
+    # Split the remaining text on
     filter3 = filter2.split("\\n")
 
     index_open = filter3[1].split(" ")[2].replace(",", ".")
@@ -136,7 +136,6 @@ def get_index_info(response):
         filter4 = filter3[0].split(" + ")
 
     day_diff = filter4[0].split(" ")
-
 
     # get the index name
     index_name = day_diff[0]
