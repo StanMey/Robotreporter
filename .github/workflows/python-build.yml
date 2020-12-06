@@ -42,7 +42,8 @@ jobs:
       
       # Install psycopg2 dependencies for using postgres
       - name: psycopg2 prerequisites
-      run: sudo apt-get install python-dev libpq-dev
+        run: |
+          sudo apt-get install python-dev libpq-dev
       
       # Install dependencies
       - name: Install dependencies
@@ -58,7 +59,8 @@ jobs:
       
       # Run migrations
       - name: Run migrations
-        run: python manage.py migrate
+        run: |
+          python manage.py migrate
       
       # Tests the django/web based functionality with the django manage.py test
       - name: Test Django
