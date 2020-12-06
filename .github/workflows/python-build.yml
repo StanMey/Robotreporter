@@ -57,6 +57,18 @@ jobs:
           pip install flake8
           flake8 .
       
+      # Test the NLGengine library
+      - name: Test NLGengine
+        run: |
+          pytest ./NLGengine
+      
+      # set the environment variables for debug and secret key
+      - name: set environment variables
+        uses: allenevans/set-env@v2.0.0
+        with:
+          SECRET_KEY: ${{ secrets.SecretKey }}
+          DEBUG: ${{ secrets.DEBUG }}
+      
       # Run migrations
       - name: Run migrations
         run: |
@@ -66,14 +78,3 @@ jobs:
       - name: Test Django
         run: |
           python manage.py test
-
-      - name: set environment variables
-        uses: allenevans/set-env@v2.0.0
-        with:
-          SECRET_KEY: ${{ secrets.SecretKey }}
-          DEBUG: ${{ secrets.DEBUG }}
-
-      # Test the NLGengine library
-      - name: Test NLGengine
-        run: |
-          pytest ./NLGengine
