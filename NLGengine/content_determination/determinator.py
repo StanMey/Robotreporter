@@ -116,8 +116,8 @@ def check_period(observ1, observ2):
     elif has_overlap(observ1.period_begin, observ1.period_end, observ2.period_begin, observ2.period_end):
         # the two observations are overlapping
         indexx = 1
-    elif ((np.busday_count(observ1.period_end.date(), observ2.period_begin.date()) == 1) or
-          (np.busday_count(observ2.period_end.date(), observ1.period_begin.date()) == 1)):
+    elif ((np.busday_count(observ1.period_end.date(), observ2.period_begin.date()) == 1)
+            or (np.busday_count(observ2.period_end.date(), observ1.period_begin.date()) == 1)):
         # the two observations are after each other (next)
         # so the start of observation 2 is 1 day after the end of observation 1 (minus the weekends) or vice versa.
         indexx = 2
