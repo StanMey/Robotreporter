@@ -31,8 +31,8 @@ def build_article(user_name, filters, bot=False):
     Returns:
         int: The id of the generated article
     """
-    # current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
-    current_date = datetime(year=2020, month=9, day=30)
+    current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
+    # current_date = datetime(year=2020, month=9, day=30)
 
     # check if filters on period are activated
     periods = filters.get("Periode")
@@ -149,7 +149,7 @@ def build_article(user_name, filters, bot=False):
     file_name = f"{uuid.uuid1().hex}.jpg"
     save_url = f"./media/images/{file_name}"
     retrieve_url = f"images/{file_name}"
-    # cv2.imwrite(save_url, img_array)
+    cv2.imwrite(save_url, img_array)
 
     article = Articles()
     article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
@@ -162,7 +162,7 @@ def build_article(user_name, filters, bot=False):
         article.author = "nieuwsbot"
     else:
         article.author = user_name
-    # article.save()
+    article.save()
 
     return article.id
 
@@ -534,7 +534,6 @@ def run_week_observations(period_begin, period_end, overwrite):
     # run a new observation if the week hasn't been observerd
     if len(open_periods) > 0:
         for period in open_periods:
-            print(period)
             # retrieve all data over the stocks in this period
             data = Stocks.objects.filter(date__range=period)
             # convert the data to a dataframe
@@ -626,8 +625,9 @@ def observation_to_database(serie, period_begin, period_end, pattern, sector, in
         observ.period_end = period_end
         observ.pattern = pattern
         observ.sector = sector
+        observ.indexx = indexx
         observ.observation = observation
-        observ.perc_change = perc
+        observ.perc_change = round(perc, 2) if perc is not None else None
         observ.abs_change = oabs
         observ.relevance = relevance
         observ.meta_data = meta
@@ -635,3 +635,28 @@ def observation_to_database(serie, period_begin, period_end, pattern, sector, in
         observ.save()
     except Exception as e:
         print(f"{e}\n{observation}\n{meta}\n")
+
+
+def update_observation(db_observ, norm_observ):
+    """updates the values of an observation in the database based on the given Observation object.
+
+    Args:
+        db_observ (articles_app.models.Observations): The observation from the database
+        norm_observ (NLGengine.observation.Observation): The observation with the updated data
+    """
+    try:
+        db_observ.serie = norm_observ.serie
+        db_observ.period_begin = norm_observ.period_begin
+        db_observ.period_end = norm_observ.period_end
+        db_observ.pattern = norm_observ.pattern
+        db_observ.sector = norm_observ.sector
+        db_observ.indexx = norm_observ.indexx
+        db_observ.observation = norm_observ.observation
+        db_observ.perc_change = round(norm_observ.perc_change, 2) if norm_observ.perc_change is not None else None
+        db_observ.abs_change = norm_observ.abs_change
+        db_observ.relevance = norm_observ.relevance1
+        db_observ.meta_data = norm_observ.meta_data
+        # update in the db
+        db_observ.save()
+    except Exception as e:
+        print(f"{e}\n{norm_observ.observation}\n")
