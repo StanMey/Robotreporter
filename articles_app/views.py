@@ -22,7 +22,8 @@ def home(request):
         request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
     """
     return render(request, "articles_app/home.html")
 
@@ -35,7 +36,8 @@ def load_moduleA_view(request):
         request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
     """
     return render(request, "articles_app/moduleA.html")
 
@@ -48,7 +50,8 @@ def load_moduleB_view(request):
         request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
     """
     return render(request, "articles_app/moduleB.html")
 
@@ -61,7 +64,8 @@ def load_moduleC_view(request):
         request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
     """
     return render(request, "articles_app/moduleC.html")
 
@@ -74,7 +78,8 @@ def load_moduleD_view(request):
         request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
     """
     data = dbq.get_articles_set(60)
     paginator = Paginator(data, 6)
@@ -93,7 +98,9 @@ def load_relevance_view(request):
         request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
+    Returns:
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
     """
     return render(request, "articles_app/relevance.html")
 
@@ -105,7 +112,8 @@ def robots_txt(request):
         request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
     """
     lines = [
         "User-Agent: *",
@@ -121,7 +129,8 @@ def privacy_statement(request):
         request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
     """
     return render(request, "articles_app/privacy.html")
 
@@ -133,7 +142,8 @@ def cookie_statement(request):
         request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
     """
     return render(request, "articles_app/cookies.html")
 
@@ -145,7 +155,8 @@ def about_page(request):
         request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
     """
     return render(request, "articles_app/about.html")
 
@@ -350,7 +361,8 @@ def load_article(request, article_id):
         article_id (int): The id of the article
 
     Returns:
-        django.http.response.HttpResponse: Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
     """
     article = dbq.get_article(article_id)
     context = {}

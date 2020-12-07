@@ -114,7 +114,8 @@ class Increase:
     def x_largest_increase(self):
         """Checks how many (1,2,3) components have increased the most in a certain timeperiod.
         """
-        # since we only want one of these observations below to return we add a 'not_found' variable which switches to False when an observation has been found
+        # since we only want one of these observations below to return we add a 'not_found' variable
+        # which switches to False when an observation has been found
         not_found = True
 
         # filter on positive percentages and only get the difference of the end date
@@ -126,9 +127,11 @@ class Increase:
             second = df_large_inc.iloc[1]
             third = df_large_inc.iloc[2]
             if (third.perc_delta > self.combi_diff_significance) and ((first.perc_delta - second.perc_delta) <= self.combi_diff_threshold) and ((second.perc_delta - third.perc_delta) <= self.combi_diff_threshold):
-                # check whether there is a significant increase between the third and the rest, and between 1, 2 and 3 there is no significant increase
+                # check whether there is a significant increase between the third and the rest,
+                # and between 1, 2 and 3 there is no significant increase
                 # build the sentence
-                sentence = f"{first.component} ({first.perc_delta}%), {second.component} ({second.perc_delta}%) en {third.component} ({third.perc_delta}%) waren de positieve uitschieters."
+                sentence = f"""{first.component} ({first.perc_delta}%), {second.component} ({second.perc_delta}%)
+                                en {third.component} ({third.perc_delta}%) waren de positieve uitschieters."""
                 # build the observation objec t
                 data = {
                     "components": [first.component, second.component, third.component],
@@ -156,9 +159,11 @@ class Increase:
             first = df_large_inc.iloc[0]
             second = df_large_inc.iloc[1]
             if (second.perc_delta > self.combi_diff_significance) and ((first.perc_delta - second.perc_delta) <= self.combi_diff_threshold):
-                # check whether there is a significant increase between second and the rest, and between 1 and 2 there is no significant increase
+                # check whether there is a significant increase between second and the rest,
+                # and between 1 and 2 there is no significant increase
                 # build the sentence
-                sentence = f"In de {first.indexx} waren {first.component} ({first.perc_delta}%) en {second.component} ({second.perc_delta}%) de grootste stijgers."
+                sentence = f"""In de {first.indexx} waren {first.component} ({first.perc_delta}%)
+                            en {second.component} ({second.perc_delta}%) de grootste stijgers."""
                 # build the observation object
                 data = {
                     "components": [first.component, second.component],
@@ -276,7 +281,9 @@ class Increase:
         """Runs the analysis over the data.
         """
         # get the amount of days between the start and end date (not including the weekend)
-        diff_days = np.busday_count(self.period_begin.strftime("%Y-%m-%d"), self.period_end.strftime("%Y-%m-%d"), weekmask=[1, 1, 1, 1, 1, 0, 0])
+        diff_days = np.busday_count(self.period_begin.strftime("%Y-%m-%d"),
+                                    self.period_end.strftime("%Y-%m-%d"),
+                                    weekmask=[1, 1, 1, 1, 1, 0, 0])
 
         self.prep_data(diff_days)
         self.all_risers()

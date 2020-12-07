@@ -1,3 +1,4 @@
+# https://hacksoft.io/github-actions-in-action-setting-up-django-and-postgres/
 name: Build
 
 # Controls when the action will run. Triggers the workflow on push or pull request
@@ -15,6 +16,19 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    # spin up a postgres db
+    services:
+      postgres:
+        image: postgres:10.8
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: github_actions
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -26,12 +40,43 @@ jobs:
         with:
           python-version: 3.7
       
-      # install dependencies
+      # Install psycopg2 dependencies for using postgres
+      - name: psycopg2 prerequisites
+        run: |
+          sudo apt-get install python-dev libpq-dev
+      
+      # Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      # Runs a set of commands using the runners shell
-      - name: Testing
+
+      # Install and run the linter
+      - name: Lint with flake8
         run: |
-          echo testing here
+          pip install flake8
+          flake8 .
+      
+      # Test the NLGengine library
+      - name: Test NLGengine
+        run: |
+          pytest ./NLGengine
+      
+      # set the environment variables for debug and secret key
+      - name: set environment variables
+        uses: allenevans/set-env@v2.0.0
+        with:
+          SECRET_KEY: ${{ secrets.SecretKey }}
+          DEBUG: ${{ secrets.DEBUG }}
+          EMAIL_USER: ${{ secrets.EmailUser }}
+          EMAIL_PASS: ${{ secrets.EmailPass }}
+      
+      # Run migrations
+      - name: Run migrations
+        run: |
+          python manage.py migrate
+      
+      # Tests the django/web based functionality with the django manage.py test
+      - name: Test Django
+        run: |
+          python manage.py test

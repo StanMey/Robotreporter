@@ -45,9 +45,8 @@ def build_article(user_name, filters, bot=False):
         begin_date = current_date - timedelta(7)
 
     # retrieve all relevant observations from the Observations table
-    observation_set = list(Observations.objects.filter(
-                                    period_end__gte=begin_date
-                           ).order_by('-period_end', '-relevance'))
+    observation_set = list(Observations.objects.filter(period_end__gte=begin_date)
+                                               .order_by('-period_end', '-relevance'))
 
     # get the initial observation and pass it into the chosen_observs (history)
     first = observation_set.pop(0)
@@ -291,10 +290,16 @@ def generate_article_photo(components: list, sector_focus: str = None):
         comps = (cv2.imread(f"{logos_dir}/{components[0]}.png", cv2.IMREAD_UNCHANGED),)
     elif len(components) == 2:
         # two components in the picture
-        comps = (cv2.imread(f"{logos_dir}/{components[0]}.png", cv2.IMREAD_UNCHANGED), cv2.imread(f"{logos_dir}/{components[1]}.png", cv2.IMREAD_UNCHANGED))
+        comps = (cv2.imread(f"{logos_dir}/{components[0]}.png",
+                 cv2.IMREAD_UNCHANGED),
+                 cv2.imread(f"{logos_dir}/{components[1]}.png",
+                 cv2.IMREAD_UNCHANGED))
     else:
         # more than two (pic the first 2)
-        comps = (cv2.imread(f"{logos_dir}/{components[0]}.png", cv2.IMREAD_UNCHANGED), cv2.imread(f"{logos_dir}/{components[1]}.png", cv2.IMREAD_UNCHANGED))
+        comps = (cv2.imread(f"{logos_dir}/{components[0]}.png",
+                 cv2.IMREAD_UNCHANGED),
+                 cv2.imread(f"{logos_dir}/{components[1]}.png",
+                 cv2.IMREAD_UNCHANGED))
 
     # check how many components there are
     if len(comps) == 1:
@@ -303,7 +308,7 @@ def generate_article_photo(components: list, sector_focus: str = None):
         img = comps[0]
 
         # check for shape, if it is more rectangular or cubic
-        if img.shape[1] > 2*img.shape[0]:
+        if img.shape[1] > 2 * img.shape[0]:
             # width is far wider than the height
             img = imgtr.resize_image(img, 450)
         else:
@@ -321,7 +326,7 @@ def generate_article_photo(components: list, sector_focus: str = None):
         img2 = comps[1]
 
         # check for shapes of the images, if they are both more rectangular or cubic
-        if (img1.shape[1] > 2*img1.shape[0]) and (img2.shape[1] > 2*img2.shape[0]):
+        if (img1.shape[1] > 2 * img1.shape[0]) and (img2.shape[1] > 2 * img2.shape[0]):
             print("both rectangular")
             # both widths are far wider than the height
             img1 = imgtr.resize_image(img1, 300)
@@ -337,7 +342,7 @@ def generate_article_photo(components: list, sector_focus: str = None):
             new_image = imgtr.overlay_transparent(background, img1, x_pos1, y_pos1)
             new_image = imgtr.overlay_transparent(new_image, img2, x_pos2, y_pos2)
 
-        elif (img1.shape[1] > 2*img1.shape[0]):
+        elif (img1.shape[1] > 2 * img1.shape[0]):
             print("first more rectangular")
             # width of first image far wider than the height
             img1 = imgtr.resize_image(img1, 280)
@@ -353,7 +358,7 @@ def generate_article_photo(components: list, sector_focus: str = None):
             new_image = imgtr.overlay_transparent(background, img1, x_pos1, y_pos1)
             new_image = imgtr.overlay_transparent(new_image, img2, x_pos2, y_pos2)
 
-        elif (img2.shape[1] > 2*img2.shape[0]):
+        elif (img2.shape[1] > 2 * img2.shape[0]):
             print("second more rectangular")
             # width of second image far wider than the height
             img1 = imgtr.resize_image(img1, 270)
@@ -522,12 +527,13 @@ def run_week_observations(period_begin, period_end, overwrite):
         open_periods = all_periods
     else:
         # check for every week if there is already an observation made
-        open_periods = [x for x in all_periods if not Observations.objects.filter(pattern="week").filter(period_begin=x[0]).filter(period_end=x[1]).exists()]
+        open_periods = [x for x in all_periods if not Observations.objects.filter(pattern="week")
+                                                                          .filter(period_begin=x[0])
+                                                                          .filter(period_end=x[1]).exists()]
 
     # run a new observation if the week hasn't been observerd
     if len(open_periods) > 0:
         for period in open_periods:
-            print(period)
             # retrieve all data over the stocks in this period
             data = Stocks.objects.filter(date__range=period)
             # convert the data to a dataframe
@@ -589,7 +595,10 @@ def run_trend_observations(period_end, delta_days, overwrite):
     if overwrite:
         observs.extend(analyse.observations)
     else:
-        observs.extend([x for x in analyse.observations if not Observations.objects.filter(pattern=x.pattern).filter(serie=x.serie).filter(period_end=x.period_end).filter(period_end=x.period_end).exists()])
+        observs.extend([x for x in analyse.observations if not Observations.objects.filter(pattern=x.pattern)
+                                                                                   .filter(serie=x.serie)
+                                                                                   .filter(period_end=x.period_end)
+                                                                                   .filter(period_end=x.period_end).exists()])
 
     return observs
 
@@ -616,8 +625,9 @@ def observation_to_database(serie, period_begin, period_end, pattern, sector, in
         observ.period_end = period_end
         observ.pattern = pattern
         observ.sector = sector
+        observ.indexx = indexx
         observ.observation = observation
-        observ.perc_change = perc
+        observ.perc_change = round(perc, 2) if perc is not None else None
         observ.abs_change = oabs
         observ.relevance = relevance
         observ.meta_data = meta
@@ -625,3 +635,28 @@ def observation_to_database(serie, period_begin, period_end, pattern, sector, in
         observ.save()
     except Exception as e:
         print(f"{e}\n{observation}\n{meta}\n")
+
+
+def update_observation(db_observ, norm_observ):
+    """updates the values of an observation in the database based on the given Observation object.
+
+    Args:
+        db_observ (articles_app.models.Observations): The observation from the database
+        norm_observ (NLGengine.observation.Observation): The observation with the updated data
+    """
+    try:
+        db_observ.serie = norm_observ.serie
+        db_observ.period_begin = norm_observ.period_begin
+        db_observ.period_end = norm_observ.period_end
+        db_observ.pattern = norm_observ.pattern
+        db_observ.sector = norm_observ.sector
+        db_observ.indexx = norm_observ.indexx
+        db_observ.observation = norm_observ.observation
+        db_observ.perc_change = round(norm_observ.perc_change, 2) if norm_observ.perc_change is not None else None
+        db_observ.abs_change = norm_observ.abs_change
+        db_observ.relevance = norm_observ.relevance1
+        db_observ.meta_data = norm_observ.meta_data
+        # update in the db
+        db_observ.save()
+    except Exception as e:
+        print(f"{e}\n{norm_observ.observation}\n")

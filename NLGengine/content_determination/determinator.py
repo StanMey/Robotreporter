@@ -51,9 +51,13 @@ class Determinator:
         self.reset_situational_relevance()
         self.load_weights()
 
+        # get the smoothing mean array based on the amount of selected observations
+        smooth_mean = generate_smoothing_mean(len(self.history))
+
         for observ in self.all_observations:
-            for hist_observ in self.history:
-                observ.relevance2 += self.follow_up_weight(hist_observ, observ)
+            # iterate over all history observations and apply the smoothing mean to smooth out the situational relevance
+            for hist_observ, sm_weight in zip(self.history, smooth_mean):
+                observ.relevance2 += self.follow_up_weight(hist_observ, observ) * sm_weight
 
     def get_highest_relevance(self):
         """Gets the hightest situational relevance from the avaiable observations
@@ -112,7 +116,8 @@ def check_period(observ1, observ2):
     elif has_overlap(observ1.period_begin, observ1.period_end, observ2.period_begin, observ2.period_end):
         # the two observations are overlapping
         indexx = 1
-    elif (np.busday_count(observ1.period_end.date(), observ2.period_begin.date()) == 1) or (np.busday_count(observ2.period_end.date(), observ1.period_begin.date()) == 1):
+    elif ((np.busday_count(observ1.period_end.date(), observ2.period_begin.date()) == 1)
+            or (np.busday_count(observ2.period_end.date(), observ1.period_begin.date()) == 1)):
         # the two observations are after each other (next)
         # so the start of observation 2 is 1 day after the end of observation 1 (minus the weekends) or vice versa.
         indexx = 2
@@ -203,3 +208,15 @@ def has_overlap(A_start: datetime, A_end: datetime, B_start: datetime, B_end: da
     latest_start = max(A_start, B_start)
     earliest_end = min(A_end, B_end)
     return latest_start <= earliest_end
+
+
+def generate_smoothing_mean(hist_elems):
+    """Build an array with weights to use for smoothing mean.
+
+    Args:
+        hist_elems (int): The amount of elemenents already in the history
+
+    Returns:
+        numpy.ndarray: Returns an array with
+    """
+    return np.linspace(0.0, 1.0, num=hist_elems + 1)[1:]
