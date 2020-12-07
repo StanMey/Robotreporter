@@ -102,7 +102,7 @@ async function applyFiltersModB() {
     })
     let data = await response.json();
 
-    const col = ["Serie", "Periode", "Patroon", "Zin", "Relevantie"]
+    const col = ["Serie", "Periode", "Patroon", "Zin", "Relevantie", "id"]
 
     dataTable = document.getElementById("datatable_sec");
     dataTable.innerHTML = "";
@@ -111,7 +111,7 @@ async function applyFiltersModB() {
     let rows = []
     for (key in data) {
         obj = data[key]
-        rows.push([obj['serie'], obj['period'], obj['pattern'], obj['observation'], obj["relevance"]]);
+        rows.push([obj['serie'], obj['period'], obj['pattern'], obj['observation'], obj["relevance"], obj["id"]]);
     }
     createDataTable(dataTable, "observations_table", col, rows, false);
 
@@ -644,17 +644,17 @@ async function renderModuleA() {
 async function renderModuleB() {
     highLightSelectedButton(1);
 
-    let col = ["Serie", "Periode", "Patroon", "Zin", "Relevantie"]
+    let col = ["Serie", "Periode", "Patroon", "Zin", "Relevantie", "id"]
 
     // get all information about the available dataseries from db
     let response = await fetch('/data/api/observations/latest');
     let data = await response.json();
 
-    // format it to the form of: [["AMX", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 5.00%", 5.0].....]
+    // format it to the form of: [["AMX", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 5.00%", 5.0, 43543].....]
     let rows = []
     for (key in data) {
         obj = data[key]
-        rows.push([obj['serie'], obj['period'], obj['pattern'], obj['observation'], obj["relevance"]]);
+        rows.push([obj['serie'], obj['period'], obj['pattern'], obj['observation'], obj["relevance"], obj["id"]]);
     }
 
     let section1 = document.querySelector(".section1");

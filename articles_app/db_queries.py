@@ -92,7 +92,8 @@ def get_latest_observations():
             "period": "{0} / {1}".format(observation.period_end.strftime("%d-%m-%Y"), observation.period_begin.strftime("%d-%m-%Y")),
             "pattern": observation.pattern,
             "observation": observation.observation,
-            "relevance": float(observation.relevance)
+            "relevance": float(observation.relevance),
+            "id": observation.id
         }
         data.append(point)
     return data
@@ -193,7 +194,8 @@ def get_filtered_observations(filters):
             "period": "{0} / {1}".format(observation.period_end.strftime("%d-%m-%Y"), observation.period_begin.strftime("%d-%m-%Y")),
             "pattern": observation.pattern,
             "observation": observation.observation,
-            "relevance": float(observation.relevance)
+            "relevance": float(observation.relevance),
+            "id": observation.id
         }
         data.append(point)
     return data
