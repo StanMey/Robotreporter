@@ -22,9 +22,13 @@
             <div class="container">
                 <h2>Wat is robotreporter</h2>
                 <p class="lead text-muted">
-                Robotreporter is een generatief AI-systeem, dat zelf artikelen schrijft. Het systeem werkt met een combinatie van AI-technieken om artikelen te maken.
-                Om te demonstreren hoe de de AI werkt, wordt er beursinformatie gebruikt.
-                Het systeem bekijkt het koersverloop van alle aandelen in de Nederlandse <a href="https://nl.wikipedia.org/wiki/AMX_Index">AMX-index</a>, en maakt artikelen over deze aandelenkoersen. 
+                    Robotreporter is een generatief AI-systeem, dat zelf artikelen schrijft. Het systeem werkt met een combinatie van AI-technieken om artikelen te maken.
+                    Om te demonstreren hoe de de AI werkt, wordt er beursinformatie gebruikt.
+                    Het systeem bekijkt het koersverloop van alle aandelen in de Nederlandse <a href="https://nl.wikipedia.org/wiki/AMX_Index">AMX-index</a>, en maakt artikelen over deze aandelenkoersen. 
+                    {% if not user.is_authenticated %}
+                    <br><br>
+                    Klik <a href="/modules/latest">hier</a> om een aantal voorbeeldartikelen te zien.
+                    {% endif %}
                 </p>
             </div>
         </section>
@@ -33,13 +37,14 @@
             <div class="container">
                 <h2>Project-achtergrond</h2>
                 <p class="lead text-muted">
-                Robotreporter is gemaakt door Stan Meyberg (software-ontwikkeling) en Sieuwert van Otterloo (product owner).
-                De ontwikkeling is een samenwerking tussen <a href="https://ictinstitute.nl/">ICT Institute</a> (een adviesbureau op het gebied van AI) en het <a href="https://www.hu.nl/onderzoek/artificial-intelligence">lectoraat Artificial Intelligence</a> van de Hogeschool Utrecht.
-                Vanuit de Hogeschool is er kennis ingebracht hoe AI-systemen effectief maar ook transparant kunnen worden ontwikkeld.
-                Dit sluit aan bij onderzoeksthema's zoals het spel Ethics Inc en de ontwikkelde AI Impact Assessment.
-                Vanuit ICT Institute is er kennis ingebracht over wat voor eisen er aan AI-systemen worden gesteld in de praktijk.
-                Eén van de doelen is om mensen op een zo praktisch mogelijke manier zelf AI te laten gebruiken.
-                Het Robotreporter project zelf heeft geen winstoogmerk. Het systeem wordt opensource beschikbaar gesteld dankzij de sponsoring door ICT Institute.
+                    Robotreporter is gemaakt door Stan Meyberg (software-ontwikkeling) en Sieuwert van Otterloo (product owner).
+                    De ontwikkeling is een samenwerking tussen <a href="https://ictinstitute.nl/">ICT Institute</a> (een adviesbureau op het gebied van AI) en het <a href="https://www.hu.nl/onderzoek/artificial-intelligence">lectoraat Artificial Intelligence</a> van de Hogeschool Utrecht.
+                    Vanuit de Hogeschool is er kennis ingebracht hoe AI-systemen effectief maar ook transparant kunnen worden ontwikkeld.
+                    Dit sluit aan bij onderzoeksthema's zoals het spel <a href="https://www.ethicsinc-ontwerpspel.nl/">Ethics Inc</a>
+                    en de ontwikkelde <a href="https://ictinstitute.nl/the-artificial-intelligence-impact-assessment/">AI Impact Assessment</a>.
+                    Vanuit ICT Institute is er kennis ingebracht over wat voor eisen er aan AI-systemen worden gesteld in de praktijk.
+                    Eén van de doelen is om mensen op een zo praktisch mogelijke manier zelf AI te laten gebruiken.
+                    Het Robotreporter project zelf heeft geen winstoogmerk. Het systeem wordt opensource beschikbaar gesteld dankzij de sponsoring door ICT Institute.
                 </p>
             </div>
         </section>

@@ -1,0 +1,29 @@
+{% extends "articles_app/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="article-link-back">
+        <a class="header-button" href="/modules/latest"> &lt; Terug</a>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="article-post">
+                <h2 class="article-post-title">{{ article.title }}</h2>
+                <img src="{{ MEDIA_URL }}{{ article.img_source }}" height="422px" width="700px">
+                <p class="article-post-info">{{ article.date_whole }} door <i>anoniem</i></p>
+                <p>{{ article.content }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 comment-box">
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
