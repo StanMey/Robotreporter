@@ -150,7 +150,8 @@ class ViewsTestCase(TestCase):
 
     # relevance view page
     def test_relevance_view_user_cannot_access(self):
-        """The relevance view is prohibited for not logged in users."""
+        """The relevance view is prohibited for not logged in users.
+        """
         # user is not logged in
         response = self.client.get('/modules/relevance/')
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
@@ -190,4 +191,19 @@ class ViewsTestCase(TestCase):
         """
         # user can access a article
         response = self.client.get("/modules/latest/1")
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    # the test scores explained view
+    def test_load_test_scores_view_user_cannot_access(self):
+        """The test score view is prohibited for not logged in users.
+        """
+        # user is not logged in
+        response = self.client.get('/modules/testscores/')
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+
+    def test_load_test_scores_view_user_can_access(self):
+        """The test score view can be accessed by logged in users.
+        """
+        # user is logged in
+        response = self.client2.get('/modules/testscores/')
         self.assertEqual(response.status_code, HTTPStatus.OK)

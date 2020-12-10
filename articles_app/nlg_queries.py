@@ -2,6 +2,7 @@ from articles_app.models import Observations, Articles, Stocks
 from NLGengine.analyse import Analyse
 from NLGengine.observation import Observation
 from NLGengine.content_determination.determinator import Determinator
+from NLGengine.content_determination.matrix_trainer import MatrixTrainer
 from NLGengine.microplanning.planner import Planner
 from NLGengine.realisation.realiser import Realiser
 
@@ -256,6 +257,16 @@ def construct_article(user_name, content, filters, title):
     return article.id
 
 
+def get_test_case_info():
+    """Retrieve all the test cases with the corresponding scores.
+
+    Returns:
+        [type]: [description]
+    """
+    m = MatrixTrainer()
+    return m.get_evaluations()
+
+
 # TODO format this function!!
 def generate_article_photo(components: list, sector_focus: str = None):
     """[summary]
@@ -403,16 +414,6 @@ def test_photo():
     comps = ["BAM Groep Koninklijke", "Intertrust"]
     sector = "Bouw"
     generate_article_photo(comps, sector_focus=sector)
-
-
-def testing_find_observs():
-    """Small function for testing and development purposes.
-    """
-    # period_begin = datetime(year=2020, month=7, day=14)
-    period_begin = datetime(year=2020, month=9, day=16)
-    period_end = datetime(year=2020, month=9, day=17)
-
-    find_new_observations(period_begin, period_end, to_prompt=True, overwrite=True)
 
 
 def find_new_observations(period_begin: datetime, period_end: datetime, overwrite=False, to_db=False, to_prompt=False, to_list=False):

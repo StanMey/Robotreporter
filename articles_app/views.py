@@ -367,6 +367,34 @@ def load_relevance_observations(request):
 
 
 @login_required
+def load_test_scores_view(request):
+    """Loads the view with the test scores and the explanation.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+
+    Returns:
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
+    """
+    return render(request, "articles_app/algo_explained.html")
+
+
+@login_required
+def load_test_scores_info(request):
+    """[summary]
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): [description]
+
+    Returns:
+        django.http.response.HttpResponse: [description]
+    """
+    data = nlgq.get_test_case_info()
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+@login_required
 @csrf_exempt
 def generate_article(request):
     """[summary]

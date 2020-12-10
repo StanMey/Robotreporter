@@ -608,6 +608,30 @@ function showObservation(oid) {
     $(roi).collapse("toggle");
 }
 
+
+/**
+ * .
+ */
+async function showTestScores() {
+    // set the columns
+    const col = ["zin 1", "zin 2", "patroon", "periode", "serie", "score"]
+
+    let section = document.querySelector(".test-score-table");
+
+    // get all information about the score and the matrix from db
+    let response = await fetch('/data/api/testscores');
+    let data = await response.json();
+
+    // format the data
+    let rows = []
+    for (key in data['scores']) {
+        info = data["scores"][key];
+        rows.push([info['sentence1'], info['sentence2'], info['pattern'], info['period'], info['component'], info['score']]);
+    }
+    // build the datatable
+    createDataTable(section, "test_scores_table", col, rows, false);
+}
+
 // MODULE A timeseries
 async function renderModuleA() {
     let col = ["Serie", "sector", "Oudste datum", "Recentste datum", "Laatste koers"]
