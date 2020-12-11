@@ -45,8 +45,11 @@ class Determinator:
         for observ in self.all_observations:
             observ.relevance2 = observ.relevance1
 
-    def calculate_new_situational_relevance(self):
+    def calculate_new_situational_relevance(self, new_par: bool):
         """Reset the situational relevance and calculate the new situational relevance between the already chosen observations and the rest.
+
+        Args:
+            new_par (bool): Indicates whether a new paragraph is started
         """
         self.reset_situational_relevance()
         self.load_weights()
@@ -57,7 +60,12 @@ class Determinator:
         for observ in self.all_observations:
             # iterate over all history observations and apply the smoothing mean to smooth out the situational relevance
             for hist_observ, sm_weight in zip(self.history, smooth_mean):
-                observ.relevance2 += self.follow_up_weight(hist_observ, observ) * sm_weight
+
+                # check if a new paragraph is started
+                if new_par:
+                    observ.relevance2 -= self.follow_up_weight(hist_observ, observ) * sm_weight
+                else:
+                    observ.relevance2 += self.follow_up_weight(hist_observ, observ) * sm_weight
 
     def get_highest_relevance(self):
         """Gets the hightest situational relevance from the avaiable observations

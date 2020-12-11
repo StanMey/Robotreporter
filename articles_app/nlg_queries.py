@@ -1,8 +1,11 @@
 from articles_app.models import Observations, Articles, Stocks
 from NLGengine.analyse import Analyse
 from NLGengine.observation import Observation
+from NLGengine.paragraph import Paragraph
+from NLGengine.article import Article
 from NLGengine.content_determination.determinator import Determinator
 from NLGengine.content_determination.matrix_trainer import MatrixTrainer
+from NLGengine.content_determination.rules import Rules
 from NLGengine.microplanning.planner import Planner
 from NLGengine.realisation.realiser import Realiser
 
@@ -13,6 +16,7 @@ import numpy as np
 
 import os
 import json
+import itertools
 from datetime import datetime, timedelta
 import cv2
 import uuid
@@ -20,6 +24,61 @@ import uuid
 
 # defining some statics
 AI_VERSION = 1.5
+
+
+def select_observations(initial_obs, observation_set: list, max_reps: int = 3, max_obs: int = 5, par_amount: int = 3):
+    """[summary]
+
+    Args:
+        initial_obs (NLGengine.observation.Observation): The initial chosen observation
+        observation_set (list): A list with all the observations to choose from
+        max_reps (int, optional): The maximal amount of repetitions of the same component in the same paragraph. Defaults to 3.
+        max_obs (int, optional): The maximal amount of observations in a paragraph. Defaults to 5.
+        par_amount (int, optional): The amount of paragraphs in an article. Defaults to 3.
+
+    Returns:
+        [type]: [description]
+    """
+
+    # set the initial observation
+    chosen_observs = [initial_obs]
+    # set a list to save all paragraphs
+    all_pars = []
+
+    # loop over the amount of paragraphs needed
+    for _ in range(par_amount):
+        # set a list to save the observation for this paragraph
+        par = []
+        # indicate that a new paragraph is started
+        new_par = True
+
+        # loop over the max amount of observations in a paragraph
+        for _ in range(max_obs):
+
+            determinator = Determinator(observation_set, chosen_observs)
+            determinator.calculate_new_situational_relevance(new_par)
+            # reset the new_par
+            new_par = False
+
+            # get the newly chosen observation
+            new_observ = determinator.get_highest_relevance()
+            # save the chosen observation into the history and the paragraph
+            chosen_observs.append(new_observ)
+            par.append(new_observ)
+            # reset all observations
+            observation_set = determinator.all_observations
+
+            # check whether no rules are broken (more than 3 mentions of the same component in one paragraph)
+            if Rules.x_times_repeat_comp(max_reps, par):
+                # more than 3 mentions of the same component in one paragraph
+                break
+
+        # save the current paragraph in its class
+        _par = Paragraph(par)
+        all_pars.append(_par)
+
+    # return all the paragraphs
+    return all_pars
 
 
 def build_article(user_name, filters, bot=False):
@@ -49,7 +108,7 @@ def build_article(user_name, filters, bot=False):
     observation_set = list(Observations.objects.filter(period_end__gte=begin_date)
                                                .order_by('-period_end', '-relevance'))
 
-    # get the initial observation and pass it into the chosen_observs (history)
+    # get the initial observation
     first = observation_set.pop(0)
     first_observ = Observation(first.serie,
                                first.period_begin,
@@ -63,7 +122,6 @@ def build_article(user_name, filters, bot=False):
                                float(first.relevance),
                                first.meta_data,
                                oid=first.id)
-    chosen_observs = [first_observ]
 
     # setup before the beginning of the generation
     observation_set = [Observation(x.serie,
@@ -79,44 +137,27 @@ def build_article(user_name, filters, bot=False):
                                    x.meta_data,
                                    oid=x.id) for x in observation_set]
 
-    for x in range(0, 10):
-        determinator = Determinator(observation_set, chosen_observs)
-        determinator.calculate_new_situational_relevance()
+    # select all the observations / paragraphs
+    paragraphs = select_observations(first_observ, observation_set)
 
-        # get the newly chosen observation, save it and restart the process
-        new_observ = determinator.get_highest_relevance()
-        chosen_observs.append(new_observ)
-        observation_set = determinator.all_observations
-
-    # set the chosen observations to the planner
-    planner = Planner(chosen_observs)
+    # set the chosen observations /paragrahps to the planner
+    planner = Planner(paragraphs)
     planner.plan()
 
-    # set the planned observations into the realiser
-    realiser = Realiser(planner.observations)
+    # set the planned observations /paragraphs into the realiser
+    realiser = Realiser(planner.paragraphs)
     realiser.realise()
 
-    # select all the id's, corresponding situational relevances and the sentences of the to be article
-    observs_id = []
-    sit_relev = []
-    sentences = []
-
-    for observ in realiser.observs:
-        observs_id.append(observ.observ_id)
-        sit_relev.append(observ.relevance2)
-        sentences.append(observ.observation_new)
-
-        print(observ.year, observ.week_number, observ.day_number, observ.pattern, observ.observation_new)
-
-    # build the article by appending all sentences
-    content = " ".join(sentences)
+    # build the article
+    art = Article(realiser.paragraphs)
+    art.build()
 
     # get the meta data and save it into the article
     meta = {}
     meta["manual"] = filters.get("manual")
     meta["filters"] = {}
-    meta["observs"] = observs_id
-    meta["sit_relev"] = sit_relev
+    meta["observs"] = art.observs_id
+    meta["sit_relev"] = art.sit_relev
 
     for x in ["Sector", "Periode"]:
         selection = filters.get(x)
@@ -126,10 +167,13 @@ def build_article(user_name, filters, bot=False):
         else:
             meta["filters"][x] = "Alles"
 
+    # get all chosen observations
+    all_observations = list(itertools.chain.from_iterable([x.observations for x in realiser.paragraphs]))
+
     # select the focus of the image
     comps_focus = []
     sector_focus = []
-    for observ in planner.observations:
+    for observ in all_observations:
         if observ.meta_data.get("components"):
             comps_focus.extend(observ.meta_data.get("components"))
         else:
@@ -155,7 +199,7 @@ def build_article(user_name, filters, bot=False):
     article = Articles()
     article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
     article.top_image = retrieve_url
-    article.content = content
+    article.content = art.content
     article.date = datetime.now()
     article.AI_version = AI_VERSION
     article.meta_data = meta
