@@ -16,3 +16,6 @@ info.txt
 
 # IDE #
 .vscode
+
+# Notebooks #
+.ipynb_checkpoints
