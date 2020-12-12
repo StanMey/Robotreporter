@@ -27,7 +27,7 @@ AI_VERSION = 1.5
 
 
 def select_observations(initial_obs, observation_set: list, max_reps: int = 3, max_obs: int = 5, par_amount: int = 3):
-    """[summary]
+    """Selects all the observations for the paragraphs.
 
     Args:
         initial_obs (NLGengine.observation.Observation): The initial chosen observation
@@ -37,7 +37,7 @@ def select_observations(initial_obs, observation_set: list, max_reps: int = 3, m
         par_amount (int, optional): The amount of paragraphs in an article. Defaults to 3.
 
     Returns:
-        [type]: [description]
+        list: A list with all the paragraphs in the text
     """
 
     # set the initial observation

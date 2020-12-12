@@ -15,7 +15,12 @@
                 <h2 class="article-post-title">{{ article.title }}</h2>
                 <img src="{{ MEDIA_URL }}{{ article.img_source }}" height="422px" width="700px">
                 <p class="article-post-info">{{ article.date_whole }} door {{ article.author }}</p>
-                <p>{{ article.content }}</p>
+                <p>
+                    {% for par in article.content %}
+                        {{ par  }}
+                        <br><br>
+                    {% endfor %}
+                </p>
             </div>
         </div>
     </div>

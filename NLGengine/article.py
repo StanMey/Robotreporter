@@ -8,7 +8,7 @@ class Article:
             pars (list): [description]
         """
         self.paragraphs = pars  # saves the paragraphs
-        self.par_divider = "<#new_par>"  # the divider of the paragraphs
+        self.par_divider = "<#new_par_here#>"  # the divider of the paragraphs
         self.observs_id = []  # stores the id's of the observations
         self.sit_relev = []  # stores the situational relevances of the observations
 
