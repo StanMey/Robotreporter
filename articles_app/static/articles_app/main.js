@@ -610,7 +610,7 @@ function showObservation(oid) {
 
 
 /**
- * .
+ * Retrieves info about the test scores and shows it on the website.
  */
 async function showTestScores() {
     // set the columns
@@ -622,6 +622,10 @@ async function showTestScores() {
     let response = await fetch('/data/api/testscores');
     let data = await response.json();
 
+    // build the matrix
+    let section2 = document.querySelector(".matrix-showcase");
+    buildTestMatrix(section2, data["matrix"]);
+
     // format the data
     let rows = []
     for (key in data['scores']) {
@@ -632,7 +636,36 @@ async function showTestScores() {
     createDataTable(section, "test_scores_table", col, rows, false);
 }
 
+/**
+ * Builds the tables for showcasing the scores in the matrix.
+ * @param {String} target The target where the table has to be loaded in.
+ * @param {Array} matrix The matrix to be loaded in.
+ */
+function buildTestMatrix(target, matrix) {
+    
+    // loop over the first dimension of the matrix and build the tables
+    for (let x = 0; x < matrix.length; x++) {
+
+        // build the div for storing a new col
+        let newDiv = document.createElement("div");
+        newDiv.className = "col";
+        target.appendChild(newDiv);
+
+        //build the new table
+        let tbl = document.createElement("table");
+        tbl.className = "table";
+        newDiv.appendChild(tbl);
+        
+        // build the content of the table
+        generateTableRows(tbl, matrix[x]);
+    }
+}
+
+
 // MODULE A timeseries
+/**
+ * .
+ */
 async function renderModuleA() {
     let col = ["Serie", "sector", "Oudste datum", "Recentste datum", "Laatste koers"]
 

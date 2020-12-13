@@ -197,7 +197,8 @@ class MatrixTrainer:
         # load in the data
         self.load_data()
         # load in the current matrix
-        matrix = self.load_weight_matrix()
+        matrix = np.array(self.load_weight_matrix())
+        matrix = np.round(matrix, 2).tolist()
         # iterate over all test cases and save the necessary information for later displaying
         for case in self.test_cases:
             # get the both observations
@@ -214,7 +215,7 @@ class MatrixTrainer:
                 "pattern": ['hetzelfde', 'vergelijkbaar', 'ongelijk'][pattern_index],
                 "period": ['identiek', 'overlappend', 'opvolgend', 'anders'][period_index],
                 "component": ['hetzelfde', 'vergelijkbaar', 'anders'][comp_index],
-                "score": self.retrieve_weight(matrix, observ1, observ2)
+                "score": round(self.retrieve_weight(matrix, observ1, observ2), 2)
             }
             # append the info
             cases_info.append(info)
@@ -227,7 +228,7 @@ class MatrixTrainer:
         return data
 
     def save_matrix(self, graded_matrix: tuple):
-        """[summary]
+        """Saves the matrix and its score in the target_file.
         """
         data = {
             "score": graded_matrix[0],
@@ -238,7 +239,7 @@ class MatrixTrainer:
             json.dump(data, outfile)
 
     def run(self):
-        """[summary]
+        """Runs the 'training' of the matrix.
         """
         self.load_data()
 

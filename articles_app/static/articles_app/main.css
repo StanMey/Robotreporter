@@ -271,3 +271,14 @@ footer {
 .right-compose-table {
     margin-left: 1rem;
 }
+
+/* algo explained.html styling */
+.matrix-showcase {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.algo-expl {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
