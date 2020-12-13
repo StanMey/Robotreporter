@@ -48,7 +48,7 @@ def flatten(lst):
         lst (list): The list to be flattened
 
     Yields:
-        [type]: [description]
+        String: Yields the next String it comes across
     """
     for x in lst:
         if hasattr(x, '__iter__') and not isinstance(x, str):
