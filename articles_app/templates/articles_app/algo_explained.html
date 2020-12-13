@@ -1,0 +1,85 @@
+{% extends "articles_app/base.html" %}
+
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center algo-expl">
+        <div class="col text-center">
+            <h2>Situationele relevantie</h2>
+            <p>
+                Tijdens het genereren van een artikel worden een aantal processen uitgevoerd.
+                Allereerst worden er observaties gedaan over bepaalde patronen in de data.
+                Deze observaties krijgen allemaal een op zichzelf staande <a href="/modules/relevance">relevantie score</a> toegewezen.
+                <br><br>
+                Echter, tijdens het kiezen van de observaties (<a href="https://en.wikipedia.org/wiki/Content_determination">content determination</a>) moeten deze observaties
+                ook met elkaar vergeleken kunnen worden aangezien sommige observaties wellicht beter aansluiten op specifieke observaties dan anderen.
+                Hiervoor wordt de <b>situationele relevantie</b> geïntroduceerd.
+                <br><br>
+                De situationele relevantie is de vooraf bepaalde relevantie score die gecorrigeerd wordt met een bepaalde weight die de fitheid van de opeenvolging van twee observaties aangeeft.
+                Tijdens het selecteren van de observaties wordt de nieuw gekozen observatie vergeleken met de rest van de observaties.
+                De vooraf bepaalde relevantie score van de andere observaties worden dan gecorrigeerd op basis van hoe goed deze passen op de zonet gekozen observatie.
+                De observaties worden vergeleken op basis van patroon, periode en serie:
+                <div class="text-left">
+                    <ul>
+                        <li>Patroon</li>
+                            <ul>
+                                <li>Hetzelfde: De twee patronen zijn identiek</li>
+                                <li>Vergelijkbaar: De twee patronen zijn vergelijkbaar (bijvoorbeeld: indiv-stijging en combi-stijging)</li>
+                                <li>Ongelijk: De patronen zijn anders en komen niet overeen</li>
+                            </ul>
+                        <li>Periode</li>
+                            <ul>
+                                <li>Identiek: De begin en einddatum zijn hetzelfde</li>
+                                <li>Overlappend: De twee observaties overlappen elkaar</li>
+                                <li>Opvolgend: De twee observaties volgen elkaar op</li>
+                                <li>Anders: De twee observaties zijn van elkaar verwijderd</li>
+                            </ul>
+                        <li>Serie</li>
+                            <ul>
+                                <li>Hetzelfde: De componenten zijn hetzelfde</li>
+                                <li>Vergelijkbaar: De componenten liggen in dezelfde sector</li>
+                                <li>Anders: De componenten hebben niks met elkaar te maken</li>
+                            </ul>
+                    </ul>
+                </div>
+            </p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col text-center">
+            <h4>De matrix</h4>
+            <p>
+                Hieronder wordt de matrix weergegeven die gebruikt wordt bij het genereren van de artikelen.
+                Op basis van de vergelijking tussen twee observaties wordt één element van de matrix gekozen
+                om te gebruiken om de relevantie te corrigeren en deze situationeel te maken.
+            </p>
+            <div class="row justify-content-center matrix-showcase">
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col text-center">
+            <h4>De test cases</h4>
+            <p>
+                Hieronder worden de test cases weergegeven die gebruikt worden om de matrix te trainen.
+                Per rij worden twee observaties neergezet met daarachter de gelijkenis op basis van patroon, periode en serie.
+                Uiteindelijk wordt de score van de matrix als laatste weergegeven.
+            </p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center h-40 w-100 test-score-table">
+
+    </div>
+</div>
+
+<script>
+    $( document ).ready(function() {
+        showTestScores();
+    });
+</script>
+{% endblock content %}

@@ -231,8 +231,8 @@ footer {
 }
 
 .info-par {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 
     background: #FFF;
 }
@@ -270,4 +270,15 @@ footer {
 
 .right-compose-table {
     margin-left: 1rem;
+}
+
+/* algo explained.html styling */
+.matrix-showcase {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.algo-expl {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }

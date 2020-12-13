@@ -90,6 +90,50 @@ def load_moduleD_view(request):
     return render(request, "articles_app/moduleD.html", {'page_obj': page_obj})
 
 
+def load_latest_articles(request):
+    """Loads the latest 3 articles to show to a not-logged in user.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+
+    Returns:
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
+    """
+    articles = dbq.get_articles_set(3)
+    return render(request, "articles_app/latest_articles.html", {'articles': articles})
+
+
+def load_latest_single_article(request, article_id):
+    """Checks if the selected article is of the latest 3 articles, if so returns the information about the article.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+        article_id (int): [description]
+
+    Returns:
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
+    """
+    articles = dbq.get_articles_set(3)
+    # check if article belongs to the last three articles made
+    # TODO perhaps only give back articles made by the 'nieuwsbot'
+    if article_id in [x.get('article_id') for x in articles]:
+        # article belongs to the last three articles made
+        article = dbq.get_article(article_id)
+        if article.get("found"):
+            # article has been found
+            return render(request, "articles_app/latest_article.html", {'article': article})
+        else:
+            # article does not exist
+            messages.info(request, "artikel niet gevonden")
+    else:
+        # article doesn't belong to the last three articles made
+        messages.info(request, "Geen toegang tot artikel")
+
+    return render(request, "articles_app/latest_articles.html", {'articles': articles})
+
+
 @login_required
 def load_relevance_view(request):
     """Returns a static page with the explanation of the relevance.
@@ -319,6 +363,34 @@ def load_relevance_observations(request):
     """
     data = dbq.get_relevance_observations()
 
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+@login_required
+def load_test_scores_view(request):
+    """Loads the view with the test scores and the explanation.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+
+    Returns:
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
+    """
+    return render(request, "articles_app/algo_explained.html")
+
+
+@login_required
+def load_test_scores_info(request):
+    """[summary]
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): [description]
+
+    Returns:
+        django.http.response.HttpResponse: [description]
+    """
+    data = nlgq.get_test_case_info()
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 

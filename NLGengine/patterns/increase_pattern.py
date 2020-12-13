@@ -219,7 +219,7 @@ class Increase:
         # loop over all the rising stocks and save the observations
         for index, info in df_inc.iterrows():
             # build the sentence
-            sentence = f"Aandeel {info.component} met {info.perc_delta}% gestegen."
+            sentence = f"Aandeel {info.component} is met {info.perc_delta}% gestegen."
             # build the observation object
             data = {}
             observ = Observation(info.component,

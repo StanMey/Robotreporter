@@ -1,5 +1,6 @@
 from django.db.models import Min
 from .models import Stocks, Articles, Observations
+from NLGengine.article import Article
 import articles_app.utils as util
 import json
 
@@ -277,13 +278,13 @@ def get_relevance_observations():
 
 
 def get_single_observation(oid):
-    """Get a single observation
+    """Get a single observation based on its id.
 
     Args:
         oid (int): The id of the observation
 
     Returns:
-        [type]: [description]
+        dict: Returns a dictionary with information about the observation
     """
     observ = {}
 
@@ -311,13 +312,13 @@ def get_single_observation(oid):
 
 
 def get_articles_set(amount):
-    """[summary]
+    """Returns the x most recent articles.
 
     Args:
-        amount ([type]): [description]
+        amount (int): The amount of articles to return
 
     Returns:
-        [type]: [description]
+        list: Returns a list with an x amount of articles
     """
     articles_set = Articles.objects.order_by('-date')[:amount]
 
@@ -336,13 +337,13 @@ def get_articles_set(amount):
 
 
 def get_article(article_id):
-    """[summary]
+    """Takes in the id of the article, tries to find the article and returns its content.
 
     Args:
-        article_id ([type]): [description]
+        article_id (int): The id of the article
 
     Returns:
-        [type]: [description]
+        dict: The content of the article
     """
     article = {}
 
@@ -350,12 +351,14 @@ def get_article(article_id):
     if Articles.objects.filter(id=article_id).exists():
         # article exists
         selected_article = Articles.objects.get(id=article_id)
+        # set up an article instance to get access to the divider for a paragraph
+        art = Article(list())
 
         article["found"] = True
         article["article_id"] = selected_article.id
         article["img_source"] = selected_article.top_image
         article["title"] = selected_article.title
-        article["content"] = selected_article.content
+        article["content"] = selected_article.content.split(art.par_divider)
         article["date_show"] = selected_article.date.strftime("%d %b %Y")
         article["date_whole"] = selected_article.date.strftime("%m-%d-%Y, %H:%M:%S")
         article["author"] = selected_article.author

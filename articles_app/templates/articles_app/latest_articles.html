@@ -1,0 +1,40 @@
+{% extends "articles_app/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+{% block content %}
+
+<div class="module-view">
+    
+    {% if user.is_authenticated %}
+    <div class="row justify-content-center selection-menu">
+        <div class="btn-group" role="group" aria-label="button-group">
+            <button type="button" onclick="location.href='/modules/moduleA'" class="btn btn-menu btn-mod-a">Timeseries</button>
+            <button type="button" onclick="location.href='/modules/moduleB'" class="btn btn-menu btn-mod-b">Observations</button>
+            <button type="button" onclick="location.href='/modules/moduleC'" class="btn btn-menu btn-mod-c">Article-generation</button>
+            <button type="button" onclick="location.href='/modules/moduleD'" class="btn btn-menu btn-mod-d">Articles</button>
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="module-content">
+        <div class="row w-100 articles-row">
+            {% for article in articles %}
+            <article class="col-md">
+                <div class="card">
+                    <div class="card-body">
+                        <img class="card-img-top" src="{{ MEDIA_URL }}{{ article.img_source }}" height="254px" width="420px">
+                        <h5 class="card-title">{{ article.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ article.date_show }}</h6>
+                        <p class="card-text">{{ article.content }}</p>
+                        <a class="card-link" href="/modules/latest/{{article.article_id}}" target="_self">Naar artikel</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -85,13 +85,13 @@ class Trend:
                 # build the sentence
                 # select the sentence based on the latest percentage change
                 if latest_perc >= 0.0:
-                    sentence = f"{component} na {trend_count} negatieve dagen weer positief geëindigd."
+                    sentence = f"{component} is na {trend_count} negatieve dagen weer positief geëindigd."
                     data = {
                         "trend_duration": trend_count,
                         "trend": "pos"
                     }
                 else:
-                    sentence = f"{component} na {trend_count} positieve dagen weer negatief geëindigd."
+                    sentence = f"{component} is na {trend_count} positieve dagen weer negatief geëindigd."
                     data = {
                         "trend_duration": trend_count,
                         "trend": "neg"

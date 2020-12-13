@@ -15,7 +15,12 @@
                 <h2 class="article-post-title">{{ article.title }}</h2>
                 <img src="{{ MEDIA_URL }}{{ article.img_source }}" height="422px" width="700px">
                 <p class="article-post-info">{{ article.date_whole }} door {{ article.author }}</p>
-                <p>{{ article.content }}</p>
+                <p>
+                    {% for par in article.content %}
+                        {{ par  }}
+                        <br><br>
+                    {% endfor %}
+                </p>
             </div>
         </div>
     </div>
@@ -92,7 +97,7 @@
                                                 <th scope="col">patroon</th>
                                                 <th scope="col">periode</th>
                                                 <th scope="col">relevantie normaal</th>
-                                                <th scope="col">relevantie context</th>
+                                                <th scope="col"><a href="/modules/testscores/">Situationele context</a></th>
                                                 <th scope="col">zin</th>
                                                 <th scope="col">zie complete observatie</th>
                                             </tr>

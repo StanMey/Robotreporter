@@ -17,5 +17,7 @@ urlpatterns = [
     path('api/observations/usefilters', views.load_observations_with_filters, name="load_observations_with_filters"),
     path('api/observations/relevance', views.load_relevance_observations, name="load_relevance_observations"),
 
+    path('api/testscores', views.load_test_scores_info, name="load_test_scores_info"),
+
     path('api/relevance/getfilters', views.get_relevance_filters, name="get_relevance_filters")
 ]

@@ -222,7 +222,7 @@ class Decrease:
         # loop over all the falling stocks and save the observations
         for index, info in df_inc.iterrows():
             # build the sentence
-            sentence = f"Aandeel {info.component} met {abs(info.perc_delta)}% gedaald."
+            sentence = f"Aandeel {info.component} is met {abs(info.perc_delta)}% gedaald."
             # build the observation object
             data = {}
             observ = Observation(info.component,
