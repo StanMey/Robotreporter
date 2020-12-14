@@ -726,27 +726,10 @@ async function renderModuleB() {
 async function renderModuleC() {
     highLightSelectedButton(2);
 
-    let contentDiv = document.querySelector(moduleContent);
-
-    let col = ["Serie", "Periode", "Patroon", "Zin", "Relevantie"]
-
-    // get all information about the available dataseries from db
-    let response = await fetch('/data/api/observations/relevance');
-    let data = await response.json();
-
-    // format it to the form of: [["AMX", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 5.00%", 8].....]
-    let rows = []
-    for (key in data) {
-        obj = data[key]
-        rows.push([obj['serie'], obj['period'], obj['pattern'], obj['observation'], obj['relevance']]);
-    }
-
-    let section1 = document.querySelector(".filter-container");
-    let section2 = document.querySelector(".mod-c-table");
+    let section = document.querySelector(".filter-container");
 
     // createImportanceSliders(section1);
-    createFilterMenuModC(section1);
-    createDataTable(section2, "obser_relev_table", col, rows, false);
+    createFilterMenuModC(section);
 }
 
 

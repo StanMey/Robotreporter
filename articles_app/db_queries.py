@@ -6,10 +6,10 @@ import json
 
 
 def get_all_data_series():
-    """[summary]
+    """Gets the max date, min date, sector and latest value of every unique component in the db.
 
     Returns:
-        [type]: [description]
+        dict: Returns a dict with all the information about the data series
     """
     # https://gist.github.com/ryanpitts/1304725
     model_min_set = Stocks.objects.values('component').annotate(min_date=Min('date')).order_by()
@@ -44,13 +44,13 @@ def get_all_data_series():
 
 
 def get_data_serie_close(serie_name):
-    """[summary]
+    """Gets all close data points for one specific component.
 
     Args:
-        serie_name ([type]): [description]
+        serie_name (String): The specific component to get all close values for
 
     Returns:
-        [type]: [description]
+        list: A list with the dates and values of all closes
     """
     # get all the close data from a certain serie
     close_data = Stocks.objects.filter(component__exact=serie_name).order_by("-date")
@@ -69,13 +69,13 @@ def get_data_serie_close(serie_name):
 
 
 def get_latest_observations():
-    """[summary]
+    """Gets all observations in order of more current.
 
         Returns:
-        [type]: [description]
+        list: A list with all the observations
     """
     # get all the latest observations info
-    latest_observations = Observations.objects.order_by('-period_end', '-period_begin')
+    latest_observations = Observations.objects.order_by('-period_end', '-period_begin')[:400]
 
     data = []
 
@@ -238,37 +238,6 @@ def get_compose_options(filters):
             "id": observation.id,
             "period": "{0} / {1}".format(observation.period_end.strftime("%d-%m-%Y"), observation.period_begin.strftime("%d-%m-%Y")),
             "sector": sector_info.get(observation.serie),
-            "pattern": observation.pattern,
-            "observation": observation.observation,
-            "relevance": float(observation.relevance)
-        }
-        data.append(point)
-    return data
-
-
-def get_relevance_observations():
-    """[summary]
-
-        Returns:
-        [type]: [description]
-    """
-    # get all the latest observations info
-    relev_observations = Observations.objects.order_by('-period_end', '-relevance')[:200]
-
-    data = []
-
-    # format the data into a json format
-    for observation in relev_observations:
-
-        # get all the series the observation is based on
-        if type(observation.meta_data.get("component")) == list:
-            serie = ", ".join(observation.meta_data.get("component"))
-        else:
-            serie = observation.serie
-
-        point = {
-            "serie": serie,
-            "period": "{0} / {1}".format(observation.period_end.strftime("%d-%m-%Y"), observation.period_begin.strftime("%d-%m-%Y")),
             "pattern": observation.pattern,
             "observation": observation.observation,
             "relevance": float(observation.relevance)

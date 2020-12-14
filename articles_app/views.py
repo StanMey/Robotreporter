@@ -352,21 +352,6 @@ def load_latest_observations(request):
 
 
 @login_required
-def load_relevance_observations(request):
-    """[summary]
-
-    Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
-
-    Returns:
-        django.http.response.HttpResponse: [description]
-    """
-    data = dbq.get_relevance_observations()
-
-    return HttpResponse(json.dumps(data), content_type="application/json")
-
-
-@login_required
 def load_test_scores_view(request):
     """Loads the view with the test scores and the explanation.
 
