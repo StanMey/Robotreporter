@@ -238,7 +238,6 @@ footer {
 .info-par {
     padding-top: 2rem;
     padding-bottom: 2rem;
-
     background: #FFF;
 }
 
@@ -286,4 +285,18 @@ footer {
 .algo-expl {
     margin-top: 2rem;
     margin-bottom: 2rem;
+}
+
+/* about.html styling */
+.about-par {
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background: #FFF;
+}
+
+.extra-par {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
 }

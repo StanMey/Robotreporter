@@ -1,0 +1,31 @@
+{% extends "articles_app/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="article-link-back">
+        <a class="header-button" href="/about"> &lt; Terug</a>
+    </div>
+
+    <div class="container text-center extra-par">
+        <h2>Over het systeem</h2>
+            <p class="lead">
+                Het Robotreporter-systeem bestaat uit vier modules A-D:<br>
+                <br>
+                <b>A. Data</b> - Hierin zijn de dagelijkse koersen van alle aandelen van de AMX-aandelen verzameld. Hier zou men ook andere tijdseries in kunnen inladen.<br>
+                <br>
+                <b>B. Observaties</b> - Module B speurt naar bijzondere of opvallende patronen. Dit kan zijn een stijging of daling van een enkel aandeel, of een verandering acne een meerdaagse trend of ontwikkeling in een sector. Er worden zoveel mogelijk juiste observaties verzameld.<br>
+                <br>
+                <b>C. Generatie</b> - In deze module worden alle feiten van een relevantie-score voorzien, en worden de hoogst scorende observaties samengevat in artikelen. De gebruiker die het artikel maakt kiest de settings en de titel. De slimme algoritmes doen de rest.<br>
+                <br>
+                <b>D. Resultaten</b> - Iedereen kan alle artikelen inzien, vergelijken en van commentaar voorzien.<br>
+                <br>
+                Elke module gebruikt slimme algoritmes uit de data Science en kunstmatige intelligentie. Het systeem is ontwikkeld in de programmeertaal Python en framework Django. Het wordt gehost bij Transip.
+            </p>
+    </div>
+</div>
+
+{% endblock content %}

@@ -135,6 +135,62 @@ def load_latest_single_article(request, article_id):
 
 
 @login_required
+def about_page(request):
+    """Loads the about page when a user is logged in.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+
+    Returns:
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
+    """
+    return render(request, "articles_app/about.html")
+
+
+@login_required
+def load_background_view(request):
+    """Loads the extended background page when a user is logged in.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+
+    Returns:
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
+    """
+    return render(request, "articles_app/explainer_pages/background.html")
+
+
+@login_required
+def load_sysabout_view(request):
+    """Loads the about system page when a user is logged in.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+
+    Returns:
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
+    """
+    return render(request, "articles_app/explainer_pages/about_system.html")
+
+
+@login_required
+def load_inspirations_view(request):
+    """Loads the inspirations page when a user is logged in.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+
+    Returns:
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
+    """
+    return render(request, "articles_app/explainer_pages/inspirations.html")
+
+
+@login_required
 def load_relevance_view(request):
     """Returns a static page with the explanation of the relevance.
 
@@ -146,7 +202,21 @@ def load_relevance_view(request):
         django.http.response.HttpResponse: Combines a given template with a given context dictionary
                                            and returns an HttpResponse object with that rendered text.
     """
-    return render(request, "articles_app/relevance.html")
+    return render(request, "articles_app/explainer_pages/relevance.html")
+
+
+@login_required
+def load_test_scores_view(request):
+    """Loads the view with the test scores and the explanation.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+
+    Returns:
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
+    """
+    return render(request, "articles_app/explainer_pages/sit_rel_explained.html")
 
 
 def robots_txt(request):
@@ -190,19 +260,6 @@ def cookie_statement(request):
                                            and returns an HttpResponse object with that rendered text.
     """
     return render(request, "articles_app/cookies.html")
-
-
-def about_page(request):
-    """Loads the about page when a user is logged in.
-
-    Args:
-        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
-
-    Returns:
-        django.http.response.HttpResponse: Combines a given template with a given context dictionary
-                                           and returns an HttpResponse object with that rendered text.
-    """
-    return render(request, "articles_app/about.html")
 
 
 # retrieving data views
@@ -349,20 +406,6 @@ def load_latest_observations(request):
     data = dbq.get_latest_observations()
 
     return HttpResponse(json.dumps(data), content_type="application/json")
-
-
-@login_required
-def load_test_scores_view(request):
-    """Loads the view with the test scores and the explanation.
-
-    Args:
-        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
-
-    Returns:
-        django.http.response.HttpResponse: Combines a given template with a given context dictionary
-                                           and returns an HttpResponse object with that rendered text.
-    """
-    return render(request, "articles_app/algo_explained.html")
 
 
 @login_required
