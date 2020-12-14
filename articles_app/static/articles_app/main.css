@@ -32,6 +32,11 @@
     color: #ffffff !important;
 }
 
+.btn-mod-e:hover {
+    background: #dbce51 !important;
+    color: #ffffff !important;
+}
+
 /* base.html HEADER */
 .page-header {
     line-height: 1.5;

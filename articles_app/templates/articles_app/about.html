@@ -13,6 +13,7 @@
             <button type="button" onclick="location.href='/modules/moduleB'" class="btn btn-menu btn-mod-b">Observations</button>
             <button type="button" onclick="location.href='/modules/moduleC'" class="btn btn-menu btn-mod-c">Article-generation</button>
             <button type="button" onclick="location.href='/modules/moduleD'" class="btn btn-menu btn-mod-d">Articles</button>
+            <button type="button" onclick="location.href='/about'" class="btn btn-menu btn-mod-e">Uitleg</button>
         </div>
     </div>
     
@@ -98,5 +99,11 @@
         </section>
     </div>
 </div>
+
+<script>
+    $( document ).ready(function() {
+        renderModuleE();
+    });
+</script>
 
 {% endblock content %}

@@ -22,8 +22,8 @@ function highLightSelectedButton(buttonNumber) {
     );
     
     // change the color of the button that is currently selected
-    const buttons = [".btn-mod-a", ".btn-mod-b", ".btn-mod-c", ".btn-mod-d"];
-    const colors = ["#2a9d8f", "#e9c46a", "#f4a261", "#80d8d5"];
+    const buttons = [".btn-mod-a", ".btn-mod-b", ".btn-mod-c", ".btn-mod-d", ".btn-mod-e"];
+    const colors = ["#2a9d8f", "#e9c46a", "#f4a261", "#80d8d5", "#dbce51"];
     let selected_button = document.querySelector(buttons[buttonNumber]);
     selected_button.style.backgroundColor = colors[buttonNumber];
     selected_button.style.color = "#FFFFFF";
@@ -734,6 +734,12 @@ async function renderModuleC() {
 
 
 // MODULE D Articles
-async function renderModuleD() {
+function renderModuleD() {
     highLightSelectedButton(3);
+}
+
+
+// MODULE E About
+function renderModuleE() {
+    highLightSelectedButton(4);
 }
