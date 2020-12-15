@@ -59,7 +59,9 @@ class WeekPattern:
                 # build the sentence
                 sentence = f"{row.component} is met {row.perc_delta} procent gestegen in week {self.period_end.isocalendar()[1:2][0]}."
                 # build the observation object
-                data = {}
+                data = {
+                    "trend": "pos"
+                }
                 observ = Observation(row.component,
                                      self.period_begin,
                                      self.period_end,
@@ -78,7 +80,9 @@ class WeekPattern:
                 # build the sentence
                 sentence = f"{row.component} is met {abs(row.perc_delta)} procent gedaald in week {self.period_end.isocalendar()[1:2][0]}."
                 # build the observation object
-                data = {}
+                data = {
+                    "trend": "neg"
+                }
                 observ = Observation(row.component,
                                      self.period_begin,
                                      self.period_end,
