@@ -76,7 +76,7 @@ class WeekPattern:
             else:
                 # negative week
                 # build the sentence
-                sentence = f"{row.component} is met {row.perc_delta} procent gedaald in week {self.period_end.isocalendar()[1:2][0]}."
+                sentence = f"{row.component} is met {abs(row.perc_delta)} procent gedaald in week {self.period_end.isocalendar()[1:2][0]}."
                 # build the observation object
                 data = {}
                 observ = Observation(row.component,
