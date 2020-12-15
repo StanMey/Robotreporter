@@ -614,7 +614,7 @@ function showObservation(oid) {
  */
 async function showTestScores() {
     // set the columns
-    const col = ["zin 1", "zin 2", "patroon", "periode", "serie", "score"]
+    const col = ["zin 1", "zin 2", "patroon", "periode", "serie", "score", "verwacht"]
 
     let section = document.querySelector(".test-score-table");
 
@@ -630,7 +630,7 @@ async function showTestScores() {
     let rows = []
     for (key in data['scores']) {
         info = data["scores"][key];
-        rows.push([info['sentence1'], info['sentence2'], info['pattern'], info['period'], info['component'], info['score']]);
+        rows.push([info['sentence1'], info['sentence2'], info['pattern'], info['period'], info['component'], info['score'], info["expected"]]);
     }
     // build the datatable
     createDataTable(section, "test_scores_table", col, rows, false);
