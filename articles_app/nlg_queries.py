@@ -23,7 +23,7 @@ import uuid
 
 
 # defining some statics
-AI_VERSION = 1.5
+AI_VERSION = 1.6
 
 
 def select_observations(initial_obs, observation_set: list, max_reps: int = 3, max_obs: int = 5, par_amount: int = 3):
@@ -91,6 +91,8 @@ def build_article(user_name, filters, bot=False):
     Returns:
         int: The id of the generated article
     """
+    # TODO implementeer artikeltype
+    # TODO implementeer focus op sector
     current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
     # current_date = datetime(year=2020, month=9, day=30)
 
@@ -101,8 +103,8 @@ def build_article(user_name, filters, bot=False):
         # get the max and min range of the period
         begin_date = util.get_period_range(periods.get("options"))[0]
     else:
-        # if no filters are selected get the latest week
-        begin_date = current_date - timedelta(7)
+        # if no filters are selected get the last month
+        begin_date = current_date - timedelta(30)
 
     # retrieve all relevant observations from the Observations table
     observation_set = list(Observations.objects.filter(period_end__gte=begin_date)
@@ -137,8 +139,12 @@ def build_article(user_name, filters, bot=False):
                                    x.meta_data,
                                    oid=x.id) for x in observation_set]
 
+    # get the filters for amount of paragraphs and sentences
+    am_par = int(filters.get("Paragrafen").get("options"))
+    am_sen = int(filters.get("Zinnen").get("options"))
+
     # select all the observations / paragraphs
-    paragraphs = select_observations(first_observ, observation_set)
+    paragraphs = select_observations(first_observ, observation_set, max_obs=am_sen, par_amount=am_par)
 
     # set the chosen observations /paragrahps to the planner
     planner = Planner(paragraphs)
@@ -472,8 +478,8 @@ def find_new_observations(period_begin: datetime, period_end: datetime, overwrit
     all_observations = []
 
     all_observations.extend(run_period_observations(period_begin, period_end, overwrite))
-    all_observations.extend(run_week_observations(period_begin, period_end, overwrite))
-    all_observations.extend(run_trend_observations(period_end, 14, overwrite))
+    # all_observations.extend(run_week_observations(period_begin, period_end, overwrite))
+    # all_observations.extend(run_trend_observations(period_end, 14, overwrite))
 
     if to_db:
         # write all the found observations into the database

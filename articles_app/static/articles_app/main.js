@@ -363,8 +363,10 @@ function createSingleSlider(contentDiv, title) {
 async function generateArticle() {
     // search for the filters that have been selected
     let choices = {};
+    // all the filters
+    const filters = ["Type", "Periode", "Sector", "Paragrafen", "Zinnen"]
     // get the selected values
-    ["Sector", "Periode"].forEach(function (item, index) {
+    filters.forEach(function (item, _) {
         let optionCount = $("#" + item + " option").length;
         let selectedSeries = $("#" + item).val();
         choices[item] = {"total": optionCount,

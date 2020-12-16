@@ -134,7 +134,7 @@ def get_available_compose_filters():
 
     data = {}
     # add the types of articles
-    data["type"] = {
+    data["Type"] = {
         "choices": ["dagartikel", "weekartikel", "maandartikel"],
         "title": "artikel type",
         "multi": False,
@@ -156,14 +156,14 @@ def get_available_compose_filters():
     # add the amount of paragraphs in an article to choose from
     data["Paragrafen"] = {
         "choices": [x for x in range(1, 7)],
-        "title": "hoeveelheid paragrafen",
+        "title": "hoeveelheid paragrafen in artikel",
         "multi": False,
         "default": 3
     }
     # add the amount of sentences per paragraph to choose from
     data["Zinnen"] = {
         "choices": [x for x in range(1, 9)],
-        "title": "zinnen per paragraaf",
+        "title": "maximaal hoeveelheid zinnen per paragraaf",
         "multi": False,
         "default": 5
     }

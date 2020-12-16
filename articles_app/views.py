@@ -265,10 +265,11 @@ def cookie_statement(request):
 # retrieving data views
 @login_required
 def load_all_data_series(request):
-    """[summary]
+    """Retrieves the max date, min date, sector and latest value of every unique component
+    and returns the json data to the site.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
         django.http.response.HttpResponse: [description]
@@ -283,7 +284,7 @@ def load_data_serie_close(request, serie_name):
     """[summary]
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
         serie_name ([type]): [description]
 
     Returns:
@@ -299,7 +300,7 @@ def get_observations_filters(request):
     """[summary]
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
         django.http.response.HttpResponse: [description]
@@ -318,7 +319,7 @@ def get_relevance_filters(request):
     Returns:
         django.http.response.HttpResponse: [description]
     """
-    data = dbq.get_available_relev_filters()
+    data = dbq.get_available_compose_filters()
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
