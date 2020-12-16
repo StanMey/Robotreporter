@@ -117,23 +117,33 @@ async function applyFiltersModB() {
 
 }
 
-async function createFilterMenuModC(contentDiv) {
 
+/**
+ * Builds the filter menu for module C.
+ * @param {String} contentDiv The class of the target where the filters are loaded in.
+ */
+async function createFilterMenuModC(contentDiv) {
     // get all available filters
     let response = await fetch('/data/api/relevance/getfilters');
-    let filters = await response.json(); 
+    let filters = await response.json();
+    console.log(filters);
 
     // build all the filter selects
     for(key in filters) {
         let selectList = document.createElement("select");
         selectList.id = key;
-        selectList.multiple = true;
+        selectList.multiple = filters[key]["multi"];
         contentDiv.appendChild(selectList);
 
-        for(let i = 0; i < filters[key].length; i++) {
+        for(let i = 0; i < filters[key]["choices"].length; i++) {
             let option = document.createElement("option");
-            option.value = filters[key][i];
-            option.text = filters[key][i];
+            option.value = filters[key]["choices"][i];
+            option.text = filters[key]["choices"][i];
+
+            // check if this option is the default choice
+            if (!filters[key]["multi"] && (filters[key]["choices"][i] == filters[key]["default"])) {
+                option.setAttribute("selected", true);
+            }
             selectList.appendChild(option);
         }
     }
@@ -664,7 +674,7 @@ function buildTestMatrix(target, matrix) {
 
 // MODULE A timeseries
 /**
- * .
+ * Loads in the view of module A.
  */
 async function renderModuleA() {
     let col = ["Serie", "sector", "Oudste datum", "Recentste datum", "Laatste koers"]
@@ -698,6 +708,9 @@ async function renderModuleA() {
 
 
 // MODULE B Observations
+/**
+ * Loads in the view of module B.
+ */
 async function renderModuleB() {
     highLightSelectedButton(1);
 
@@ -723,6 +736,9 @@ async function renderModuleB() {
 
 
 // MODULE C Observations-relevance
+/**
+ * Loads in the view of module C.
+ */
 async function renderModuleC() {
     highLightSelectedButton(2);
 
@@ -734,12 +750,18 @@ async function renderModuleC() {
 
 
 // MODULE D Articles
+/**
+ * Loads in the view of module D.
+ */
 function renderModuleD() {
     highLightSelectedButton(3);
 }
 
 
 // MODULE E About
+/**
+ * Loads in the view of module E (explanation page).
+ */
 function renderModuleE() {
     highLightSelectedButton(4);
 }

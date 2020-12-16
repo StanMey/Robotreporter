@@ -104,7 +104,7 @@ def get_available_observ_filters():
     """[summary]
 
         Returns:
-        [type]: [description]
+            [type]: [description]
     """
     unique_series = list(Observations.objects.order_by('serie').values_list('serie', flat=True).distinct())
     unique_patterns = list(Observations.objects.values_list('pattern', flat=True).distinct())
@@ -122,31 +122,57 @@ def get_available_observ_filters():
     return data
 
 
-def get_available_relev_filters():
-    """[summary]
+def get_available_compose_filters():
+    """Gets the available article compose filters for module C.
 
         Returns:
-        [type]: [description]
+            dict: Returns a dictionary possible filters
     """
     # load in the sector data
     with open(r"./articles_app/data/sectorcompany.json") as f:
         sector_info = json.load(f)
 
     data = {}
-    data["Sector"] = sorted(list(set(list(sector_info.values()))))
+    # add the types of articles
+    data["type"] = {
+        "choices": ["dagartikel", "weekartikel", "maandartikel"],
+        "multi": False,
+        "default": "weekartikel"
+    }
+    # add the available months
     months = util.retrieve_filterable_months(True)
-    data["Periode"] = ["vorige dag", "deze week", "vorige week", *months]
+    data["Periode"] = {
+        "choices": ["vorige dag", "deze week", "vorige week", *months],
+        "multi": True
+    }
+    # add the available sectors
+    data["Sector"] = {
+        "choices": sorted(list(set(list(sector_info.values())))),
+        "multi": True
+    }
+    # add the amount of paragraphs in an article to choose from
+    data["Paragrafen"] = {
+        "choices": [x for x in range(1, 7)],
+        "multi": False,
+        "default": 3
+    }
+    # add the amount of sentences per paragraph to choose from
+    data["Zinnen"] = {
+        "choices": [x for x in range(1, 9)],
+        "multi": False,
+        "default": 5
+    }
     return data
 
 
 def get_filtered_observations(filters):
-    """[summary]
+    """Apply the filters over all the observations and return the filtered observations back to module B.
 
     Args:
-        filters ([type]): [description]
+        filters (dict): A dictionary with the chosen filters
 
     Returns:
-        [type]: [description]
+        list: A list with the filtered observations
     """
     # get all the observations
     queries = Observations.objects.order_by("-period_end")
