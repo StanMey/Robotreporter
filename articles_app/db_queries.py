@@ -136,6 +136,7 @@ def get_available_compose_filters():
     # add the types of articles
     data["type"] = {
         "choices": ["dagartikel", "weekartikel", "maandartikel"],
+        "title": "artikel type",
         "multi": False,
         "default": "weekartikel"
     }
@@ -143,22 +144,26 @@ def get_available_compose_filters():
     months = util.retrieve_filterable_months(True)
     data["Periode"] = {
         "choices": ["vorige dag", "deze week", "vorige week", *months],
+        "title": "periode artikel",
         "multi": True
     }
     # add the available sectors
     data["Sector"] = {
         "choices": sorted(list(set(list(sector_info.values())))),
+        "title": "sector focus",
         "multi": True
     }
     # add the amount of paragraphs in an article to choose from
     data["Paragrafen"] = {
         "choices": [x for x in range(1, 7)],
+        "title": "hoeveelheid paragrafen",
         "multi": False,
         "default": 3
     }
     # add the amount of sentences per paragraph to choose from
     data["Zinnen"] = {
         "choices": [x for x in range(1, 9)],
+        "title": "zinnen per paragraaf",
         "multi": False,
         "default": 5
     }

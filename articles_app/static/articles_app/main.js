@@ -130,10 +130,23 @@ async function createFilterMenuModC(contentDiv) {
 
     // build all the filter selects
     for(key in filters) {
+
+        // set the div to insert the filters and titles
+        let selectionDiv = document.createElement("div");
+        selectionDiv.className = "col text-center"
+        contentDiv.appendChild(selectionDiv);
+
+        // add title of selection
+        let selectText = document.createElement("p");
+        let text = document.createTextNode(filters[key]["title"]);
+        selectText.appendChild(text);
+        selectionDiv.appendChild(selectText);
+
+        // add select box
         let selectList = document.createElement("select");
         selectList.id = key;
         selectList.multiple = filters[key]["multi"];
-        contentDiv.appendChild(selectList);
+        selectionDiv.appendChild(selectList);
 
         for(let i = 0; i < filters[key]["choices"].length; i++) {
             let option = document.createElement("option");

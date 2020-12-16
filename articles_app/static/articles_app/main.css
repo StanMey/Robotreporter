@@ -151,8 +151,8 @@ footer {
 /* ModC behaviour */
 .button-mod-c {
     margin-top: 2rem;
-    height: 4rem;
-    width: 40%;
+    height: 5rem;
+    width: 50%;
 }
 
 .generate-links {
@@ -160,7 +160,8 @@ footer {
 }
 
 .filter-container {
-    margin-top: 1rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
 }
 
 /* articles ModD behaviour */
