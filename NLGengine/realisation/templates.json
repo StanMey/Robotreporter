@@ -7,12 +7,10 @@
     ],
     "combi-daling": {
         "1": [
-            "<#comp_name#> daalde het hardst met <#perc#> procent",
-            ""
+            "<#comp_name#> daalde het hardst met <#perc#> procent"
         ],
         "2": [
-            "<#comp_name#> (<#perc#>%) en <#comp_name#> (<#perc#>%) waren de hardste dalers",
-            ""
+            "<#comp_name#> (<#perc#>%) en <#comp_name#> (<#perc#>%) waren de hardste dalers"
         ],
         "3": [
             "<#comp_name#> (<#perc#>%), <#comp_name#> (<#perc#>%) en <#comp_name#> (<#perc#>%) lieten de sterkste koersdalingen zien",
@@ -32,8 +30,7 @@
             "<#comp_name#> steeg het hardst met <#perc#> procent"
         ],
         "2": [
-            "<#comp_name#> (<#perc#>%) en <#comp_name#> (<#perc#>%) waren de grootste stijgers",
-            ""
+            "<#comp_name#> (<#perc#>%) en <#comp_name#> (<#perc#>%) waren de grootste stijgers"
         ],
         "3": [
             "<#comp_name#> (<#perc#>%), <#comp_name#> (<#perc#>%) en <#comp_name#> (<#perc#>%) waren de positieve uitschieters",
@@ -52,22 +49,30 @@
     },
     "trend": {
         "pos": [
-            "<#comp_name#> na <#trend_length#> negatieve dagen weer positief geëindigd",
-            ""
+            "<#comp_name#> na <#trend_length#> negatieve dagen weer positief geëindigd"
         ],
         "neg": [
-            "<#comp_name#> na <#trend_length#> positieve dagen weer negatief geëindigd",
-            ""
+            "<#comp_name#> na <#trend_length#> positieve dagen weer negatief geëindigd"
         ]
     },
     "sector": {
-        "whole_sector": [
-            "",
-            ""
-        ],
-        "one_comp": [
-            "",
-            ""
-        ]
+        "whole_sector": {
+            "pos": [
+                "de bedrijven in de sector <#sector#> deden het goed en stegen allemaal"
+            ],
+            "neg": [
+                "de bedrijven in de sector <#sector#> deden het niet goed en daalden allemaal"
+            ]
+        },
+        "one_comp": {
+            "pos": [
+                "<#comp_name#> presteerde bovenmaats ten opzichte van de sectorgenoten",
+                "<#comp_name#> presteerde beter dan zijn sectorgenoten"
+            ],
+            "neg": [
+                "<#comp_name#> presteerde ondermaats ten opzichte van de sectorgenoten",
+                "<#comp_name#> presteerde slechter dan zijn sectorgenoten"
+            ]
+        }
     }
 }

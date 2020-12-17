@@ -52,7 +52,9 @@ class Sector:
                 # build the observation object
                 data = {
                     "components": list(df_one_sector.component),
-                    "sectors": [sector]
+                    "sectors": [sector],
+                    "sector_spec": "whole_sector",
+                    "trend": "pos"
                 }
                 observ = Observation(df_one_sector.iloc[0].component,
                                      self.period_begin,
@@ -76,7 +78,9 @@ class Sector:
                 # build the observation object
                 data = {
                     "components": list(df_one_sector.component),
-                    "sectors": [sector]
+                    "sectors": [sector],
+                    "sector_spec": "whole_sector",
+                    "trend": "neg"
                 }
                 observ = Observation(df_one_sector.iloc[0].component,
                                      self.period_begin,
@@ -116,7 +120,11 @@ class Sector:
                     # build the sentence
                     sentence = f"{component} presteerde bovenmaats ten opzichte van sectorgenoten in de {current_comp.indexx.item()}."
                     # build the observation object
-                    data = {}
+                    data = {
+                        "components": [component, *sector_peers],
+                        "sector_spec": "one_comp",
+                        "trend": "pos"
+                    }
                     # calculate the relevance
                     rel = abs((current_comp["perc_delta"].item()) - (np.mean(sector_peers["perc_delta"])))
                     observ = Observation(component,
@@ -138,7 +146,11 @@ class Sector:
                     # build the sentence
                     sentence = f"{component} presteerde ondermaats ten opzichte van sectorgenoten in de {current_comp.indexx.item()}."
                     # build the observation object
-                    data = {}
+                    data = {
+                        "components": [component, *sector_peers],
+                        "sector_spec": "one_comp",
+                        "trend": "neg"
+                    }
                     # calculate the relevance
                     rel = abs((current_comp["perc_delta"].item()) - (np.mean(sector_peers["perc_delta"])))
                     observ = Observation(component,

@@ -20,8 +20,22 @@ class Realiser:
     def realise(self):
         """[summary]
         """
+        self.find_template()
         self.add_time_to_observs_and_paragraphs()
         self.add_interpunction()
+
+    def find_template(self):
+        """Finds for every observation the template and saves it.
+        """
+        for par in self.paragraphs:
+            for observ in par.observations:
+                # retrieve the template
+                print(observ.observ_id, observ)
+                template = TemplateFiller.retrieve_template_option(observ)
+                # fill in the template
+                sentence = TemplateFiller.insert_into_template(observ, template)
+                # set the filled in sentence as the current observation sentence
+                observ.observation = sentence
 
     def add_interpunction(self):
         """Adds interpunction to every sentence (. at the end and capital letter at the beginning).
