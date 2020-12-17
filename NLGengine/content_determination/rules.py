@@ -26,7 +26,6 @@ class Rules:
         all_comps = [x.meta_data.get("components") if x.meta_data.get("components") is not None else x.serie for x in observs]
         # flatten the list
         all_comps = list(flatten(all_comps))
-        print(all_comps)
 
         # count all the occurences of the elements in the list
         occ_elems = Counter(all_comps)
