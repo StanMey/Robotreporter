@@ -52,6 +52,7 @@ class Sector:
                 # build the observation object
                 data = {
                     "components": list(df_one_sector.component),
+                    "perc_change": list(df_one_sector.perc_delta),
                     "sectors": [sector],
                     "sector_spec": "whole_sector",
                     "trend": "pos"
@@ -78,6 +79,7 @@ class Sector:
                 # build the observation object
                 data = {
                     "components": list(df_one_sector.component),
+                    "perc_change": list(df_one_sector.perc_delta),
                     "sectors": [sector],
                     "sector_spec": "whole_sector",
                     "trend": "neg"
@@ -121,7 +123,9 @@ class Sector:
                     sentence = f"{component} presteerde bovenmaats ten opzichte van sectorgenoten in de {current_comp.indexx.item()}."
                     # build the observation object
                     data = {
-                        "components": [component, *sector_peers],
+                        "components": [component, *list(sector_peers['component'])],
+                        "perc_change": [current_comp["perc_delta"].item(), *list(sector_peers["perc_delta"])],
+                        "sectors": [current_sector],
                         "sector_spec": "one_comp",
                         "trend": "pos"
                     }
@@ -147,7 +151,9 @@ class Sector:
                     sentence = f"{component} presteerde ondermaats ten opzichte van sectorgenoten in de {current_comp.indexx.item()}."
                     # build the observation object
                     data = {
-                        "components": [component, *sector_peers],
+                        "components": [component, *list(sector_peers['component'])],
+                        "perc_change": [current_comp["perc_delta"].item(), *list(sector_peers["perc_delta"])],
+                        "sectors": [current_sector],
                         "sector_spec": "one_comp",
                         "trend": "neg"
                     }

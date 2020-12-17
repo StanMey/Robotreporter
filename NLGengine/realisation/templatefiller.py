@@ -80,7 +80,7 @@ class TemplateFiller:
 
         if observation.pattern == "week":
             # add the week number from the meta_data
-            new_sentence = new_sentence.replace("<#week#>", observation.week_number)
+            new_sentence = new_sentence.replace("<#week#>", str(observation.week_number))
 
         if observation.pattern == "sector":
             # add the sector to the sentence

@@ -47,7 +47,7 @@ class Increase:
             # no component has been increasing, only decreasing components
             # build the sentence
             info = "AMX"
-            sentence = f"Alle fondsen binnen de {info} zijn vandaag gedaald."
+            sentence = f"alle fondsen binnen de {info} zijn vandaag gedaald"
             # build the observation object
             data = {}
             observ = Observation(info,
@@ -68,7 +68,7 @@ class Increase:
             # only 1 component has been increasing
             info = df_only_inc.iloc[0]
             # build the sentence
-            sentence = f"{info.component} was met {info.perc_delta} procent de enige stijger."
+            sentence = f"{info.component} was met {info.perc_delta} procent de enige stijger"
             # build the observation object
             data = {}
             observ = Observation(info.component,
@@ -89,7 +89,7 @@ class Increase:
             # only 2 components have been increasing
             info = df_only_inc.iloc[0:2]
             # build the sentence
-            sentence = f"Op {info.iloc[0].component} en {info.iloc[1].component} na daalden alle {info.iloc[0].indexx} fondsen."
+            sentence = f"op {info.iloc[0].component} en {info.iloc[1].component} na daalden alle {info.iloc[0].indexx} fondsen"
             # build the observation object
             data = {
                 "components": list(info.component),
@@ -194,7 +194,12 @@ class Increase:
                 # build the sentence
                 sentence = f"In de {first.indexx} ging {first.component} aan kop met een winst van {first.perc_delta} procent."
                 # build the observation object
-                data = {}
+                data = {
+                    "components": [first.component],
+                    "sectors": [first.sector],
+                    "perc_change": [first.perc_delta],
+                    "abs_change": [first.abs_delta]
+                }
                 observ = Observation(first.component,
                                      self.period_begin,
                                      self.period_end,
