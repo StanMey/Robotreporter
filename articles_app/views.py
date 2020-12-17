@@ -281,14 +281,14 @@ def load_all_data_series(request):
 
 @login_required
 def load_data_serie_close(request, serie_name):
-    """[summary]
+    """Gets all the stock close points for a particular component.
 
     Args:
         request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
-        serie_name ([type]): [description]
+        serie_name (str): The name of the component
 
     Returns:
-        [type]: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
     data = dbq.get_data_serie_close(serie_name)
 
@@ -297,13 +297,13 @@ def load_data_serie_close(request, serie_name):
 
 @login_required
 def get_observations_filters(request):
-    """[summary]
+    """Get all the available filters to filter the observations on.
 
     Args:
         request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
     data = dbq.get_available_observ_filters()
     return HttpResponse(json.dumps(data), content_type="application/json")
@@ -311,13 +311,13 @@ def get_observations_filters(request):
 
 @login_required
 def get_relevance_filters(request):
-    """[summary]
+    """Get all the available compose options for generating an article.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
     data = dbq.get_available_compose_filters()
     return HttpResponse(json.dumps(data), content_type="application/json")
@@ -327,13 +327,13 @@ def get_relevance_filters(request):
 @login_required
 @csrf_exempt
 def load_observations_with_filters(request):
-    """[summary]
+    """Apply the filters and return the filtered observations.
 
     Args:
-        request ([type]): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        [type]: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
     if request.method == 'POST':
         chosen_filters = json.loads(request.body)
@@ -347,13 +347,13 @@ def load_observations_with_filters(request):
 @login_required
 @csrf_exempt
 def load_compose_options(request):
-    """[summary]
+    """Get all the available observations to let the user compose its own article.
 
     Args:
-        request ([type]): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        [type]: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
     if request.method == 'POST':
         chosen_filters = json.loads(request.body)
@@ -367,13 +367,13 @@ def load_compose_options(request):
 @login_required
 @csrf_exempt
 def compose_article(request):
-    """[summary]
+    """Takes in the chosen observations and constructs the article for the user.
 
     Args:
-        request ([type]): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        [type]: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
     if util.is_view_only(request.user):
         # user has no permission to generate articles
@@ -396,13 +396,13 @@ def compose_article(request):
 
 @login_required
 def load_latest_observations(request):
-    """[summary]
+    """Loads in all the observations.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
     data = dbq.get_latest_observations()
 
@@ -411,13 +411,13 @@ def load_latest_observations(request):
 
 @login_required
 def load_test_scores_info(request):
-    """[summary]
+    """Loads in all the test cases with the scores per test case.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
     data = nlgq.get_test_case_info()
     return HttpResponse(json.dumps(data), content_type="application/json")
@@ -426,13 +426,13 @@ def load_test_scores_info(request):
 @login_required
 @csrf_exempt
 def generate_article(request):
-    """[summary]
+    """Generates an article.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
     if util.is_view_only(request.user):
         # user has no permission to generate articles
@@ -502,12 +502,14 @@ def load_article(request, article_id):
                 oid = chosen_observs[x]
                 # retrieve the observation
                 ob = dbq.get_single_observation(oid)
+                # check if observation has been found
+                if ob.get("found"):
+                    # article has been found
+                    # retrieve the situational relevation and format the periods
+                    ob["rel_sit"] = sit_relev[x]
+                    ob["period_show"] = "{0} / {1}".format(ob.get("prd_begin").strftime("%d-%m-%Y"), ob.get("prd_end").strftime("%d-%m-%Y"))
 
-                # retrieve the situational relevation and format the periods
-                ob["rel_sit"] = sit_relev[x]
-                ob["period_show"] = "{0} / {1}".format(ob.get("prd_begin").strftime("%d-%m-%Y"), ob.get("prd_end").strftime("%d-%m-%Y"))
-
-                meta_observs.append(ob)
+                    meta_observs.append(ob)
 
             # add meta_observs to the context
             context["meta_observs"] = meta_observs
