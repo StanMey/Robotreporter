@@ -110,7 +110,7 @@ def insert_comps_in_template(template: str, comps: list, percs: list):
         template (str): The chosen template
         comps (list): A list of all the components
         percs (list): A list of all the percentages
-    
+
     Returns:
         str: The filled in template
     """
