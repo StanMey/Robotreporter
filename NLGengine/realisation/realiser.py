@@ -1,6 +1,7 @@
 from NLGengine.realisation.date_message import DateMessage
 from NLGengine.realisation.templatefiller import TemplateFiller
 from NLGengine.article import Article
+import random as rd
 import math
 
 
@@ -18,7 +19,7 @@ class Realiser:
         self.is_current = False
 
     def realise(self):
-        """[summary]
+        """Runs all the steps to realise the sentences in the article.
         """
         self.find_template()
         self.add_time_to_observs_and_paragraphs()
@@ -27,11 +28,22 @@ class Realiser:
     def find_template(self):
         """Finds for every observation the template and saves it.
         """
+        used_sector_long = False
+
         for par in self.paragraphs:
             for observ in par.observations:
-                # retrieve the template
                 print(observ.observ_id, observ)
-                template = TemplateFiller.retrieve_template_option(observ)
+
+                # check for the 'sector' pattern if a long version already has been used
+                if observ.pattern == "sector" and not used_sector_long:
+                    # go for the long pattern sentence this time
+                    used_sector_long = True
+                    template = TemplateFiller.retrieve_template_option(observ, long_version=used_sector_long)
+
+                else:
+                    # normally retrieve the template
+                    template = TemplateFiller.retrieve_template_option(observ)
+
                 # fill in the template
                 sentence = TemplateFiller.insert_into_template(observ, template)
                 # set the filled in sentence as the current observation sentence
@@ -58,6 +70,8 @@ class Realiser:
         """
         # set a counter variable
         count = 0
+        # same day binding words || source: https://www.nt2.nl/documenten/luisteren_op_b2/overzicht_van_signaalwoorden.pdf
+        same_day = ["verder", "dezelfde dag", "daarnaast", "vervolgens"]
 
         # loop over every paragraph
         for par in self.paragraphs:
@@ -76,7 +90,7 @@ class Realiser:
                         # the observations are in the same week
                         if observ.day_number == curr_observ.day_number:
                             # the observations have the same end day
-                            observ.observation_new = observ.observation
+                            observ.observation_new = f"{rd.choice(same_day)} {observ.observation}"
                         else:
                             # not the same end day, but in the same week
                             # calculate the day difference

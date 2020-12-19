@@ -1,78 +1,95 @@
 {
     "individu-daling": [
-        "<#comp_name#> verloor <#perc#> procent",
-        "<#comp_name#> moest <#perc#>% inleveren",
-        "<#comp_name#> daalde met <#perc#> procent",
-        "aandeel <#comp_name#> is met <#perc#>% gedaald"
+        "verloor <#comp_name#> <#perc#> procent",
+        "moest <#comp_name#> <#perc#>% inleveren",
+        "daalde <#comp_name#> met <#perc#> procent",
+        "is aandeel <#comp_name#> met <#perc#>% gedaald"
     ],
     "combi-daling": {
         "1": [
-            "<#comp_name#> daalde het hardst met <#perc#> procent"
+            "daalde <#comp_name#> het hardst met <#perc#> procent"
         ],
         "2": [
-            "<#comp_name#> (<#perc#>%) en <#comp_name#> (<#perc#>%) waren de hardste dalers"
+            "waren <#multi_comp#> de hardste dalers"
         ],
         "3": [
-            "<#comp_name#> (<#perc#>%), <#comp_name#> (<#perc#>%) en <#comp_name#> (<#perc#>%) lieten de sterkste koersdalingen zien",
-            "<#comp_name#> (<#perc#>%), <#comp_name#> (<#perc#>%) en <#comp_name#> (<#perc#>%) waren de hardste dalers"
+            "lieten <#multi_comp#> de sterkste koersdalingen zien",
+            "waren <#multi_comp#> de hardste dalers"
         ]
     },
     "individu-stijging": [
-        "aandeel <#comp_name#> is met <#perc#>% gestegen",
-        "<#comp_name#> had een goede dag: plus <#perc#>%",
-        "<#comp_name#> won <#perc#> procent",
-        "<#comp_name#> steeg met <#perc# procent"
+        "is aandeel <#comp_name#> met <#perc#>% gestegen",
+        "had <#comp_name#> een goede dag: plus <#perc#>%",
+        "won <#comp_name#> <#perc#> procent",
+        "steeg <#comp_name#> met <#perc#> procent"
     ],
     "combi-stijging": {
         "1": [
-            "<#comp_name#> ging aan kop met een koerswinst van <#perc#> procent",
-            "<#comp_name#> ging aan kop met <#perc#> procent koerswinst",
-            "<#comp_name#> steeg het hardst met <#perc#> procent"
+            "ging <#comp_name#> aan kop met een koerswinst van <#perc#> procent",
+            "ging <#comp_name#> aan kop met <#perc#> procent koerswinst",
+            "steeg <#comp_name#> het hardst met <#perc#> procent"
         ],
         "2": [
-            "<#comp_name#> (<#perc#>%) en <#comp_name#> (<#perc#>%) waren de grootste stijgers"
+            "waren <#multi_comp#> de grootste stijgers"
         ],
         "3": [
-            "<#comp_name#> (<#perc#>%), <#comp_name#> (<#perc#>%) en <#comp_name#> (<#perc#>%) waren de positieve uitschieters",
-            "<#comp_name#> (<#perc#>%), <#comp_name#> (<#perc#>%) en <#comp_name#> (<#perc#>%) waren de hardste stijgers"
+            "waren <#multi_comp#> de positieve uitschieters",
+            "waren <#multi_comp#> de hardste stijgers"
         ]
     },
     "week": {
         "pos": [
-            "<#comp_name#> sloot week <#week#> af met een winst van <#perc#>%",
-            "<#comp_name#> is met <#perc#> procent gestegen in week <#week#>"
+            "sloot <#comp_name#> week <#week#> af met een winst van <#perc#>%",
+            "is <#comp_name#> met <#perc#> procent gestegen in week <#week#>"
         ],
         "neg": [
-            "<#comp_name#> sloot week <#week#> af met een verlies van <#perc#>%",
-            "<#comp_name#> is met <#perc#> procent gedaald in week <#week#>"
+            "sloot <#comp_name#> week <#week#> af met een verlies van <#perc#>%",
+            "is <#comp_name#> met <#perc#> procent gedaald in week <#week#>"
         ]
     },
     "trend": {
         "pos": [
-            "<#comp_name#> na <#trend_length#> negatieve dagen weer positief geëindigd"
+            "was <#comp_name#> na <#trend_length#> negatieve dagen weer positief geëindigd"
         ],
         "neg": [
-            "<#comp_name#> na <#trend_length#> positieve dagen weer negatief geëindigd"
+            "was <#comp_name#> na <#trend_length#> positieve dagen weer negatief geëindigd"
         ]
     },
     "sector": {
         "whole_sector": {
             "pos": [
-                "de bedrijven in de sector <#sector#> deden het goed en stegen allemaal"
+                "deden de bedrijven in de sector <#sector#> het goed en stegen allemaal"
             ],
             "neg": [
-                "de bedrijven in de sector <#sector#> deden het niet goed en daalden allemaal"
-            ]
+                "deden de bedrijven in de sector <#sector#> het niet goed en daalden allemaal"
+            ],
+            "long": {
+                "pos": [
+                    "deden de bedrijven in de sector <#sector#> het goed en stegen allemaal, <#multi_comp#>"
+                ],
+                "neg": [
+                    "deden de bedrijven in de sector <#sector#> het niet goed en daalden allemaal, <#multi_comp#>"
+                ]
+            }
         },
         "one_comp": {
             "pos": [
-                "<#comp_name#> presteerde bovenmaats ten opzichte van de sectorgenoten",
-                "<#comp_name#> presteerde beter dan zijn sectorgenoten"
+                "presteerde <#comp_name#> bovenmaats ten opzichte van de sectorgenoten",
+                "presteerde <#comp_name#> beter dan de sectorgenoten door de dag af te sluiten met <#perc#> procent"
             ],
             "neg": [
-                "<#comp_name#> presteerde ondermaats ten opzichte van de sectorgenoten",
-                "<#comp_name#> presteerde slechter dan zijn sectorgenoten"
-            ]
+                "presteerde <#comp_name#> ondermaats ten opzichte van de sectorgenoten",
+                "presteerde <#comp_name#> slechter dan de sectorgenoten door de dag af te sluiten met <#perc#> procent"
+            ],
+            "long": {
+                "pos": [
+                    "presteerde <#comp_name#> beter (<#perc#>%) dan de sectorgenoten, <#multi_comp#>"
+                ],
+                "neg": [
+                    "presteerde <#comp_name#> slechter (<#perc#>%) dan de sectorgenoten, <#multi_comp#>"
+                ]
+            }
+
         }
     }
 }
