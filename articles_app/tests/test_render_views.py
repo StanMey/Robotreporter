@@ -238,6 +238,21 @@ class ViewsTestCase(TestCase):
         response = self.client2.get('/modules/sysabout/')
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
+    # the about template system view
+    def test_load_templatesys_view_user_cannot_access(self):
+        """The about template system view is prohibited for not logged in users.
+        """
+        # user is not logged in
+        response = self.client.get('/modules/templatesys/')
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+
+    def test_load_templatesys_view_user_can_access(self):
+        """The about template system view can be accessed by logged in users.
+        """
+        # user is logged in
+        response = self.client2.get('/modules/templatesys/')
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
     # the inspirations view
     def test_load_inspirations_view_user_cannot_access(self):
         """The inspirations view is prohibited for not logged in users.

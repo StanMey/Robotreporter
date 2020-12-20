@@ -177,6 +177,20 @@ def load_sysabout_view(request):
 
 
 @login_required
+def load_templatesys_view(request):
+    """Loads the template system page when a user is logged in.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+
+    Returns:
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
+    """
+    return render(request, "articles_app/explainer_pages/template_system.html")
+
+
+@login_required
 def load_inspirations_view(request):
     """Loads the inspirations page when a user is logged in.
 

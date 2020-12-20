@@ -11,6 +11,7 @@ urlpatterns = [
 
     path('background/', views.load_background_view, name="load_background_view"),
     path('sysabout/', views.load_sysabout_view, name="load_sysabout_view"),
+    path('templatesys/', views.load_templatesys_view, name="load_templatesys_view"),
     path('inspirations/', views.load_inspirations_view, name="load_inspirations_view"),
     path('relevance/', views.load_relevance_view, name="load_relevance_view"),
     path('testscores/', views.load_test_scores_view, name="load_test_scores_view"),
