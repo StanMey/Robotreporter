@@ -77,8 +77,9 @@ class TemplateFiller:
             new_sentence = template
             # replace the comp placeholder with the actual component
             new_sentence = new_sentence.replace("<#comp_name#>", observation.serie)
-            # replace the percentage placeholder
+            # replace the percentage placeholder and choose the abs when necessary
             new_sentence = new_sentence.replace("<#perc#>", str(observation.perc_change))
+            new_sentence = new_sentence.replace("<#abs_perc#>", str(abs(observation.perc_change)))
 
         if observation.pattern == "trend":
             # add the duration of the trend from the meta_data
@@ -119,7 +120,9 @@ def insert_comps_in_template(template: str, comps: list, percs: list):
     # replace all components and percentages
     for comp, perc in zip(comps, percs):
         sentence = sentence.replace("<#comp_name#>", comp, 1)
+        # replace the percentage with an absolute or a normal percentage
         sentence = sentence.replace("<#perc#>", str(perc), 1)
+        sentence = sentence.replace("<#abs_perc#>", str(abs(perc)), 1)
 
     return sentence
 

@@ -1,14 +1,14 @@
 {
     "individu-daling": [
-        "verloor <#comp_name#> <#perc#> procent",
-        "verloor aandeel <#comp_name#> <#perc#> procent",
-        "moest <#comp_name#> <#perc#>% inleveren",
-        "daalde <#comp_name#> met <#perc#> procent",
-        "is aandeel <#comp_name#> met <#perc#>% gedaald"
+        "verloor <#comp_name#> <#abs_perc#> procent",
+        "verloor aandeel <#comp_name#> <#abs_perc#> procent",
+        "moest <#comp_name#> <#abs_perc#>% inleveren",
+        "daalde <#comp_name#> met <#abs_perc#> procent",
+        "is aandeel <#comp_name#> met <#abs_perc#>% gedaald"
     ],
     "combi-daling": {
         "1": [
-            "daalde <#comp_name#> het hardst met <#perc#> procent"
+            "daalde <#comp_name#> het hardst met <#abs_perc#> procent"
         ],
         "2": [
             "waren <#multi_comp#> de hardste dalers"
@@ -45,7 +45,7 @@
         ],
         "neg": [
             "sloot <#comp_name#> week <#week#> af met een verlies van <#perc#>%",
-            "is <#comp_name#> met <#perc#> procent gedaald in week <#week#>"
+            "is <#comp_name#> met <#abs_perc#> procent gedaald in week <#week#>"
         ]
     },
     "trend": {

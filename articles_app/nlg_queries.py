@@ -478,8 +478,8 @@ def find_new_observations(period_begin: datetime, period_end: datetime, overwrit
     all_observations = []
 
     all_observations.extend(run_period_observations(period_begin, period_end, overwrite))
-    # all_observations.extend(run_week_observations(period_begin, period_end, overwrite))
-    # all_observations.extend(run_trend_observations(period_end, 14, overwrite))
+    all_observations.extend(run_week_observations(period_begin, period_end, overwrite))
+    all_observations.extend(run_trend_observations(period_end, 14, overwrite))
 
     if to_db:
         # write all the found observations into the database
