@@ -1,6 +1,7 @@
 {
     "individu-daling": [
         "verloor <#comp_name#> <#perc#> procent",
+        "verloor aandeel <#comp_name#> <#perc#> procent",
         "moest <#comp_name#> <#perc#>% inleveren",
         "daalde <#comp_name#> met <#perc#> procent",
         "is aandeel <#comp_name#> met <#perc#>% gedaald"
@@ -15,7 +16,7 @@
         "3": [
             "lieten <#multi_comp#> de sterkste koersdalingen zien",
             "waren <#multi_comp#> de hardste dalers"
-        ]
+        ] 
     },
     "individu-stijging": [
         "is aandeel <#comp_name#> met <#perc#>% gestegen",

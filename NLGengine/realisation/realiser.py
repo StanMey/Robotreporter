@@ -32,7 +32,7 @@ class Realiser:
 
         for par in self.paragraphs:
             for observ in par.observations:
-                print(observ.observ_id, observ)
+                # print(observ.observ_id, observ)
 
                 # check for the 'sector' pattern if a long version already has been used
                 if observ.pattern == "sector" and not used_sector_long:
@@ -76,7 +76,7 @@ class Realiser:
         # loop over every paragraph
         for par in self.paragraphs:
 
-            curr_observ = None
+            last_observ = None
             count = 0
 
             for observ in par.observations:
@@ -86,23 +86,37 @@ class Realiser:
                     observ.observation_new = f"Op {observ.day_number} {DateMessage.month_to_string(observ.month_number)} {observ.observation}"
 
                 else:
-                    if observ.week_number == curr_observ.week_number:
+                    if observ.week_number == last_observ.week_number:
                         # the observations are in the same week
-                        if observ.day_number == curr_observ.day_number:
+                        if observ.day_number == last_observ.day_number:
                             # the observations have the same end day
                             observ.observation_new = f"{rd.choice(same_day)} {observ.observation}"
                         else:
                             # not the same end day, but in the same week
                             # calculate the day difference
-                            delta = (curr_observ.period_end - observ.period_end).days
-                            observ.observation_new = f"{DateMessage.day_difference_to_string(delta, self.is_current)} {observ.observation}"
+                            delta = (last_observ.period_end - observ.period_end).days
+
+                            # choose between using 'de {dag} daarvoor' en 'x dagen daarvoor'
+                            if bool(rd.getrandbits(1)):
+                                # go for the explicit day
+                                observ.observation_new = f"{DateMessage.explicit_day_difference_to_string(observ.period_end.weekday())} {observ.observation}"
+                            else:
+                                # use the numeric day
+                                observ.observation_new = f"{DateMessage.day_difference_to_string(delta, self.is_current)} {observ.observation}"
                     else:
                         # calculate the difference in weeks
-                        delta = math.ceil((curr_observ.period_end - observ.period_end).days / 7.0)
-                        observ.observation_new = f"{DateMessage.week_difference_to_string(delta, self.is_current)} {observ.observation}"
+                        delta = math.ceil((last_observ.period_end - observ.period_end).days / 7.0)
+
+                        # check if the delta of the weeks is 1 and if there will be an explicit week notation
+                        if delta == 1 and bool(rd.getrandbits(1)):
+                            # go for the explicit week change notation
+                            observ.observation_new = f"{DateMessage.explicit_week_difference_to_string(observ.period_end.weekday())} {observ.observation}"
+                        else:
+                            # delta more than 1 and/or just not chosen
+                            observ.observation_new = f"{DateMessage.week_difference_to_string(delta, self.is_current)} {observ.observation}"
 
                 # set the current observation
-                curr_observ = observ
+                last_observ = observ
                 count += 1
 
 

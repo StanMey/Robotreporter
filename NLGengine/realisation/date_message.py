@@ -82,6 +82,19 @@ class DateMessage:
         return sentence
 
     @staticmethod
+    def explicit_day_difference_to_string(day_number: int):
+        """[summary]
+
+        Args:
+            day_number (int): The number of the day of the week
+
+        Returns:
+            [type]: [description]
+        """
+        sentence = f"de {DateMessage.day_to_string(day_number)} ervoor"
+        return sentence
+
+    @staticmethod
     def week_difference_to_string(x_diff: int, current_based: bool):
         """[summary]
 
@@ -90,7 +103,7 @@ class DateMessage:
             current_based (bool): [description]
 
         Returns:
-            [type]: [description]
+            str: [description]
         """
         if current_based:
             if x_diff == 0:
@@ -107,6 +120,19 @@ class DateMessage:
             else:
                 sentence = f"{x_diff} weken daarvoor"
 
+        return sentence
+
+    @staticmethod
+    def explicit_week_difference_to_string(day_number: int):
+        """[summary]
+
+        Args:
+            day_number (int): [description]
+
+        Returns:
+            str: [description]
+        """
+        sentence = f"de week ervoor op {DateMessage.day_to_string(day_number)}"
         return sentence
 
     @staticmethod
