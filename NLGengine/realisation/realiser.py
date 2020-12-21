@@ -6,13 +6,13 @@ import math
 
 
 class Realiser:
-    """[summary]
+    """The realiser class which holds functions used for realising the article.
     """
     def __init__(self, pars: list):
-        """[summary]
+        """The init function
 
         Args:
-            pars (list): [description]
+            pars (list): A list with the paragraphs
         """
         self.paragraphs = pars
         # TODO check if the most current observation is today
@@ -66,7 +66,7 @@ class Realiser:
                     observ.observation_new = observ.observation_new[0].capitalize() + observ.observation_new[1:]
 
     def add_time_to_observs_and_paragraphs(self):
-        """[summary]
+        """Adds the time references between the observations of the paragraphs.
         """
         # set a counter variable
         count = 0
@@ -99,7 +99,7 @@ class Realiser:
                             # choose between using 'de {dag} daarvoor' en 'x dagen daarvoor'
                             if bool(rd.getrandbits(1)):
                                 # go for the explicit day
-                                observ.observation_new = f"{DateMessage.explicit_day_difference_to_string(observ.period_end.weekday())} {observ.observation}"
+                                observ.observation_new = f"{DateMessage.explicit_day_difference_to_string(observ.period_end.weekday(), self.is_current)} {observ.observation}"
                             else:
                                 # use the numeric day
                                 observ.observation_new = f"{DateMessage.day_difference_to_string(delta, self.is_current)} {observ.observation}"
@@ -110,7 +110,7 @@ class Realiser:
                         # check if the delta of the weeks is 1 and if there will be an explicit week notation
                         if delta == 1 and bool(rd.getrandbits(1)):
                             # go for the explicit week change notation
-                            observ.observation_new = f"{DateMessage.explicit_week_difference_to_string(observ.period_end.weekday())} {observ.observation}"
+                            observ.observation_new = f"{DateMessage.explicit_week_difference_to_string(observ.period_end.weekday(), self.is_current)} {observ.observation}"
                         else:
                             # delta more than 1 and/or just not chosen
                             observ.observation_new = f"{DateMessage.week_difference_to_string(delta, self.is_current)} {observ.observation}"
