@@ -639,7 +639,7 @@ function showObservation(oid) {
  */
 async function showTestScores() {
     // set the columns
-    const col = ["zin 1", "zin 2", "patroon", "periode", "serie", "score", "verwacht"]
+    const col = ["zin 1", "zin 2", "patroon", "periode", "serie", "score", "doelscore"]
 
     let section = document.querySelector(".test-score-table");
 
