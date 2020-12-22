@@ -104,6 +104,10 @@ class WeekPattern:
         self.df["perc_delta"] = 0
         self.df["date"] = pd.to_datetime(self.df["date"])
 
+        # remove all the indexes themself out of the dataframe
+        all_indexes = self.df["indexx"].unique()
+        self.df = self.df[~self.df["component"].isin(all_indexes)]
+
         # order all data by date in ascending order, because .diff() doesn't take in the date
         self.df.sort_values('date', inplace=True)
 

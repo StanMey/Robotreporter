@@ -111,7 +111,15 @@ class Trend:
                 # save the observation object
                 self.observations.append(observ)
 
+    def prep_data(self):
+        """Prepares the data for the analyses.
+        """
+        # remove all the indexes themself out of the dataframe
+        all_indexes = self.df["indexx"].unique()
+        self.df = self.df[~self.df["component"].isin(all_indexes)]
+
     def analyse(self):
         """Run the analyses of the Trend pattern.
         """
+        self.prep_data()
         self.check_for_turning_point()

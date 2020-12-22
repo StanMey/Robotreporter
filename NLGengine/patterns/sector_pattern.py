@@ -185,6 +185,10 @@ class Sector:
         # order all data by date in ascending order, because .diff() doesn't take in the date
         self.df.sort_values('date', inplace=True)
 
+        # remove all the indexes themself out of the dataframe
+        all_indexes = self.df["indexx"].unique()
+        self.df = self.df[~self.df["component"].isin(all_indexes)]
+
         # get all the unique components that are in the dataframe
         all_components = self.df["component"].unique()
 
