@@ -29,16 +29,23 @@ class Realiser:
         """Finds for every observation the template and saves it.
         """
         used_sector_long = False
+        used_indiv_long = False
 
         for par in self.paragraphs:
             for observ in par.observations:
                 # print(observ.observ_id, observ)
 
                 # check for the 'sector' pattern if a long version already has been used
-                if observ.pattern == "sector" and not used_sector_long:
-                    # go for the long pattern sentence this time
+                if not used_sector_long and observ.pattern == "sector":
+                    # go for the long sentence for the 'sector' pattern
                     used_sector_long = True
                     template = TemplateFiller.retrieve_template_option(observ, long_version=used_sector_long)
+
+                elif not used_indiv_long and observ.pattern in ['individu-stijging', 'individu-daling'] and observ.meta_data.get("long"):
+                    # go for the long pattern sentence for the current pattern
+                    used_indiv_long = True
+                    template = TemplateFiller.retrieve_template_option(observ)
+                    template += observ.meta_data.get("long")
 
                 else:
                     # normally retrieve the template
@@ -71,7 +78,7 @@ class Realiser:
         # set a counter variable
         count = 0
         # same day binding words || source: https://www.nt2.nl/documenten/luisteren_op_b2/overzicht_van_signaalwoorden.pdf
-        same_day = ["verder", "dezelfde dag", "daarnaast", "vervolgens"]
+        same_day = ["verder", "dezelfde dag", "daarnaast", "vervolgens", "tevens"]
 
         # loop over every paragraph
         for par in self.paragraphs:
