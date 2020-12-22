@@ -10,10 +10,10 @@ from articles_app.nlg_queries import find_new_observations, observation_to_datab
 
 
 def from_csv_to_Stocks(data_path):
-    """[summary]
+    """Writs the stock info in the csv files into the database.
 
     Args:
-        data_path ([type]): [description]
+        data_path (str): The file path of the csv file
     """
     with open(data_path) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=";")
@@ -40,7 +40,7 @@ def from_csv_to_Stocks(data_path):
 
 
 def fill_observations():
-    """[summary]
+    """Fills the database with all the observations it can find.
     """
     period_begin = datetime(year=2020, month=6, day=5)
     period_end = datetime(year=2020, month=10, day=2)
@@ -55,11 +55,28 @@ def fill_observations():
             begin_date = new_date
 
 
+def test_observations():
+    """Test function for checking if the observations are working.
+    """
+    period_begin = datetime(year=2020, month=7, day=5)
+    period_end = datetime(year=2020, month=7, day=30)
+    print("run test")
+
+    begin_date = period_begin
+    for new_date in pd.date_range(period_begin, period_end).to_list()[1:]:
+        if (begin_date.weekday() in [5, 6]) or (new_date.weekday() in [5, 6]):
+            pass
+        else:
+            print(begin_date, new_date)
+            find_new_observations(begin_date, new_date, to_db=False, overwrite=True, to_prompt=False)
+            begin_date = new_date
+
+
 def update_observs():
     """Reruns all the observations and updates the info of the observation if the observation already exists,
     otherwise adds the new observation to the db.
     """
-    period_begin = datetime(year=2020, month=6, day=10)
+    period_begin = datetime(year=2020, month=6, day=5)
     period_end = datetime(year=2020, month=10, day=2)
 
     begin_date = period_begin
@@ -106,7 +123,7 @@ def update_observs():
 
                     # update the information of the current observation
                     update_observation(db_observ[0], obs)
-                    print(f"updated observation {db_observ[0].id}")
+                    # print(f"updated observation {db_observ[0].id}")
 
                 else:
                     # observation doesn't exist, so add it to the db
@@ -123,8 +140,8 @@ def update_observs():
                                             obs.meta_data)
                     print("observation added to db")
 
-        # update the begin date so the loop continues
-        begin_date = new_date
+            # update the begin date so the loop continues
+            begin_date = new_date
 
 
 def update_test_cases_file():
@@ -169,12 +186,6 @@ def update_test_cases_file():
     # write into json
     with open(cases_file, "w") as outfile:
         json.dump(data, outfile)
-
-
-def test_cases_to_csv():
-    """gets all the test cases and its observations and writes it into a csv file.
-    """
-    pass
 
 
 def transfer_observations_to_json():
