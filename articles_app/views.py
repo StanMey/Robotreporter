@@ -12,6 +12,7 @@ import articles_app.nlg_queries as nlgq
 import articles_app.utils as util
 
 import json
+import traceback
 
 
 # Create your views here.
@@ -458,7 +459,19 @@ def generate_article(request):
             # user uses the right request method
             chosen_filters = json.loads(request.body)
             user_name = request.user.username
-            data = {"article_number": nlgq.build_article(user_name, chosen_filters)}
+
+            try:
+                art_number = nlgq.build_article(user_name, chosen_filters)
+                data = {
+                    "article_number": art_number,
+                    "error": False
+                }
+            except Exception as e:
+                # error occured so print full traceback for logging purposes
+                print(traceback.print_exc())
+                data = {
+                    "error": True
+                }
         else:
             messages.error(request, "Can't do that right now")
             data = {"article_number": dbq.get_articles_set(1)[1]['article_id']}

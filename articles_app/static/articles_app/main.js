@@ -361,6 +361,10 @@ function createSingleSlider(contentDiv, title) {
  * Eventually a new article will be generated and the user is redirected to a page with the article. 
  */
 async function generateArticle() {
+    // disable button while generating
+    let button = document.getElementById("mod-c-gen-button");
+    button.disabled = true;
+
     // search for the filters that have been selected
     let choices = {};
     // all the filters
@@ -388,10 +392,19 @@ async function generateArticle() {
         mode: "same-origin"
     })
     let data = await response.json();
+    console.log(data);
+    // enable the generate button again
+    button.disabled = false
 
-    // get the id of the article and redirect to the article
-    _id = data['article_number']
-    window.open('/modules/articles/' + _id, target="_self");
+    // check if the backend crashed while generating an article
+    if (data["error"]) {
+        // error occured
+        alert("Something went wrong")
+    } else {
+        // get the id of the article and redirect to the article
+        _id = data['article_number']
+        window.open('/modules/articles/' + _id, target="_self");
+    }
 }
 
 
