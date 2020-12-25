@@ -21,11 +21,11 @@ class Realiser:
     def realise(self):
         """Runs all the steps to realise the sentences in the article.
         """
-        self.find_template()
+        self.find_and_apply_template()
         self.add_time_to_observs_and_paragraphs()
         self.add_interpunction()
 
-    def find_template(self):
+    def find_and_apply_template(self):
         """Finds for every observation the template and saves it.
         """
         used_sector_long = False
@@ -78,12 +78,13 @@ class Realiser:
         # set a counter variable
         count = 0
         # same day binding words || source: https://www.nt2.nl/documenten/luisteren_op_b2/overzicht_van_signaalwoorden.pdf
-        same_day = ["verder", "dezelfde dag", "daarnaast", "vervolgens", "tevens"]
+        same_day = ["verder", "dezelfde dag", "daarnaast", "vervolgens"]
 
         # loop over every paragraph
         for par in self.paragraphs:
 
-            last_observ = None
+            last_observ = None      # saves the latest observation
+            last_same_day = None    # saves the last same day binding word
             count = 0
 
             for observ in par.observations:
@@ -97,9 +98,13 @@ class Realiser:
                         # the observations are in the same week
                         if observ.day_number == last_observ.day_number:
                             # the observations have the same end day
-                            observ.observation_new = f"{rd.choice(same_day)} {observ.observation}"
+                            avail_binders = [x for x in same_day if x is not last_same_day]  # remove the last used same day binding from the same_day array
+                            new_same_day = rd.choice(avail_binders)
+                            observ.observation_new = f"{new_same_day} {observ.observation}"
+                            last_same_day = new_same_day  # update the last same day
                         else:
                             # not the same end day, but in the same week
+                            last_same_day = None  # reset the last same day
                             # calculate the day difference
                             delta = (last_observ.period_end - observ.period_end).days
 
@@ -111,6 +116,8 @@ class Realiser:
                                 # use the numeric day
                                 observ.observation_new = f"{DateMessage.day_difference_to_string(delta, self.is_current)} {observ.observation}"
                     else:
+                        # the observations are not in the same week
+                        last_same_day = None  # reset the last same day
                         # calculate the difference in weeks
                         delta = math.ceil((last_observ.period_end - observ.period_end).days / 7.0)
 
