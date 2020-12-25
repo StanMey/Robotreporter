@@ -13,8 +13,8 @@ class TemplateFiller:
 
         Args:
             observation (NLGengine.observation.Observation): The observation for which the templates have to be retrieved
-            t_source (str): The path to the template json file
-            long_version (bool, optional): [description]. Defaults to False.
+            t_source (str, optional): The path to the template json file. Defaults to r"NLGengine/realisation/templates.json"
+            long_version (bool, optional): [description]. Defaults to False
 
         Returns:
             str: Returns the chosen template for the observation
@@ -49,16 +49,20 @@ class TemplateFiller:
         return rd.choice(templates)
 
     @staticmethod
-    def insert_into_template(observation, template: str):
+    def insert_into_template(observation, template: str, descr_file: str = r"NLGengine/realisation/companyinfo.json"):
         """Inserts the information of the observation into the chosen template.
 
         Args:
             observation (NLGengine.observation.Observation): The observation to be used to fill in the template
             template_choices (str): A template string that has to be filled in
+            descr_file (str, optional): The path to the comp info file. Defaults to r"NLGengine/realisation/companyinfo.json"
 
         Returns:
             str: Returns the filled in template string
         """
+        # load in the json file with company info
+        with open(descr_file) as f:
+            info_dict = json.load(f)
 
         if observation.pattern in ["combi-stijging", "combi-daling"]:
             # observation has multiple components and percentages
@@ -71,12 +75,14 @@ class TemplateFiller:
             # set up the template
             new_sentence = replace_multi_comp_tag(new_sentence, len(comps))
             # apply all the comps
-            new_sentence = insert_comps_in_template(new_sentence, comps, percs)
+            print(comps)
+            short_comps = [get_comp_short(info_dict, x) for x in comps]
+            new_sentence = insert_comps_in_template(new_sentence, short_comps, percs)
 
         else:
             new_sentence = template
             # replace the comp placeholder with the actual component
-            new_sentence = new_sentence.replace("<#comp_name#>", observation.serie)
+            new_sentence = new_sentence.replace("<#comp_name#>", get_comp_short(info_dict, observation.serie))
             # replace the percentage placeholder and choose the abs when necessary
             new_sentence = new_sentence.replace("<#perc#>", str(observation.perc_change))
             new_sentence = new_sentence.replace("<#abs_perc#>", str(abs(observation.perc_change)))
@@ -99,7 +105,8 @@ class TemplateFiller:
             # set up the rest of the template
             new_sentence = replace_multi_comp_tag(new_sentence, len(comps[1:]))
             # apply all the comps
-            new_sentence = insert_comps_in_template(new_sentence, comps[1:], percs[1:])
+            short_comps = [get_comp_short(info_dict, x) for x in comps[1:]]
+            new_sentence = insert_comps_in_template(new_sentence, short_comps, percs[1:])
 
         return new_sentence
 
@@ -154,3 +161,21 @@ def replace_multi_comp_tag(template: str, comp_amount: int):
         sentence = template.replace("<#multi_comp#>", multi_string)
 
     return sentence
+
+
+def get_comp_short(info_dict: dict, comp: str):
+    """Tries to find the short name of the given component in the dictionary,
+    if not found just returns the original component's name
+
+    Args:
+        info_dict (dict): A dictionary which holds info about the short names of the components
+        comp (str): The component for which the short name has to be found
+
+    Returns:
+        str: Returns the short name of the component or the original component
+    """
+    short = info_dict.get(comp).get("short")
+    if short:
+        return short
+    else:
+        return comp
