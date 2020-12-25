@@ -75,19 +75,19 @@
         },
         "one_comp": {
             "pos": [
-                "presteerde <#comp_name#> bovenmaats ten opzichte van de sectorgenoten",
-                "presteerde <#comp_name#> beter dan de sectorgenoten door de dag af te sluiten met <#perc#> procent"
+                "presteerde <#comp_name#> bovenmaats ten opzichte van de <#sec_multi_word#>",
+                "presteerde <#comp_name#> beter dan zijn <#sec_multi_word#> door de dag af te sluiten met <#perc#> procent"
             ],
             "neg": [
-                "presteerde <#comp_name#> ondermaats ten opzichte van de sectorgenoten",
-                "presteerde <#comp_name#> slechter dan de sectorgenoten door de dag af te sluiten met <#perc#> procent"
+                "presteerde <#comp_name#> ondermaats ten opzichte van de <#sec_multi_word#>",
+                "presteerde <#comp_name#> slechter dan zijn <#sec_multi_word#> door de dag af te sluiten met <#perc#> procent"
             ],
             "long": {
                 "pos": [
-                    "presteerde <#comp_name#> beter (<#perc#>%) dan de sectorgenoten, <#multi_comp#>"
+                    "presteerde <#comp_name#> beter (<#perc#>%) dan de <#sec_multi_word#>, <#multi_comp#>"
                 ],
                 "neg": [
-                    "presteerde <#comp_name#> slechter (<#perc#>%) dan de sectorgenoten, <#multi_comp#>"
+                    "presteerde <#comp_name#> slechter (<#perc#>%) dan de <#sec_multi_word#>, <#multi_comp#>"
                 ]
             }
 

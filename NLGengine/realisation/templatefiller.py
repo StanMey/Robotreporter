@@ -74,8 +74,7 @@ class TemplateFiller:
 
             # set up the template
             new_sentence = replace_multi_comp_tag(new_sentence, len(comps))
-            # apply all the comps
-            print(comps)
+            # insert the components into the template
             short_comps = [get_comp_short(info_dict, x) for x in comps]
             new_sentence = insert_comps_in_template(new_sentence, short_comps, percs)
 
@@ -102,7 +101,16 @@ class TemplateFiller:
             # get all components and percentages and fill in the rest of the multi components if the long version is chosen
             comps = observation.meta_data.get("components")
             percs = observation.meta_data.get("perc_change")
-            # set up the rest of the template
+
+            # check the amount of other components in the sector
+            if len(comps[1:]) == 1:
+                # only one other component in the sector
+                new_sentence = new_sentence.replace("<#sec_multi_word#>", "sectorgenoot")
+            else:
+                # two or more other components in the sector
+                new_sentence = new_sentence.replace("<#sec_multi_word#>", "sectorgenoten")
+
+            # set up the rest of the template, by replacing the multi comp tag with the appropriate sentence
             new_sentence = replace_multi_comp_tag(new_sentence, len(comps[1:]))
             # apply all the comps
             short_comps = [get_comp_short(info_dict, x) for x in comps[1:]]
