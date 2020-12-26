@@ -7,7 +7,7 @@ class Rules:
 
     @staticmethod
     def x_times_repeat_comp(amount: int, observs: list):
-        """Check whether a component is repeated for x times or over.
+        """Check whether a component is repeated for x times.
 
         Args:
             amount (int): The amount of repetitions to check for
