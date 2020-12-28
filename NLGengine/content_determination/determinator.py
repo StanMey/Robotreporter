@@ -6,7 +6,7 @@ from datetime import datetime
 class Determinator:
     """[summary]
     """
-    def __init__(self, all_observs: list, history: list, sector_focus: list, sec_focus_weight: float = 0.3):
+    def __init__(self, all_observs: list, history: list, sector_focus: list, sec_focus_weight: float = 0.5):
         """The init function
 
         Args:
@@ -17,11 +17,12 @@ class Determinator:
         """
         self.all_observations = all_observs
         self.history = history
+        self.sector_focus = sector_focus
+        self.sector_focus_weight = sec_focus_weight
 
     def load_weights(self):
         """Loads in the weights from json.
         """
-        # array made with: np.around((np.random.rand(3,4,3) * 2 - 1), decimals=2)
         with open(r"./NLGengine/content_determination/weights.json") as f:
             self.weight_array = json.load(f).get("matrix")
 
@@ -68,6 +69,10 @@ class Determinator:
                     observ.relevance2 -= self.follow_up_weight(hist_observ, observ) * sm_weight
                 else:
                     observ.relevance2 += self.follow_up_weight(hist_observ, observ) * sm_weight
+
+            # check if sector of observation is focus
+            if is_focus_sector(self.sector_focus, observ):
+                observ.relevance2 += self.sector_focus_weight
 
     def get_highest_relevance(self):
         """Gets the hightest situational relevance from the avaiable observations

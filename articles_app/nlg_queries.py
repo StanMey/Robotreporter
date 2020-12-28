@@ -26,12 +26,13 @@ import uuid
 AI_VERSION = 1.6
 
 
-def select_observations(initial_obs, observation_set: list, max_reps: int = 3, max_obs: int = 5, par_amount: int = 3):
+def select_observations(initial_obs, observation_set: list, sector_focus: list, max_reps: int = 3, max_obs: int = 5, par_amount: int = 3):
     """Selects all the observations for the paragraphs.
 
     Args:
         initial_obs (NLGengine.observation.Observation): The initial chosen observation
         observation_set (list): A list with all the observations to choose from
+        sector_focus (list): A list with the sectors to focus on
         max_reps (int, optional): The maximal amount of repetitions of the same component in the same paragraph. Defaults to 3.
         max_obs (int, optional): The maximal amount of observations in a paragraph. Defaults to 5.
         par_amount (int, optional): The amount of paragraphs in an article. Defaults to 3.
@@ -55,7 +56,7 @@ def select_observations(initial_obs, observation_set: list, max_reps: int = 3, m
         # loop over the max amount of observations in a paragraph
         for _ in range(max_obs):
 
-            determinator = Determinator(observation_set, chosen_observs)
+            determinator = Determinator(observation_set, chosen_observs, sector_focus)
             determinator.calculate_new_situational_relevance(new_par)
             # reset the new_par
             new_par = False
@@ -93,8 +94,8 @@ def build_article(user_name, filters, bot=False):
     """
     # TODO implementeer artikeltype
     # TODO implementeer focus op sector
-    current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
-    # current_date = datetime(year=2020, month=9, day=30)
+    # current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
+    current_date = datetime(year=2020, month=9, day=30)
 
     # check if filters on period are activated
     periods = filters.get("Periode")
@@ -105,6 +106,9 @@ def build_article(user_name, filters, bot=False):
     else:
         # if no filters are selected get the last month
         begin_date = current_date - timedelta(30)
+
+    # retrieve the sectors to focus on
+    sector_focus = filters.get("Sector").get("options")
 
     # retrieve all relevant observations from the Observations table
     observation_set = list(Observations.objects.filter(period_end__gte=begin_date)
@@ -144,7 +148,7 @@ def build_article(user_name, filters, bot=False):
     am_sen = int(filters.get("Zinnen").get("options"))
 
     # select all the observations / paragraphs
-    paragraphs = select_observations(first_observ, observation_set, max_obs=am_sen, par_amount=am_par)
+    paragraphs = select_observations(first_observ, observation_set, sector_focus, max_obs=am_sen, par_amount=am_par)
 
     # set the chosen observations /paragrahps to the planner
     planner = Planner(paragraphs)
@@ -200,7 +204,7 @@ def build_article(user_name, filters, bot=False):
     file_name = f"{uuid.uuid1().hex}.jpg"
     save_url = f"./media/images/{file_name}"
     retrieve_url = f"images/{file_name}"
-    cv2.imwrite(save_url, img_array)
+    # cv2.imwrite(save_url, img_array)
 
     article = Articles()
     article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
@@ -213,7 +217,7 @@ def build_article(user_name, filters, bot=False):
         article.author = "nieuwsbot"
     else:
         article.author = user_name
-    article.save()
+    # article.save()
 
     return article.id
 
