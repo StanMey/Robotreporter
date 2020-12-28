@@ -126,7 +126,6 @@ async function createFilterMenuModC(contentDiv) {
     // get all available filters
     let response = await fetch('/data/api/relevance/getfilters');
     let filters = await response.json();
-    console.log(filters);
 
     // build all the filter selects
     for(key in filters) {
@@ -392,7 +391,6 @@ async function generateArticle() {
         mode: "same-origin"
     })
     let data = await response.json();
-    console.log(data);
     // enable the generate button again
     button.disabled = false
 
@@ -582,7 +580,6 @@ function buildComposerView(data, filters) {
 
         // remove observation out of saved observations
         selectedObservs.splice(index-1, 1);
-        console.log(selectedObservs);
 
         // recalculate the new order of the data
         newData = []
