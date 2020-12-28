@@ -18,11 +18,43 @@
                 In het <a href="https://research.tilburguniversity.edu/en/publications/pass-a-dutch-data-to-text-system-for-soccer-targeted-towards-spec">PASS</a> systeem wordt eenzelfde methode gebruikt om de zinnen neer te zetten.
                 Echter, wordt daar ook gekeken naar het publiek waarvoor de zinnen gekozen en ingedeeld worden.
                 <br><br>
-                Voor iedere template is ervoor gekozen om te beginnen met een werkwoord.
-                Hierdoor lezen de templates op zichzelf niet lekker, maar geeft het wel de mogelijkheid om uiteindelijk de ingevulde templates uit te breiden met tijdsspecifieke zinnen of voegwoorden zoals:
+                Voor iedere template is ervoor gekozen om de template te laten beginnen met een werkwoord.
+                Hierdoor lezen de templates op zichzelf niet lekker, maar geeft dit wel de mogelijkheid om uiteindelijk de ingevulde templates uit te breiden met tijdsspecifieke zinnen of voegwoorden zoals:
                 De maandag ervoor, op 28 oktober, vervolgens, etc.
+            </p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center sys-templ">
+        <div class="col text-center">
+            <h3>Voorbeeld van het systeem</h3>
+            <p>
+                Stel <b>Arcadis</b> uit de sector <b>bouw</b> is met <b>5.0%</b> gestegen, terwijl <b>BAM</b> en <b>Boskalis</b> (uit dezelfde sector)
+                ook gestegen zijn maar met <b>1.0%</b> en <b>2.0%</b> respectievelijk. Dit betekent dat <b>Arcadis</b> dus in zijn sector het hardst gestegen is.
                 <br><br>
-                Hieronder worden per patroon een aantal van de beschikbare templates weergegeven:
+                De template die bij deze observatie hoort ziet er als volgt uit:<br>
+                <q>presteerde <#comp_name#> beter (<#perc#>%) dan de <#sec_multi_word#>, <#multi_comp#></q>
+                <br><br>
+                Allereerst wordt de tag <i><#comp_name#></i> opgevuld met component waarop de focus ligt: Arcadis.
+                Hierna wordt de tag<i><#perc#></i> opgevuld met het percentage waarmee Arcadis gestegen is.
+                <br><br>
+                Om de tag <i><#sec_multi_word#></i> in te vullen wordt gekeken naar de hoeveelheid sectorgenoten Arcadis heeft.
+                Aangezien Arcadis 2 sectorgenoten heeft wordt deze tag ingevuld met 'sectorgenoten' (bij 1 sectorgenoot wordt dit opgevuld met 'sectorgenoot').
+                <br><br>
+                Als laatste wordt op basis van de hoeveelheid sectorgenoten de tag <i></i> opgevuld met een template voor wanneer mogelijk meerdere componenten genoemd moeten worden.
+                Arcadis heeft 2 sectorgenoten dus de volgende template zal bij deze tag ingevuld worden:
+                <br>
+                <q><#comp_name#> (<#perc#>%) en <#comp_name#> (<#perc#>%)</q>.
+                <br>
+                Binnen deze template zullen de tags aangevuld worden met eerder genoemde sectorgenoten.
+                <br><br>
+                Uiteindelijk komt dan de volgende zin in het artikel terecht:
+                <br>
+                <q>presteerde <b>Arcadis</b> beter (<b>5.0</b>%) dan de <b>sectorgenoten</b>, <b>Boskalis</b> (<b>2.0</b>%) en <b>BAM</b> (<b>1.0</b>%)</q>
+                <br><br>
+            </p>
+            <p>
+                Hieronder worden per patroon een aantal van de beschikbare (ingevulde) templates weergegeven:
             </p>
         </div>
     </div>
