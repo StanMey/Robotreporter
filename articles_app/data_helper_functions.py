@@ -9,7 +9,7 @@ from articles_app.nlg_queries import find_new_observations, observation_to_datab
 # dhf.from_csv_to_Stocks(r"articles_app/data/AMX_prices_90_days.csv")
 
 
-def from_csv_to_Stocks(data_path):
+def from_csv_to_stocks(data_path):
     """Writs the stock info in the csv files into the database.
 
     Args:
