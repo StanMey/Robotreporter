@@ -24,7 +24,7 @@ Als laatste wordt er zowel in de productie als in development gebruik gemaakt va
 Eén van de doelen van dit project is om mensen op een zo praktisch mogelijke manier zelf AI te laten gebruiken. Het Robotreporter project zelf heeft geen winstoogmerk en het systeem wordt open-source beschikbaar gesteld dankzij de sponsoring door ICT Institute.
 
 ## Inspiratie en links
-- [De website van RobotReporter](www.robotreporter.nl)
+- [De website van RobotReporter](https://www.robotreporter.nl/)
 - [Artikel over Robotreporter vanuit Lectoraat](https://www.hu.nl/onderzoek/projecten/robotreporter-onderzoek-naar-generatieve-ai-systemen)
 - [LA times maakt gebruik van _Quakebot_ om zo snel mogelijk een artikel te publiceren wanneer een aardbeving voorkomt](https://www.hu.nl/onderzoek/projecten/robotreporter-onderzoek-naar-generatieve-ai-systemen)
 - [Marketwatch gebruikt een algoritme om automatisch aandeel gerelateerde berichten te genereren](https://www.marketwatch.com/author/marketwatch-automation?mod=MW_author_byline)
