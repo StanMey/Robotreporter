@@ -24,28 +24,28 @@ class Analyse:
     def find_period_observations(self):
         """[summary]
         """
-        increase = Increase(self.data, self.period_begin, self.period_end)
+        increase = Increase(self.data.copy(deep=True), self.period_begin, self.period_end)
         increase.analyse()
         self.observations.extend(increase.observations)
 
-        decrease = Decrease(self.data, self.period_begin, self.period_end)
+        decrease = Decrease(self.data.copy(deep=True), self.period_begin, self.period_end)
         decrease.analyse()
         self.observations.extend(decrease.observations)
 
-        sector = Sector(self.data, self.period_begin, self.period_end)
+        sector = Sector(self.data.copy(deep=True), self.period_begin, self.period_end)
         sector.analyse()
         self.observations.extend(sector.observations)
 
     def find_weekly_observations(self):
         """[summary]
         """
-        week_pattern = WeekPattern(self.data, self.period_begin, self.period_end)
+        week_pattern = WeekPattern(self.data.copy(deep=True), self.period_begin, self.period_end)
         week_pattern.analyse()
         self.observations.extend(week_pattern.observations)
 
     def find_trend_observations(self):
         """[summary]
         """
-        trend_pattern = Trend(self.data, self.period_begin, self.period_end)
+        trend_pattern = Trend(self.data.copy(deep=True), self.period_begin, self.period_end)
         trend_pattern.analyse()
         self.observations.extend(trend_pattern.observations)

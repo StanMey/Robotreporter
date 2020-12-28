@@ -32,6 +32,11 @@
     color: #ffffff !important;
 }
 
+.btn-mod-e:hover {
+    background: #dbce51 !important;
+    color: #ffffff !important;
+}
+
 /* base.html HEADER */
 .page-header {
     line-height: 1.5;
@@ -146,8 +151,8 @@ footer {
 /* ModC behaviour */
 .button-mod-c {
     margin-top: 2rem;
-    height: 4rem;
-    width: 40%;
+    height: 5rem;
+    width: 50%;
 }
 
 .generate-links {
@@ -155,7 +160,8 @@ footer {
 }
 
 .filter-container {
-    margin-top: 1rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
 }
 
 /* articles ModD behaviour */
@@ -233,7 +239,6 @@ footer {
 .info-par {
     padding-top: 2rem;
     padding-bottom: 2rem;
-
     background: #FFF;
 }
 
@@ -241,12 +246,6 @@ footer {
 .relev-expl {
     margin-top: 2rem;
     margin-bottom: 4rem;
-}
-
-.relev-button a {
-    margin-right: 3rem;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
 }
 
 /* compose article datatable behaviour */
@@ -279,6 +278,25 @@ footer {
 }
 
 .algo-expl {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* about.html styling */
+.about-par {
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background: #FFF;
+}
+
+.extra-par {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+
+.sys-templ {
     margin-top: 2rem;
     margin-bottom: 2rem;
 }

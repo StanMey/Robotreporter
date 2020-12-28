@@ -6,20 +6,23 @@ from datetime import datetime
 class Determinator:
     """[summary]
     """
-    def __init__(self, all_observs: list, history: list):
+    def __init__(self, all_observs: list, history: list, sector_focus: list, sec_focus_weight: float = 0.5):
         """The init function
 
         Args:
             all_observs (list): All the observations that can be chosen as the next one
             history (list): A list with the already chosen observations
+            sector_focus (list): A list with sectors to focus on
+            sec_focus_weight (float, optional): The extra weight an observation gets when its sector is the focus sector. Defaults to 0.5
         """
         self.all_observations = all_observs
         self.history = history
+        self.sector_focus = sector_focus
+        self.sector_focus_weight = sec_focus_weight
 
     def load_weights(self):
         """Loads in the weights from json.
         """
-        # array made with: np.around((np.random.rand(3,4,3) * 2 - 1), decimals=2)
         with open(r"./NLGengine/content_determination/weights.json") as f:
             self.weight_array = json.load(f).get("matrix")
 
@@ -66,6 +69,10 @@ class Determinator:
                     observ.relevance2 -= self.follow_up_weight(hist_observ, observ) * sm_weight
                 else:
                     observ.relevance2 += self.follow_up_weight(hist_observ, observ) * sm_weight
+
+            # check if sector of observation is focus
+            if is_focus_sector(self.sector_focus, observ):
+                observ.relevance2 += self.sector_focus_weight
 
     def get_highest_relevance(self):
         """Gets the hightest situational relevance from the avaiable observations
@@ -216,6 +223,32 @@ def has_overlap(A_start: datetime, A_end: datetime, B_start: datetime, B_end: da
     latest_start = max(A_start, B_start)
     earliest_end = min(A_end, B_end)
     return latest_start <= earliest_end
+
+
+def is_focus_sector(filter_list: list, observ):
+    """Returns true if the sector in the observation is in the list of sectors to focus on.
+
+    Args:
+        filter_list (list): A list with sectors to filter on
+        observ (NLGengine.observation.Observation): The observation to check the sector on
+
+    Returns:
+        bool: Returns whether the observation is about a focus sector
+    """
+    multi_sectors = observ.meta_data.get("sectors")
+
+    if multi_sectors:
+        # "sectors" exist in the meta_data of the observation
+        observ_sectors = multi_sectors
+    else:
+        observ_sectors = observ.sector
+
+    if type(observ_sectors) == list:
+        # multiple sectors to check for
+        return any(i in filter_list for i in observ_sectors)
+    else:
+        # only one sector to check for
+        return observ_sectors in filter_list
 
 
 def generate_smoothing_mean(hist_elems):

@@ -47,7 +47,7 @@ class Decrease:
             # no component has been decreasing, only increasing components
             # build the sentence
             info = "AMX"
-            sentence = f"Alle fondsen binnen de {info} zijn vandaag gestegen."
+            sentence = f"alle fondsen binnen de {info} zijn vandaag gestegen"
             # build the observation object
             data = {}
             observ = Observation(info,
@@ -90,7 +90,7 @@ class Decrease:
             info = df_dec.iloc[0:2]
             # collect the additional metadata
             # build the sentence
-            sentence = f"Op {info.iloc[0].component} en {info.iloc[1].component} na stegen alle fondsen"
+            sentence = f"op {info.iloc[0].component} en {info.iloc[1].component} na stegen alle fondsen"
             # build the observation object
             data = {
                 "components": list(info.component),
@@ -197,7 +197,12 @@ class Decrease:
                 # build the sentence
                 sentence = f"{first.component} daalde het hardst met {abs(first.perc_delta)} procent."
                 # build the observation object
-                data = {}
+                data = {
+                    "components": [first.component],
+                    "sectors": [first.sector],
+                    "perc_change": [first.perc_delta],
+                    "abs_change": [first.abs_delta]
+                }
                 observ = Observation(first.component,
                                      self.period_begin,
                                      self.period_end,
@@ -217,14 +222,26 @@ class Decrease:
         """Gets all individual components that have decreased in the time period.
         """
         # filter on negative percentages and only get the difference of the end date
-        df_inc = self.df[(self.df["perc_delta"] < 0.0) & (self.df['date'].dt.strftime('%d-%m-%Y') == self.period_end.strftime('%d-%m-%Y'))]
+        df_desc = self.df[(self.df["perc_delta"] < 0.0) & (self.df['date'].dt.strftime('%d-%m-%Y') == self.period_end.strftime('%d-%m-%Y'))]
+
+        # get the AMX indexx and its percentage change
+        indexx_info = self.df[self.df['component'] == "AMX"]
+        long_sentence = None
+
+        if float(indexx_info.perc_delta) > 0.0:
+            long_sentence = f", terwijl de AMX met {str(abs(float(indexx_info.perc_delta)))} procent steeg"
+
+        # remove the indexes
+        df_desc = df_desc[~df_desc["component"].isin(["AMX"])]
 
         # loop over all the falling stocks and save the observations
-        for index, info in df_inc.iterrows():
+        for index, info in df_desc.iterrows():
             # build the sentence
             sentence = f"Aandeel {info.component} is met {abs(info.perc_delta)}% gedaald."
             # build the observation object
-            data = {}
+            data = {
+                "long": long_sentence
+            }
             observ = Observation(info.component,
                                  self.period_begin,
                                  self.period_end,
@@ -251,10 +268,6 @@ class Decrease:
 
         # order all data by date in ascending order, because .diff() doesn't take in the date
         self.df.sort_values('date', inplace=True)
-
-        # remove all the indexes themself out of the dataframe
-        all_indexes = self.df["indexx"].unique()
-        self.df = self.df[~self.df["component"].isin(all_indexes)]
 
         # get all the unique components that are in the dataframe
         all_components = self.df["component"].unique()
@@ -289,6 +302,11 @@ class Decrease:
                                     weekmask=[1, 1, 1, 1, 1, 0, 0])
 
         self.prep_data(diff_days)
+        self.all_fallers()
+
+        # remove all the indexes themself out of the dataframe
+        all_indexes = self.df["indexx"].unique()
+        self.df = self.df[~self.df["component"].isin(all_indexes)]
+
         self.x_largest_decrease()
         self.only_x_decrease()
-        self.all_fallers()

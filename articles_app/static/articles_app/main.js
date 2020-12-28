@@ -22,8 +22,8 @@ function highLightSelectedButton(buttonNumber) {
     );
     
     // change the color of the button that is currently selected
-    const buttons = [".btn-mod-a", ".btn-mod-b", ".btn-mod-c", ".btn-mod-d"];
-    const colors = ["#2a9d8f", "#e9c46a", "#f4a261", "#80d8d5"];
+    const buttons = [".btn-mod-a", ".btn-mod-b", ".btn-mod-c", ".btn-mod-d", ".btn-mod-e"];
+    const colors = ["#2a9d8f", "#e9c46a", "#f4a261", "#80d8d5", "#dbce51"];
     let selected_button = document.querySelector(buttons[buttonNumber]);
     selected_button.style.backgroundColor = colors[buttonNumber];
     selected_button.style.color = "#FFFFFF";
@@ -117,23 +117,46 @@ async function applyFiltersModB() {
 
 }
 
-async function createFilterMenuModC(contentDiv) {
 
+/**
+ * Builds the filter menu for module C.
+ * @param {String} contentDiv The class of the target where the filters are loaded in.
+ */
+async function createFilterMenuModC(contentDiv) {
     // get all available filters
     let response = await fetch('/data/api/relevance/getfilters');
-    let filters = await response.json(); 
+    let filters = await response.json();
+    console.log(filters);
 
     // build all the filter selects
     for(key in filters) {
+
+        // set the div to insert the filters and titles
+        let selectionDiv = document.createElement("div");
+        selectionDiv.className = "col text-center"
+        contentDiv.appendChild(selectionDiv);
+
+        // add title of selection
+        let selectText = document.createElement("p");
+        let text = document.createTextNode(filters[key]["title"]);
+        selectText.appendChild(text);
+        selectionDiv.appendChild(selectText);
+
+        // add select box
         let selectList = document.createElement("select");
         selectList.id = key;
-        selectList.multiple = true;
-        contentDiv.appendChild(selectList);
+        selectList.multiple = filters[key]["multi"];
+        selectionDiv.appendChild(selectList);
 
-        for(let i = 0; i < filters[key].length; i++) {
+        for(let i = 0; i < filters[key]["choices"].length; i++) {
             let option = document.createElement("option");
-            option.value = filters[key][i];
-            option.text = filters[key][i];
+            option.value = filters[key]["choices"][i];
+            option.text = filters[key]["choices"][i];
+
+            // check if this option is the default choice
+            if (!filters[key]["multi"] && (filters[key]["choices"][i] == filters[key]["default"])) {
+                option.setAttribute("selected", true);
+            }
             selectList.appendChild(option);
         }
     }
@@ -338,10 +361,16 @@ function createSingleSlider(contentDiv, title) {
  * Eventually a new article will be generated and the user is redirected to a page with the article. 
  */
 async function generateArticle() {
+    // disable button while generating
+    let button = document.getElementById("mod-c-gen-button");
+    button.disabled = true;
+
     // search for the filters that have been selected
     let choices = {};
+    // all the filters
+    const filters = ["Type", "Periode", "Sector", "Paragrafen", "Zinnen"]
     // get the selected values
-    ["Sector", "Periode"].forEach(function (item, index) {
+    filters.forEach(function (item, _) {
         let optionCount = $("#" + item + " option").length;
         let selectedSeries = $("#" + item).val();
         choices[item] = {"total": optionCount,
@@ -363,10 +392,19 @@ async function generateArticle() {
         mode: "same-origin"
     })
     let data = await response.json();
+    console.log(data);
+    // enable the generate button again
+    button.disabled = false
 
-    // get the id of the article and redirect to the article
-    _id = data['article_number']
-    window.open('/modules/articles/' + _id, target="_self");
+    // check if the backend crashed while generating an article
+    if (data["error"]) {
+        // error occured
+        alert("Something went wrong")
+    } else {
+        // get the id of the article and redirect to the article
+        _id = data['article_number']
+        window.open('/modules/articles/' + _id, target="_self");
+    }
 }
 
 
@@ -614,7 +652,7 @@ function showObservation(oid) {
  */
 async function showTestScores() {
     // set the columns
-    const col = ["zin 1", "zin 2", "patroon", "periode", "serie", "score"]
+    const col = ["zin 1", "zin 2", "patroon", "periode", "serie", "score", "doelscore"]
 
     let section = document.querySelector(".test-score-table");
 
@@ -630,7 +668,7 @@ async function showTestScores() {
     let rows = []
     for (key in data['scores']) {
         info = data["scores"][key];
-        rows.push([info['sentence1'], info['sentence2'], info['pattern'], info['period'], info['component'], info['score']]);
+        rows.push([info['sentence1'], info['sentence2'], info['pattern'], info['period'], info['component'], info['score'], info["expected"]]);
     }
     // build the datatable
     createDataTable(section, "test_scores_table", col, rows, false);
@@ -642,6 +680,10 @@ async function showTestScores() {
  * @param {Array} matrix The matrix to be loaded in.
  */
 function buildTestMatrix(target, matrix) {
+
+    const tableTitles = ["zh", "zv", "zo"];
+    const rowTitles = ["pi", "pov", "pop", "pa"];
+    const colTitles = ["sh", "sv", "sa"];
     
     // loop over the first dimension of the matrix and build the tables
     for (let x = 0; x < matrix.length; x++) {
@@ -651,20 +693,62 @@ function buildTestMatrix(target, matrix) {
         newDiv.className = "col";
         target.appendChild(newDiv);
 
+        // build the title
+        let bold = document.createElement("strong");
+        let title = document.createTextNode(tableTitles[x]);
+        bold.append(title);
+        newDiv.appendChild(bold);
+
         //build the new table
         let tbl = document.createElement("table");
         tbl.className = "table";
         newDiv.appendChild(tbl);
+
+        current_matrix = matrix[x];
+        current_matrix.push(colTitles);
         
         // build the content of the table
-        generateTableRows(tbl, matrix[x]);
+        generateTestTableRows(tbl, matrix[x], rowTitles);
+    }
+}
+
+/**
+ * Builds the tables for showcasing the scores and their explanations in the matrix.
+ * @param {String} target The target where the table has to be loaded in.
+ * @param {Array} matrix The matrix to be loaded in.
+ * @param {Array} rowtitles The titles of the rows.
+ */
+function generateTestTableRows(table, data, rowtitles) {
+    for (let x = 0; x < data.length; x++) {
+        let row = table.insertRow();
+        for (let i = 0; i < data[x].length + 1; i++) {
+            let cell = row.insertCell();
+
+            if (i == 0 && x == rowtitles.length) {
+                let text = document.createTextNode("");
+                cell.appendChild(text);
+            } else if (i == 0) {
+                let bold = document.createElement("strong");
+                let text = document.createTextNode(rowtitles[x])
+                bold.append(text);
+                cell.appendChild(bold);
+            } else if (x == rowtitles.length) {
+                let bold = document.createElement("strong");
+                let text = document.createTextNode(data[x][i - 1])
+                bold.append(text);
+                cell.appendChild(bold);
+            } else {
+                let text = document.createTextNode(data[x][i - 1]);
+                cell.appendChild(text);
+            }
+        }
     }
 }
 
 
 // MODULE A timeseries
 /**
- * .
+ * Loads in the view of module A.
  */
 async function renderModuleA() {
     let col = ["Serie", "sector", "Oudste datum", "Recentste datum", "Laatste koers"]
@@ -698,6 +782,9 @@ async function renderModuleA() {
 
 
 // MODULE B Observations
+/**
+ * Loads in the view of module B.
+ */
 async function renderModuleB() {
     highLightSelectedButton(1);
 
@@ -723,34 +810,32 @@ async function renderModuleB() {
 
 
 // MODULE C Observations-relevance
+/**
+ * Loads in the view of module C.
+ */
 async function renderModuleC() {
     highLightSelectedButton(2);
 
-    let contentDiv = document.querySelector(moduleContent);
-
-    let col = ["Serie", "Periode", "Patroon", "Zin", "Relevantie"]
-
-    // get all information about the available dataseries from db
-    let response = await fetch('/data/api/observations/relevance');
-    let data = await response.json();
-
-    // format it to the form of: [["AMX", "1-9-2020/8-9-2020", "Stijging", "Gestegen met 5.00%", 8].....]
-    let rows = []
-    for (key in data) {
-        obj = data[key]
-        rows.push([obj['serie'], obj['period'], obj['pattern'], obj['observation'], obj['relevance']]);
-    }
-
-    let section1 = document.querySelector(".filter-container");
-    let section2 = document.querySelector(".mod-c-table");
+    let section = document.querySelector(".filter-container");
 
     // createImportanceSliders(section1);
-    createFilterMenuModC(section1);
-    createDataTable(section2, "obser_relev_table", col, rows, false);
+    createFilterMenuModC(section);
 }
 
 
 // MODULE D Articles
-async function renderModuleD() {
+/**
+ * Loads in the view of module D.
+ */
+function renderModuleD() {
     highLightSelectedButton(3);
+}
+
+
+// MODULE E About
+/**
+ * Loads in the view of module E (explanation page).
+ */
+function renderModuleE() {
+    highLightSelectedButton(4);
 }

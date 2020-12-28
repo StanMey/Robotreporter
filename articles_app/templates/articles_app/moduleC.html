@@ -13,19 +13,12 @@
             <button type="button" onclick="location.href='/modules/moduleB'" class="btn btn-menu btn-mod-b">Observations</button>
             <button type="button" onclick="location.href='/modules/moduleC'" class="btn btn-menu btn-mod-c">Article-generation</button>
             <button type="button" onclick="location.href='/modules/moduleD'" class="btn btn-menu btn-mod-d">Articles</button>
+            <button type="button" onclick="location.href='/about'" class="btn btn-menu btn-mod-e">Uitleg</button>
         </div>
     </div>
     
     <div class="module-content">
-        <div class="row justify-content-center h-40 w-100 filter-container">
-
-        </div>
-
-        <div class="row justify-content-end w-100 relev-button">
-            <a class="justify-content-end" href="/modules/relevance">Relevantie?</a>
-        </div>
-
-        <div class="row justify-content-center h-40 w-100 mod-c-table">
+        <div class="row justify-content-center h-40 w-60 filter-container">
 
         </div>
 
@@ -34,7 +27,7 @@
                 <button class="btn btn-success button-mod-c" onclick=loadComposeView()>Stel artikel samen</button>
             </div>
             <div class="col d-flex justify-content-center">
-                <button class="btn btn-success button-mod-c" onclick=generateArticle()>Genereer artikel</button>
+                <button class="btn btn-success button-mod-c" id="mod-c-gen-button" onclick=generateArticle()>Genereer artikel</button>
             </div>
         </div>
     </div>

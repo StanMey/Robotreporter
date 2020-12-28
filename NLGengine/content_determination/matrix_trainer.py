@@ -215,7 +215,8 @@ class MatrixTrainer:
                 "pattern": ['hetzelfde', 'vergelijkbaar', 'ongelijk'][pattern_index],
                 "period": ['identiek', 'overlappend', 'opvolgend', 'anders'][period_index],
                 "component": ['hetzelfde', 'vergelijkbaar', 'anders'][comp_index],
-                "score": round(self.retrieve_weight(matrix, observ1, observ2), 2)
+                "score": round(self.retrieve_weight(matrix, observ1, observ2), 2),
+                "expected": case.get("score")
             }
             # append the info
             cases_info.append(info)

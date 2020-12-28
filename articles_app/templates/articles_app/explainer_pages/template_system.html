@@ -1,0 +1,154 @@
+{% extends "articles_app/base.html" %}
+
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="article-link-back">
+        <a class="header-button" href="/about"> &lt; Terug</a>
+    </div>
+    <div class="row justify-content-center sys-templ">
+        <div class="col text-center">
+            <h2>Template systeem</h2>
+            <p>
+                Wanneer alle observaties voor in het artikel gekozen zijn wordt per observatie een overeenstemmende template uitgekozen.
+                Een template bestaat uit een zin met een aantal tags erin.
+                Deze tags kunnen er als volgt uitzien: <i><#comp_name#></i> en <i><#perc#></i>.
+                Uit de observatie wordt hierna de informatie gehaald om deze tags in te vullen en de zin kloppend te maken.<br>
+                In het <a href="https://research.tilburguniversity.edu/en/publications/pass-a-dutch-data-to-text-system-for-soccer-targeted-towards-spec">PASS</a> systeem wordt eenzelfde methode gebruikt om de zinnen neer te zetten.
+                Echter, wordt daar ook gekeken naar het publiek waarvoor de zinnen gekozen en ingedeeld worden.
+                <br><br>
+                Voor iedere template is ervoor gekozen om de template te laten beginnen met een werkwoord.
+                Hierdoor lezen de templates op zichzelf niet lekker, maar geeft dit wel de mogelijkheid om uiteindelijk de ingevulde templates uit te breiden met tijdsspecifieke zinnen of voegwoorden zoals:
+                De maandag ervoor, op 28 oktober, vervolgens, etc.
+            </p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center sys-templ">
+        <div class="col text-center">
+            <h3>Voorbeeld van het systeem</h3>
+            <p>
+                Stel <b>Arcadis</b> uit de sector <b>bouw</b> is met <b>5.0%</b> gestegen, terwijl <b>BAM</b> en <b>Boskalis</b> (uit dezelfde sector)
+                ook gestegen zijn maar met <b>1.0%</b> en <b>2.0%</b> respectievelijk. Dit betekent dat <b>Arcadis</b> dus in zijn sector het hardst gestegen is.
+                <br><br>
+                De template die bij deze observatie hoort ziet er als volgt uit:<br>
+                <q>presteerde <#comp_name#> beter (<#perc#>%) dan de <#sec_multi_word#>, <#multi_comp#></q>
+                <br><br>
+                Allereerst wordt de tag <i><#comp_name#></i> opgevuld met component waarop de focus ligt: Arcadis.
+                Hierna wordt de tag<i><#perc#></i> opgevuld met het percentage waarmee Arcadis gestegen is.
+                <br><br>
+                Om de tag <i><#sec_multi_word#></i> in te vullen wordt gekeken naar de hoeveelheid sectorgenoten Arcadis heeft.
+                Aangezien Arcadis 2 sectorgenoten heeft wordt deze tag ingevuld met 'sectorgenoten' (bij 1 sectorgenoot wordt dit opgevuld met 'sectorgenoot').
+                <br><br>
+                Als laatste wordt op basis van de hoeveelheid sectorgenoten de tag <i></i> opgevuld met een template voor wanneer mogelijk meerdere componenten genoemd moeten worden.
+                Arcadis heeft 2 sectorgenoten dus de volgende template zal bij deze tag ingevuld worden:
+                <br>
+                <q><#comp_name#> (<#perc#>%) en <#comp_name#> (<#perc#>%)</q>.
+                <br>
+                Binnen deze template zullen de tags aangevuld worden met eerder genoemde sectorgenoten.
+                <br><br>
+                Uiteindelijk komt dan de volgende zin in het artikel terecht:
+                <br>
+                <q>presteerde <b>Arcadis</b> beter (<b>5.0</b>%) dan de <b>sectorgenoten</b>, <b>Boskalis</b> (<b>2.0</b>%) en <b>BAM</b> (<b>1.0</b>%)</q>
+                <br><br>
+            </p>
+            <p>
+                Hieronder worden per patroon een aantal van de beschikbare (ingevulde) templates weergegeven:
+            </p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center sys-templ">
+        <div class="col">
+            <h3 class="text-center">Stijging</h3>
+            <p>
+                Bij dit patroon worden de individuele en combinatie stijgingen meegenomen.
+                De ingevulde templates zien er voor de individuele stijgingen als volgt uit:<br>
+                <ul>
+                    <li>is aandeel <i>Fagro</i> met <i>2.0</i> gestegen</li>
+                    <li>steeg <i>Signify</i> met <i>1.0</i> procent</li>
+                </ul>
+                De templates van de combi patronen zien er als volgt uit:<br>
+                <ul>
+                    <li>ging <i>Fagro</i> aan kop met een koerswinst van <i>4.0</i> procent</li>
+                    <li>waren <i>NSI</i> <i>(2.0%)</i> en <i>Vopak</i> <i>(1.5%)</i> de grootste stijgers</li>
+                    <li>waren <i>OCI</i> <i>(3.0%)</i>, <i>NSI</i> <i>(2.0%)</i> en <i>Vopak</i> <i>(1.5%)</i> de grootste stijgers</li>
+                </ul>
+            </p>
+        </div>
+        <div class="col">
+            <h3 class="text-center">Daling</h3>
+            <p>
+                Bij dit patroon worden de individuele en combinatie dalingen meegenomen.
+                De ingevulde templates zien er voor de individuele stijgingen als volgt uit:<br>
+                <ul>
+                    <li>daalde <i>Fagro</i> met <i>2.0</i> procent</li>
+                    <li>verloor <i>Signify</i> <i>1.0</i> procent</li>
+                </ul>
+                De templates van de combi patronen zien er als volgt uit:<br>
+                <ul>
+                    <li>daalde <i>Fagro</i> het hardst met <i>4.0</i> procent</li>
+                    <li>waren <i>NSI</i> <i>(-2.0%)</i> en <i>Vopak</i> <i>(-1.5%)</i> de hardste dalers</li>
+                    <li>lieten <i>OCI</i> <i>(-3.0%)</i>, <i>NSI</i> <i>(-2.0%)</i> en <i>Vopak</i> <i>(-1.5%)</i> de sterkste koersdalingen zien</li>
+                </ul>
+            </p>
+        </div>
+        <div class="col">
+            <h3 class="text-center">Trend</h3>
+            <p>
+                Bij dit patroon worden de trends (wanneer een trend omklapt) weergegeven.
+                De ingevulde templates zien er voor de trends als volgt uit:<br><br>
+                <b>Positieve trend</b>
+                <ul>
+                    <li>was <i>Fagro</i> na <i>4</i> negatieve dagen weer positief geëindigd</li>
+                </ul>
+                <b>Negatieve trend</b>
+                <ul>
+                    <li>was <i>Signify</i> na <i>5</i> positieve dagen weer negatief geëindigd</li>
+                </ul>
+                
+            </p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center sys-templ">
+        <div class="col">
+            <h3 class="text-center">Sector</h3>
+            <p>
+                Bij dit patroon worden de observaties die gedaan zijn over een sector neergezet.
+                De ingevulde templates zien er als volgt uit:<br>
+                <b>Sector positief</b>
+                <ul>
+                    <li>presteerde <i>Eurocommercial</i> bovenmaats ten opzichte van de sectorgenoten</li>
+                    <li>deden de bedrijven in de sector <i>Olie & gas</i> het goed en stegen allemaal</li>
+                    <li>presteerde <i>Vopak</i> beter <i>(3.0%)</i> dan de sectorgenoten, <i>Fugro</i> <i>(1.0%)</i></li>
+                </ul>
+                <b>Sector negatief</b>
+                <ul>
+                    <li>presteerde <i>PostNL</i> slechter dan de sectorgenoten door de dag af te sluiten met <i>-8.0</i> procent</li>
+                    <li>deden de bedrijven in de sector <i>Vastgoed</i> het niet goed en daalden allemaal, <i>NSI</i> <i>(-1.0%)</i> en <i>WDP</i> <i>(-4.0%)</i></li>
+                </ul>
+            </p>
+        </div>
+        <div class="col">
+            <h3 class="text-center">Week</h3>
+            <p>
+                Bij dit patroon worden de observaties die over een week gedaan worden neergezet.
+                De ingevulde templates zien er als volgt uit:<br>
+                <b>Week positief</b>
+                <ul>
+                    <li>sloot <i>Signify</i> week <i>30</i> af met een winst van <i>4.3</i>%</li>
+                    <li>is <i>WDP</i> met <i>2.4</i> procent gestegen in week <i>42</i></li>
+                </ul>
+                <b>Week negatief</b>
+                <ul>
+                    <li>sloot <i>Aalberts</i> week <i>10</i> af met een verlies van <i>3.0</i>%</li>
+                    <li>is <i>Arcadis</i> met <i>1.3</i> procent gedaald in week <i>12</i></li>
+                </ul>
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

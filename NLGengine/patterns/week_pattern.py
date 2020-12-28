@@ -59,7 +59,9 @@ class WeekPattern:
                 # build the sentence
                 sentence = f"{row.component} is met {row.perc_delta} procent gestegen in week {self.period_end.isocalendar()[1:2][0]}."
                 # build the observation object
-                data = {}
+                data = {
+                    "trend": "pos"
+                }
                 observ = Observation(row.component,
                                      self.period_begin,
                                      self.period_end,
@@ -76,9 +78,11 @@ class WeekPattern:
             else:
                 # negative week
                 # build the sentence
-                sentence = f"{row.component} is met {row.perc_delta} procent gedaald in week {self.period_end.isocalendar()[1:2][0]}."
+                sentence = f"{row.component} is met {abs(row.perc_delta)} procent gedaald in week {self.period_end.isocalendar()[1:2][0]}."
                 # build the observation object
-                data = {}
+                data = {
+                    "trend": "neg"
+                }
                 observ = Observation(row.component,
                                      self.period_begin,
                                      self.period_end,
@@ -99,6 +103,10 @@ class WeekPattern:
         self.df["abs_delta"] = 0
         self.df["perc_delta"] = 0
         self.df["date"] = pd.to_datetime(self.df["date"])
+
+        # remove all the indexes themself out of the dataframe
+        all_indexes = self.df["indexx"].unique()
+        self.df = self.df[~self.df["component"].isin(all_indexes)]
 
         # order all data by date in ascending order, because .diff() doesn't take in the date
         self.df.sort_values('date', inplace=True)

@@ -15,7 +15,6 @@ urlpatterns = [
     path('api/observations/latest', views.load_latest_observations, name="load_latest_observations"),
     path('api/observations/getfilters', views.get_observations_filters, name="get_observations_filters"),
     path('api/observations/usefilters', views.load_observations_with_filters, name="load_observations_with_filters"),
-    path('api/observations/relevance', views.load_relevance_observations, name="load_relevance_observations"),
 
     path('api/testscores', views.load_test_scores_info, name="load_test_scores_info"),
 

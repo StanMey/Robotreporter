@@ -12,6 +12,7 @@ import articles_app.nlg_queries as nlgq
 import articles_app.utils as util
 
 import json
+import traceback
 
 
 # Create your views here.
@@ -135,6 +136,76 @@ def load_latest_single_article(request, article_id):
 
 
 @login_required
+def about_page(request):
+    """Loads the about page when a user is logged in.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+
+    Returns:
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
+    """
+    return render(request, "articles_app/about.html")
+
+
+@login_required
+def load_background_view(request):
+    """Loads the extended background page when a user is logged in.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+
+    Returns:
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
+    """
+    return render(request, "articles_app/explainer_pages/background.html")
+
+
+@login_required
+def load_sysabout_view(request):
+    """Loads the about system page when a user is logged in.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+
+    Returns:
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
+    """
+    return render(request, "articles_app/explainer_pages/about_system.html")
+
+
+@login_required
+def load_templatesys_view(request):
+    """Loads the template system page when a user is logged in.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+
+    Returns:
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
+    """
+    return render(request, "articles_app/explainer_pages/template_system.html")
+
+
+@login_required
+def load_inspirations_view(request):
+    """Loads the inspirations page when a user is logged in.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+
+    Returns:
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
+    """
+    return render(request, "articles_app/explainer_pages/inspirations.html")
+
+
+@login_required
 def load_relevance_view(request):
     """Returns a static page with the explanation of the relevance.
 
@@ -146,7 +217,21 @@ def load_relevance_view(request):
         django.http.response.HttpResponse: Combines a given template with a given context dictionary
                                            and returns an HttpResponse object with that rendered text.
     """
-    return render(request, "articles_app/relevance.html")
+    return render(request, "articles_app/explainer_pages/relevance.html")
+
+
+@login_required
+def load_test_scores_view(request):
+    """Loads the view with the test scores and the explanation.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+
+    Returns:
+        django.http.response.HttpResponse: Combines a given template with a given context dictionary
+                                           and returns an HttpResponse object with that rendered text.
+    """
+    return render(request, "articles_app/explainer_pages/sit_rel_explained.html")
 
 
 def robots_txt(request):
@@ -192,26 +277,14 @@ def cookie_statement(request):
     return render(request, "articles_app/cookies.html")
 
 
-def about_page(request):
-    """Loads the about page when a user is logged in.
-
-    Args:
-        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
-
-    Returns:
-        django.http.response.HttpResponse: Combines a given template with a given context dictionary
-                                           and returns an HttpResponse object with that rendered text.
-    """
-    return render(request, "articles_app/about.html")
-
-
 # retrieving data views
 @login_required
 def load_all_data_series(request):
-    """[summary]
+    """Retrieves the max date, min date, sector and latest value of every unique component
+    and returns the json data to the site.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
         django.http.response.HttpResponse: [description]
@@ -223,14 +296,14 @@ def load_all_data_series(request):
 
 @login_required
 def load_data_serie_close(request, serie_name):
-    """[summary]
+    """Gets all the stock close points for a particular component.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
-        serie_name ([type]): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+        serie_name (str): The name of the component
 
     Returns:
-        [type]: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
     data = dbq.get_data_serie_close(serie_name)
 
@@ -239,13 +312,13 @@ def load_data_serie_close(request, serie_name):
 
 @login_required
 def get_observations_filters(request):
-    """[summary]
+    """Get all the available filters to filter the observations on.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
     data = dbq.get_available_observ_filters()
     return HttpResponse(json.dumps(data), content_type="application/json")
@@ -253,15 +326,15 @@ def get_observations_filters(request):
 
 @login_required
 def get_relevance_filters(request):
-    """[summary]
+    """Get all the available compose options for generating an article.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
-    data = dbq.get_available_relev_filters()
+    data = dbq.get_available_compose_filters()
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
@@ -269,13 +342,13 @@ def get_relevance_filters(request):
 @login_required
 @csrf_exempt
 def load_observations_with_filters(request):
-    """[summary]
+    """Apply the filters and return the filtered observations.
 
     Args:
-        request ([type]): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        [type]: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
     if request.method == 'POST':
         chosen_filters = json.loads(request.body)
@@ -289,13 +362,13 @@ def load_observations_with_filters(request):
 @login_required
 @csrf_exempt
 def load_compose_options(request):
-    """[summary]
+    """Get all the available observations to let the user compose its own article.
 
     Args:
-        request ([type]): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        [type]: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
     if request.method == 'POST':
         chosen_filters = json.loads(request.body)
@@ -309,13 +382,13 @@ def load_compose_options(request):
 @login_required
 @csrf_exempt
 def compose_article(request):
-    """[summary]
+    """Takes in the chosen observations and constructs the article for the user.
 
     Args:
-        request ([type]): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        [type]: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
     if util.is_view_only(request.user):
         # user has no permission to generate articles
@@ -338,13 +411,13 @@ def compose_article(request):
 
 @login_required
 def load_latest_observations(request):
-    """[summary]
+    """Loads in all the observations.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
     data = dbq.get_latest_observations()
 
@@ -352,43 +425,14 @@ def load_latest_observations(request):
 
 
 @login_required
-def load_relevance_observations(request):
-    """[summary]
-
-    Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
-
-    Returns:
-        django.http.response.HttpResponse: [description]
-    """
-    data = dbq.get_relevance_observations()
-
-    return HttpResponse(json.dumps(data), content_type="application/json")
-
-
-@login_required
-def load_test_scores_view(request):
-    """Loads the view with the test scores and the explanation.
+def load_test_scores_info(request):
+    """Loads in all the test cases with the scores per test case.
 
     Args:
         request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: Combines a given template with a given context dictionary
-                                           and returns an HttpResponse object with that rendered text.
-    """
-    return render(request, "articles_app/algo_explained.html")
-
-
-@login_required
-def load_test_scores_info(request):
-    """[summary]
-
-    Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
-
-    Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
     data = nlgq.get_test_case_info()
     return HttpResponse(json.dumps(data), content_type="application/json")
@@ -397,13 +441,13 @@ def load_test_scores_info(request):
 @login_required
 @csrf_exempt
 def generate_article(request):
-    """[summary]
+    """Generates an article.
 
     Args:
-        request (django.core.handlers.wsgi.WSGIRequest): [description]
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
 
     Returns:
-        django.http.response.HttpResponse: [description]
+        django.http.response.HttpResponse: Returns the json data to the webpage
     """
     if util.is_view_only(request.user):
         # user has no permission to generate articles
@@ -415,7 +459,19 @@ def generate_article(request):
             # user uses the right request method
             chosen_filters = json.loads(request.body)
             user_name = request.user.username
-            data = {"article_number": nlgq.build_article(user_name, chosen_filters)}
+
+            try:
+                art_number = nlgq.build_article(user_name, chosen_filters)
+                data = {
+                    "article_number": art_number,
+                    "error": False
+                }
+            except Exception as e:
+                # error occured so print full traceback for logging purposes
+                print(traceback.print_exc())
+                data = {
+                    "error": True
+                }
         else:
             messages.error(request, "Can't do that right now")
             data = {"article_number": dbq.get_articles_set(1)[1]['article_id']}
@@ -473,12 +529,14 @@ def load_article(request, article_id):
                 oid = chosen_observs[x]
                 # retrieve the observation
                 ob = dbq.get_single_observation(oid)
+                # check if observation has been found
+                if ob.get("found"):
+                    # article has been found
+                    # retrieve the situational relevation and format the periods
+                    ob["rel_sit"] = sit_relev[x]
+                    ob["period_show"] = "{0} / {1}".format(ob.get("prd_begin").strftime("%d-%m-%Y"), ob.get("prd_end").strftime("%d-%m-%Y"))
 
-                # retrieve the situational relevation and format the periods
-                ob["rel_sit"] = sit_relev[x]
-                ob["period_show"] = "{0} / {1}".format(ob.get("prd_begin").strftime("%d-%m-%Y"), ob.get("prd_end").strftime("%d-%m-%Y"))
-
-                meta_observs.append(ob)
+                    meta_observs.append(ob)
 
             # add meta_observs to the context
             context["meta_observs"] = meta_observs

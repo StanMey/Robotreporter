@@ -1,0 +1,96 @@
+{
+    "individu-daling": [
+        "verloor <#comp_name#> <#abs_perc#> procent",
+        "verloor aandeel <#comp_name#> <#abs_perc#> procent",
+        "moest <#comp_name#> <#abs_perc#>% inleveren",
+        "daalde <#comp_name#> met <#abs_perc#> procent",
+        "is aandeel <#comp_name#> met <#abs_perc#>% gedaald"
+    ],
+    "combi-daling": {
+        "1": [
+            "daalde <#comp_name#> het hardst met <#abs_perc#> procent"
+        ],
+        "2": [
+            "waren <#multi_comp#> de hardste dalers"
+        ],
+        "3": [
+            "lieten <#multi_comp#> de sterkste koersdalingen zien",
+            "waren <#multi_comp#> de hardste dalers"
+        ] 
+    },
+    "individu-stijging": [
+        "is aandeel <#comp_name#> met <#perc#>% gestegen",
+        "had <#comp_name#> een goede dag: plus <#perc#>%",
+        "won <#comp_name#> <#perc#> procent",
+        "steeg <#comp_name#> met <#perc#> procent"
+    ],
+    "combi-stijging": {
+        "1": [
+            "ging <#comp_name#> aan kop met een koerswinst van <#perc#> procent",
+            "ging <#comp_name#> aan kop met <#perc#> procent koerswinst",
+            "steeg <#comp_name#> het hardst met <#perc#> procent"
+        ],
+        "2": [
+            "waren <#multi_comp#> de grootste stijgers"
+        ],
+        "3": [
+            "waren <#multi_comp#> de positieve uitschieters",
+            "waren <#multi_comp#> de hardste stijgers"
+        ]
+    },
+    "week": {
+        "pos": [
+            "sloot <#comp_name#> week <#week#> af met een winst van <#perc#>%",
+            "is <#comp_name#> met <#perc#> procent gestegen in week <#week#>"
+        ],
+        "neg": [
+            "sloot <#comp_name#> week <#week#> af met een verlies van <#perc#>%",
+            "is <#comp_name#> met <#abs_perc#> procent gedaald in week <#week#>"
+        ]
+    },
+    "trend": {
+        "pos": [
+            "was <#comp_name#> na <#trend_length#> negatieve dagen weer positief geëindigd"
+        ],
+        "neg": [
+            "was <#comp_name#> na <#trend_length#> positieve dagen weer negatief geëindigd"
+        ]
+    },
+    "sector": {
+        "whole_sector": {
+            "pos": [
+                "deden de bedrijven in de sector <#sector#> het goed en stegen allemaal"
+            ],
+            "neg": [
+                "deden de bedrijven in de sector <#sector#> het niet goed en daalden allemaal"
+            ],
+            "long": {
+                "pos": [
+                    "deden de bedrijven in de sector <#sector#> het goed en stegen allemaal, <#multi_comp#>"
+                ],
+                "neg": [
+                    "deden de bedrijven in de sector <#sector#> het niet goed en daalden allemaal, <#multi_comp#>"
+                ]
+            }
+        },
+        "one_comp": {
+            "pos": [
+                "presteerde <#comp_name#> bovenmaats ten opzichte van de <#sec_multi_word#>",
+                "presteerde <#comp_name#> beter dan zijn <#sec_multi_word#> door de dag af te sluiten met <#perc#> procent"
+            ],
+            "neg": [
+                "presteerde <#comp_name#> ondermaats ten opzichte van de <#sec_multi_word#>",
+                "presteerde <#comp_name#> slechter dan zijn <#sec_multi_word#> door de dag af te sluiten met <#perc#> procent"
+            ],
+            "long": {
+                "pos": [
+                    "presteerde <#comp_name#> beter (<#perc#>%) dan de <#sec_multi_word#>, <#multi_comp#>"
+                ],
+                "neg": [
+                    "presteerde <#comp_name#> slechter (<#perc#>%) dan de <#sec_multi_word#>, <#multi_comp#>"
+                ]
+            }
+
+        }
+    }
+}
