@@ -39,12 +39,13 @@ def from_csv_to_stocks(data_path):
         print(f'Processed {line_count} lines.')
 
 
-def fill_observations():
-    """Fills the database with all the observations it can find.
-    """
-    period_begin = datetime(year=2020, month=6, day=5)
-    period_end = datetime(year=2020, month=10, day=2)
+def fill_observations(period_begin, period_end):
+    """Fills the database with all the observations it can find in the given time span.
 
+    Args:
+        period_begin (datetime.datetime): The begin date
+        period_end (datetime.datetime): The end date
+    """
     begin_date = period_begin
     for new_date in pd.date_range(period_begin, period_end).to_list()[1:]:
         if (begin_date.weekday() in [5, 6]) or (new_date.weekday() in [5, 6]):
