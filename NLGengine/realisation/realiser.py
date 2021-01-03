@@ -28,8 +28,9 @@ class Realiser:
     def find_and_apply_template(self):
         """Finds for every observation the template and saves it.
         """
-        used_sector_long = False
-        used_indiv_long = False
+        used_sector_long = False    # saves whether a long version template of the sector already has been chosen
+        used_indiv_long = False     # saves whether a long version template of the individual pattern already has been chosen
+        desc_comps = []             # saves all the components where the description has been inserted
 
         for par in self.paragraphs:
             for observ in par.observations:
@@ -51,8 +52,14 @@ class Realiser:
                     # normally retrieve the template
                     template = TemplateFiller.retrieve_template_option(observ)
 
+                # check if a description should be inserted in the template
+                apply_desc = False
+                if (bool(rd.getrandbits(1))) and (observ.serie not in desc_comps):
+                    desc_comps.append(observ.serie)
+                    apply_desc = True
+
                 # fill in the template
-                sentence = TemplateFiller.insert_into_template(observ, template)
+                sentence = TemplateFiller.insert_into_template(observ, template, apply_desc)
                 # set the filled in sentence as the current observation sentence
                 observ.observation = sentence
 

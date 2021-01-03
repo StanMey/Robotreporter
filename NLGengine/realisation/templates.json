@@ -1,9 +1,9 @@
 {
     "individu-daling": [
-        "verloor <#comp_name#> <#abs_perc#> procent",
+        "verloor <#comp_desc#> <#comp_name#> <#abs_perc#> procent",
         "verloor aandeel <#comp_name#> <#abs_perc#> procent",
-        "moest <#comp_name#> <#abs_perc#>% inleveren",
-        "daalde <#comp_name#> met <#abs_perc#> procent",
+        "moest <#comp_desc#> <#comp_name#> <#abs_perc#>% inleveren",
+        "daalde <#comp_desc#> <#comp_name#> met <#abs_perc#> procent",
         "is aandeel <#comp_name#> met <#abs_perc#>% gedaald"
     ],
     "combi-daling": {
@@ -20,9 +20,10 @@
     },
     "individu-stijging": [
         "is aandeel <#comp_name#> met <#perc#>% gestegen",
-        "had <#comp_name#> een goede dag: plus <#perc#>%",
-        "won <#comp_name#> <#perc#> procent",
-        "steeg <#comp_name#> met <#perc#> procent"
+        "had <#comp_desc#> <#comp_name#> een goede dag: plus <#perc#>%",
+        "won <#comp_desc#> <#comp_name#> <#perc#> procent",
+        "steeg <#comp_desc#> <#comp_name#> met <#perc#> procent",
+        "steeg aandeel <#comp_name#> met <#perc#> procent"
     ],
     "combi-stijging": {
         "1": [
@@ -40,20 +41,20 @@
     },
     "week": {
         "pos": [
-            "sloot <#comp_name#> week <#week#> af met een winst van <#perc#>%",
-            "is <#comp_name#> met <#perc#> procent gestegen in week <#week#>"
+            "sloot <#comp_desc#> <#comp_name#> week <#week#> af met een winst van <#perc#>%",
+            "is <#comp_desc#> <#comp_name#> met <#perc#> procent gestegen in week <#week#>"
         ],
         "neg": [
-            "sloot <#comp_name#> week <#week#> af met een verlies van <#perc#>%",
-            "is <#comp_name#> met <#abs_perc#> procent gedaald in week <#week#>"
+            "sloot <#comp_desc#> <#comp_name#> week <#week#> af met een verlies van <#perc#>%",
+            "is <#comp_desc#> <#comp_name#> met <#abs_perc#> procent gedaald in week <#week#>"
         ]
     },
     "trend": {
         "pos": [
-            "was <#comp_name#> na <#trend_length#> negatieve dagen weer positief geëindigd"
+            "was <#comp_desc#> <#comp_name#> na <#trend_length#> negatieve dagen weer positief geëindigd"
         ],
         "neg": [
-            "was <#comp_name#> na <#trend_length#> positieve dagen weer negatief geëindigd"
+            "was <#comp_desc#> <#comp_name#> na <#trend_length#> positieve dagen weer negatief geëindigd"
         ]
     },
     "sector": {
