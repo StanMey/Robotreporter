@@ -273,7 +273,7 @@ def generate_matrix(shape: tuple = (3, 4, 3), mean: int = 0, pos_lim: int = 2, n
 
 
 def score(X: list, y: list):
-    """Returns the mean accuracy on the given test data and labels
+    """Returns the mean square accuracy on the given test data and labels
 
     Args:
         X (list): A list with all the predicted weights
