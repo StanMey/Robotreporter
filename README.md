@@ -1,5 +1,5 @@
 # Robotreporter
-Robotreporter is een generatief AI-systeem, dat zelf artikelen schrijft. Het systeem werkt met een combinatie van AI-technieken om artikelen te maken. Om te demonstreren hoe de de AI werkt, wordt er beursinformatie gebruikt. Het systeem bekijkt het koersverloop van alle aandelen in de Nederlandse AMX-index, en maakt artikelen over deze aandelenkoersen. 
+Robotreporter is een generatief AI-systeem, dat zelf artikelen schrijft. Het systeem werkt met een combinatie van NLG-technieken om artikelen te maken. Om te demonstreren hoe de de AI werkt, wordt er beursinformatie gebruikt. Het systeem bekijkt het koersverloop van alle aandelen in de Nederlandse AMX-index, en maakt artikelen over deze aandelenkoersen. 
 
 Dit project is een samenwerking tussen [Ict Institute](https://ictinstitute.nl/ "Home ICT Institute") en het [lectoraat Articificial Intelligence](https://www.hu.nl/onderzoek/artificial-intelligence "Home lectoraat") van de Hogeschool Utrecht.
 
