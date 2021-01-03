@@ -6,14 +6,14 @@ from datetime import datetime
 class Determinator:
     """[summary]
     """
-    def __init__(self, all_observs: list, history: list, sector_focus: list, sec_focus_weight: float = 0.5):
+    def __init__(self, all_observs: list, history: list, sector_focus: list, sec_focus_weight: float = 0.7):
         """The init function
 
         Args:
             all_observs (list): All the observations that can be chosen as the next one
             history (list): A list with the already chosen observations
             sector_focus (list): A list with sectors to focus on
-            sec_focus_weight (float, optional): The extra weight an observation gets when its sector is the focus sector. Defaults to 0.5
+            sec_focus_weight (float, optional): The extra weight an observation gets when its sector is the focus sector. Defaults to 0.7
         """
         self.all_observations = all_observs
         self.history = history
