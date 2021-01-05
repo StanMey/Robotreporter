@@ -101,10 +101,10 @@ def get_latest_observations():
 
 
 def get_available_observ_filters():
-    """[summary]
+    """Gets all the available filters for module B.
 
-        Returns:
-            [type]: [description]
+    Returns:
+        dict: Returns a dictionary with all the available filters
     """
     unique_series = list(Observations.objects.order_by('serie').values_list('serie', flat=True).distinct())
     unique_patterns = list(Observations.objects.values_list('pattern', flat=True).distinct())
@@ -234,13 +234,14 @@ def get_filtered_observations(filters):
 
 
 def get_compose_options(filters):
-    """[summary]
+    """Gets all available observations based on the given filters
+    to let the user build their own article
 
     Args:
-        filters ([type]): [description]
+        filters (dict): A dictionary with the chosen filters
 
     Returns:
-        [type]: [description]
+        list: A list with the filtered observations
     """
     # get all the observations
     queries = Observations.objects.all()
@@ -360,7 +361,7 @@ def get_article(article_id):
         article["title"] = selected_article.title
         article["content"] = selected_article.content.split(art.par_divider)
         article["date_show"] = selected_article.date.strftime("%d %b %Y")
-        article["date_whole"] = selected_article.date.strftime("%m-%d-%Y, %H:%M:%S")
+        article["date_whole"] = selected_article.date.strftime("%d-%m-%Y, %H:%M:%S")
         article["author"] = selected_article.author
         article["AI_version"] = selected_article.AI_version
         article["query_set"] = selected_article
