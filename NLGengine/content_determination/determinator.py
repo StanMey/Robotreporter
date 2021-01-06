@@ -6,18 +6,20 @@ from datetime import datetime
 class Determinator:
     """[summary]
     """
-    def __init__(self, all_observs: list, history: list, sector_focus: list, sec_focus_weight: float = 0.7):
+    def __init__(self, all_observs: list, history: list, sector_focus: list, art_type: str, sec_focus_weight: float = 0.7):
         """The init function
 
         Args:
             all_observs (list): All the observations that can be chosen as the next one
             history (list): A list with the already chosen observations
             sector_focus (list): A list with sectors to focus on
+            art_type (str): the type of the article to be generated
             sec_focus_weight (float, optional): The extra weight an observation gets when its sector is the focus sector. Defaults to 0.7
         """
         self.all_observations = all_observs
         self.history = history
         self.sector_focus = sector_focus
+        self.article_type = art_type
         self.sector_focus_weight = sec_focus_weight
 
     def load_weights(self):
@@ -69,6 +71,12 @@ class Determinator:
                     observ.relevance2 -= self.follow_up_weight(hist_observ, observ) * sm_weight
                 else:
                     observ.relevance2 += self.follow_up_weight(hist_observ, observ) * sm_weight
+
+                # get the recency based on the article type
+                recency = get_recency(self.article_type, hist_observ, observ)
+                if recency > 0:
+                    # punish the observation's relevance based on recency
+                    observ.relevance2 += recency * - 0.4
 
             # check if sector of observation is focus
             if is_focus_sector(self.sector_focus, observ):
@@ -261,3 +269,40 @@ def generate_smoothing_mean(hist_elems):
         numpy.ndarray: Returns an array with
     """
     return np.linspace(0.0, 1.0, num=hist_elems + 1)[1:]
+
+
+def get_recency(art_type: str, observ1, observ2):
+    """Calculates based on the dates of the observations and based on the artikel type the difference in period.
+
+    Args:
+        art_type (str): the type of the article to be generated
+        observ1 (NLGengine.observation.Observation): The first observation to be compared
+        observ2 (NLGengine.observation.Observation): The second observation to be compared
+
+    Returns:
+        int: Returns the difference in period based on the artikeltype
+    """
+    if observ1.period_end > observ2.period_end:
+        # observation 1 is more recent than observation 2
+        dates = (observ2.period_end, observ1.period_end)
+    else:
+        # vice versa
+        dates = (observ1.period_end, observ2.period_end)
+
+    if art_type == "dagartikel":
+        # get the difference in days between the two observations
+        delta = dates[1] - dates[0]
+        diff = delta.days
+
+    elif art_type == "weekartikel":
+        # get the difference in weeks between the two observations
+        delta = dates[1] - dates[0]
+        diff = np.floor(delta.days / 7)
+
+    elif art_type == "maandartikel":
+        # get the difference in months between the two observations
+        start_date = dates[0]
+        end_date = dates[1]
+        diff = (end_date.year - start_date.year) * 12 + (end_date.month - start_date.month)
+
+    return diff
