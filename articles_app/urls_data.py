@@ -18,5 +18,6 @@ urlpatterns = [
 
     path('api/testscores', views.load_test_scores_info, name="load_test_scores_info"),
 
-    path('api/relevance/getfilters', views.get_relevance_filters, name="get_relevance_filters")
+    path('api/relevance/getfilters', views.get_relevance_filters, name="get_relevance_filters"),
+    path('api/relevance/getavailperiods/<str:art_type>', views.get_relevance_periods, name="get_relevance_periods")
 ]

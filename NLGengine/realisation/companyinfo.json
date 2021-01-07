@@ -1,15 +1,15 @@
 {
     "AALBERTS NV": {
         "short": "Aalberts",
-        "comp_desc": "a"
+        "comp_desc": "technologiebedrijf"
     },
     "Air France-KLM": {
         "short": "Air France-KLM",
-        "comp_desc": "a"
+        "comp_desc": "luchtvaartmaatschappij"
     },
     "ALTICE EUROPE N.V.": {
         "short": "Altice",
-        "comp_desc": "a"
+        "comp_desc": "kabel- en telecommunicatiebedrijf"
     },
     "Aperam": {
         "short": "Aperam",
@@ -17,90 +17,90 @@
     }, 
     "Arcadis": {
         "short": "Arcadis",
-        "comp_desc": "de advies- en ingenieursonderneming"
+        "comp_desc": "advies- en ingenieursonderneming"
     },
     "BAM Groep Koninklijke": {
         "short": "BAM",
-        "comp_desc": "het Nederlandse bouwconcern"
+        "comp_desc": "bouwconcern"
     }, 
     "Basic-Fit": {
         "short": "Basic-Fit",
-        "comp_desc": "de sportschoolketen"
+        "comp_desc": "sportschoolketen"
     }, 
     "BE Semiconductor Industries": {
         "short": "Besi",
-        "comp_desc": "de leverancier van productiemachines voor basic halfgeleiders"
+        "comp_desc": ", leverancier van productiemachines voor basic halfgeleiders,"
     },
     "Boskalis Westminster Koninklijke": {
         "short": "Boskalis",
-        "comp_desc": "de baggermaatschappij"
+        "comp_desc": "baggeraar"
     },
     "Corbion": {
         "short": "Corbion",
-        "comp_desc": "het Nederlandse"
+        "comp_desc": "voedingsconcern"
     },
     "Eurocommercial Properties": {
         "short": "Eurocommercial",
-        "comp_desc": "a"
+        "comp_desc": "vastgoedbeleggingsmaatschappij"
     },
     "Fagron": {
         "short": "Fagron",
-        "comp_desc": "a"
+        "comp_desc": ", onderneming voor farmaceutische bereidingen,"
     },
     "Flow Traders": {
         "short": "Flow Traders",
-        "comp_desc": "a"
+        "comp_desc": "market maker"
     },
     "Fugro": {
         "short": "Fugro",
-        "comp_desc": "a"
+        "comp_desc": "bodemonderzoeker"
     },
     "GrandVision": {
         "short": "GrandVision",
-        "comp_desc": "de optiekketen"
+        "comp_desc": "optiekketen"
     },
     "Intertrust": {
         "short": "Intertrust",
-        "comp_desc": "a"
+        "comp_desc": ", trust- en corporate management bedrijf,"
     },
     "NSI": {
         "short": "NSI",
-        "comp_desc": "a"
+        "comp_desc": "vastgoedbeleggingsmaatschappij"
     },
     "OCI": {
         "short": "OCI",
-        "comp_desc": "a"
+        "comp_desc": ", producent van meststoffen en chemicaliën,"
     },
     "Pharming Group": {
         "short": "Pharming",
-        "comp_desc": "a"
+        "comp_desc": "bio-farmaceutisch bedrijf"
     },
     "PostNL Koninklijke": {
         "short": "PostNL",
-        "comp_desc": "a"
+        "comp_desc": "postbedrijf"
     },
     "SBM Offshore": {
         "short": "SBM",
-        "comp_desc": "a"
+        "comp_desc": "advies- en managementbureau"
     },
     "SIGNIFY NV": {
         "short": "Signify",
-        "comp_desc": "a"
+        "comp_desc": "producent van lichtbronnen"
     },
     "TKH Group": {
         "short": "TKH",
-        "comp_desc": "a"
+        "comp_desc": "technologiebedrijf"
     },
     "Vopak Koninklijke": {
         "short": "Vopak",
-        "comp_desc": "a"
+        "comp_desc": "dienstverlener in tankopslag"
     },
     "WDP": {
         "short": "WDP",
-        "comp_desc": "a"
+        "comp_desc": ", verhuurder van logistiek vastgoed,"
     },
     "JDE PEET'S": {
         "short": "Peet's",
-        "comp_desc": "a"
+        "comp_desc": "koffiebedrijf"
     }
 }

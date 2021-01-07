@@ -126,7 +126,6 @@ async function createFilterMenuModC(contentDiv) {
     // get all available filters
     let response = await fetch('/data/api/relevance/getfilters');
     let filters = await response.json();
-    console.log(filters);
 
     // build all the filter selects
     for(key in filters) {
@@ -169,6 +168,39 @@ async function createFilterMenuModC(contentDiv) {
             nonSelectedText: key
         })
     }
+    // add the first filter on periods
+    get_available_filter_periods("weekartikel");
+
+    // add an eventlistener to the type multi select box
+    $('#Type').change(function() {
+        let art_type = $(this).children("option:selected").val();
+        get_available_filter_periods(art_type)
+    })
+}
+
+
+/**
+ * Gets the available periods based on the article type.
+ * @param {String} art_type The type of the article.
+ */
+async function get_available_filter_periods(art_type) {
+    fetch("/data/api/relevance/getavailperiods/" + art_type)
+        .then(response => response.json())
+        .then(periods => updatePeriodFilter(periods))
+}
+
+
+/**
+ * Updates the periods multi select box.
+ * @param {Array} periods The periods to be inserted.
+ */
+function updatePeriodFilter(periods) {
+    $('#Periode').empty();
+
+    for (x in periods) {
+        $('#Periode').append("<option value=\"" + periods[x] + "\">" + periods[x] + "</option>");
+    }
+    $('#Periode').multiselect('rebuild');
 }
 
 
@@ -392,7 +424,6 @@ async function generateArticle() {
         mode: "same-origin"
     })
     let data = await response.json();
-    console.log(data);
     // enable the generate button again
     button.disabled = false
 
@@ -582,7 +613,6 @@ function buildComposerView(data, filters) {
 
         // remove observation out of saved observations
         selectedObservs.splice(index-1, 1);
-        console.log(selectedObservs);
 
         // recalculate the new order of the data
         newData = []

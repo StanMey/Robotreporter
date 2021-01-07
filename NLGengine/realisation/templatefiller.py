@@ -49,12 +49,13 @@ class TemplateFiller:
         return rd.choice(templates)
 
     @staticmethod
-    def insert_into_template(observation, template: str, descr_file: str = r"NLGengine/realisation/companyinfo.json"):
+    def insert_into_template(observation, template: str, repl_comp_desc: bool, descr_file: str = r"NLGengine/realisation/companyinfo.json"):
         """Inserts the information of the observation into the chosen template.
 
         Args:
             observation (NLGengine.observation.Observation): The observation to be used to fill in the template
             template_choices (str): A template string that has to be filled in
+            repl_comp_desc (bool): Decides whether the description of a component will be filled in before the component
             descr_file (str, optional): The path to the comp info file. Defaults to r"NLGengine/realisation/companyinfo.json"
 
         Returns:
@@ -115,6 +116,12 @@ class TemplateFiller:
             # apply all the comps
             short_comps = [get_comp_short(info_dict, x) for x in comps[1:]]
             new_sentence = insert_comps_in_template(new_sentence, short_comps, percs[1:])
+
+        # check if component replacement should be filled in
+        if repl_comp_desc:
+            new_sentence = new_sentence.replace(" <#comp_desc#>", get_comp_desc(info_dict, observation.serie))
+        else:
+            new_sentence = new_sentence.replace(" <#comp_desc#>", "")
 
         return new_sentence
 
@@ -187,3 +194,24 @@ def get_comp_short(info_dict: dict, comp: str):
         return short
     else:
         return comp
+
+
+def get_comp_desc(info_dict: dict, comp: str):
+    """Tries to find the description of the given component in the dictionary,
+    if not found returns an empty String
+
+    Args:
+        info_dict (dict): A dictionary which holds info about the descriptions of the components
+        comp (str): The component for which the description has to be found
+
+    Returns:
+        str: Returns either the description or an empty string
+    """
+    desc = info_dict.get(comp).get("comp_desc")
+    if desc:
+        if desc[0] == ",":
+            return desc
+        else:
+            return f" {desc}"
+    else:
+        return ""

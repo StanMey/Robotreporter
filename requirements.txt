@@ -10,3 +10,6 @@ pytest==6.1.0
 opencv-python==4.4.0.46
 Pillow==8.0.0
 python-decouple==3.3
+tensorflow==1.14.0
+h5py==2.10.0
+keras==2.3.1
