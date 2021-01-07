@@ -143,9 +143,10 @@ def get_available_compose_filters():
     # add the available months
     months = util.retrieve_filterable_months(True)
     data["Periode"] = {
-        "choices": ["vorige dag", "deze week", "vorige week", *months],
+        "choices": ["vorige dag", "2 dagen geleden", "deze week", "vorige week", *months],
         "title": "periode artikel",
-        "multi": True
+        "multi": False,
+        "default": "deze week"
     }
     # add the available sectors
     data["Sector"] = {
@@ -168,6 +169,30 @@ def get_available_compose_filters():
         "default": 5
     }
     return data
+
+
+def get_available_rel_periods(art_type: str):
+    """Returns the available period filters based on the article type
+
+    Args:
+        art_type (str): The type of the article
+
+    Returns:
+        lst: Returns a list with the period filters
+    """
+    if art_type == "dagartikel":
+        # get the period filters for 'dagartikel'
+        choices = ["vorige dag", "2 dagen geleden"]
+
+    elif art_type == "weekartikel":
+        # get the period filters for 'weekartikel'
+        choices = ["deze week", "vorige week"]
+
+    elif art_type == "maandartikel":
+        # get the period filters for 'maandartikel'
+        choices = util.retrieve_filterable_months(True)
+
+    return choices
 
 
 def get_filtered_observations(filters):

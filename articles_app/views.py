@@ -338,6 +338,20 @@ def get_relevance_filters(request):
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
+@login_required
+def get_relevance_periods(request, art_type):
+    """Get all the available periods to choose from based on the article type.
+
+    Args:
+        request (django.core.handlers.wsgi.WSGIRequest): The request made by the user
+
+    Returns:
+        django.http.response.HttpResponse: Returns the json data to the webpage
+    """
+    data = dbq.get_available_rel_periods(art_type)
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
 # TODO: finding out why csrf gives error messages despite using csrf in the POST request
 @login_required
 @csrf_exempt

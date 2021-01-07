@@ -4,6 +4,7 @@ from NLGengine.observation import Observation
 from NLGengine.paragraph import Paragraph
 from NLGengine.article import Article
 from NLGengine.content_determination.determinator import Determinator
+from NLGengine.content_determination.determinator2 import Determinator2
 from NLGengine.content_determination.matrix_trainer import MatrixTrainer
 from NLGengine.content_determination.rules import Rules
 from NLGengine.microplanning.planner import Planner
@@ -26,13 +27,15 @@ import uuid
 AI_VERSION = 1.6
 
 
-def select_observations(initial_obs, observation_set: list, sector_focus: list, max_reps: int = 3, max_obs: int = 5, par_amount: int = 3):
+def select_observations(initial_obs, observation_set: list, sector_focus: list, art_type: str, max_reps: int = 3,
+                        max_obs: int = 5, par_amount: int = 3):
     """Selects all the observations for the paragraphs.
 
     Args:
         initial_obs (NLGengine.observation.Observation): The initial chosen observation
         observation_set (list): A list with all the observations to choose from
         sector_focus (list): A list with the sectors to focus on
+        art_type (str): The type of the chosen article
         max_reps (int, optional): The maximal amount of repetitions of the same component in the same paragraph. Defaults to 3.
         max_obs (int, optional): The maximal amount of observations in a paragraph. Defaults to 5.
         par_amount (int, optional): The amount of paragraphs in an article. Defaults to 3.
@@ -56,7 +59,7 @@ def select_observations(initial_obs, observation_set: list, sector_focus: list, 
         # loop over the max amount of observations in a paragraph
         for _ in range(max_obs):
 
-            determinator = Determinator(observation_set, chosen_observs, sector_focus)
+            determinator = Determinator2(observation_set, chosen_observs, sector_focus, art_type)
             determinator.calculate_new_situational_relevance(new_par)
             # reset the new_par
             new_par = False
@@ -92,10 +95,6 @@ def build_article(user_name, filters, bot=False):
     Returns:
         int: The id of the generated article
     """
-    # TODO implementeer artikeltype
-    current_date = datetime.now().replace(hour=00, minute=00, second=00, microsecond=0)
-    # current_date = datetime(year=2020, month=9, day=30)
-
     # check if filters on period are activated
     periods = filters.get("Periode")
     if periods.get("options") != []:
@@ -104,7 +103,11 @@ def build_article(user_name, filters, bot=False):
         begin_date = util.get_period_range(periods.get("options"))[0]
     else:
         # if no filters are selected get the last month
+        current_date = datetime(year=2020, month=9, day=30)
         begin_date = current_date - timedelta(30)
+
+    # get the type of the article
+    art_type = filters.get("Type").get("options")
 
     # retrieve the sectors to focus on
     sector_focus = filters.get("Sector").get("options")
@@ -147,7 +150,7 @@ def build_article(user_name, filters, bot=False):
     am_sen = int(filters.get("Zinnen").get("options"))
 
     # select all the observations / paragraphs
-    paragraphs = select_observations(first_observ, observation_set, sector_focus, max_obs=am_sen, par_amount=am_par)
+    paragraphs = select_observations(first_observ, observation_set, sector_focus, art_type, max_obs=am_sen, par_amount=am_par)
 
     # set the chosen observations /paragrahps to the planner
     planner = Planner(paragraphs)
@@ -203,7 +206,7 @@ def build_article(user_name, filters, bot=False):
     file_name = f"{uuid.uuid1().hex}.jpg"
     save_url = f"./media/images/{file_name}"
     retrieve_url = f"images/{file_name}"
-    cv2.imwrite(save_url, img_array)
+    # cv2.imwrite(save_url, img_array)
 
     article = Articles()
     article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
@@ -216,7 +219,7 @@ def build_article(user_name, filters, bot=False):
         article.author = "nieuwsbot"
     else:
         article.author = user_name
-    article.save()
+    # article.save()
 
     return article.id
 
@@ -322,14 +325,14 @@ def get_test_case_info():
 
 # TODO format this function!!
 def generate_article_photo(components: list, sector_focus: str = None):
-    """[summary]
+    """Generates the a photo for a specific article.
 
     Args:
         components (list): A list of the components that have to be in the photo of the article (max 2)
-        sector_focus (str, optional): [description]. Defaults to None.
+        sector_focus (str, optional): The sector where the article is focussing on. Defaults to None.
 
     Returns:
-        [type]: [description]
+        np.array: The generated picture
     """
     sector_dir = r"./articles_app/data/article_backgrounds/sector"
     generic_dir = r"./articles_app/data/article_backgrounds/generic"
@@ -458,15 +461,6 @@ def generate_article_photo(components: list, sector_focus: str = None):
     # if cv2.waitKey(1) & 0xFF == ord('q'):
     #     cv2.destroyAllWindows()
     return new_image
-
-
-def test_photo():
-    # TODO throw away this method when tested and in production
-    comps = ["BAM Groep Koninklijke", "SIGNIFY NV"]
-    # comps = ["SIGNIFY NV", "Flow Traders"]
-    comps = ["BAM Groep Koninklijke", "Intertrust"]
-    sector = "Bouw"
-    generate_article_photo(comps, sector_focus=sector)
 
 
 def find_new_observations(period_begin: datetime, period_end: datetime, overwrite=False, to_db=False, to_prompt=False, to_list=False):

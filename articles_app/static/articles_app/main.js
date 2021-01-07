@@ -168,6 +168,39 @@ async function createFilterMenuModC(contentDiv) {
             nonSelectedText: key
         })
     }
+    // add the first filter on periods
+    get_available_filter_periods("weekartikel");
+
+    // add an eventlistener to the type multi select box
+    $('#Type').change(function() {
+        let art_type = $(this).children("option:selected").val();
+        get_available_filter_periods(art_type)
+    })
+}
+
+
+/**
+ * Gets the available periods based on the article type.
+ * @param {String} art_type The type of the article.
+ */
+async function get_available_filter_periods(art_type) {
+    fetch("/data/api/relevance/getavailperiods/" + art_type)
+        .then(response => response.json())
+        .then(periods => updatePeriodFilter(periods))
+}
+
+
+/**
+ * Updates the periods multi select box.
+ * @param {Array} periods The periods to be inserted.
+ */
+function updatePeriodFilter(periods) {
+    $('#Periode').empty();
+
+    for (x in periods) {
+        $('#Periode').append("<option value=\"" + periods[x] + "\">" + periods[x] + "</option>");
+    }
+    $('#Periode').multiselect('rebuild');
 }
 
 
