@@ -122,4 +122,8 @@ class Trend:
         """Run the analyses of the Trend pattern.
         """
         self.prep_data()
-        self.check_for_turning_point()
+
+        # check for empty dataframe
+        if not self.df.empty:
+            # df not empty so continue analysis
+            self.check_for_turning_point()

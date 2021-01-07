@@ -47,9 +47,11 @@ class Decrease:
             # no component has been decreasing, only increasing components
             # build the sentence
             info = "AMX"
-            sentence = f"alle fondsen binnen de {info} zijn vandaag gestegen"
+            sentence = f"zijn alle fondsen binnen de {info} gestegen"
             # build the observation object
-            data = {}
+            data = {
+                "skip_real": True
+            }
             observ = Observation(info,
                                  self.period_begin,
                                  self.period_end,
@@ -68,9 +70,11 @@ class Decrease:
             # only 1 component has been decreasing
             info = df_dec.iloc[0]
             # build the sentence
-            sentence = f"{info.component} was vandaag met {info.perc_delta} procent de enige daler"
+            sentence = f"was {info.component} met {info.perc_delta} procent de enige daler"
             # build the observation object
-            data = {}
+            data = {
+                "skip_real": True
+            }
             observ = Observation(info.component,
                                  self.period_begin,
                                  self.period_end,
@@ -90,9 +94,10 @@ class Decrease:
             info = df_dec.iloc[0:2]
             # collect the additional metadata
             # build the sentence
-            sentence = f"op {info.iloc[0].component} en {info.iloc[1].component} na stegen alle fondsen"
+            sentence = f"stegen op {info.iloc[0].component} en {info.iloc[1].component} na alle fondsen"
             # build the observation object
             data = {
+                "skip_real": True,
                 "components": list(info.component),
                 "sectors": list(info.sector),
                 "perc_change": list(info.perc_delta),
@@ -302,11 +307,15 @@ class Decrease:
                                     weekmask=[1, 1, 1, 1, 1, 0, 0])
 
         self.prep_data(diff_days)
-        self.all_fallers()
 
-        # remove all the indexes themself out of the dataframe
-        all_indexes = self.df["indexx"].unique()
-        self.df = self.df[~self.df["component"].isin(all_indexes)]
+        # check for empty dataframe
+        if not self.df.empty:
+            # df not empty so continue analysis
+            self.all_fallers()
 
-        self.x_largest_decrease()
-        self.only_x_decrease()
+            # remove all the indexes themself out of the dataframe
+            all_indexes = self.df["indexx"].unique()
+            self.df = self.df[~self.df["component"].isin(all_indexes)]
+
+            self.x_largest_decrease()
+            self.only_x_decrease()

@@ -47,9 +47,11 @@ class Increase:
             # no component has been increasing, only decreasing components
             # build the sentence
             info = "AMX"
-            sentence = f"alle fondsen binnen de {info} zijn vandaag gedaald"
+            sentence = f"zijn alle fondsen binnen de {info} gedaald"
             # build the observation object
-            data = {}
+            data = {
+                "skip_real": True
+            }
             observ = Observation(info,
                                  self.period_begin,
                                  self.period_end,
@@ -68,9 +70,11 @@ class Increase:
             # only 1 component has been increasing
             info = df_only_inc.iloc[0]
             # build the sentence
-            sentence = f"{info.component} was met {info.perc_delta} procent de enige stijger"
+            sentence = f"was {info.component} met {info.perc_delta} procent de enige stijger"
             # build the observation object
-            data = {}
+            data = {
+                "skip_real": True
+            }
             observ = Observation(info.component,
                                  self.period_begin,
                                  self.period_end,
@@ -89,9 +93,10 @@ class Increase:
             # only 2 components have been increasing
             info = df_only_inc.iloc[0:2]
             # build the sentence
-            sentence = f"op {info.iloc[0].component} en {info.iloc[1].component} na daalden alle {info.iloc[0].indexx} fondsen"
+            sentence = f"daalden op {info.iloc[0].component} en {info.iloc[1].component} na alle {info.iloc[0].indexx} fondsen"
             # build the observation object
             data = {
+                "skip_real": True,
                 "components": list(info.component),
                 "sectors": list(info.sector),
                 "perc_change": list(info.perc_delta),
@@ -299,11 +304,15 @@ class Increase:
                                     weekmask=[1, 1, 1, 1, 1, 0, 0])
 
         self.prep_data(diff_days)
-        self.all_risers()
 
-        # remove all the indexes themself out of the dataframe
-        all_indexes = self.df["indexx"].unique()
-        self.df = self.df[~self.df["component"].isin(all_indexes)]
+        # check for empty dataframe
+        if not self.df.empty:
+            # df not empty so continue analysis
+            self.all_risers()
 
-        self.x_largest_increase()
-        self.only_x_increase()
+            # remove all the indexes themself out of the dataframe
+            all_indexes = self.df["indexx"].unique()
+            self.df = self.df[~self.df["component"].isin(all_indexes)]
+
+            self.x_largest_increase()
+            self.only_x_increase()

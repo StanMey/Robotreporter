@@ -214,5 +214,9 @@ class Sector:
         """Run the analyses of the Trend pattern.
         """
         self.prep_data(1)
-        self.analyse_general_sector_performance()
-        self.analyse_component_sector_performance()
+
+        # check for empty dataframe
+        if not self.df.empty:
+            # df not empty so continue analysis
+            self.analyse_general_sector_performance()
+            self.analyse_component_sector_performance()

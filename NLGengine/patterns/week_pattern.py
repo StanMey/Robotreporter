@@ -136,4 +136,8 @@ class WeekPattern:
         """Run the analyses of the Week pattern.
         """
         self.prep_data()
-        self.give_week_recap()
+
+        # check for empty dataframe
+        if not self.df.empty:
+            # df not empty so continue analysis
+            self.give_week_recap()
