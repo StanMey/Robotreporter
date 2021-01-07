@@ -135,8 +135,10 @@ class Increase:
                 # check whether there is a significant increase between the third and the rest,
                 # and between 1, 2 and 3 there is no significant increase
                 # build the sentence
-                sentence = f"""{first.component} ({first.perc_delta}%), {second.component} ({second.perc_delta}%)
-                                en {third.component} ({third.perc_delta}%) waren de positieve uitschieters."""
+                sentence = (
+                    f"{first.component} ({first.perc_delta}%), {second.component} ({second.perc_delta}%)"
+                    f"en {third.component} ({third.perc_delta}%) waren de positieve uitschieters."
+                )
                 # build the observation objec t
                 data = {
                     "components": [first.component, second.component, third.component],
