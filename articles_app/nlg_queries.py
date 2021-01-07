@@ -173,7 +173,6 @@ def build_article(user_name, filters, bot=False):
 
     for x in ["Sector", "Periode"]:
         selection = filters.get(x)
-        print(selection)
         if (selection.get("total") != len(selection.get("options"))) and (selection.get("options") != []):
             meta["filters"][x] = selection.get("options")
         else:
@@ -206,10 +205,10 @@ def build_article(user_name, filters, bot=False):
     file_name = f"{uuid.uuid1().hex}.jpg"
     save_url = f"./media/images/{file_name}"
     retrieve_url = f"images/{file_name}"
-    # cv2.imwrite(save_url, img_array)
+    cv2.imwrite(save_url, img_array)
 
     article = Articles()
-    article.title = f"Beurs update {datetime.now().strftime('%d %b')}"
+    article.title = generate_article_title(art_type, periods.get("options"), begin_date)
     article.top_image = retrieve_url
     article.content = art.content
     article.date = datetime.now()
@@ -219,9 +218,35 @@ def build_article(user_name, filters, bot=False):
         article.author = "nieuwsbot"
     else:
         article.author = user_name
-    # article.save()
+    article.save()
 
     return article.id
+
+
+def generate_article_title(art_type: str, period: str, begin_date):
+    """Generates the title of the article based on the article type and period.
+
+    Args:
+        art_type (str): The type of the article
+        period (str): The period from the filter
+        begin_date (datetime.datetime): The begin date of the article
+
+    Returns:
+        str: Returns the build title string
+    """
+    if art_type == "dagartikel":
+        # build the title for the article type 'dagartikel'
+        title = f"Beurs update {begin_date.strftime('%d %b')}"
+
+    elif art_type == "weekartikel":
+        # build the title for the article type 'weekartikel'
+        title = f"Beurs weekoverzicht week {begin_date.isocalendar()[1]}"
+
+    elif art_type == "maandartikel":
+        # build the title for the article type 'maandartikel'
+        title = f"Beurs maandoverzicht {period}"
+
+    return title
 
 
 def construct_article(user_name, content, filters, title):
