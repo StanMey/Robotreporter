@@ -47,10 +47,10 @@ class Decrease:
             # no component has been decreasing, only increasing components
             # build the sentence
             info = "AMX"
-            sentence = f"zijn alle fondsen binnen de {info} gestegen"
+            sentence = f"alle fondsen binnen de {info} zijn vandaag gestegen"
             # build the observation object
             data = {
-                "skip_real": True
+                "only_x": 0
             }
             observ = Observation(info,
                                  self.period_begin,
@@ -70,10 +70,10 @@ class Decrease:
             # only 1 component has been decreasing
             info = df_dec.iloc[0]
             # build the sentence
-            sentence = f"was {info.component} met {info.perc_delta} procent de enige daler"
+            sentence = f"{info.component} was vandaag met {info.perc_delta} procent de enige daler"
             # build the observation object
             data = {
-                "skip_real": True
+                "only_x": 1
             }
             observ = Observation(info.component,
                                  self.period_begin,
@@ -94,10 +94,10 @@ class Decrease:
             info = df_dec.iloc[0:2]
             # collect the additional metadata
             # build the sentence
-            sentence = f"stegen op {info.iloc[0].component} en {info.iloc[1].component} na alle fondsen"
+            sentence = f"op {info.iloc[0].component} en {info.iloc[1].component} na stegen alle fondsen"
             # build the observation object
             data = {
-                "skip_real": True,
+                "only_x": 2,
                 "components": list(info.component),
                 "sectors": list(info.sector),
                 "perc_change": list(info.perc_delta),

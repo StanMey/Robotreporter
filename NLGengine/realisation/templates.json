@@ -16,7 +16,18 @@
         "3": [
             "lieten <#multi_comp#> de sterkste koersdalingen zien",
             "waren <#multi_comp#> de hardste dalers"
-        ] 
+        ],
+        "only_x": {
+            "0": [
+                "zijn alle fondsen binnen de <#indexx#> gestegen"
+            ],
+            "1": [
+                "was <#comp_name#> met <#perc#> procent de enige daler"
+            ],
+            "2": [
+                "stegen op <#multi_comp#> na alle fondsen"
+            ]
+        }
     },
     "individu-stijging": [
         "is aandeel <#comp_name#> met <#perc#>% gestegen",
@@ -37,7 +48,18 @@
         "3": [
             "waren <#multi_comp#> de positieve uitschieters",
             "waren <#multi_comp#> de hardste stijgers"
-        ]
+        ],
+        "only_x": {
+            "0": [
+                "zijn alle fondsen binnen de <#indexx#> gedaald"
+            ],
+            "1": [
+                "was <#comp_name#> met <#perc#> procent de enige stijger"
+            ],
+            "2": [
+                "daalden op <#multi_comp#> na alle <#indexx#> fondsen"
+            ]
+        }
     },
     "week": {
         "pos": [

@@ -5,10 +5,10 @@ import numpy as np
 
 
 class Determinator2:
-    """[summary]
+    """A class for making NN based content determination decisions.
     """
     def __init__(self, all_observs: list, history: list, sector_focus: list, art_type: str,
-                 sec_focus_weight: float = 0.5, recency_imp_weight: float = -0.4):
+                 sec_focus_weight: float = 0.5, recency_imp_weight: float = -0.6):
         """The init function
 
         Args:

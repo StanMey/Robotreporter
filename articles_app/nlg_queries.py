@@ -97,14 +97,8 @@ def build_article(user_name, filters, bot=False):
     """
     # check if filters on period are activated
     periods = filters.get("Periode")
-    if periods.get("options") != []:
-        # periods are selected, so only get those observations
-        # get the max and min range of the period
-        begin_date = util.get_period_range(periods.get("options"))[0]
-    else:
-        # if no filters are selected get the last month
-        current_date = datetime(year=2020, month=9, day=30)
-        begin_date = current_date - timedelta(30)
+    # get the max and min range of the period
+    min_date, max_date = util.get_period_range(periods.get("options"))
 
     # get the type of the article
     art_type = filters.get("Type").get("options")
@@ -113,8 +107,8 @@ def build_article(user_name, filters, bot=False):
     sector_focus = filters.get("Sector").get("options")
 
     # retrieve all relevant observations from the Observations table
-    observation_set = list(Observations.objects.filter(period_end__gte=begin_date)
-                                               .order_by('-period_end', '-relevance'))
+    observation_set = list(Observations.objects.filter(period_end__lte=max_date)
+                                               .order_by('-period_end', '-relevance'))[:1000]
 
     # get the initial observation
     first = observation_set.pop(0)
@@ -208,7 +202,7 @@ def build_article(user_name, filters, bot=False):
     cv2.imwrite(save_url, img_array)
 
     article = Articles()
-    article.title = generate_article_title(art_type, periods.get("options"), begin_date)
+    article.title = generate_article_title(art_type, periods.get("options"), max_date)
     article.top_image = retrieve_url
     article.content = art.content
     article.date = datetime.now()

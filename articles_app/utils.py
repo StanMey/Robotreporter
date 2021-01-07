@@ -125,7 +125,7 @@ def get_period_range(period_filters):
             last = current_date - timedelta(2)
         else:
             last = current_date - timedelta(1)
-        all_dates.append((last, current_date))
+        all_dates.append((last - timedelta(1), last))
 
     if "2 dagen geleden" in period_filters:
         # filter based on 2 days ago
@@ -136,7 +136,7 @@ def get_period_range(period_filters):
             last = current_date - timedelta(3)
         else:
             last = current_date - timedelta(2)
-        all_dates.append((last, current_date))
+        all_dates.append((last - timedelta(1), last))
 
     # get the max and min date over all dates
     max_date = max([x for (_, x) in all_dates])

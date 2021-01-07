@@ -47,10 +47,10 @@ class Increase:
             # no component has been increasing, only decreasing components
             # build the sentence
             info = "AMX"
-            sentence = f"zijn alle fondsen binnen de {info} gedaald"
+            sentence = f"alle fondsen binnen de {info} zijn vandaag gedaald"
             # build the observation object
             data = {
-                "skip_real": True
+                "only_x": 0
             }
             observ = Observation(info,
                                  self.period_begin,
@@ -70,10 +70,10 @@ class Increase:
             # only 1 component has been increasing
             info = df_only_inc.iloc[0]
             # build the sentence
-            sentence = f"was {info.component} met {info.perc_delta} procent de enige stijger"
+            sentence = f"{info.component} was met {info.perc_delta} procent de enige stijger"
             # build the observation object
             data = {
-                "skip_real": True
+                "only_x": 1
             }
             observ = Observation(info.component,
                                  self.period_begin,
@@ -93,10 +93,10 @@ class Increase:
             # only 2 components have been increasing
             info = df_only_inc.iloc[0:2]
             # build the sentence
-            sentence = f"daalden op {info.iloc[0].component} en {info.iloc[1].component} na alle {info.iloc[0].indexx} fondsen"
+            sentence = f"op {info.iloc[0].component} en {info.iloc[1].component} na daalden alle {info.iloc[0].indexx} fondsen"
             # build the observation object
             data = {
-                "skip_real": True,
+                "only_x": 2,
                 "components": list(info.component),
                 "sectors": list(info.sector),
                 "perc_change": list(info.perc_delta),
@@ -137,8 +137,7 @@ class Increase:
                 # build the sentence
                 sentence = (
                     f"{first.component} ({first.perc_delta}%), {second.component} ({second.perc_delta}%)"
-                    f"en {third.component} ({third.perc_delta}%) waren de positieve uitschieters."
-                )
+                    f"en {third.component} ({third.perc_delta}%) waren de positieve uitschieters.")
                 # build the observation objec t
                 data = {
                     "components": [first.component, second.component, third.component],

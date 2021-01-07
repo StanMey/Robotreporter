@@ -26,7 +26,12 @@ class TemplateFiller:
 
         if observation.pattern in ["combi-stijging", "combi-daling"]:
             # pattern is combi, so give templates with the right length
-            templates = data.get(observation.pattern).get(str(len(observation.meta_data.get("components"))))
+            if observation.meta_data.get("only_x"):
+                # special combi pattern so get the corresponding template
+                info = observation.meta_data.get("only_x")
+                templates = data.get(observation.pattern).get("only_x").get(str(info))
+            else:
+                templates = data.get(observation.pattern).get(str(len(observation.meta_data.get("components"))))
 
         elif observation.pattern in ["week", "trend"]:
             # pattern must be checked on the pos/neg of the trend
@@ -69,15 +74,26 @@ class TemplateFiller:
             # observation has multiple components and percentages
             new_sentence = template
 
-            # get all components and percentages
-            comps = observation.meta_data.get("components")
-            percs = observation.meta_data.get("perc_change")
+            if observation.meta_data.get("only_x") and not observation.meta_data.get("components"):
+                # special combi pattern so fill in apart
+                # replace the comp placeholder with the actual component
+                new_sentence = new_sentence.replace("<#comp_name#>", get_comp_short(info_dict, observation.serie))
+                # replace the percentage placeholder and choose the abs when necessary
+                new_sentence = new_sentence.replace("<#perc#>", str(observation.perc_change))
 
-            # set up the template
-            new_sentence = replace_multi_comp_tag(new_sentence, len(comps))
-            # insert the components into the template
-            short_comps = [get_comp_short(info_dict, x) for x in comps]
-            new_sentence = insert_comps_in_template(new_sentence, short_comps, percs)
+            else:
+                # get all components and percentages
+                comps = observation.meta_data.get("components")
+                percs = observation.meta_data.get("perc_change")
+
+                # set up the template
+                new_sentence = replace_multi_comp_tag(new_sentence, len(comps))
+                # insert the components into the template
+                short_comps = [get_comp_short(info_dict, x) for x in comps]
+                new_sentence = insert_comps_in_template(new_sentence, short_comps, percs)
+
+            # replace the indexx tag (if it exists)
+            new_sentence = new_sentence.replace("<#indexx#>", str(observation.indexx))
 
         else:
             new_sentence = template
@@ -149,6 +165,7 @@ def insert_comps_in_template(template: str, comps: list, percs: list):
     return sentence
 
 
+# TODO dynamisch opbouwen van de multi comp tags
 def replace_multi_comp_tag(template: str, comp_amount: int):
     """Replaces the multi components tag with the correct amount of individual comp and perc tags.
 
