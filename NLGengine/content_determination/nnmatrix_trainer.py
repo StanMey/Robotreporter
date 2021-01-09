@@ -136,7 +136,7 @@ class NNMatrixTrainer:
             print("Saved new model to file")
 
     def use_network(self, model, observ1, observ2):
-        """[summary]
+        """Uses the model to give back the weight between observation 1 and 2.
 
         Args:
             model (keras.engine.sequential.Sequential): The model for making the predictions.
@@ -180,8 +180,8 @@ class NNMatrixTrainer:
                 "pattern": ['hetzelfde', 'vergelijkbaar', 'ongelijk'][pattern_index],
                 "period": ['identiek', 'overlappend', 'opvolgend', 'anders'][period_index],
                 "component": ['hetzelfde', 'vergelijkbaar', 'anders'][comp_index],
-                "score": round(self.use_network(model, observ1, observ2), 2),
-                "expected": case.get("score")
+                "score": round(float(self.use_network(model, observ1, observ2)), 2),
+                "expected": round(case.get("score") / 2, 2)
             }
             # append the info
             cases_info.append(info)

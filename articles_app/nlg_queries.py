@@ -3,9 +3,8 @@ from NLGengine.analyse import Analyse
 from NLGengine.observation import Observation
 from NLGengine.paragraph import Paragraph
 from NLGengine.article import Article
-from NLGengine.content_determination.determinator import Determinator
-from NLGengine.content_determination.matrix_trainer import MatrixTrainer
 from NLGengine.content_determination.nndeterminator import NNDeterminator, load_model
+from NLGengine.content_determination.nnmatrix_trainer import NNMatrixTrainer
 from NLGengine.content_determination.rules import Rules
 from NLGengine.microplanning.planner import Planner
 from NLGengine.realisation.realiser import Realiser
@@ -338,9 +337,9 @@ def get_test_case_info():
     """Retrieve all the test cases with the corresponding scores.
 
     Returns:
-        [type]: [description]
+        dict: Returns a dictionary with the scores on the test set
     """
-    m = MatrixTrainer()
+    m = NNMatrixTrainer()
     return m.get_evaluations()
 
 

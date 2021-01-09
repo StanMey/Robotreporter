@@ -121,7 +121,6 @@ def load_model(model_path: str = r"./NLGengine/content_determination/deter_model
     model = model_from_json(loaded_model_json)
     # load weights into the new model
     model.load_weights(weights_path)
-    print(type(model))
 
     return model
 

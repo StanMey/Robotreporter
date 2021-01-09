@@ -690,10 +690,6 @@ async function showTestScores() {
     let response = await fetch('/data/api/testscores');
     let data = await response.json();
 
-    // build the matrix
-    let section2 = document.querySelector(".matrix-showcase");
-    buildTestMatrix(section2, data["matrix"]);
-
     // format the data
     let rows = []
     for (key in data['scores']) {
@@ -702,77 +698,6 @@ async function showTestScores() {
     }
     // build the datatable
     createDataTable(section, "test_scores_table", col, rows, false);
-}
-
-/**
- * Builds the tables for showcasing the scores in the matrix.
- * @param {String} target The target where the table has to be loaded in.
- * @param {Array} matrix The matrix to be loaded in.
- */
-function buildTestMatrix(target, matrix) {
-
-    const tableTitles = ["zh", "zv", "zo"];
-    const rowTitles = ["pi", "pov", "pop", "pa"];
-    const colTitles = ["sh", "sv", "sa"];
-    
-    // loop over the first dimension of the matrix and build the tables
-    for (let x = 0; x < matrix.length; x++) {
-
-        // build the div for storing a new col
-        let newDiv = document.createElement("div");
-        newDiv.className = "col";
-        target.appendChild(newDiv);
-
-        // build the title
-        let bold = document.createElement("strong");
-        let title = document.createTextNode(tableTitles[x]);
-        bold.append(title);
-        newDiv.appendChild(bold);
-
-        //build the new table
-        let tbl = document.createElement("table");
-        tbl.className = "table";
-        newDiv.appendChild(tbl);
-
-        current_matrix = matrix[x];
-        current_matrix.push(colTitles);
-        
-        // build the content of the table
-        generateTestTableRows(tbl, matrix[x], rowTitles);
-    }
-}
-
-/**
- * Builds the tables for showcasing the scores and their explanations in the matrix.
- * @param {String} target The target where the table has to be loaded in.
- * @param {Array} matrix The matrix to be loaded in.
- * @param {Array} rowtitles The titles of the rows.
- */
-function generateTestTableRows(table, data, rowtitles) {
-    for (let x = 0; x < data.length; x++) {
-        let row = table.insertRow();
-        for (let i = 0; i < data[x].length + 1; i++) {
-            let cell = row.insertCell();
-
-            if (i == 0 && x == rowtitles.length) {
-                let text = document.createTextNode("");
-                cell.appendChild(text);
-            } else if (i == 0) {
-                let bold = document.createElement("strong");
-                let text = document.createTextNode(rowtitles[x])
-                bold.append(text);
-                cell.appendChild(bold);
-            } else if (x == rowtitles.length) {
-                let bold = document.createElement("strong");
-                let text = document.createTextNode(data[x][i - 1])
-                bold.append(text);
-                cell.appendChild(bold);
-            } else {
-                let text = document.createTextNode(data[x][i - 1]);
-                cell.appendChild(text);
-            }
-        }
-    }
 }
 
 
