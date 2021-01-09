@@ -4,8 +4,8 @@ from NLGengine.observation import Observation
 from NLGengine.paragraph import Paragraph
 from NLGengine.article import Article
 from NLGengine.content_determination.determinator import Determinator
-from NLGengine.content_determination.determinator2 import Determinator2
 from NLGengine.content_determination.matrix_trainer import MatrixTrainer
+from NLGengine.content_determination.nndeterminator import NNDeterminator, load_model
 from NLGengine.content_determination.rules import Rules
 from NLGengine.microplanning.planner import Planner
 from NLGengine.realisation.realiser import Realiser
@@ -48,6 +48,8 @@ def select_observations(initial_obs, observation_set: list, sector_focus: list, 
     chosen_observs = [initial_obs]
     # set a list to save all paragraphs
     all_pars = []
+    # load in the model
+    model = load_model()
 
     # loop over the amount of paragraphs needed
     for _ in range(par_amount):
@@ -59,7 +61,7 @@ def select_observations(initial_obs, observation_set: list, sector_focus: list, 
         # loop over the max amount of observations in a paragraph
         for _ in range(max_obs):
 
-            determinator = Determinator2(observation_set, chosen_observs, sector_focus, art_type)
+            determinator = NNDeterminator(model, observation_set, chosen_observs, sector_focus, art_type)
             determinator.calculate_new_situational_relevance(new_par)
             # reset the new_par
             new_par = False
