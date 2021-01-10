@@ -1,9 +1,11 @@
+import numpy as np
+import os
+import warnings
+warnings.filterwarnings("ignore", message=r"Passing", category=FutureWarning)
+
 from NLGengine.content_determination.comparisons import check_pattern, check_period, check_component, get_recency
 from keras.models import model_from_json
 from datetime import datetime
-
-import numpy as np
-import os
 
 
 class NNDeterminator:
