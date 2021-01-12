@@ -2,11 +2,7 @@ from NLGengine.observation import Observation
 from NLGengine.content_determination.comparisons import check_component, check_pattern, check_period
 from NLGengine.content_determination.nndeterminator import one_hot_encode_input, load_model
 from dateutil.parser import parse
-from keras.models import Sequential
-from keras.layers import Dense
-from sklearn.model_selection import train_test_split
 
-import keras
 import numpy as np
 import pandas as pd
 import os
