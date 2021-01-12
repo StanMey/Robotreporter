@@ -85,6 +85,33 @@ class NNMatrixTrainer:
         prediction = model.get(X)
         return prediction
 
+    def format_matrix(self, model):
+        """Formats the end matrix for showing in the browser.
+
+        Args:
+            model (dict): The model for making the predictions.
+
+        Returns:
+            float: Returns the prediction made by the model
+        """
+        patterns = ["100", "010", "001"]
+        periods = ["1000", "0100", "0010", "0001"]
+        comps = ["100", "010", "001"]
+
+        matrix = []
+        # 3 for loops because it's the easiest way to do it (i guessed)
+        for pat in patterns:
+            table = []
+            for period in periods:
+                col = []
+                for comp in comps:
+                    new_input = "".join([pat, period, comp])
+                    col.append(round(model.get(new_input), 2))
+                table.append(col)
+            matrix.append(table)
+
+        return matrix
+
     def get_evaluations(self):
         """Uses the model on every available test case and returns the results
         """
@@ -93,7 +120,7 @@ class NNMatrixTrainer:
         # load in the data
         self.load_data()
         # load in the current model
-        model = load_model(self.model_file, self.weights_file)
+        model = load_model()
 
         # iterate over all test cases and save the necessary information for later displaying
         for case in self.test_cases:
@@ -118,7 +145,8 @@ class NNMatrixTrainer:
             cases_info.append(info)
 
         data = {
-            "scores": cases_info
+            "scores": cases_info,
+            "matrix": self.format_matrix(model)
         }
 
         return data
