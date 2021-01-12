@@ -17,22 +17,14 @@ import itertools
 class NNMatrixTrainer:
     """A class for training the NN network for content Determination.
     """
-    def __init__(self, epochs: int = 300, batch_size: int = 32,
-                 s_file: str = r"NLGengine/content_determination/test_cases.json",
-                 m_file: str = r"NLGengine/content_determination/deter_model.json",
-                 w_file: str = r"NLGengine/content_determination/deter_model.h5"):
-
-        self.epochs = epochs
-        self.batch_size = batch_size
+    def __init__(self, s_file: str = r"NLGengine/content_determination/test_cases.json",
+                 m_file: str = r"NLGengine/content_determination/pred_model.json"):
 
         assert os.path.exists(s_file), "Source file does not exist"
         self.source_file = s_file
 
         assert os.path.exists(m_file), "Model file does not exist"
         self.model_file = m_file
-
-        assert os.path.exists(w_file), "Weights file does not exist"
-        self.weights_file = w_file
 
         self.model = None
         self.test_cases = None
@@ -78,68 +70,11 @@ class NNMatrixTrainer:
                                             oid=int(key))
         return observations
 
-    def train_network(self, save_highest: bool = False):
-        """Trains the network based on the available test cases.
-
-        Args:
-            save_highest (bool, optional): Decides whether the highest scoring model should be saved. Defaults to False.
-        """
-        # load in the cases and format them
-        formatted_obs = []
-        for case in self.test_cases:
-            # gettting the observations
-            obs1 = self.test_observations.get(str(case.get("prev_observ")))
-            obs2 = self.test_observations.get(str(case.get("new_observ")))
-
-            formatted_obs.append(one_hot_encode_input(obs1, obs2))
-
-        # turning it into a dataframe
-        columns = ['zh', 'zv', 'zo', 'pi', 'pov', 'pop', 'pa', 'sh', 'sv', 'sa', 'score']
-        df_observations = pd.DataFrame(formatted_obs, columns=columns)
-
-        # defining X and y
-        X = df_observations.drop(columns=['score'])
-        y = df_observations['score']
-
-        # normalize the score between -1 and 1 (max of y is between -2 and 2), so divide by 2
-        y = y / 2
-
-        # splitting the datasets into train and test
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-
-        # define the neural network
-        self.model = Sequential()
-        self.model.add(Dense(4, input_dim=10, activation=keras.activations.tanh))
-        self.model.add(Dense(1, activation=keras.activations.tanh))
-
-        # compile the model
-        self.model.compile(loss='mse', optimizer='adam', metrics=['accuracy'])
-
-        # training the network
-        self.model.fit(X_train, y_train, epochs=self.epochs, batch_size=self.batch_size)
-
-        if save_highest:
-            self.save_network()
-
-    def save_network(self):
-        """Saves the network in this directory.
-        """
-        # check if model is assigned
-        if self.model:
-            # serialize model to JSON
-            model_json = self.model.to_json()
-            with open(self.model_file, "w") as json_file:
-                json_file.write(model_json)
-
-            # serialize weights to HDF5
-            self.model.save_weights(self.weights_file)
-            print("Saved new model to file")
-
     def use_network(self, model, observ1, observ2):
         """Uses the model to give back the weight between observation 1 and 2.
 
         Args:
-            model (keras.engine.sequential.Sequential): The model for making the predictions.
+            model (dict): The model for making the predictions.
             observ1 (NLGengine.observation.Observation): The first observation
             observ2 (NLGengine.observation.Observation): The second observation
 
@@ -149,9 +84,9 @@ class NNMatrixTrainer:
         # onehotencoded the both observations
         combi_encoded = one_hot_encode_input(observ1, observ2)
         # reshape the encoded array in the right form
-        X = np.reshape(np.array(combi_encoded), (1, -1))
+        X = "".join(combi_encoded)
         # use the model to return the given weight and unpack it
-        prediction = model.predict(X)[0][0]
+        prediction = model.get(X)
         return prediction
 
     def get_evaluations(self):
@@ -191,19 +126,3 @@ class NNMatrixTrainer:
         }
 
         return data
-
-
-def score(X: list, y: list):
-    """Returns the mean square accuracy on the given test data and labels
-
-    Args:
-        X (list): A list with all the predicted weights
-        y (list): A list with all the preferred values
-
-    Returns:
-        float: Mean accuracy
-    """
-    assert len(X) == len(y), "The size of the two lists are not the same"
-
-    mean = np.mean([(a - b) ** 2 for a, b in zip(X, y)])
-    return mean

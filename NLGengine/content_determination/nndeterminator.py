@@ -1,10 +1,7 @@
 import numpy as np
 import os
-import warnings
-warnings.filterwarnings("ignore", message=r"Passing", category=FutureWarning)
 
 from NLGengine.content_determination.comparisons import check_pattern, check_period, check_component, get_recency
-from keras.models import model_from_json
 from datetime import datetime
 
 
@@ -44,10 +41,10 @@ class NNDeterminator:
         """
         # onehotencoded the both observations
         combi_encoded = one_hot_encode_input(observ, new_observ)
-        # reshape the encoded array in the right form
-        X = np.reshape(np.array(combi_encoded), (1, -1))
+        # join the encoded array into a single string
+        X = "".join(combi_encoded)
         # use the model to return the given weight and unpack it
-        prediction = self.model.predict(X)[0][0]
+        prediction = self.model.get(X)
 
         return prediction
 
@@ -101,28 +98,21 @@ class NNDeterminator:
         return chosen_observ
 
 
-def load_model(model_path: str = r"./NLGengine/content_determination/deter_model.json",
-               weights_path: str = r"./NLGengine/content_determination/deter_model.h5"):
-    """Loads in the model and the weights.
+def load_model(model_path: str = r"./NLGengine/content_determination/pred_model.json"):
+    """Loads in the model.
 
     Args:
         model_path (str, optional): The file path to the model file. Defaults to r"./NLGengine/content_determination/deter_model.json".
-        weights_path (str, optional): The file path to the weights file. Defaults to r"./NLGengine/content_determination/deter_model.h5".
 
     Returns:
-        keras.engine.sequential.Sequential: Returns the loaded model
+        dict: Returns the loaded model
     """
 
     assert os.path.exists(model_path), "Model file does not exist"
-    assert os.path.exists(weights_path), "Weights file does not exist"
 
     # load json and create model
     with open(model_path, 'r') as json_file:
-        loaded_model_json = json_file.read()
-
-    model = model_from_json(loaded_model_json)
-    # load weights into the new model
-    model.load_weights(weights_path)
+        model = json_file.read()
 
     return model
 
