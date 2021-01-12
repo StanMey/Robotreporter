@@ -84,7 +84,7 @@ class NNMatrixTrainer:
         # onehotencoded the both observations
         combi_encoded = one_hot_encode_input(observ1, observ2)
         # reshape the encoded array in the right form
-        X = "".join(combi_encoded)
+        X = "".join(map(str, combi_encoded))
         # use the model to return the given weight and unpack it
         prediction = model.get(X)
         return prediction

@@ -1,5 +1,6 @@
 import numpy as np
 import os
+import json
 
 from NLGengine.content_determination.comparisons import check_pattern, check_period, check_component, get_recency
 from datetime import datetime
@@ -42,7 +43,7 @@ class NNDeterminator:
         # onehotencoded the both observations
         combi_encoded = one_hot_encode_input(observ, new_observ)
         # join the encoded array into a single string
-        X = "".join(combi_encoded)
+        X = "".join(map(str, combi_encoded))
         # use the model to return the given weight and unpack it
         prediction = self.model.get(X)
 
@@ -112,7 +113,7 @@ def load_model(model_path: str = r"./NLGengine/content_determination/pred_model.
 
     # load json and create model
     with open(model_path, 'r') as json_file:
-        model = json_file.read()
+        model = json.load(json_file)
 
     return model
 
