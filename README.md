@@ -42,20 +42,31 @@ In deze module worden alle gegenereerde artikelen getoond.
 In deze module wordt alle uitleg over het systeem en het project weergegeven.
 
 ### opzet van de NLGengine module
+Voor de opzet van de NLGengine module is voor een modulaire aanpak gekozen.
+De code voor het zoeken naar patronen bevinden zich in de _patterns_ folder.
+Deze patterns worden aangeroepen vanuit het *analyse.py* bestand.
 
+Binnen de _content\_determination_ folder staat alle code en informatie die nodig is om observaties te selecteren voor in het artikel.
+Deze observaties worden ingedeeld in paragrafen en aan de planner doorgegeven in de _microplanning_ folder.
+Deze paragrafen worden uiteindelijk doorgegeven aan de Realiser binnen de _realisation_ folder die deze omzet naar het uiteindelijke artikel.
 
 ### generatie van afbeelding bij een artikel
 Om een afbeelding bij een artikel te genereren wordt gebruik gemaakt van de logo's van de componenten en een achtergrond afbeelding.
 Allereerst worden de twee vormen van de logo's met elkaar vergeleken om op basis van de vormen de logo's ofwel naast elkaar ofwel onder elkaar te plaatsen.
+Hieronder worden een aantal voorbeelden teruggegeven waar afbeeldingen zijn gegenereerd.
 
-![image](examples/header4.jpg)
+![image](examples/header2.jpg)
+![image](examples/header3.jpg)
 
 ## Meer over Robotreporter
 Eén van de doelen van dit project is om mensen op een zo praktisch mogelijke manier zelf AI te laten gebruiken. Het Robotreporter project zelf heeft geen winstoogmerk en het systeem wordt open-source beschikbaar gesteld dankzij de sponsoring door ICT Institute.
 
 ## Voorbeelden van gegenereerde artikelen
-![image](examples/artikel1.jpg)
-![image](examples/artikel2.jpg)
+Hieronder worden twee voorbeelden van gegenereerde artikelen getoond:
+
+![image](examples/artikel1.PNG)
+![image](examples/artikel2.PNG)
+
 ## Inspiratie en links
 - [De website van RobotReporter](https://www.robotreporter.nl/)
 - [Artikel over RobotReporter vanuit ICT Institute](https://softwarezaken.nl/2020/11/robotreporter-transparant-gebruik-ai/)
