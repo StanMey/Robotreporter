@@ -18,13 +18,47 @@ Als laatste wordt er zowel in de productie als in development gebruik gemaakt va
 5. `python manage.py migrate`
 6. `python manage.py setup_project`
 7. `python manage.py runserver`
-   
+
+
+## over het systeem
+
+### opzet van de website
+De website is opgezet en verdeeld in 5 verschillende modules.
+Dit valt ook terug te zien in de navigatiebalk.
+
+![image](examples/website_preview.PNG)
+
+#### Module timeseries
+In deze module zijn alle dagelijkse koersen van alle AMX-aandelen verzameld.
+De gebruiker kan door op een aandeel te klikken per data de geschiedenis terugzien.
+#### Module observations
+In deze module worden alle gevonden observaties weergegeven.
+Hier kan de gebruiker filters overheen zetten om de observaties te bekijken.
+#### Module article-generation
+In deze module kan de gebruiker de settings kiezen die gebruikt worden tijdens de generatie van een nieuw artikel.
+#### Module articles
+In deze module worden alle gegenereerde artikelen getoond.
+#### Module uitleg
+In deze module wordt alle uitleg over het systeem en het project weergegeven.
+
+### opzet van de NLGengine module
+
+
+### generatie van afbeelding bij een artikel
+Om een afbeelding bij een artikel te genereren wordt gebruik gemaakt van de logo's van de componenten en een achtergrond afbeelding.
+Allereerst worden de twee vormen van de logo's met elkaar vergeleken om op basis van de vormen de logo's ofwel naast elkaar ofwel onder elkaar te plaatsen.
+
+![image](examples/header4.jpg)
 
 ## Meer over Robotreporter
 Eén van de doelen van dit project is om mensen op een zo praktisch mogelijke manier zelf AI te laten gebruiken. Het Robotreporter project zelf heeft geen winstoogmerk en het systeem wordt open-source beschikbaar gesteld dankzij de sponsoring door ICT Institute.
 
+## Voorbeelden van gegenereerde artikelen
+![image](examples/artikel1.jpg)
+![image](examples/artikel2.jpg)
 ## Inspiratie en links
 - [De website van RobotReporter](https://www.robotreporter.nl/)
+- [Artikel over RobotReporter vanuit ICT Institute](https://softwarezaken.nl/2020/11/robotreporter-transparant-gebruik-ai/)
 - [Artikel over Robotreporter vanuit Lectoraat](https://www.hu.nl/onderzoek/projecten/robotreporter-onderzoek-naar-generatieve-ai-systemen)
 - [LA times maakt gebruik van _Quakebot_ om zo snel mogelijk een artikel te publiceren wanneer een aardbeving voorkomt](https://www.hu.nl/onderzoek/projecten/robotreporter-onderzoek-naar-generatieve-ai-systemen)
 - [Marketwatch gebruikt een algoritme om automatisch aandeel gerelateerde berichten te genereren](https://www.marketwatch.com/author/marketwatch-automation?mod=MW_author_byline)
