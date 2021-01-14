@@ -305,7 +305,6 @@ def construct_article(user_name, content, filters, title):
     # delete the AMX and duplicates
     comps_focus = [x for x in comps_focus if x != "AMX"]
     comps_focus = list(dict.fromkeys(comps_focus))
-    print(comps_focus)
     sector_focus = sector_focus[0]
 
     # build an image for the article
@@ -341,6 +340,30 @@ def get_test_case_info():
     """
     m = NNMatrixTrainer()
     return m.get_evaluations()
+
+
+def generate_and_save_headline_img(comp_focus: list, sector_focus: str = None, verbose: bool = False, showImage: bool = True):
+    """Generates a photo based on the components and saves it.
+
+    Args:
+        comp_focus (list): A list of the components that have to be in the photo of the article (max 2)
+        sector_focus (str, optional): The sector where the article is focussing on. Defaults to None
+        verbose (bool, optional): Prints the file name of the saved image. Defaults to False
+        show_image (bool, optional): Decides whether to show the image in a new window after generation. Defaults to True
+    """
+    img_array = generate_article_photo(comp_focus, sector_focus)
+    file_name = f"{uuid.uuid1().hex}.jpg"
+    save_url = f"./media/images/{file_name}"
+    retrieve_url = f"images/{file_name}"
+    cv2.imwrite(save_url, img_array)
+
+    if verbose:
+        print(f"file_name:{file_name}")
+
+    if showImage:
+        cv2.imshow('dst', img_array)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            cv2.destroyAllWindows()
 
 
 # TODO format this function!!
@@ -476,10 +499,6 @@ def generate_article_photo(components: list, sector_focus: str = None):
             new_image = imgtr.overlay_transparent(background, img1, x_pos1, y_pos1)
             new_image = imgtr.overlay_transparent(new_image, img2, x_pos2, y_pos2)
 
-    # cv2.imshow('dst', new_image)
-
-    # if cv2.waitKey(1) & 0xFF == ord('q'):
-    #     cv2.destroyAllWindows()
     return new_image
 
 

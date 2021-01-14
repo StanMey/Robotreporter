@@ -53,6 +53,17 @@ Deze paragrafen worden uiteindelijk doorgegeven aan de Realiser binnen de _reali
 ### generatie van afbeelding bij een artikel
 Om een afbeelding bij een artikel te genereren wordt gebruik gemaakt van de logo's van de componenten en een achtergrond afbeelding.
 Allereerst worden de twee vormen van de logo's met elkaar vergeleken om op basis van de vormen de logo's ofwel naast elkaar ofwel onder elkaar te plaatsen.
+
+Om zelf een afbeelding te genereren moet allereerst de shell geopend worden met behulp van de manage.py command.
+Hierna kan door een functie te importeren een afbeelding gegenereerd worden. De stappen gaan als volgt:
+
+```python
+python manage.py shell
+from articles_app.nlg_queries import generate_and_save_headline_img
+generate_and_save_headline_img([componenten], sector_focus='sector')
+```
+Op de plaats van het woorde _componenten_ moeten de componenten omringd door "" worden teruggegeven (bijvoorbeeld: ["Fagron", "Fugro"] of ["SIGNIFY NV"]).
+Als _sector\_focus_ kan gekozen worden voor een specifieke sector waarvoor dan een sectorspecifieke achtergrond wordt gebruikt (niet voor alle sectoren geïmplementeerd)
 Hieronder worden een aantal voorbeelden teruggegeven waar afbeeldingen zijn gegenereerd.
 
 ![image](examples/header2.jpg)
