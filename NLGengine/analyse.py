@@ -6,15 +6,15 @@ from NLGengine.patterns.sector_pattern import Sector
 
 
 class Analyse:
-    """[summary]
+    """A class for running the analysis over the given data.
     """
     def __init__(self, data, period_beg, period_end):
-        """[summary]
+        """The init function.
 
         Args:
-            data ([type]): [description]
-            period_beg ([type]): [description]
-            period_end ([type]): [description]
+            data (pd.dataframe): The dataframe to be used for running the analysis
+            period_beg (datetime.datetime): The datetime of the beginning of the period
+            period_end (datetime.datetime): The datetime of the end of the period
         """
         self.data = data
         self.period_begin = period_beg
@@ -22,7 +22,7 @@ class Analyse:
         self.observations = []
 
     def find_period_observations(self):
-        """[summary]
+        """Runs the analysis of the fixed period based patterns.
         """
         increase = Increase(self.data.copy(deep=True), self.period_begin, self.period_end)
         increase.analyse()
@@ -37,14 +37,14 @@ class Analyse:
         self.observations.extend(sector.observations)
 
     def find_weekly_observations(self):
-        """[summary]
+        """Runs the analysis of the weekly based patterns.
         """
         week_pattern = WeekPattern(self.data.copy(deep=True), self.period_begin, self.period_end)
         week_pattern.analyse()
         self.observations.extend(week_pattern.observations)
 
     def find_trend_observations(self):
-        """[summary]
+        """Runs the analysis of the trend based patterns.
         """
         trend_pattern = Trend(self.data.copy(deep=True), self.period_begin, self.period_end)
         trend_pattern.analyse()
