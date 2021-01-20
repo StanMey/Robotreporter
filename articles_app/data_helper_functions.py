@@ -39,47 +39,23 @@ def from_csv_to_stocks(data_path):
         print(f'Processed {line_count} lines.')
 
 
-def fill_observations(period_begin, period_end):
-    """Fills the database with all the observations it can find in the given time span.
+def test_update_observations():
+    """Test if the update_observs() function is working.
+    """
+    period_begin = datetime(year=2020, month=6, day=61)
+    period_end = datetime(year=2021, month=1, day=6)
+
+    update_observs(period_begin, period_end)
+
+
+def update_observs(period_begin, period_end):
+    """finds all the observations in the given span and updates the info of the observation if the observation already exists,
+    otherwise adds the new observation to the db.
 
     Args:
-        period_begin (datetime.datetime): The begin date
-        period_end (datetime.datetime): The end date
+        period_begin (datetime.datetime): The begin date of the period to search for observations
+        period_end (datetime.datetime): The end date of the period to search for observations
     """
-    begin_date = period_begin
-    for new_date in pd.date_range(period_begin, period_end).to_list()[1:]:
-        if (begin_date.weekday() in [5, 6]) or (new_date.weekday() in [5, 6]):
-            pass
-        else:
-            print(begin_date, new_date)
-            find_new_observations(begin_date, new_date, to_db=True, to_prompt=True)
-            begin_date = new_date
-
-
-def test_observations():
-    """Test function for checking if the observations are working.
-    """
-    period_begin = datetime(year=2020, month=7, day=5)
-    period_end = datetime(year=2020, month=7, day=30)
-    print("run test")
-
-    begin_date = period_begin
-    for new_date in pd.date_range(period_begin, period_end).to_list()[1:]:
-        if (begin_date.weekday() in [5, 6]) or (new_date.weekday() in [5, 6]):
-            pass
-        else:
-            print(begin_date, new_date)
-            find_new_observations(begin_date, new_date, to_db=False, overwrite=True, to_prompt=False)
-            begin_date = new_date
-
-
-def update_observs():
-    """Reruns all the observations and updates the info of the observation if the observation already exists,
-    otherwise adds the new observation to the db.
-    """
-    period_begin = datetime(year=2020, month=6, day=5)
-    period_end = datetime(year=2020, month=10, day=2)
-
     begin_date = period_begin
     for new_date in pd.date_range(period_begin, period_end).to_list()[1:]:
         if (begin_date.weekday() in [5, 6]) or (new_date.weekday() in [5, 6]):
@@ -139,7 +115,6 @@ def update_observs():
                                             obs.abs_change,
                                             obs.relevance1,
                                             obs.meta_data)
-                    print("observation added to db")
 
             # update the begin date so the loop continues
             begin_date = new_date

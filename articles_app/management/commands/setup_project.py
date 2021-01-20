@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from articles_app.data_helper_functions import from_csv_to_stocks, fill_observations
+from articles_app.data_helper_functions import from_csv_to_stocks, update_observs
 from datetime import datetime
 
 import pandas as pd
@@ -22,7 +22,7 @@ class Command(BaseCommand):
             # get the min and max date from the csv files
             min_date, max_date = get_min_max_date(AMX_csv_90_file, AMX_csv_followup_file)
             # find all the possible observations during that timespan
-            fill_observations(min_date, max_date)
+            update_observs(min_date, max_date)
 
         except Exception as e:
             print(e)
