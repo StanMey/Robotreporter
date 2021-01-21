@@ -691,8 +691,8 @@ async function showTestScores() {
     let data = await response.json();
 
     // build the matrix
-    let section2 = document.querySelector(".matrix-showcase");
-    buildTestMatrix(section2, data["matrix"]);
+    // let section2 = document.querySelector(".matrix-showcase");
+    // buildTestMatrix(section2, data["matrix"]);
 
     // format the data
     let rows = []

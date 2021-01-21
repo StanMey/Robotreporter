@@ -2,6 +2,7 @@ from NLGengine.observation import Observation
 from NLGengine.content_determination.comparisons import check_component, check_pattern, check_period
 from NLGengine.content_determination.nndeterminator import one_hot_encode_input, load_model
 from dateutil.parser import parse
+from pprint import pprint
 
 import numpy as np
 import pandas as pd
@@ -11,7 +12,7 @@ import itertools
 
 
 class NNMatrixTrainer:
-    """A class for training the NN network for content Determination.
+    """A class for showing the predictions of the trained NN network for content Determination.
     """
     def __init__(self, s_file: str = r"NLGengine/content_determination/test_cases.json",
                  m_file: str = r"NLGengine/content_determination/pred_model.json"):
@@ -144,8 +145,13 @@ class NNMatrixTrainer:
             # append the info
             cases_info.append(info)
 
+        # case van component Fugro die goed op elkaar aansluiten
+        example = cases_info[189]
+        print(example)
+
         data = {
             "scores": cases_info,
+            "example": example,
             "matrix": self.format_matrix(model)
         }
 

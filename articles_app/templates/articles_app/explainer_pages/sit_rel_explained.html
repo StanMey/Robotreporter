@@ -15,36 +15,35 @@
                 Allereerst worden er observaties gedaan over bepaalde patronen in de data.
                 Deze observaties krijgen allemaal een op zichzelf staande <a href="/modules/relevance">relevantie score</a> toegewezen.
                 <br><br>
-                Echter, tijdens het kiezen van de observaties (<a href="https://en.wikipedia.org/wiki/Content_determination">content determination</a>) moeten deze observaties
+                Echter, tijdens het kiezen van de observaties (ook wel <a href="https://en.wikipedia.org/wiki/Content_determination">content determination</a> genoemd) moeten deze observaties
                 ook met elkaar vergeleken kunnen worden aangezien sommige observaties wellicht beter aansluiten op specifieke observaties dan anderen.
-                Hiervoor wordt de <b>situationele relevantie</b> geïntroduceerd.
+                Hiervoor is dan ook de <b>situationele relevantie</b> geïntroduceerd.
                 <br><br>
 
                 
                 De situationele relevantie is de vooraf bepaalde relevantie score die gecorrigeerd wordt met een bepaalde weight die de fitheid van de opeenvolging van twee observaties aangeeft.
-                Tijdens het selecteren van de observaties wordt de nieuw gekozen observatie vergeleken met de tot dusver gekozen observaties.
-                De vooraf bepaalde relevantie score van de andere observaties worden dan gecorrigeerd op basis van hoe goed deze passen op de zonet gekozen observatie.
-                De observaties worden vergeleken op basis van patroon (zin), periode en serie:
+                Tijdens de selectie van de nieuwe observaties worden alle mogelijke observaties vergeleken met de tot dusver gekozen observaties.
+                Observaties worden vergeleken met elkaar op basis van de volgende eigenschappen:
                 <div class="text-left">
                     <ul>
                         <li>Zin</li>
                             <ul>
-                                <li>Hetzelfde: De twee patronen zijn identiek (zh)</li>
-                                <li>Vergelijkbaar: De twee patronen zijn vergelijkbaar (bijvoorbeeld: indiv-stijging en combi-stijging) (zv)</li>
-                                <li>Ongelijk: De patronen zijn anders en komen niet overeen (zo)</li>
+                                <li>Hetzelfde: De twee patronen zijn identiek</li>
+                                <li>Vergelijkbaar: De twee patronen zijn vergelijkbaar (bijvoorbeeld: indiv-stijging en combi-stijging)</li>
+                                <li>Ongelijk: De patronen zijn anders en komen niet overeen</li>
                             </ul>
                         <li>Periode</li>
                             <ul>
-                                <li>Identiek: De begin en einddatum zijn hetzelfde (pi)</li>
-                                <li>Overlappend: De twee observaties overlappen elkaar (pov)</li>
-                                <li>Opvolgend: De twee observaties volgen elkaar op (pop)</li>
-                                <li>Anders: De twee observaties zijn van elkaar verwijderd (pa)</li>
+                                <li>Identiek: De begin en einddatum zijn hetzelfde</li>
+                                <li>Overlappend: De twee observaties overlappen elkaar</li>
+                                <li>Opvolgend: De twee observaties volgen elkaar op</li>
+                                <li>Anders: De twee observaties zijn van elkaar verwijderd</li>
                             </ul>
                         <li>Serie</li>
                             <ul>
-                                <li>Hetzelfde: De componenten zijn hetzelfde (sh)</li>
-                                <li>Vergelijkbaar: De componenten liggen in dezelfde sector (sv)</li>
-                                <li>Anders: De componenten hebben niks met elkaar te maken (sa)</li>
+                                <li>Hetzelfde: De componenten zijn hetzelfde</li>
+                                <li>Vergelijkbaar: De componenten liggen in dezelfde sector</li>
+                                <li>Anders: De componenten hebben niks met elkaar te maken</li>
                             </ul>
                     </ul>
                 </div>
@@ -54,21 +53,88 @@
 
     <div class="row justify-content-center">
         <div class="col text-center">
-            <h4>Neuraal netwerk</h4>
+            <h4>Het neurale netwerk</h4>
             <p>
-                Om te proberen de onderlinge verhoudingen tussen observaties te leren (of een observatie beter op de ene of de andere observatie past)
-                is een dataset aangemaakt met 200 test cases erin. Per test case zijn er 2 observaties met een doelscore ingezet.
-                In iedere case worden de observaties met elkaar vergeleken en op basis van deze vergelijkingen en de doelscore wordt een <a href="https://ictinstitute.nl/ai-machine-learning-and-neural-networks-explained/">neuraal netwerk</a> getraind.
-                Het idee erachter is dat het netwerk 'leert' wanneer observaties goed op elkaar aansluiten en wanneer juist niet.
+                Om te proberen de onderlinge verhoudingen tussen observaties te leren (welke observaties elkaar beter opvolgen).
+                is een dataset aangemaakt met 200 test cases erin. Elke test case bestaat uit twee observaties met een doelscore.
                 <br><br>
-                Het neurale netwerk neemt de vergelijkingen tussen de observaties in als input en geeft uiteindelijk een getal tussen de -1 en 1 terug.
-                Met behulp van dit getal wordt hierna de eerder genoemde relevantie score bijgesteld en wordt het hierdoor als het ware een situationele relevantie score.
-                Hieronder worden per combinatie per vergelijkingen de scores weergegeven waarmee een observatie mee bijgewerkt zou worden.
-                <br><br>
-            </p>
-            <div class="row justify-content-center matrix-showcase">
+                <div class="row">
+                    <div class="col text-left">
+                        Om de uiteindelijke 'fitheid' tussen twee observaties aan te leren wordt er gebruik gemaakt van een neuraal netwerk.
+                        Rechts wordt een afbeelding weergegeven van het gebruikte netwerk.
+                        Het model bestaat uit een input laag van 10 nodes, een hidden layer van 4 nodes en een output van 1 node.
+                        Verder zijn alle lagen fully connected met elkaar en wordt gebruik gemaakt van de <a href="">tanh</a> functie als activatie functie.
+                        <br><br>
+                        <h5>Voorbereiden van netwerk</h5>
+                        Om het netwerk op te zetten en te trainen is gebruik gemaakt van de <a href="https://keras.io/">keras</a> library.
+                        Eerst wordt de dataset opgesplitst in een training en testset met een verhouding van 80/20.
+                        Daarna worden de hyperparameters bepaald:
+                            <ul>
+                                <li><a href="https://en.wikipedia.org/wiki/Learning_rate">learning rate</a>: 0.001</li>
+                                <li><a href="https://developers.google.com/machine-learning/glossary#batch-size">batch_size</a>: 32</li>
+                                <li><a href="https://algorithmia.com/blog/introduction-to-optimizers">optimizer</a>: <a href="https://keras.io/api/optimizers/adam/">adam</a></li>
+                                <li><a href="https://developers.google.com/machine-learning/glossary#metric">metric</a>: accuracy</li>
+                                <li><a href="https://developers.google.com/machine-learning/glossary#loss">loss functie</a>: mse (mean squared error)</li>
+                                <li><a href="https://developers.google.com/machine-learning/glossary#epoch">epochs</a>: 300</li>
+                            </ul>
 
-            </div>
+                    </div>
+                    <div class="col">
+                        <img src="{% static 'articles_app/NN_picture.JPG' %}" alt="neural network picture" width="100%" height="90%">
+                    </div>
+                </div>
+
+                <h4>Trainen van het netwerk</h4>
+                Om het netwerk te trainen wordt gebruik gemaakt van backpropagation met behulp van gradient descent.
+                Praktisch houd dit in dat het model het uiteindelijke verlies dat het maakt, tijdens het voorspellen zo goed mogelijk probeert te verkleinen.
+                Dit wordt gedaan door het model constant voorbeelden te voeden.
+                Deze voorbeelden worden gebruikt om te voorspellen en de uitkomsten worden gebruikt om de configuratie van het model aan te passen.
+                Het idee erachter is dat het netwerk 'leert' wanneer observaties goed op elkaar aansluiten en wanneer juist niet.
+                Om het model de onderlinge verhoudingen tussen observaties aan te leren wordt het model getraind met behulp van de eerder beschreven dataset.
+                De code voor het trainen van het model wordt in dit <a href="https://github.com/StanMey/Robotreporter/blob/main/Notebooks/NN_matrix_trainer.ipynb">notebook</a> beschreven.
+                <br><br>
+ 
+                <h4>Gebruik model binnen RobotReporter</h4>
+                Tijdens de content determination fase wordt het model gebruikt om de fitheid van opeenvolgende observaties te bepalen.
+                Het neurale netwerk neemt de vergelijkingen tussen observaties in als input en geeft uiteindelijk een getal tussen de <b>-1.00</b> en de <b>1.00</b> terug.
+                Met behulp van dit getal wordt de eerder genoemde relevantie score bijgesteld en wordt het hierdoor een situationele relevantie.
+
+                <br><br>
+
+                <h5>Voorbeeld</h5>
+                Om de werking van het neurale netwerk te demonstreren zal een voorbeeld getoond worden.
+                Hiervoor worden 2 voorbeelden uit de test case gebruikt.
+                <br><br>
+                <div class="row">
+                    <div class="col">
+                        <img src="{% static 'articles_app/NN_example.JPG' %}" alt="neural network at work" width="100%" height="90%">
+                    </div>
+                    <div class="col text-left">
+                        Stel de fitheid van de twee volgende observaties moet worden berekend:
+                        <br>
+                        <ul>
+                            <li><b>zin 1: </b>'Aandeel Fugro met 0.3% gestegen.'</li>
+                            <li><b>zin 2: </b>'Fugro presteerde bovenmaats ten opzichte van sectorgenoten in de AMX.'</li>
+                        </ul>
+
+                        Allereerst worden de overeenkomsten bepaald:
+                        <br>
+                        <ul>
+                            <li><b>Patroon: </b>ongelijk</li>
+                            <li><b>Periode: </b>identiek</li>
+                            <li><b>serie: </b>hetzelfde</li>
+                        </ul>
+
+                        De vergelijking tussen de twee observaties wordt ingevoerd in het neurale netwerk zoals links gezien kan worden.
+                        De doelscore van deze vergelijking is: <b>1.00</b>, het model voorspeld: <b>0.66</b>.
+                        <br><br>
+                        Stel dat de tweede observatie een relevantie score had van <b>7.0</b> dan zou er een situationele relevantie score van <b>7.66</b> aan de observatie gegeven worden.
+                    </div>
+                </div>
+                <br>
+                Tijdens de content determination fase worden alle eerder gekozen observaties vergeleken met de mogelijke observaties volgens dit principe.
+                Wanneer alle observaties vergeleken zijn wordt uit alle mogelijke observaties de observatie gekozen met de hoogste situationele relevantie om terug te laten komen in het uiteindelijke artikel.
+            </p>
         </div>
     </div>
 
