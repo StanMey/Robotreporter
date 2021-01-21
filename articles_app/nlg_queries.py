@@ -502,20 +502,19 @@ def generate_article_photo(components: list, sector_focus: str = None):
     return new_image
 
 
-def find_new_observations(period_begin: datetime, period_end: datetime, overwrite=False, to_db=False, to_prompt=False, to_list=False):
+def find_new_observations(period_begin: datetime, period_end: datetime, to_db=False, to_prompt=False, to_list=False):
     """Runs all functions to find observations, collects the observations and deals with them in the proper way.
 
     Args:
-        overwrite (bool, optional) : Decide whether duplicate observations are handled. Defaults to False
         to_db (bool, optional): Decide whether the new observations are to be written into the database. Defaults to False.
         to_prompt (bool, optional): Decide whether the new observations are to be written to the prompt. Defaults to False.
         to_list (bool, optional): Decide whether the new observations are to be returned as a list of observations. Defaults to False.
     """
     all_observations = []
 
-    all_observations.extend(run_period_observations(period_begin, period_end, overwrite))
-    all_observations.extend(run_week_observations(period_begin, period_end, overwrite))
-    all_observations.extend(run_trend_observations(period_end, 14, overwrite))
+    all_observations.extend(run_period_observations(period_begin, period_end))
+    all_observations.extend(run_week_observations(period_begin, period_end))
+    all_observations.extend(run_trend_observations(period_end, 14))
 
     if to_db:
         # write all the found observations into the database
@@ -543,25 +542,24 @@ def find_new_observations(period_begin: datetime, period_end: datetime, overwrit
         return all_observations
 
 
-def run_period_observations(period_begin, period_end, overwrite):
+def run_period_observations(period_begin, period_end):
     """
-    Check if the given period has already been observed,
-    if not get all the relevant data and run the analysis.
+    Get all the relevant data in the period and run the analysis.
 
     Args:
         period_begin (datetime): The date with the beginning of the period
         period_end (datetime): The date with the end of the period
-        overwrite (bool): If duplicate observations can be made
 
     Returns:
         list: A list with the observations found
     """
     observs = []
-    # check if this period in observations has already been asked before
-    observ_exists = Observations.objects.filter(period_begin=period_begin).filter(period_end=period_end).exists()
-    if not observ_exists or overwrite:
-        # retrieve all data over the stocks in this period
-        data = Stocks.objects.filter(date__range=(period_begin, period_end))
+
+    # retrieve all data over the stocks in this period
+    data = Stocks.objects.filter(date__range=(period_begin, period_end))
+    if len(data) > 0:
+        # there is available stock data
+
         # convert the data to a dataframe
         q = data.values('component', 'indexx', 'date', 's_close')
         df_data = pd.DataFrame.from_records(q)
@@ -584,15 +582,13 @@ def run_period_observations(period_begin, period_end, overwrite):
     return observs
 
 
-def run_week_observations(period_begin, period_end, overwrite):
+def run_week_observations(period_begin, period_end):
     """
-    Check if a whole week has already been observed,
-    if not gets all the weeks in the range of the beginning and the end of the period and runs the analysis.
+    Gets all the weeks in the range of the beginning and the end of the period and runs the analysis.
 
     Args:
         period_begin (datetime): The date with the beginning of the period
         period_end (datetime): The date with the end of the period
-        overwrite (bool): If duplicate observations can be made
 
     Returns:
         list: A list with the observations found
@@ -610,41 +606,34 @@ def run_week_observations(period_begin, period_end, overwrite):
         fri_date = mon_date + timedelta(4)
         all_periods.append((mon_date, fri_date))
 
-    if overwrite:
-        open_periods = all_periods
-    else:
-        # check for every week if there is already an observation made
-        open_periods = [x for x in all_periods if not Observations.objects.filter(pattern="week")
-                                                                          .filter(period_begin=x[0])
-                                                                          .filter(period_end=x[1]).exists()]
-
     # run a new observation if the week hasn't been observerd
-    if len(open_periods) > 0:
-        for period in open_periods:
+    if len(all_periods) > 0:
+        for period in all_periods:
             # retrieve all data over the stocks in this period
             data = Stocks.objects.filter(date__range=period)
-            # convert the data to a dataframe
-            q = data.values('component', 'indexx', 'date', 's_close')
-            df_data = pd.DataFrame.from_records(q)
+            if len(data) > 0:
+                # convert the data to a dataframe
+                q = data.values('component', 'indexx', 'date', 's_close')
+                df_data = pd.DataFrame.from_records(q)
 
-            # prepare the data for the analysis
-            df_data.rename(columns={"s_close": "close"}, inplace=True)
-            df_data['close'] = df_data['close'].astype('float')
+                # prepare the data for the analysis
+                df_data.rename(columns={"s_close": "close"}, inplace=True)
+                df_data['close'] = df_data['close'].astype('float')
 
-            # load in the sector data and add it to the dataframe
-            with open(r"./articles_app/data/sectorcompany.json") as f:
-                sector_info = json.load(f)
-            df_data["sector"] = df_data["component"].apply(lambda x: sector_info.get(x))
-            df_data.dropna(inplace=True)
+                # load in the sector data and add it to the dataframe
+                with open(r"./articles_app/data/sectorcompany.json") as f:
+                    sector_info = json.load(f)
+                df_data["sector"] = df_data["component"].apply(lambda x: sector_info.get(x))
+                df_data.dropna(inplace=True)
 
-            # run the analyser to find observations
-            analyse = Analyse(df_data, *period)
-            analyse.find_weekly_observations()
-            observs.extend(analyse.observations)
+                # run the analyser to find observations
+                analyse = Analyse(df_data, *period)
+                analyse.find_weekly_observations()
+                observs.extend(analyse.observations)
     return observs
 
 
-def run_trend_observations(period_end, delta_days, overwrite):
+def run_trend_observations(period_end, delta_days):
     """Gets all the data between the beginning of the period and the end of the period and runs a trend analysis.
 
     Args:
@@ -661,32 +650,26 @@ def run_trend_observations(period_end, delta_days, overwrite):
 
     # retrieve all data over the stocks in this period
     data = Stocks.objects.filter(date__range=(begin_date, end_date))
-    # convert the data to a dataframe
-    q = data.values('component', 'indexx', 'date', 's_close')
-    df_data = pd.DataFrame.from_records(q)
+    if len(data) > 0:
+        # convert the data to a dataframe
+        q = data.values('component', 'indexx', 'date', 's_close')
+        df_data = pd.DataFrame.from_records(q)
 
-    # prepare the data for the analysis
-    df_data.rename(columns={"s_close": "close"}, inplace=True)
-    df_data['close'] = df_data['close'].astype('float')
+        # prepare the data for the analysis
+        df_data.rename(columns={"s_close": "close"}, inplace=True)
+        df_data['close'] = df_data['close'].astype('float')
 
-    # load in the sector data and add it to the dataframe
-    with open(r"./articles_app/data/sectorcompany.json") as f:
-        sector_info = json.load(f)
-    df_data["sector"] = df_data["component"].apply(lambda x: sector_info.get(x))
-    df_data.dropna(inplace=True)
+        # load in the sector data and add it to the dataframe
+        with open(r"./articles_app/data/sectorcompany.json") as f:
+            sector_info = json.load(f)
+        df_data["sector"] = df_data["component"].apply(lambda x: sector_info.get(x))
+        df_data.dropna(inplace=True)
 
-    # run the analyser to find observations
-    analyse = Analyse(df_data, begin_date, end_date)
-    analyse.find_trend_observations()
+        # run the analyser to find observations
+        analyse = Analyse(df_data, begin_date, end_date)
+        analyse.find_trend_observations()
 
-    if overwrite:
         observs.extend(analyse.observations)
-    else:
-        observs.extend([x for x in analyse.observations if not Observations.objects.filter(pattern=x.pattern)
-                                                                                   .filter(serie=x.serie)
-                                                                                   .filter(period_end=x.period_end)
-                                                                                   .filter(period_end=x.period_end).exists()])
-
     return observs
 
 

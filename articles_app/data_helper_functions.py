@@ -42,8 +42,8 @@ def from_csv_to_stocks(data_path):
 def test_update_observations():
     """Test if the update_observs() function is working.
     """
-    period_begin = datetime(year=2020, month=6, day=61)
-    period_end = datetime(year=2021, month=1, day=6)
+    period_begin = datetime(year=2021, month=1, day=1)
+    period_end = datetime(year=2021, month=1, day=22)
 
     update_observs(period_begin, period_end)
 
@@ -63,7 +63,7 @@ def update_observs(period_begin, period_end):
         else:
             print(begin_date, new_date)
             # find the observations corresponding to the time period
-            observs = find_new_observations(begin_date, new_date, overwrite=True, to_db=False, to_prompt=False, to_list=True)
+            observs = find_new_observations(begin_date, new_date, to_db=False, to_prompt=False, to_list=True)
 
             # loop over all observations
             for obs in observs:
