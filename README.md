@@ -3,6 +3,8 @@ Robotreporter is een generatief AI-systeem, dat zelf artikelen schrijft. Het sys
 
 Dit project is een samenwerking tussen [Ict Institute](https://ictinstitute.nl/ "Home ICT Institute") en het [lectoraat Articificial Intelligence](https://www.hu.nl/onderzoek/artificial-intelligence "Home lectoraat") van de Hogeschool Utrecht.
 
+Voor demonstratie doeleinden is er een [website](https://www.robotreporter.nl/) gemaakt waarop dit systeem te zien is.
+
 ## Gebruik systeem
 Bij deze repository wordt zowel een `[requirements.txt]` geleverd alsmede een `[environment.yml]` voor het installeren van de dependencies van deze repo.
 
