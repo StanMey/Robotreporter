@@ -13,6 +13,8 @@ media
 datadump.json
 media
 info.txt
+Notebooks/*.jpg
+Notebooks/*.png
 
 # IDE #
 .vscode
